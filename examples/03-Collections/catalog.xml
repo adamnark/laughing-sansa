@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/mta/Lesson03/../../Users/blecherl/Dropbox/MTA/Java%202012%20A/Exercise/submarines.xsd" uri="xml-resources/jaxb/submarines/submarines.xsd"/>
+    <system systemId="file:/C:/mta/Lesson03/../../Users/blecherl/Dropbox/MTA/Java%202012%20A/Exercise/battleship.xsd" uri="xml-resources/jaxb/boardxml/battleship.xsd"/>
+</catalog>

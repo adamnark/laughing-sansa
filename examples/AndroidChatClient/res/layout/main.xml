@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/linearLayout1">
+    </LinearLayout>
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:id="@+id/textView2" android:text="@string/hostname" android:layout_width="match_parent"></TextView>
+    <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/hostEditText" android:text="@string/hostDefault">
+    </EditText>
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView3" android:layout_width="match_parent" android:text="@string/usernameLabel"></TextView>
+    <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/loginEditText">
+    </EditText>
+    <Button android:text="@string/loginButton" android:layout_gravity="center_horizontal" android:layout_width="115dp" android:id="@+id/loginButton" android:layout_height="wrap_content"></Button>
+</LinearLayout>

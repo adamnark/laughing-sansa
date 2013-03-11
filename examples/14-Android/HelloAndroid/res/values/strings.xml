@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple Calc</string>
+    <string name="plussign">+</string>
+    <string name="calc">Calc</string>
+    <string name="results">Result: </string>
+</resources>

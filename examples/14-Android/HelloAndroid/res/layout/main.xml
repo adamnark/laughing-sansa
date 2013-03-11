@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout1" android:layout_width="match_parent">
+    <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/editText1">
+        <requestFocus></requestFocus>
+    </EditText>
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView1" android:layout_weight="1" android:textAppearance="?android:attr/textAppearanceLarge" android:text="@string/plussign" android:layout_gravity="center_vertical" android:gravity="center"></TextView>
+    <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/editText2" android:layout_weight="1"></EditText>
+</LinearLayout>
+<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:text="@string/calc" android:id="@+id/calcButton"></Button>
+<LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout2" android:layout_width="match_parent">
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView2" android:textAppearance="?android:attr/textAppearanceMedium" android:text="@string/results"></TextView>
+    <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/resultEditText"></EditText>
+</LinearLayout>
+</LinearLayout>

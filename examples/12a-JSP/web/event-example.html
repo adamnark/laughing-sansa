@@ -1,0 +1,56 @@
+<html>
+<head>
+	<style>
+		.bored {
+			border: solid thick;
+			margin: 10px;
+			width:	50px; 
+			height: 50px;
+			display:	inline-block;
+			text-align: center;
+			position:	relative;
+		}
+		
+		.red-border {
+			border-color: red;
+		}
+		
+		.blue-border {
+			border-color: blue;
+			bottom: 30px;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<div class="bored red-border" data-selection="1" onclick="this.className = 'bored blue-border'">1
+		</div>
+		
+		<div class="bored red-border" data-selection="2" onclick="borderColorToggle(this)">2
+		</div>
+	</div>
+	
+    <form method="post" action="forward/requestParams.jsp" id="myform">
+        <input type="checkbox" name="selection" value="1" id="selection1"/>1
+        <input type="checkbox" name="selection" value="2" id="selection2"/>2
+<!--        <input type="submit">-->
+    </form>
+	
+	<script>
+		borderColorToggle=function(target){
+//                    alert('you clicked and not you are gonna die!');
+                    console.log('user clicked' + target.id);
+                    var dataId = 'selection' + target.getAttribute('data-selection');
+			if (target.className.indexOf('red-border') !== -1) {
+				target.className = 'bored blue-border';
+                                document.getElementById(dataId).checked=true;
+			} else {
+				target.className = 'bored red-border';
+                                document.getElementById(dataId).checked=false;
+			}
+//                        document.getElementById('myform').submit();
+		}
+	</script>
+</body>
+</html>
