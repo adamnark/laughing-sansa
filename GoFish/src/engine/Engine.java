@@ -1,9 +1,53 @@
 package engine;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author adamnark
  */
 public class Engine {
-    private PlayerInfo[] players;
+    private LinkedList<Player> players;
+    private int currentPlayerIndex;
+    private LinkedList<Card> ocean;
+    private Settings settings;
+    
+    public Engine(){
+        this.players = new LinkedList<>();
+        this.ocean = new LinkedList<>();
+        this.currentPlayerIndex = 0;
+    }
+
+    public void addCardToOcean(Card card){
+        if (card == null)
+            throw new NullPointerException("card");
+        this.ocean.add(card);
+    }
+    
+    public void PlayTurn(){
+        Player currentPlayer = this.players.get(currentPlayerIndex);
+        boolean goodPlay = currentPlayer.makeMove(this.players);
+        
+        
+    }
+    
+    public LinkedList<Player> getPlayers() {
+        return this.players;
+    }
+
+    public void setPlayers(LinkedList<Player> players) {
+        this.players = players;
+    }
+
+    public int getCurrentPlayerIndex() {
+        return this.currentPlayerIndex;
+    }
+
+    public void setCurrentPlayerIndex(int currentPlayerIndex) {
+        this.currentPlayerIndex = currentPlayerIndex;
+    }
+    
+    public void AdvanceTurn(){
+        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+    }
 }
