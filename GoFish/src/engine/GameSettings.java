@@ -1,22 +1,38 @@
 package engine;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author adamnark
  */
-class Settings {
+class GameSettings {
     private boolean repeatTurnWhenSuccessful;
-    private boolean revealFlush;
+    private boolean revealFlushOnSuccessfulPlay;
     private int minNumberOfPlayers;
     private int maxNumberOfPlayers;
+    private LinkedList<LinkedList<String>> availableCardFaces;
+
+    public LinkedList<LinkedList<String>> getAvailableCardFaces() {
+        return availableCardFaces;
+    }
     
     
-    
-    public Settings() {
+    public GameSettings() {
         this.repeatTurnWhenSuccessful = true;
-        this.revealFlush = true;
+        this.revealFlushOnSuccessfulPlay = true;
         this.minNumberOfPlayers = 3;
         this.maxNumberOfPlayers = 6;
+        this.availableCardFaces = new LinkedList<>();  
+    }
+    
+    public void addSeriesOfFaces(String[] series){
+        LinkedList<String> facesToAdd = new LinkedList<>();
+        for (String face : series) {
+            facesToAdd.add(face);
+        }
+        
+        this.availableCardFaces.add(facesToAdd);
     }
     
     public boolean isRepeatTurnWhenSuccessful() {
@@ -27,12 +43,12 @@ class Settings {
         this.repeatTurnWhenSuccessful = repeatTurnWhenSuccessful;
     }
 
-    public boolean isRevealFlush() {
-        return revealFlush;
+    public boolean isRevealFlushOnSuccessfulPlay() {
+        return revealFlushOnSuccessfulPlay;
     }
 
-    public void setRevealFlush(boolean revealFlush) {
-        this.revealFlush = revealFlush;
+    public void setRevealFlushOnSuccessfulPlay(boolean revealFlush) {
+        this.revealFlushOnSuccessfulPlay = revealFlush;
     }
 
     public int getMinimumNumberOfPlayers() {

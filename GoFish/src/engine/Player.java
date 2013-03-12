@@ -13,9 +13,8 @@ public class Player {
     private LinkedList<Card> hand;
     private IMover mover;
     
-    public boolean makeMove(LinkedList<Player> players){
-        Move move;
-        move = this.mover.makeMove(players);
+    public boolean makeMove(LinkedList<Player> players, LinkedList<LinkedList<String>> availableFaces){
+        Move move = this.mover.makeMove(players, availableFaces);
         return this.DemandCardFromAnotherPlayer(move);
     }
     

@@ -10,25 +10,20 @@ public class Engine {
     private LinkedList<Player> players;
     private int currentPlayerIndex;
     private LinkedList<Card> ocean;
-    private Settings settings;
+    private GameSettings gameSettings;
     
     public Engine(){
         this.players = new LinkedList<>();
         this.ocean = new LinkedList<>();
         this.currentPlayerIndex = 0;
     }
-
-    public void addCardToOcean(Card card){
-        if (card == null)
-            throw new NullPointerException("card");
-        this.ocean.add(card);
-    }
     
     public void PlayTurn(){
         Player currentPlayer = this.players.get(currentPlayerIndex);
-        boolean goodPlay = currentPlayer.makeMove(this.players);
-        
-        
+        boolean goodPlay = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableCardFaces());
+        if (!goodPlay || !this.gameSettings.isRepeatTurnWhenSuccessful()) {
+            this.AdvanceTurnToNextPlayer();
+        }
     }
     
     public LinkedList<Player> getPlayers() {
@@ -47,7 +42,13 @@ public class Engine {
         this.currentPlayerIndex = currentPlayerIndex;
     }
     
-    public void AdvanceTurn(){
+    public void AdvanceTurnToNextPlayer(){
         this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+    }
+    
+    public void addCardToOcean(Card card){
+    if (card == null)
+        throw new NullPointerException("card");
+    this.ocean.add(card);
     }
 }

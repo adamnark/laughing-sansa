@@ -1,6 +1,5 @@
 package engine;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -13,6 +12,10 @@ public class Card {
 
     public Card(){
         this.faces = new LinkedList<>();
+    }
+
+    public Card(LinkedList<String> faces) {
+        this.faces = faces;
     }
 
     @Override
@@ -49,9 +52,7 @@ public class Card {
         return hash;
     }
 
-      
-
-    public boolean HasFace(String other_face) throws NullPointerException {
+    public boolean HasFace(String other_face) {
         if (other_face == null){
             throw new NullPointerException();
         }
@@ -67,5 +68,13 @@ public class Card {
     
     public LinkedList<String> getFaces() {
         return this.faces;
+    }
+    
+    public void addFace(String face){
+        if (face == null) {
+            throw new NullPointerException("face");
+        }
+        
+        this.faces.add(face);
     }
 }
