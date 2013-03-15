@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -12,6 +13,7 @@ public class Engine {
     private LinkedList<Card> ocean;
     private GameSettings gameSettings;
     
+    
     public Engine(){
         this.players = new LinkedList<>();
         this.ocean = new LinkedList<>();
@@ -20,18 +22,17 @@ public class Engine {
     
     public void playTurn(){
         Player currentPlayer = this.players.get(currentPlayerIndex);
-        boolean goodPlay = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableCardFaces());
-        if (!goodPlay || !this.gameSettings.isRepeatTurnWhenSuccessful()) {
+        boolean cardWasTaken = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableCardFaces());
+        
+        boolean cardsWereThrown = currentPlayer.throwCards();
+        
+        if (!cardWasTaken || !this.gameSettings.isRepeatTurnWhenSuccessful()) {
             this.advanceTurnToNextPlayer();
         }
     }
     
-    public LinkedList<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return this.players;
-    }
-
-    public void setPlayers(LinkedList<Player> players) {
-        this.players = players;
     }
 
     public int getCurrentPlayerIndex() {

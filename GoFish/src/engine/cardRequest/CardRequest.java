@@ -1,4 +1,4 @@
-package engine.Moves;
+package engine.cardRequest;
 
 import engine.Player;
 import engine.Card;
@@ -7,11 +7,11 @@ import engine.Card;
  *
  * @author adamnark
  */
-public class Move {
+public class CardRequest {
     private Player playerToAskFrom;
     private Card cardToAsk;
 
-    public Move(Player playerToAskFrom, Card cardToAsk) {
+    public CardRequest(Player playerToAskFrom, Card cardToAsk) {
         this.playerToAskFrom = playerToAskFrom;
         this.cardToAsk = cardToAsk;
     }

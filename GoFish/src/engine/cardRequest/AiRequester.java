@@ -1,4 +1,4 @@
-package engine.Moves;
+package engine.cardRequest;
 
 import engine.Card;
 import engine.Player;
@@ -9,7 +9,7 @@ import java.util.Random;
  *
  * @author adamnark
  */
-public class AiMover implements IMover{
+public class AiRequester implements ICardRequester{
     private int playerNumber;
 
     @Override
@@ -18,7 +18,7 @@ public class AiMover implements IMover{
     }
 
     @Override
-    public Move makeMove(LinkedList<Player> players, LinkedList<LinkedList<String>> availableCards) {
+    public CardRequest requestCard(LinkedList<Player> players, LinkedList<LinkedList<String>> availableCards) {
         if (players == null || availableCards == null){
             throw new NullPointerException("makeMove");
         }
@@ -26,7 +26,7 @@ public class AiMover implements IMover{
         Player otherPlayer = pickRandomPlayer(players);
         Card randomCard = makeRandomCard(availableCards);
         
-        return new Move(otherPlayer, randomCard);
+        return new CardRequest(otherPlayer, randomCard);
     }
 
     private Card makeRandomCard(LinkedList<LinkedList<String>> availableCards) {

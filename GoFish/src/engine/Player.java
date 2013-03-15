@@ -1,7 +1,7 @@
 package engine;
 
-import engine.Moves.IMover;
-import engine.Moves.Move;
+import engine.cardRequest.ICardRequester;
+import engine.cardRequest.CardRequest;
 import java.util.LinkedList;
 
 /**
@@ -11,18 +11,20 @@ import java.util.LinkedList;
 public class Player {
     private String name;
     private LinkedList<Card> hand;
-    private IMover mover;
+    private ICardRequester cardRequester;
+    private int score;
+
+    public Player(){
+       this.hand = new LinkedList<>();
+       this.name = "";
+       this.score = 0;
+    }   
     
     public boolean makeMove(LinkedList<Player> players, LinkedList<LinkedList<String>> availableFaces){
-        Move move = this.mover.makeMove(players, availableFaces);
+        CardRequest move = this.cardRequester.requestCard(players, availableFaces);
         return this.demandCardFromAnotherPlayer(move);
     }
-    
-    public Player(){
-        this.hand = new LinkedList<>();
-        this.name = "";
-    }
-
+       
     public LinkedList<Card> getHand() {
         return hand;
     }
@@ -66,7 +68,7 @@ public class Player {
         return false;
     }
     
-    public boolean demandCardFromAnotherPlayer(Move move){
+    public boolean demandCardFromAnotherPlayer(CardRequest move){
         Card card = move.getCardToAsk();
         Player otherPlayer = move.getPlayerToAskFrom();
         if (otherPlayer == null || card == null){
@@ -92,5 +94,9 @@ public class Player {
         }
         
         this.name = name;
+    }
+
+    public boolean throwCards() {
+        return false;
     }
 }
