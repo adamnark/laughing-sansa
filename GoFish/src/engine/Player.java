@@ -15,7 +15,7 @@ public class Player {
     
     public boolean makeMove(LinkedList<Player> players, LinkedList<LinkedList<String>> availableFaces){
         Move move = this.mover.makeMove(players, availableFaces);
-        return this.DemandCardFromAnotherPlayer(move);
+        return this.demandCardFromAnotherPlayer(move);
     }
     
     public Player(){
@@ -31,7 +31,7 @@ public class Player {
         this.hand = hand;
     }
 
-    public void AddCardToHand(Card card){
+    public void addCardToHand(Card card){
         if (card == null){
             throw new NullPointerException("card");
         }
@@ -39,12 +39,12 @@ public class Player {
         this.hand.add(card);
     }
     
-    public void RemoveCardFromHand(Card card){
+    public void removeCardFromHand(Card card){
         if (card == null){
             throw new NullPointerException("card");
         }
         
-        if (this.HasCard(card)){
+        if (this.hasCard(card)){
             this.hand.remove(card);
         }
         else {
@@ -52,7 +52,7 @@ public class Player {
         }
     }
     
-    public boolean HasCard(Card otherCard){
+    public boolean hasCard(Card otherCard){
         if (otherCard == null) {
             throw new NullPointerException("card");
         }
@@ -66,16 +66,16 @@ public class Player {
         return false;
     }
     
-    public boolean DemandCardFromAnotherPlayer(Move move){
+    public boolean demandCardFromAnotherPlayer(Move move){
         Card card = move.getCardToAsk();
         Player otherPlayer = move.getPlayerToAskFrom();
         if (otherPlayer == null || card == null){
             throw new NullPointerException("card");
         }
         
-        if (otherPlayer.HasCard(card)){
-            otherPlayer.RemoveCardFromHand(card);
-            this.AddCardToHand(card);
+        if (otherPlayer.hasCard(card)){
+            otherPlayer.removeCardFromHand(card);
+            this.addCardToHand(card);
             return true;
         }
         

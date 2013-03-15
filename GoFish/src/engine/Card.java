@@ -52,7 +52,7 @@ public class Card {
         return hash;
     }
 
-    public boolean HasFace(String other_face) {
+    public boolean hasFace(String other_face) {
         if (other_face == null){
             throw new NullPointerException();
         }

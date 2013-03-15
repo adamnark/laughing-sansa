@@ -18,11 +18,11 @@ public class Engine {
         this.currentPlayerIndex = 0;
     }
     
-    public void PlayTurn(){
+    public void playTurn(){
         Player currentPlayer = this.players.get(currentPlayerIndex);
         boolean goodPlay = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableCardFaces());
         if (!goodPlay || !this.gameSettings.isRepeatTurnWhenSuccessful()) {
-            this.AdvanceTurnToNextPlayer();
+            this.advanceTurnToNextPlayer();
         }
     }
     
@@ -42,7 +42,7 @@ public class Engine {
         this.currentPlayerIndex = currentPlayerIndex;
     }
     
-    public void AdvanceTurnToNextPlayer(){
+    public void advanceTurnToNextPlayer(){
         this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
     }
     
