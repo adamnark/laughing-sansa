@@ -135,8 +135,6 @@ public class Player {
             this.removeCardFromHand(card);
         }
 
-        this.score += 400;
-
         return true;
     }
 }
