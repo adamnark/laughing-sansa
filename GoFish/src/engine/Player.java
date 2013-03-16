@@ -26,9 +26,17 @@ public class Player {
         }
     }
 
-    public boolean makeMove(LinkedList<Player> players, LinkedList<LinkedList<String>> availableFaces) {
+    public boolean makeMove(LinkedList<Player> players, LinkedList<LinkedList<String>> availableFaces)
+            throws InvalidMoveException {
+
         CardRequest move = this.cardRequester.requestCard(players, availableFaces);
-        return this.demandCardFromAnotherPlayer(move);
+        boolean demandSuccessful;
+        try {
+            demandSuccessful = this.demandCardFromAnotherPlayer(move);
+        } catch (InvalidMoveException e) {
+            throw e;
+        }
+        return demandSuccessful;
     }
 
     public LinkedList<Card> getHand() {
