@@ -73,11 +73,15 @@ public class Player {
         return false;
     }
 
-    public boolean demandCardFromAnotherPlayer(CardRequest move) {
+    public boolean demandCardFromAnotherPlayer(CardRequest move) throws InvalidMoveException {
         Card card = move.getCardToAsk();
         Player otherPlayer = move.getPlayerToAskFrom();
         if (otherPlayer == null || card == null) {
             throw new NullPointerException("card");
+        }
+
+        if (!this.isValidMove(card)) {
+            throw new InvalidMoveException("Current Player does not have a card with any of these faces.");
         }
 
         if (otherPlayer.hasCard(card)) {
@@ -136,5 +140,17 @@ public class Player {
         }
 
         return true;
+    }
+
+    private boolean isValidMove(Card otherCard) {
+        for (Card cardInHand : hand) {
+            for (String otherFace : otherCard.getFaces()) {
+                if (cardInHand.hasFace(otherFace)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

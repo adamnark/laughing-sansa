@@ -92,6 +92,26 @@ public class Engine {
         }
     }
 
+    public void advanceTurnToNextPlayer() {
+        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+    }
+
+    public void fillOcean(List<Card> cards) {
+        this.ocean = new LinkedList<>(cards);
+        Collections.shuffle(this.ocean);
+    }
+
+    public void dealCards() {
+        int numOfCardsToDeal = this.gameSettings.getInitalHandSize();
+        for (Player player : players) {
+            for (int i = 0; i < numOfCardsToDeal; i++) {
+                player.addCardToHand(this.popCardFromOcean());
+            }
+        }
+
+        this.eventQueue.add(Event.HAND_UPDATED);
+    }
+
     public List<Player> getPlayers() {
         return this.players;
     }
@@ -102,14 +122,5 @@ public class Engine {
 
     public void setCurrentPlayerIndex(int currentPlayerIndex) {
         this.currentPlayerIndex = currentPlayerIndex;
-    }
-
-    public void advanceTurnToNextPlayer() {
-        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
-    }
-
-    public void fillOcean(List<Card> cards) {
-        this.ocean = new LinkedList<>(cards);
-        Collections.shuffle(this.ocean);
     }
 }

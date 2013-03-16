@@ -66,4 +66,8 @@ class GameSettings {
     public void setMaximumNumberOfPlayers(int maximumNumberOfPlayers) {
         this.maxNumberOfPlayers = maximumNumberOfPlayers;
     }
+
+    int getInitalHandSize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
