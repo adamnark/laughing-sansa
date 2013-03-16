@@ -9,7 +9,8 @@ import java.util.Random;
  *
  * @author adamnark
  */
-public class AiRequester implements ICardRequester{
+public class AiRequester implements ICardRequester {
+
     private int playerNumber;
 
     @Override
@@ -19,24 +20,24 @@ public class AiRequester implements ICardRequester{
 
     @Override
     public CardRequest requestCard(LinkedList<Player> players, LinkedList<LinkedList<String>> availableCards) {
-        if (players == null || availableCards == null){
+        if (players == null || availableCards == null) {
             throw new NullPointerException("makeMove");
         }
-        
+
         Player otherPlayer = pickRandomPlayer(players);
         Card randomCard = makeRandomCard(availableCards);
-        
+
         return new CardRequest(otherPlayer, randomCard);
     }
 
     private Card makeRandomCard(LinkedList<LinkedList<String>> availableCards) {
         LinkedList<String> randomFaces = new LinkedList<>();
-        
-        for (LinkedList<String> series: availableCards) {
+
+        for (LinkedList<String> series : availableCards) {
             String randomFace = pickRandomFace(series);
             randomFaces.add(randomFace);
         }
-        
+
         return new Card(randomFaces);
     }
 

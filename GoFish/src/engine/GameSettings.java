@@ -7,6 +7,7 @@ import java.util.LinkedList;
  * @author adamnark
  */
 class GameSettings {
+
     private boolean repeatTurnWhenSuccessful;
     private boolean revealFlushOnSuccessfulPlay;
     private int minNumberOfPlayers;
@@ -16,25 +17,24 @@ class GameSettings {
     public LinkedList<LinkedList<String>> getAvailableCardFaces() {
         return availableCardFaces;
     }
-    
-    
+
     public GameSettings() {
         this.repeatTurnWhenSuccessful = true;
         this.revealFlushOnSuccessfulPlay = true;
         this.minNumberOfPlayers = 3;
         this.maxNumberOfPlayers = 6;
-        this.availableCardFaces = new LinkedList<>();  
+        this.availableCardFaces = new LinkedList<>();
     }
-    
-    public void addSeriesOfFaces(String[] series){
+
+    public void addSeriesOfFaces(String[] series) {
         LinkedList<String> facesToAdd = new LinkedList<>();
         for (String face : series) {
             facesToAdd.add(face);
         }
-        
+
         this.availableCardFaces.add(facesToAdd);
     }
-    
+
     public boolean isRepeatTurnWhenSuccessful() {
         return repeatTurnWhenSuccessful;
     }

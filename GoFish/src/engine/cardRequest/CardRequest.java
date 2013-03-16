@@ -8,6 +8,7 @@ import engine.Card;
  * @author adamnark
  */
 public class CardRequest {
+
     private Player playerToAskFrom;
     private Card cardToAsk;
 
@@ -31,5 +32,4 @@ public class CardRequest {
     public void setCardToAsk(Card cardToAsk) {
         this.cardToAsk = cardToAsk;
     }
-
 }

@@ -6,6 +6,8 @@
             <name>GoFish</name>
             <source-roots>
                 <root id="src.dir"/>
+                <root id="src.cardRequest.dir"/>
+                <root id="src.fourPicker.dir"/>
             </source-roots>
             <test-roots>
                 <root id="test.src.dir"/>
