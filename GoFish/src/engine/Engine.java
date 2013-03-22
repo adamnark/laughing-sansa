@@ -14,14 +14,8 @@ public class Engine {
 
     private LinkedList<Player> players;
     private int currentPlayerIndex;
-    private LinkedList<Card> ocean;
     private GameSettings gameSettings;
     private LinkedList<Event> eventQueue;
-
-    private Card popCardFromOcean() {
-        Card c = this.ocean.pop();
-        return c;
-    }
 
     public static enum Event {
 
@@ -33,7 +27,6 @@ public class Engine {
 
     public Engine() {
         this.players = new LinkedList<>();
-        this.ocean = new LinkedList<>();
         this.eventQueue = new LinkedList<>();
         this.currentPlayerIndex = 0;
 
@@ -41,7 +34,7 @@ public class Engine {
 
     public boolean checkEndgame() {
         HashMap<String, Integer> hashmap = new HashMap<>();
-        LinkedList<Card> availableCards = new LinkedList<>(ocean);
+        LinkedList<Card> availableCards = new LinkedList<>();
         for (Player player : players) {
             availableCards.addAll(player.getHand());
         }
@@ -70,11 +63,10 @@ public class Engine {
         return false;
     }
 
-    public void playTurn() 
-            throws InvalidMoveException
-    {
+    public void playTurn()
+            throws InvalidMoveException {
         Player currentPlayer = this.players.get(currentPlayerIndex);
-        
+
         boolean cardWasTaken = false;
         try {
             cardWasTaken = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableCardFaces());
@@ -90,11 +82,7 @@ public class Engine {
         if (cardsWereThrown) {
             this.eventQueue.add(Event.HAND_UPDATED);
             this.eventQueue.add(Event.SCORE_UPDATED);
-        } else {
-            Card c = this.popCardFromOcean();
-            currentPlayer.addCardToHand(c);
         }
-
 
         if (!cardWasTaken || !this.gameSettings.isRepeatTurnWhenSuccessful()) {
             this.advanceTurnToNextPlayer();
@@ -106,22 +94,16 @@ public class Engine {
         this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
     }
 
-    public void fillOcean(List<Card> cards) {
-        this.ocean = new LinkedList<>(cards);
-        Collections.shuffle(this.ocean);
-    }
-
-    public void dealCards() {
-        int numOfCardsToDeal = this.gameSettings.getInitalHandSize();
-        for (Player player : players) {
-            for (int i = 0; i < numOfCardsToDeal; i++) {
-                player.addCardToHand(this.popCardFromOcean());
-            }
-        }
-
-        this.eventQueue.add(Event.HAND_UPDATED);
-    }
-
+//    public void dealCards() {
+//        int numOfCardsToDeal = this.gameSettings.getInitalHandSize();
+//        for (Player player : players) {
+//            for (int i = 0; i < numOfCardsToDeal; i++) {
+//                player.addCardToHand(this.popCardFromOcean());
+//            }
+//        }
+//
+//        this.eventQueue.add(Event.HAND_UPDATED);
+//    }
     public List<Player> getPlayers() {
         return this.players;
     }

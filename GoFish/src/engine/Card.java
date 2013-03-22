@@ -1,6 +1,8 @@
 package engine;
 
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,16 +18,19 @@ public class Card {
         this.faces = new LinkedList<>();
     }
 
+    public Card(List<String> faces) {
+        this();
+        for (String face : faces) {
+            this.faces.add(face);
+        }
+    }
+    
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Card(LinkedList<String> faces) {
-        this.faces = faces;
     }
 
     @Override

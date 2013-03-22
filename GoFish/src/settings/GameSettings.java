@@ -1,5 +1,6 @@
 package settings;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -15,9 +16,6 @@ public class GameSettings {
     private LinkedList<LinkedList<String>> availableSerieses;
     private int initalHandSize;
 
-    public LinkedList<LinkedList<String>> getAvailableCardFaces() {
-        return availableSerieses;
-    }
 
     public GameSettings() {
         this.allowMutipleRequests = true;
@@ -30,46 +28,57 @@ public class GameSettings {
 
     public void addSeriesOfFaces(String[] series) {
         LinkedList<String> facesToAdd = new LinkedList<>();
-        for (String face : series) {
-            facesToAdd.add(face);
-        }
-
+        facesToAdd.addAll(Arrays.asList(series));
         this.availableSerieses.add(facesToAdd);
     }
 
-    public boolean isRepeatTurnWhenSuccessful() {
+    public boolean isAllowMutipleRequests() {
         return allowMutipleRequests;
     }
 
-    public void setRepeatTurnWhenSuccessful(boolean repeatTurnWhenSuccessful) {
-        this.allowMutipleRequests = repeatTurnWhenSuccessful;
+    public void setAllowMutipleRequests(boolean allowMutipleRequests) {
+        this.allowMutipleRequests = allowMutipleRequests;
     }
 
-    public boolean isRevealFlushOnSuccessfulPlay() {
+    public boolean isForceShowOfSeries() {
         return forceShowOfSeries;
     }
 
-    public void setRevealFlushOnSuccessfulPlay(boolean revealFlush) {
-        this.forceShowOfSeries = revealFlush;
+    public void setForceShowOfSeries(boolean forceShowOfSeries) {
+        this.forceShowOfSeries = forceShowOfSeries;
     }
 
-    public int getMinimumNumberOfPlayers() {
+    public int getMinNumberOfPlayers() {
         return minNumberOfPlayers;
     }
 
-    public void setMinimumNumberOfPlayers(int minimumNumberOfPlayers) {
-        this.minNumberOfPlayers = minimumNumberOfPlayers;
+    public void setMinNumberOfPlayers(int minNumberOfPlayers) {
+        this.minNumberOfPlayers = minNumberOfPlayers;
     }
 
-    public int getMaximumNumberOfPlayers() {
+    public int getMaxNumberOfPlayers() {
         return maxNumberOfPlayers;
     }
 
-    public void setMaximumNumberOfPlayers(int maximumNumberOfPlayers) {
-        this.maxNumberOfPlayers = maximumNumberOfPlayers;
+    public void setMaxNumberOfPlayers(int maxNumberOfPlayers) {
+        this.maxNumberOfPlayers = maxNumberOfPlayers;
+    }
+
+    public LinkedList<LinkedList<String>> getAvailableSerieses() {
+        return availableSerieses;
+    }
+
+    public void setAvailableSerieses(LinkedList<LinkedList<String>> availableSerieses) {
+        this.availableSerieses = availableSerieses;
     }
 
     public int getInitalHandSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return initalHandSize;
     }
+
+    public void setInitalHandSize(int initalHandSize) {
+        this.initalHandSize = initalHandSize;
+    }
+    
+    
 }
