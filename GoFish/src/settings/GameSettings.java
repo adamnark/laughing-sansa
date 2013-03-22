@@ -1,4 +1,4 @@
-package engine;
+package settings;
 
 import java.util.LinkedList;
 
@@ -6,24 +6,26 @@ import java.util.LinkedList;
  *
  * @author adamnark
  */
-class GameSettings {
+public class GameSettings {
 
-    private boolean repeatTurnWhenSuccessful;
-    private boolean revealFlushOnSuccessfulPlay;
+    private boolean allowMutipleRequests;
+    private boolean forceShowOfSeries;
     private int minNumberOfPlayers;
     private int maxNumberOfPlayers;
-    private LinkedList<LinkedList<String>> availableCardFaces;
+    private LinkedList<LinkedList<String>> availableSerieses;
+    private int initalHandSize;
 
     public LinkedList<LinkedList<String>> getAvailableCardFaces() {
-        return availableCardFaces;
+        return availableSerieses;
     }
 
     public GameSettings() {
-        this.repeatTurnWhenSuccessful = true;
-        this.revealFlushOnSuccessfulPlay = true;
+        this.allowMutipleRequests = true;
+        this.forceShowOfSeries = true;
         this.minNumberOfPlayers = 3;
         this.maxNumberOfPlayers = 6;
-        this.availableCardFaces = new LinkedList<>();
+        this.initalHandSize = 5;
+        this.availableSerieses = new LinkedList<>();
     }
 
     public void addSeriesOfFaces(String[] series) {
@@ -32,23 +34,23 @@ class GameSettings {
             facesToAdd.add(face);
         }
 
-        this.availableCardFaces.add(facesToAdd);
+        this.availableSerieses.add(facesToAdd);
     }
 
     public boolean isRepeatTurnWhenSuccessful() {
-        return repeatTurnWhenSuccessful;
+        return allowMutipleRequests;
     }
 
     public void setRepeatTurnWhenSuccessful(boolean repeatTurnWhenSuccessful) {
-        this.repeatTurnWhenSuccessful = repeatTurnWhenSuccessful;
+        this.allowMutipleRequests = repeatTurnWhenSuccessful;
     }
 
     public boolean isRevealFlushOnSuccessfulPlay() {
-        return revealFlushOnSuccessfulPlay;
+        return forceShowOfSeries;
     }
 
     public void setRevealFlushOnSuccessfulPlay(boolean revealFlush) {
-        this.revealFlushOnSuccessfulPlay = revealFlush;
+        this.forceShowOfSeries = revealFlush;
     }
 
     public int getMinimumNumberOfPlayers() {
@@ -67,7 +69,7 @@ class GameSettings {
         this.maxNumberOfPlayers = maximumNumberOfPlayers;
     }
 
-    int getInitalHandSize() {
+    public int getInitalHandSize() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

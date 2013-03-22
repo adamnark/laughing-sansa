@@ -10,9 +10,18 @@ import java.util.Objects;
 public class Card {
 
     private LinkedList<String> faces;
+    private String name;
 
     public Card() {
         this.faces = new LinkedList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Card(LinkedList<String> faces) {
@@ -40,9 +49,12 @@ public class Card {
         }
 
         Card other = (Card) obj;
-        if (!Objects.equals(this.faces, other.faces)) {
-            return false;
+        for (String face : faces) {
+            if (!other.hasFace(face)){
+                return false;
+            }
         }
+        
         return true;
     }
 

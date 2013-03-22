@@ -1,5 +1,6 @@
 package engine;
 
+import settings.GameSettings;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -69,9 +70,18 @@ public class Engine {
         return false;
     }
 
-    public void playTurn() {
+    public void playTurn() 
+            throws InvalidMoveException
+    {
         Player currentPlayer = this.players.get(currentPlayerIndex);
-        boolean cardWasTaken = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableCardFaces());
+        
+        boolean cardWasTaken = false;
+        try {
+            cardWasTaken = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableCardFaces());
+        } catch (InvalidMoveException ex) {
+            throw ex;
+        }
+
         if (cardWasTaken) {
             this.eventQueue.add(Event.HAND_UPDATED);
         }
