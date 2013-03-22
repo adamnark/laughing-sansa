@@ -1,12 +1,9 @@
 package xml;
 
 import engine.Card;
-import engine.Player;
-import generated.Cards;
 import generated.Gofish;
 import generated.PlayerType;
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,7 +40,6 @@ public class SettingsFromXML {
         this.gameSettings.setAllowMutipleRequests(this.gofish.getSettings().isAllowMutipleRequests());
         this.gameSettings.setForceShowOfSeries(this.gofish.getSettings().isForceShowOfSeries());
         this.gameSettings.addSeriesesToAvailable(this.getAvailableSerieses());
-        
         
         return gameSettings;
     }

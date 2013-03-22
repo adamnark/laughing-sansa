@@ -17,15 +17,25 @@ public class GoFishConsole {
 
     public static void main(String[] args) {
         String xmlPathString = "src\\xml\\resources\\gofish.xml";
-        SettingsFromXML settingsFromXML = null;
+        Engine engine = null;
+        
         try {
-            settingsFromXML = new SettingsFromXML(xmlPathString);
+            engine = makeEngineFromXML(xmlPathString);
         } catch (JAXBException ex) {
-            System.out.println("couldn't read game settings from " + xmlPathString);
+            System.out.println("Bad XML file provided.");
+            return;
         }
-
 
         System.out.println("wait here.");
 
+    }
+
+    private static engine.Engine makeEngineFromXML(String xmlPathString) throws JAXBException {
+        SettingsFromXML settingsFromXML = new SettingsFromXML(xmlPathString);
+        engine.Engine engine = new Engine();
+        engine.setGameSettings(settingsFromXML.generateGameSettings());
+        engine.setPlayers(settingsFromXML.generatePlayers());
+
+        return engine;
     }
 }

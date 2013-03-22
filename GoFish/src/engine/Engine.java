@@ -67,11 +67,11 @@ public class Engine {
         Player currentPlayer = this.players.get(currentPlayerIndex);
 
         boolean cardWasTaken = false;
-        try {
-            cardWasTaken = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableSerieses());
-        } catch (InvalidMoveException ex) {
-            throw ex;
-        }
+//        try {
+//            cardWasTaken = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableSerieses());
+//        } catch (InvalidMoveException ex) {
+//            throw ex;
+//        }
 
         if (cardWasTaken) {
             this.eventQueue.add(Event.HAND_UPDATED);
@@ -89,12 +89,32 @@ public class Engine {
         }
     }
 
-    public void advanceTurnToNextPlayer() {
-        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+    public LinkedList<Player> getPlayers() {
+        return players;
     }
 
-    public List<Player> getPlayers() {
-        return this.players;
+    public void setPlayers(LinkedList<Player> players) {
+        this.players = players;
+    }
+
+    public GameSettings getGameSettings() {
+        return gameSettings;
+    }
+
+    public void setGameSettings(GameSettings gameSettings) {
+        this.gameSettings = gameSettings;
+    }
+
+    public LinkedList<Event> getEventQueue() {
+        return eventQueue;
+    }
+
+    public void setEventQueue(LinkedList<Event> eventQueue) {
+        this.eventQueue = eventQueue;
+    }
+
+    public void advanceTurnToNextPlayer() {
+        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
     }
 
     public int getCurrentPlayerIndex() {
