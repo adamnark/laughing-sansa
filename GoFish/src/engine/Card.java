@@ -11,17 +11,18 @@ import java.util.Objects;
  */
 public class Card {
 
-    private LinkedList<String> faces;
+    private LinkedList<String> serieses;
     private String name;
 
     public Card() {
-        this.faces = new LinkedList<>();
+        this.serieses = new LinkedList<>();
+        this.name = "bad name";
     }
 
-    public Card(List<String> faces) {
+    public Card(List<String> serieses) {
         this();
-        for (String face : faces) {
-            this.faces.add(face);
+        for (String series : serieses) {
+            this.serieses.add(series);
         }
     }
     
@@ -35,12 +36,7 @@ public class Card {
 
     @Override
     public String toString() {
-        String s = "";
-        for (String face : this.faces) {
-            s += face + ", ";
-        }
-
-        return '{' + s + '}';
+        return "Card: " + this.name.toString() + ' ' + this.serieses.toString();
     }
 
     @Override
@@ -54,8 +50,12 @@ public class Card {
         }
 
         Card other = (Card) obj;
-        for (String face : faces) {
-            if (!other.hasFace(face)){
+        if (!this.name.equals(other.name)){
+            return false;
+        }
+        
+        for (String series : serieses) {
+            if (!other.isInSeries(series)){
                 return false;
             }
         }
@@ -65,18 +65,16 @@ public class Card {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.faces);
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.serieses);
+        hash = 79 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
-    public boolean hasFace(String other_face) {
-        if (other_face == null) {
-            throw new NullPointerException();
-        }
 
-        for (String face : faces) {
-            if (other_face.equals(face)) {
+    public boolean isInSeries(String otherSeries) {
+        for (String series : serieses) {
+            if (otherSeries.equals(series)) {
                 return true;
             }
         }
@@ -84,15 +82,15 @@ public class Card {
         return false;
     }
 
-    public LinkedList<String> getFaces() {
-        return this.faces;
+    public LinkedList<String> getSerieses() {
+        return this.serieses;
     }
 
-    public void addFace(String face) {
-        if (face == null) {
-            throw new NullPointerException("face");
+    public void addSeries(String series) {
+        if (series == null) {
+            throw new NullPointerException("addSeries(null)");
         }
 
-        this.faces.add(face);
+        this.serieses.add(series);
     }
 }

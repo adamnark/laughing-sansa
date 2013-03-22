@@ -152,8 +152,8 @@ public class Player {
 
     private boolean isValidMove(Card otherCard) {
         for (Card cardInHand : hand) {
-            for (String otherFace : otherCard.getFaces()) {
-                if (cardInHand.hasFace(otherFace)) {
+            for (String otherFace : otherCard.getSerieses()) {
+                if (cardInHand.isInSeries(otherFace)) {
                     return true;
                 }
             }

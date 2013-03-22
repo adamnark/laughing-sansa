@@ -1,6 +1,8 @@
 package settings;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 /**
@@ -13,7 +15,7 @@ public class GameSettings {
     private boolean forceShowOfSeries;
     private int minNumberOfPlayers;
     private int maxNumberOfPlayers;
-    private LinkedList<LinkedList<String>> availableSerieses;
+    private HashSet<String> availableSerieses;
     private int initalHandSize;
 
 
@@ -23,13 +25,11 @@ public class GameSettings {
         this.minNumberOfPlayers = 3;
         this.maxNumberOfPlayers = 6;
         this.initalHandSize = 5;
-        this.availableSerieses = new LinkedList<>();
+        this.availableSerieses = new HashSet<>();
     }
 
-    public void addSeriesOfFaces(String[] series) {
-        LinkedList<String> facesToAdd = new LinkedList<>();
-        facesToAdd.addAll(Arrays.asList(series));
-        this.availableSerieses.add(facesToAdd);
+    public void addSeriesesToAvailable(Collection<String> serieses) {
+        this.availableSerieses.addAll(serieses);
     }
 
     public boolean isAllowMutipleRequests() {
@@ -62,14 +62,6 @@ public class GameSettings {
 
     public void setMaxNumberOfPlayers(int maxNumberOfPlayers) {
         this.maxNumberOfPlayers = maxNumberOfPlayers;
-    }
-
-    public LinkedList<LinkedList<String>> getAvailableSerieses() {
-        return availableSerieses;
-    }
-
-    public void setAvailableSerieses(LinkedList<LinkedList<String>> availableSerieses) {
-        this.availableSerieses = availableSerieses;
     }
 
     public int getInitalHandSize() {

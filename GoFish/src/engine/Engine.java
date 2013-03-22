@@ -19,7 +19,7 @@ public class Engine {
 
     public static enum Event {
 
-        TURN_MOVED,
+        TURN_UPDATED,
         SCORE_UPDATED,
         HAND_UPDATED,
         GAME_OVER,
@@ -29,7 +29,6 @@ public class Engine {
         this.players = new LinkedList<>();
         this.eventQueue = new LinkedList<>();
         this.currentPlayerIndex = 0;
-
     }
 
     public boolean checkEndgame() {
@@ -40,21 +39,21 @@ public class Engine {
         }
 
         for (Card card : availableCards) {
-            for (String face : card.getFaces()) {
-                hashmap.put(face, 0);
+            for (String series : card.getSerieses()) {
+                hashmap.put(series, 0);
             }
         }
 
         for (Card card : availableCards) {
-            for (String face : card.getFaces()) {
-                int count = hashmap.get(face);
+            for (String series : card.getSerieses()) {
+                int count = hashmap.get(series);
                 count++;
-                hashmap.put(face, count);
+                hashmap.put(series, count);
             }
         }
 
-        for (String face : hashmap.keySet()) {
-            if (hashmap.get(face) >= 4) {
+        for (String series : hashmap.keySet()) {
+            if (hashmap.get(series) >= 4) {
                 this.eventQueue.add(Event.GAME_OVER);
                 return true;
             }
@@ -69,7 +68,7 @@ public class Engine {
 
         boolean cardWasTaken = false;
         try {
-            cardWasTaken = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableCardFaces());
+            cardWasTaken = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableSerieses());
         } catch (InvalidMoveException ex) {
             throw ex;
         }
@@ -84,9 +83,9 @@ public class Engine {
             this.eventQueue.add(Event.SCORE_UPDATED);
         }
 
-        if (!cardWasTaken || !this.gameSettings.isRepeatTurnWhenSuccessful()) {
+        if (!cardWasTaken || !this.gameSettings.isAllowMutipleRequests()) {
             this.advanceTurnToNextPlayer();
-            this.eventQueue.add(Event.TURN_MOVED);
+            this.eventQueue.add(Event.TURN_UPDATED);
         }
     }
 
@@ -94,16 +93,6 @@ public class Engine {
         this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
     }
 
-//    public void dealCards() {
-//        int numOfCardsToDeal = this.gameSettings.getInitalHandSize();
-//        for (Player player : players) {
-//            for (int i = 0; i < numOfCardsToDeal; i++) {
-//                player.addCardToHand(this.popCardFromOcean());
-//            }
-//        }
-//
-//        this.eventQueue.add(Event.HAND_UPDATED);
-//    }
     public List<Player> getPlayers() {
         return this.players;
     }

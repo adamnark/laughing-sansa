@@ -6,6 +6,8 @@ import generated.Cards;
 import generated.Gofish;
 import generated.PlayerType;
 import java.io.File;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
@@ -20,7 +22,8 @@ import settings.GameSettings;
 public class SettingsFromXML {
 
     private Gofish gofish;
-
+    private GameSettings gameSettings;
+    
     public SettingsFromXML(String xmlFileName) 
             throws JAXBException {
         try {
@@ -29,24 +32,23 @@ public class SettingsFromXML {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             this.gofish = (Gofish) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
             throw ex;
         }
 
     }
 
     public GameSettings generateGameSettings() {
-        GameSettings gameSettings = new GameSettings();
-        gameSettings.setRepeatTurnWhenSuccessful(this.gofish.getSettings().isAllowMutipleRequests());
-        gameSettings.setRevealFlushOnSuccessfulPlay(this.gofish.getSettings().isForceShowOfSeries());
-        
-        
+        this.gameSettings = new GameSettings();
+        this.gameSettings.setAllowMutipleRequests(this.gofish.getSettings().isAllowMutipleRequests());
+        this.gameSettings.setForceShowOfSeries(this.gofish.getSettings().isForceShowOfSeries());
+        this.gameSettings.addSeriesesToAvailable(this.getAvailableSerieses());
         
         
         return gameSettings;
     }
 
-    public LinkedList<Player> generatePlayers() {
+    public LinkedList<engine.Player> generatePlayers() {
         LinkedList<engine.Player> lst = new LinkedList<>();
         
         for (generated.Player generatedPlayer : gofish.getPlayers().getPlayer()) {
@@ -77,5 +79,19 @@ public class SettingsFromXML {
         }
         
         return lst;
+    }
+
+    private HashSet<String> getAvailableSerieses() {
+        HashSet<String> serieses = new HashSet<>();
+        
+        for (generated.Player generatedPlayer : this.gofish.getPlayers().getPlayer()) {
+            for (generated.Card generatedCard : generatedPlayer.getCards().getCard()) {
+                for (String generatedSeries : generatedCard.getSeries()) {
+                    serieses.add(generatedSeries);
+                }
+            }
+        }
+        
+        return serieses;
     }
 }

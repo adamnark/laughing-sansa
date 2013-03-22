@@ -27,7 +27,7 @@ public class AiFourPicker implements IFourPicker {
     
     private void initMap() {
         for (Card card : this.hand) {
-            for (String face : card.getFaces()) {
+            for (String face : card.getSerieses()) {
                 if (this.map.get(face) == null) {
                     this.map.put(face, new HashSet<Card>());
                 }
@@ -37,7 +37,7 @@ public class AiFourPicker implements IFourPicker {
     
     private void populateMap() {
         for (Card card : this.hand) {
-            for (String face : card.getFaces()) {
+            for (String face : card.getSerieses()) {
                 this.map.get(face).add(card);
             }
         }
