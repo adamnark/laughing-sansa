@@ -30,7 +30,6 @@ public final class Card {
 
     public void makeInvalid() {
         this.isValid = false;
-        this.name += "<dead>";
     }
 
     @Override
@@ -66,7 +65,8 @@ public final class Card {
     }
 
     public String getName() {
-        return name;
+        String suffix = this.isValid ? "" : "<dead>";
+        return name + suffix;
     }
 
     public void setName(String name) {
@@ -95,7 +95,11 @@ public final class Card {
                 return true;
             }
         }
-        
+
         return false;
+    }
+
+    public void makeValid() {
+        this.isValid = true;
     }
 }

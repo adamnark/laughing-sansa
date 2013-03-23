@@ -22,6 +22,16 @@ public class Engine {
     private HashMultimap<Series, Card> cardsBySeries;
     private boolean isGameStarted;
 
+    private boolean isOnePlayerLeft() {
+        int count = 0;
+        for (Player player : players) {
+            if (player.isPlaying()) {
+                count++;
+            }
+        }
+        return count == 1;
+    }
+
     public static enum Event {
 
         TURN_UPDATED,
@@ -89,6 +99,13 @@ public class Engine {
             return false;
         }
 
+
+
+
+        boolean onePlayerLeft = isOnePlayerLeft();
+        if (onePlayerLeft) {
+            return true;
+        }
         for (Series series : this.cardsBySeries.keySet()) {
             int count = 0;
             for (Card card : this.cardsBySeries.get(series)) {

@@ -140,4 +140,8 @@ public class Player {
     public String getName() {
         return this.name;
     }
+
+    public boolean isPlaying() {
+        return !this.hand.getCards().isEmpty();
+    }
 }

@@ -27,6 +27,7 @@ public class Hand {
     }
     
     public void addCardToHand(Card card){
+        card.makeValid();
         this.cards.add(card);
     }
 

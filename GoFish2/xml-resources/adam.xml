@@ -8,12 +8,12 @@
 	<player type="COMPUTER" name="John">
 	    <cards>
 			<card name="wata">
-				<series>First</series>
 				<series>Boris</series>
+				<series>First</series>
 			</card>
 			<card name="atsuo">
-				<series>Second</series>
 				<series>Boris</series>
+				<series>Second</series>
 			</card>
 			<card name="michio">
 				<series>Third</series>
@@ -28,16 +28,16 @@
 	<player type="COMPUTER" name="Paul">
 	    <cards>
 			<card name="omar">
-				<series>First</series>
 				<series>Bosnian Rainbows</series>
+				<series>First</series>
 			</card>
 			<card name="teri">
 				<series>Second</series>
 				<series>Bosnian Rainbows</series>
 			</card>
 			<card name="deantoni">
-				<series>Third</series>
 				<series>Bosnian Rainbows</series>
+				<series>Third</series>
 			</card>
 			<card name="jimmy">
 				<series>Fourth</series>
@@ -45,7 +45,7 @@
 			</card>
 	    </cards>
 	</player>
-	<player type="COMPUTER" name="Geogre">
+	<player type="COMPUTER" name="George">
 	    <cards>
 			<card name="nici">
 				<series>First</series>
@@ -56,12 +56,32 @@
 				<series>Led Zeppelin</series>
 			</card>
 			<card name="john1">
-				<series>Third</series>
 				<series>Led Zeppelin</series>
+				<series>Third</series>
+			</card>
+			<card name="bill">
+				<series>Mastodon</series>
+				<series>Fourth</series>    
+			</card>
+	    </cards>
+	</player>
+	<player type="COMPUTER" name="Ringo">
+	    <cards>
+			<card name="brent">
+				<series>First</series>
+				<series>Mastodon</series>
+			</card>
+			<card name="brann">
+				<series>Second</series>
+				<series>Mastodon</series>
+			</card>
+			<card name="troy">
+				<series>Mastodon</series>
+				<series>Third</series>
 			</card>
 			<card name="john2">
-				<series>Fourth</series>    
 				<series>Led Zeppelin</series>
+				<series>Fourth</series>    
 			</card>
 	    </cards>
 	</player>

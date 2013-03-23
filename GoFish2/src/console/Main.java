@@ -1,11 +1,14 @@
 package console;
 
+import console.utils.GameStatusPrinter;
 import engine.Engine;
 import engine.players.BadCardRequestException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import xml.SettingsFromXML;
+
+
 
 /**
  *
@@ -14,7 +17,7 @@ import xml.SettingsFromXML;
 public class Main {
 
     public static void main(String[] args) {
-        myprint("game starting");
+        myprint("game starting\b\b\b");
         String xmlPathString = "";
         try {
             xmlPathString = getArgs(args);
@@ -32,20 +35,20 @@ public class Main {
 
         int count = 0;
         do {
-            myprint("playing turn : " + engine.getCurrentPlayer().toString());
+            
+            GameStatusPrinter.printGameStatus(engine);
             try {
                 engine.Turn();
             } catch (BadCardRequestException ex) {
                 myprint("bad card request!!");
                 ex.printStackTrace();
             }
-
             printEventQueue(engine);
-            myprint("\n");
-
             count++;
         } while (!engine.isGameOver());
         System.out.println("count=" + count);
+        System.out.println("ENDGAME");
+        GameStatusPrinter.printPlayers(engine);
     }
 
     private static void printEventQueue(Engine engine) {
