@@ -2,6 +2,7 @@ package engine.cardRequest;
 
 import engine.Card;
 import engine.Player;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -11,45 +12,43 @@ import java.util.Random;
  */
 public class AiRequester implements ICardRequester {
 
-    private int playerNumber;
+    private LinkedList<Player> otherPlayers;
+    private LinkedList<String> availableSerieses;
+    private Player me;
 
     @Override
-    public void setPlayerNumber(int playerIndex) {
-        this.playerNumber = playerIndex;
-    }
-
-    @Override
-    public CardRequest requestCard(LinkedList<Player> players, LinkedList<LinkedList<String>> availableCards) {
-        if (players == null || availableCards == null) {
-            throw new NullPointerException("makeMove");
-        }
-
-        Player otherPlayer = pickRandomPlayer(players);
-        Card randomCard = makeRandomCard(availableCards);
-
+    public CardRequest requestCard(Player me, Collection<Player> otherPlayers, Collection<String> availableSerieses) {
+        this.otherPlayers = new LinkedList<>(otherPlayers);
+        this.availableSerieses = new LinkedList<>(availableSerieses);
+        this.me = me;
+        
+        Player otherPlayer = pickRandomPlayer();
+        Card randomCard = makeRandomCard();
+        
         return new CardRequest(otherPlayer, randomCard);
     }
 
-    private Card makeRandomCard(LinkedList<LinkedList<String>> availableCards) {
-        LinkedList<String> randomFaces = new LinkedList<>();
+    private Card makeRandomCard() {
+        Card randomCard = new Card();
+        randomCard.setName("randomized card name!");
+        randomCard.getSerieses().add(this.me.getHand().getFirst().getSerieses().getFirst());
+        int seriesCount = this.me.getHand().getFirst().getSerieses().size();
 
-        for (LinkedList<String> series : availableCards) {
-            String randomFace = pickRandomFace(series);
-            randomFaces.add(randomFace);
+        Random rand = new Random();
+        while (randomCard.getSerieses().size() < seriesCount) {
+            String randomSeries = this.availableSerieses.get(rand.nextInt(availableSerieses.size()));
+            if (!randomCard.isInSeries(randomSeries)) {
+                randomCard.addSeries(randomSeries);
+            }
         }
 
-        return new Card(randomFaces);
+        return randomCard;
     }
 
-    private Player pickRandomPlayer(LinkedList<Player> players) {
-        int nextPlayer = (this.playerNumber + 1) % players.size();
-        return players.get(nextPlayer);
-    }
-
-    private String pickRandomFace(LinkedList<String> series) {
+    private Player pickRandomPlayer() {
         Random rand = new Random();
-        int randomNum = rand.nextInt(series.size());
+        int nextPlayer = rand.nextInt(otherPlayers.size());
 
-        return series.get(randomNum);
+        return otherPlayers.get(nextPlayer);
     }
 }

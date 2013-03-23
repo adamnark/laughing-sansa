@@ -1,10 +1,9 @@
 package engine;
 
+import com.google.common.collect.HashMultimap;
 import settings.GameSettings;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -16,19 +15,23 @@ public class Engine {
     private int currentPlayerIndex;
     private GameSettings gameSettings;
     private LinkedList<Event> eventQueue;
-
+    private HashMultimap<String, Card> cardsBySeries;
+    
+    
     public static enum Event {
-
         TURN_UPDATED,
         SCORE_UPDATED,
         HAND_UPDATED,
-        GAME_OVER,
+        GAME_OVER, 
+        FAILED_REQUEST, 
+        SUCCESSFUL_REQUEST,
     }
 
     public Engine() {
         this.players = new LinkedList<>();
         this.eventQueue = new LinkedList<>();
         this.currentPlayerIndex = 0;
+        this.cardsBySeries = HashMultimap.create();
     }
 
     public boolean checkEndgame() {
@@ -54,31 +57,37 @@ public class Engine {
 
         for (String series : hashmap.keySet()) {
             if (hashmap.get(series) >= 4) {
-                this.eventQueue.add(Event.GAME_OVER);
-                return true;
+                return false;
             }
         }
 
-        return false;
+        this.eventQueue.add(Event.GAME_OVER);
+        return true;
     }
 
     public void playTurn()
             throws InvalidMoveException {
         Player currentPlayer = this.players.get(currentPlayerIndex);
 
-        boolean cardWasTaken = false;
-//        try {
-//            cardWasTaken = currentPlayer.makeMove(this.players, this.gameSettings.getAvailableSerieses());
-//        } catch (InvalidMoveException ex) {
-//            throw ex;
-//        }
+        boolean cardWasTaken;
 
+        
+        LinkedList<Player> otherPlayers = new LinkedList<>(players);
+        otherPlayers.remove(currentPlayer);
+        cardWasTaken = currentPlayer.makeMove(otherPlayers, this.gameSettings.getAvailableSerieses());
         if (cardWasTaken) {
             this.eventQueue.add(Event.HAND_UPDATED);
+            this.eventQueue.add(Event.SUCCESSFUL_REQUEST);
+        }else{
+            this.eventQueue.add(Event.FAILED_REQUEST);
         }
+            
 
         boolean cardsWereThrown = currentPlayer.throwCards();
         if (cardsWereThrown) {
+            int score = currentPlayer.getScore();
+            currentPlayer.setScore(score + 1);
+            
             this.eventQueue.add(Event.HAND_UPDATED);
             this.eventQueue.add(Event.SCORE_UPDATED);
         }
@@ -123,5 +132,9 @@ public class Engine {
 
     public void setCurrentPlayerIndex(int currentPlayerIndex) {
         this.currentPlayerIndex = currentPlayerIndex;
+    }
+    
+    public Player getCurrentPlayer(){
+        return this.players.get(currentPlayerIndex);
     }
 }

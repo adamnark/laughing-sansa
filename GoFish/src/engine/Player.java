@@ -2,6 +2,7 @@ package engine;
 
 import engine.cardRequest.*;
 import engine.fourPicker.*;
+import java.util.Collection;
 import java.util.LinkedList;
 
 /**
@@ -26,16 +27,22 @@ public class Player {
         }
     }
 
-    public boolean makeMove(LinkedList<Player> players, LinkedList<LinkedList<String>> availableFaces)
+    @Override
+    public String toString() {
+        return "Player{name=" + this.name + '}';
+    }
+
+    public boolean makeMove(Collection<Player> otherPlayers, Collection<String> availableSerieses)
             throws InvalidMoveException {
 
-        CardRequest move = this.cardRequester.requestCard(players, availableFaces);
-        boolean demandSuccessful;
+        CardRequest move = this.cardRequester.requestCard(this, otherPlayers, availableSerieses);
+        boolean demandSuccessful = false;
         try {
             demandSuccessful = this.demandCardFromAnotherPlayer(move);
         } catch (InvalidMoveException e) {
             throw e;
         }
+
         return demandSuccessful;
     }
 

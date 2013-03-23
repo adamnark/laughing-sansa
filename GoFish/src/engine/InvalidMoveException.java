@@ -4,7 +4,7 @@ package engine;
  *
  * @author adamnark
  */
-class InvalidMoveException extends Exception {
+public class InvalidMoveException extends Exception {
     private String message;
     public InvalidMoveException(String message) {
         this.message = message;

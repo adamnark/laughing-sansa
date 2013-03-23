@@ -1,7 +1,7 @@
 package engine.cardRequest;
 
 import engine.Player;
-import java.util.LinkedList;
+import java.util.Collection;
 
 /**
  *
@@ -9,7 +9,6 @@ import java.util.LinkedList;
  */
 public interface ICardRequester {
 
-    public CardRequest requestCard(LinkedList<Player> players, LinkedList<LinkedList<String>> availableCards);
+    public CardRequest requestCard(Player me, Collection<Player> otherPlayers, Collection<String> availableSerieses);
 
-    public void setPlayerNumber(int playerIndex);
 }

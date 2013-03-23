@@ -26,6 +26,7 @@ public class AiFourPicker implements IFourPicker {
     }
     
     private void initMap() {
+        this.map = new HashMap<>();
         for (Card card : this.hand) {
             for (String face : card.getSerieses()) {
                 if (this.map.get(face) == null) {
@@ -54,7 +55,7 @@ public class AiFourPicker implements IFourPicker {
             }
         }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4 && cardsWithCommonFaces.size() >= 4; i++) {
             Card c = cardsWithCommonFaces.pop();
             four.add(c);
         }
