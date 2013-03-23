@@ -1,15 +1,15 @@
 package engine.cards;
 
-import com.sun.org.apache.regexp.internal.REUtil;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 /**
  *
  * @author adamnark
  */
-public class Card {
+public final class Card {
 
     private String name;
     private ArrayList<Series> series;
@@ -21,6 +21,13 @@ public class Card {
         this.isValid = true;
     }
 
+    public Card(List<String> series) {
+        this();
+        for (String string : series) {
+            addSeries(new Series(string));
+        }
+    }
+
     public void makeInvalid() {
         this.isValid = false;
         this.name += "<dead>";
@@ -28,7 +35,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" + "name=" + name + ", series=" + series + '}';
+        return "{\'" + name + "\': " + series + '}';
     }
 
     @Override

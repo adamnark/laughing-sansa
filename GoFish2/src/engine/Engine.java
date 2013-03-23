@@ -3,8 +3,10 @@ package engine;
 import com.google.common.collect.HashMultimap;
 import engine.cards.Card;
 import engine.cards.Series;
+import engine.players.BadCardRequestException;
 import engine.players.Player;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 
 /**
@@ -16,9 +18,9 @@ public class Engine {
     private ArrayList<Player> players;
     private int currentPlayerIndex;
     private GameSettings gameSettings;
-    private ArrayList<Event> eventQueue;
+    private LinkedList<Event> eventQueue;
     private HashMultimap<Series, Card> cardsBySeries;
-    private boolean gameStarted;
+    private boolean isGameStarted;
 
     public static enum Event {
 
@@ -33,38 +35,37 @@ public class Engine {
 
     public Engine() {
         this.players = new ArrayList<>();
-        this.eventQueue = new ArrayList<>();
+        this.eventQueue = new LinkedList<>();
         this.currentPlayerIndex = 0;
         this.cardsBySeries = HashMultimap.create();
-        this.gameStarted = false;
+        this.isGameStarted = false;
     }
 
     private void startGame() {
-        this.gameStarted = true;
+        this.isGameStarted = true;
         initCardMap();
     }
 
-    public void Turn() {
-        if (!this.gameStarted){
+    public void Turn() throws BadCardRequestException {
+        if (!this.isGameStarted) {
             startGame();
-        }
-
-        boolean cardWasTaken;
-        cardWasTaken = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
-        if (cardWasTaken) {
-            this.eventQueue.add(Event.HAND_UPDATED);
-            this.eventQueue.add(Event.SUCCESSFUL_REQUEST);
-        } else {
-            this.eventQueue.add(Event.FAILED_REQUEST);
         }
 
         boolean cardsWereThrown = getCurrentPlayer().throwFour();
         if (cardsWereThrown) {
             getCurrentPlayer().increaseScore();
-            this.eventQueue.add(Event.HAND_UPDATED);
-            this.eventQueue.add(Event.SCORE_UPDATED);
             this.eventQueue.add(Event.FOUR_CARDS_THROWN);
         }
+
+        boolean cardWasTaken;
+        cardWasTaken = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
+        if (cardWasTaken) {
+            this.eventQueue.add(Event.SUCCESSFUL_REQUEST);
+        } else {
+            this.eventQueue.add(Event.FAILED_REQUEST);
+        }
+
+
 
         if (!cardWasTaken || !this.gameSettings.isAllowMutipleRequests()) {
             advanceTurn();
@@ -84,6 +85,10 @@ public class Engine {
     }
 
     public boolean isGameOver() {
+        if (!this.isGameStarted) {
+            return false;
+        }
+
         for (Series series : this.cardsBySeries.keySet()) {
             int count = 0;
             for (Card card : this.cardsBySeries.get(series)) {
@@ -92,15 +97,17 @@ public class Engine {
                 }
             }
             if (count >= 4) {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
     public void advanceTurn() {
-        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+        do {
+            this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+        } while (getCurrentPlayer().getHand().getCards().isEmpty());
     }
 
     public ArrayList<Player> getPlayers() {
@@ -115,7 +122,7 @@ public class Engine {
         return gameSettings;
     }
 
-    public ArrayList<Event> getEventQueue() {
+    public LinkedList<Event> getEventQueue() {
         return eventQueue;
     }
 
@@ -127,5 +134,11 @@ public class Engine {
         LinkedList<Player> lst = new LinkedList<>(players);
         lst.remove(getCurrentPlayer());
         return lst;
+    }
+
+    public void addPlayers(Collection<Player> newPlayers) {
+        for (Player player : newPlayers) {
+            this.players.add(player);
+        }
     }
 }

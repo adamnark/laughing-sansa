@@ -1,6 +1,7 @@
-package engine.players;
+package request;
 
 import engine.cards.Card;
+import engine.players.Player;
 
 /**
  *

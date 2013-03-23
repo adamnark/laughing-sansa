@@ -1,6 +1,8 @@
-package engine.players;
+package request;
 
 import engine.cards.Series;
+import engine.players.Hand;
+import engine.players.Player;
 import java.util.List;
 
 /**

@@ -3,9 +3,9 @@ package engine.players.ai;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Hand;
-import engine.players.IRequestMaker;
+import request.IRequestMaker;
 import engine.players.Player;
-import engine.players.Request;
+import request.Request;
 import java.util.List;
 import java.util.Random;
 

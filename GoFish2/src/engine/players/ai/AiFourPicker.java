@@ -29,9 +29,11 @@ public class AiFourPicker implements IFourPicker {
             int count = map.get(series).size();
             if (count == 4) {
                 four.addAll(map.get(series));
+                break;
             }
         }
 
-        return four.isEmpty() ? four : null;
+        return four.isEmpty() ? null : four;
     }
+    
 }

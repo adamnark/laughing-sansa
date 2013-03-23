@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/D:/GitHub/laughing-sansa/GoFish/src/engine/Card.java</file>
+        <file>file:/D:/GitHub/laughing-sansa/GoFish/src/settings/GameSettings.java</file>
+        <file>file:/D:/GitHub/laughing-sansa/GoFish/src/engine/Player.java</file>
+        <file>file:/D:/GitHub/laughing-sansa/GoFish/src/engine/Engine.java</file>
+        <file>file:/D:/GitHub/laughing-sansa/GoFish/src/xml/SettingsFromXML.java</file>
+        <file>file:/D:/GitHub/laughing-sansa/GoFish/src/engine/fourPicker/IFourPicker.java</file>
+        <file>file:/D:/GitHub/laughing-sansa/GoFish/src/engine/fourPicker/AiFourPicker.java</file>
+        <file>file:/D:/GitHub/laughing-sansa/GoFish/src/engine/cardRequest/ICardRequester.java</file>
+        <file>file:/D:/GitHub/laughing-sansa/GoFish/src/engine/cardRequest/CardRequest.java</file>
+        <file>file:/D:/GitHub/laughing-sansa/GoFish/src/engine/cardRequest/AiRequester.java</file>
+    </open-files>
 </project-private>

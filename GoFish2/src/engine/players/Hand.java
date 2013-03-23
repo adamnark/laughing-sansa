@@ -13,6 +13,11 @@ public class Hand {
 
     private ArrayList<Card> cards;
 
+    @Override
+    public String toString() {
+        return "{" + cards + "}";
+    }
+
     public Hand() {
         this.cards = new ArrayList<>();
     }
@@ -30,6 +35,7 @@ public class Hand {
         if (!hasRemoved) {
             throw new NoSuchElementException();
         }
+        card.makeInvalid();
     }
 
     public ArrayList<Card> getCards() {

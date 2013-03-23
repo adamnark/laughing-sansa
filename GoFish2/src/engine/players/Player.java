@@ -1,5 +1,7 @@
 package engine.players;
 
+import request.IRequestMaker;
+import request.Request;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.ai.AiFourPicker;
@@ -9,6 +11,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import request.RequestValidator;
 
 /**
  *
@@ -16,6 +19,7 @@ import java.util.Set;
  */
 public class Player {
 
+    private String name;
     private Hand hand;
     private int score;
     private IFourPicker fourPicker;
@@ -26,8 +30,14 @@ public class Player {
         this.hand = new Hand();
         this.isHuman = true;
         this.score = 0;
+        this.name = "%default name%";
     }
 
+    @Override
+    public String toString() {
+        return name + "{ hand=" + hand + ", score=" + score + '}';
+    }
+    
     public static Player createAIPlayer() {
         Player player = new Player();
         player.isHuman = false;
@@ -69,11 +79,19 @@ public class Player {
         this.requestMaker = requestMaker;
     }
 
-    public boolean makeMove(LinkedList<Player> otherPlayers, Set<Series> availableSeries) {
-        Request request = this.requestMaker.makeRequest(hand, new ArrayList<>(availableSeries), otherPlayers);
+    public boolean makeMove(LinkedList<Player> otherPlayers, Set<Series> availableSeries)
+            throws BadCardRequestException {
+        Request request = this.requestMaker.makeRequest(this.hand, new ArrayList<>(availableSeries), otherPlayers);
+
         if (request == null) {
             return false;
         }
+        
+        boolean isValidRequest = RequestValidator.validateRequest(request, this);
+        if (!isValidRequest) {
+            throw new BadCardRequestException();
+        }
+
 
         Card victim = request.getOtherPlayer().GiveUpACard(request.getCardIWant());
         if (victim == null) {
@@ -103,15 +121,23 @@ public class Player {
         if (fourCards == null) {
             return false;
         }
-        
+
         for (Card card : fourCards) {
             this.hand.removeCardFromHand(card);
         }
-        
+
         return true;
     }
 
     public void increaseScore() {
         this.score++;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

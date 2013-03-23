@@ -6,10 +6,17 @@ import java.util.Objects;
  *
  * @author adamnark
  */
-public class Series {
+public final class Series {
 
     private String name;
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+    
+    
     public Series() {
     }
 
