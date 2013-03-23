@@ -20,6 +20,10 @@ public class Hand {
     public void addCardsToHand(Collection<Card> cards) {
         this.cards.addAll(cards);
     }
+    
+    public void addCardToHand(Card card){
+        this.cards.add(card);
+    }
 
     public void removeCardFromHand(Card card) {
         boolean hasRemoved = this.cards.remove(card);

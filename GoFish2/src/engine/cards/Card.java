@@ -1,5 +1,6 @@
 package engine.cards;
 
+import com.sun.org.apache.regexp.internal.REUtil;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -13,7 +14,6 @@ public class Card {
     private String name;
     private ArrayList<Series> series;
     private boolean isValid;
-    
 
     public Card() {
         this.name = "#default card name#";
@@ -21,11 +21,11 @@ public class Card {
         this.isValid = true;
     }
 
-    public void makeInvalid(){
+    public void makeInvalid() {
         this.isValid = false;
         this.name += "<dead>";
     }
-    
+
     @Override
     public String toString() {
         return "Card{" + "name=" + name + ", series=" + series + '}';
@@ -47,11 +47,8 @@ public class Card {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Card other = (Card) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
 
+        final Card other = (Card) obj;
         for (Series my_series : this.series) {
             if (!other.series.contains(my_series)) {
                 return false;
@@ -77,7 +74,21 @@ public class Card {
         this.series.addAll(series);
     }
 
+    public void addSeries(Series series) {
+        this.series.add(series);
+    }
+
     public boolean isValid() {
         return this.isValid;
+    }
+
+    public boolean isInSeries(Series otherSeries) {
+        for (Series localSeries : this.series) {
+            if (localSeries.equals(otherSeries)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }

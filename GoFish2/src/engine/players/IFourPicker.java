@@ -1,9 +1,14 @@
 package engine.players;
 
+import engine.cards.Card;
+import java.util.Collection;
+
+
+
 /**
  *
  * @author adamnark
  */
-class IFourPicker {
-
+public interface IFourPicker {
+    public Collection<Card> pickFour(Hand hand);
 }
