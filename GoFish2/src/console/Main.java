@@ -36,19 +36,20 @@ public class Main {
         int count = 0;
         do {
             
-            GameStatusPrinter.printGameStatus(engine);
+            //GameStatusPrinter.printGameStatus(engine);
             try {
                 engine.Turn();
             } catch (BadCardRequestException ex) {
                 myprint("bad card request!!");
                 ex.printStackTrace();
             }
-            printEventQueue(engine);
+            //printEventQueue(engine);
             count++;
         } while (!engine.isGameOver());
+        
         System.out.println("count=" + count);
         System.out.println("ENDGAME");
-        GameStatusPrinter.printPlayers(engine);
+        GameStatusPrinter.printGameStatus(engine);
     }
 
     private static void printEventQueue(Engine engine) {
