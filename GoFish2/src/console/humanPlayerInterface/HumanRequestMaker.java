@@ -16,6 +16,7 @@ public class HumanRequestMaker implements IRequestMaker {
 
     @Override
     public Request makeRequest(Hand hand, List<Series> availableSeries, List<Player> otherPlayers) {
+        System.out.println("IT'S REQUEST TIME!!");
         Request request;
         boolean ok = false;
         do {
@@ -24,7 +25,7 @@ public class HumanRequestMaker implements IRequestMaker {
             request = new Request(otherPlayer, requestCard);
             ok = engine.request.RequestValidator.validateRequest(request, hand);
             if (!ok) {
-                System.out.println("couldn't validate this request, make another.");
+                System.out.println("couldn't validate this request, make another. make sure at least one series is present in one of your existing cards.");
             }
         } while (!ok);
 
@@ -34,7 +35,7 @@ public class HumanRequestMaker implements IRequestMaker {
     private Player pickPlayer(List<Player> otherPlayers) {
         console.utils.GameStatusPrinter.printPlayers(otherPlayers);
         System.out.println("Pick a Player :");
-        int playerNum = console.utils.InputUtils.readInteger(1, otherPlayers.size());
+        int playerNum = console.utils.InputUtils.readInteger(1, otherPlayers.size()) - 1;
 
         return otherPlayers.get(playerNum);
     }
@@ -46,7 +47,7 @@ public class HumanRequestMaker implements IRequestMaker {
         printSeries(availableSeries);
         for (int i = 1; i <= numOfSeriesToPick; i++) {
             System.out.print("pick series #" + i + ": ");
-            int seriesNum = console.utils.InputUtils.readInteger(1, availableSeries.size());
+            int seriesNum = console.utils.InputUtils.readInteger(1, availableSeries.size()) - 1;
             pickedCard.addSeries(availableSeries.get(seriesNum));
         }
 

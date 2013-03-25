@@ -5,6 +5,7 @@ import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Hand;
 import engine.players.Player;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -62,5 +63,13 @@ public class GameStatusPrinter {
         }
 
         System.out.print("\b\b ]");
+    }
+    
+    
+    public static void printCards(Collection<Card> cards){
+        for (Card card : cards) {
+            printCard(card);
+            System.out.println("");
+        }
     }
 }

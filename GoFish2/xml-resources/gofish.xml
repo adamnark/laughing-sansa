@@ -23,7 +23,7 @@
 		</card>
 	    </cards>
 	</player>
-	<player type="COMPUTER" name="Paul">
+	<player type="HUMAN" name="Paul">
 	    <cards>
 		<card name="homer">
 		    <series>simpsons</series>
@@ -39,7 +39,7 @@
 		</card>
 	    </cards>
 	</player>
-	<player type="HUMAN" name="Geogre">
+	<player type="COMPUTER" name="Geogre">
 	    <cards>
 		<card name="peter">
 		    <series>family guy</series>

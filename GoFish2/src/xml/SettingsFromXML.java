@@ -1,12 +1,10 @@
 package xml;
 
 import engine.cards.Card;
-import engine.players.Player;
 import engine.GameSettings;
 import generated.Gofish;
 import generated.PlayerType;
 import java.io.File;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
@@ -55,7 +53,7 @@ public class SettingsFromXML {
         engine.players.Player enginePlayer =
                 isAIPlayer
                 ? engine.players.Player.createAIPlayer()
-                : new engine.players.Player();
+                : new engine.players.Player(new console.humanPlayerInterface.HumanFourPicker(), new console.humanPlayerInterface.HumanRequestMaker());
 
         enginePlayer.setName(generatedPlayer.getName());
 

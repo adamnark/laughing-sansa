@@ -47,6 +47,14 @@ public class Player {
         return player;
     }
 
+    public Player(IFourPicker fourPicker, IRequestMaker requestMaker) {
+        this();
+        this.fourPicker = fourPicker;
+        this.requestMaker = requestMaker;
+    }
+    
+    
+
     public Hand getHand() {
         return hand;
     }
@@ -81,6 +89,11 @@ public class Player {
 
     public boolean makeMove(LinkedList<Player> otherPlayers, Set<Series> availableSeries)
             throws BadCardRequestException {
+        
+        if (!this.isPlaying()){
+            return false;
+        }
+        
         Request request = this.requestMaker.makeRequest(this.hand, new ArrayList<>(availableSeries), otherPlayers);
 
         if (request == null) {

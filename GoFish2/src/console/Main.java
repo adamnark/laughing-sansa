@@ -14,13 +14,16 @@ import xml.SettingsFromXML;
  */
 public class Main {
 
+    private static String defaultXmlPath = "xml-resources\\gofish.xml";
+
     public static void main(String[] args) {
-        myprint("game starting\b\b\b");
+        myprint("game starting!");
         String xmlPathString = "";
         try {
             xmlPathString = getArgs(args);
         } catch (BadArgumentException ex) {
             System.out.println("Valid argument is a path to an XML.");
+            return;
         }
 
         Engine engine = new Engine();
@@ -29,6 +32,7 @@ public class Main {
             engine = makeEngineFromXML(xmlPathString);
         } catch (JAXBException ex) {
             System.out.println("Bad XML file provided.");
+            return;
         }
 
         int count = 0;
@@ -68,7 +72,7 @@ public class Main {
 
     private static String getArgs(String[] args)
             throws BadArgumentException {
-        String xmlPathString = "xml-resources\\gofish.xml";
+        String xmlPathString = Main.defaultXmlPath;
         if (args.length > 1) {
             throw new BadArgumentException();
         } else if (args.length == 1) {
