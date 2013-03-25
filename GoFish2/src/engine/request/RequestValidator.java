@@ -1,8 +1,8 @@
-package request;
+package engine.request;
 
 import engine.cards.Card;
 import engine.cards.Series;
-import engine.players.Player;
+import engine.players.Hand;
 
 /**
  *
@@ -10,8 +10,8 @@ import engine.players.Player;
  */
 public class RequestValidator {
 
-    public static boolean validateRequest(Request request, Player player) {
-        for (Card card : player.getHand().getCards()) {
+    public static boolean validateRequest(Request request, Hand hand) {
+        for (Card card : hand.getCards()) {
             for (Series series : card.getSeries()) {
                 if (request.getCardIWant().isInSeries(series)) {
                     return true;

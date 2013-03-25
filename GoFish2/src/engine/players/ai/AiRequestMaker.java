@@ -3,10 +3,10 @@ package engine.players.ai;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Hand;
-import request.IRequestMaker;
+import engine.request.IRequestMaker;
 import engine.players.Player;
 import java.util.ArrayList;
-import request.Request;
+import engine.request.Request;
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +33,7 @@ public class AiRequestMaker implements IRequestMaker {
         Card randomCard = makeRandomCard();
         Player randomPlayer = pickRandomPlayer();
         
-        System.out.println("\t ~~REQUESTING "+ randomCard + " from " + randomPlayer.getName());
+        //System.out.println("\t ~~REQUESTING "+ randomCard + " from " + randomPlayer.getName());
         
         
         return new Request(randomPlayer, randomCard);

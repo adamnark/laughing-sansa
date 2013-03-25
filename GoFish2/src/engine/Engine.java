@@ -22,6 +22,31 @@ public class Engine {
     private HashMultimap<Series, Card> cardsBySeries;
     private boolean isGameStarted;
 
+    public void Turn() throws BadCardRequestException {
+        if (!this.isGameStarted) {
+            startGame();
+        }
+
+        boolean cardsWereThrown = getCurrentPlayer().throwFour();
+        if (cardsWereThrown) {
+            getCurrentPlayer().increaseScore();
+            this.eventQueue.add(Event.FOUR_CARDS_THROWN);
+        }
+
+        boolean cardWasTaken;
+        cardWasTaken = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
+        if (cardWasTaken) {
+            this.eventQueue.add(Event.SUCCESSFUL_REQUEST);
+        } else {
+            this.eventQueue.add(Event.FAILED_REQUEST);
+        }
+
+        if (!cardWasTaken || !this.gameSettings.isAllowMutipleRequests()) {
+            advanceTurn();
+            this.eventQueue.add(Event.TURN_UPDATED);
+        }
+    }
+
     private boolean isOnePlayerLeft() {
         int count = 0;
         for (Player player : players) {
@@ -54,33 +79,6 @@ public class Engine {
     private void startGame() {
         this.isGameStarted = true;
         initCardMap();
-    }
-
-    public void Turn() throws BadCardRequestException {
-        if (!this.isGameStarted) {
-            startGame();
-        }
-
-        boolean cardsWereThrown = getCurrentPlayer().throwFour();
-        if (cardsWereThrown) {
-            getCurrentPlayer().increaseScore();
-            this.eventQueue.add(Event.FOUR_CARDS_THROWN);
-        }
-
-        boolean cardWasTaken;
-        cardWasTaken = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
-        if (cardWasTaken) {
-            this.eventQueue.add(Event.SUCCESSFUL_REQUEST);
-        } else {
-            this.eventQueue.add(Event.FAILED_REQUEST);
-        }
-
-
-
-        if (!cardWasTaken || !this.gameSettings.isAllowMutipleRequests()) {
-            advanceTurn();
-            this.eventQueue.add(Event.TURN_UPDATED);
-        }
     }
 
     private void initCardMap() {

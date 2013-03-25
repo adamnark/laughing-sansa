@@ -8,8 +8,6 @@ import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import xml.SettingsFromXML;
 
-
-
 /**
  *
  * @author adamnark
@@ -35,8 +33,8 @@ public class Main {
 
         int count = 0;
         do {
-            
-            //GameStatusPrinter.printGameStatus(engine);
+
+            GameStatusPrinter.printGameStatus(engine);
             try {
                 engine.Turn();
             } catch (BadCardRequestException ex) {
@@ -46,10 +44,10 @@ public class Main {
             //printEventQueue(engine);
             count++;
         } while (!engine.isGameOver());
-        
+
+        GameStatusPrinter.printGameStatus(engine);
         System.out.println("count=" + count);
         System.out.println("ENDGAME");
-        GameStatusPrinter.printGameStatus(engine);
     }
 
     private static void printEventQueue(Engine engine) {

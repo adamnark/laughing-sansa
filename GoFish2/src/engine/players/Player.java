@@ -1,7 +1,7 @@
 package engine.players;
 
-import request.IRequestMaker;
-import request.Request;
+import engine.request.IRequestMaker;
+import engine.request.Request;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.ai.AiFourPicker;
@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import request.RequestValidator;
+import engine.request.RequestValidator;
 
 /**
  *
@@ -87,7 +87,7 @@ public class Player {
             return false;
         }
         
-        boolean isValidRequest = RequestValidator.validateRequest(request, this);
+        boolean isValidRequest = RequestValidator.validateRequest(request, this.hand);
         if (!isValidRequest) {
             throw new BadCardRequestException();
         }
