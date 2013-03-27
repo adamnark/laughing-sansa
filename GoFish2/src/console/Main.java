@@ -3,8 +3,6 @@ package console;
 import console.utils.GameStatusPrinter;
 import engine.Engine;
 import engine.players.BadCardRequestException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import xml.SettingsFromXML;
 
@@ -14,7 +12,7 @@ import xml.SettingsFromXML;
  */
 public class Main {
 
-    private static String defaultXmlPath = "xml-resources\\gofish.xml";
+    private static String defaultXmlPath = "xml-resources/gofish.xml";
 
     public static void main(String[] args) {
         myprint("game starting!");

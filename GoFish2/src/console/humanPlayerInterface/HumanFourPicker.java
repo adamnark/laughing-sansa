@@ -22,24 +22,27 @@ public class HumanFourPicker implements IFourPicker {
     @Override
     public Collection<Card> pickFour(Hand hand) {
 
-        System.out.println("Which cards would you like to throw? Seperate card numbers with space and end with return. You can leave this blank to skip.");
+        System.out.println("Which cards would you like to throw? enter 0 to skip at any time.");
         printHandWithIndex(hand);
-        LinkedList<Card> four = null;
+        LinkedList<Card> four;
+
         boolean ok = false;
         do {
-            try {
-                String input = console.utils.InputUtils.readLine();
-                four = parseUserInput(input, hand);
-                ok = true;
-            } catch (BadInputException ex) {
-                System.out.println(ex.getMessage());
+            four = pickCardsFromHand(hand);
+            ok = validateFour(four);
+            if (!ok) {
+                System.out.println("This is not a good four to throw.");
             }
         } while (!ok);
-        
-        System.out.println("ok, throwing the following cards:");
-        console.utils.GameStatusPrinter.printCards(four);
+
+        if (four != null) {
+            System.out.println("ok, throwing the following cards:");
+            console.utils.GameStatusPrinter.printCards(four);
+        }else{
+            System.out.println("not throwing any cards...");
+        }
         console.utils.InputUtils.readLine();
-        
+
         return four;
     }
 
@@ -51,6 +54,22 @@ public class HumanFourPicker implements IFourPicker {
             System.out.println("");
             i++;
         }
+    }
+
+    private LinkedList<Card> pickCardsFromHand(Hand hand) {
+        LinkedList<Card> lst = new LinkedList<>();
+        for (int i = 1; i <= 4; i++) {
+            System.out.print("pick card #" + i + ": ");
+            int cardNumber = console.utils.InputUtils.readInteger(0, 4);
+            if (cardNumber == 0) {
+                return null;
+            }
+            lst.add(hand.getCards().get(cardNumber - 1));
+
+        }
+
+        return lst;
+
     }
 
     private LinkedList<Card> parseUserInput(String input, Hand hand) throws BadInputException {
@@ -89,6 +108,9 @@ public class HumanFourPicker implements IFourPicker {
     }
 
     private boolean validateFour(Collection<Card> cards) {
+        if (cards == null) {
+            return true;
+        }
         HashMultimap<Series, Card> map = HashMultimap.create();
 
         for (Card card : cards) {
