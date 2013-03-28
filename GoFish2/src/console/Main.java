@@ -2,6 +2,7 @@ package console;
 
 import console.utils.GameStatusPrinter;
 import engine.Engine;
+import engine.Validator;
 import engine.players.BadCardRequestException;
 import javax.xml.bind.JAXBException;
 import xml.SettingsFromXML;
@@ -15,7 +16,6 @@ public class Main {
     private static String defaultXmlPath = "xml-resources/gofish.xml";
 
     public static void main(String[] args) {
-        myprint("game starting!");
         String xmlPathString = "";
         try {
             xmlPathString = getArgs(args);
@@ -33,29 +33,24 @@ public class Main {
             return;
         }
 
+        if (new Validator(engine).validateEngineState() == false) {
+            System.out.println("Bad XML file provided.");
+            return;
+        }
+
+        System.out.println("game starting");
         int count = 0;
         do {
-
             GameStatusPrinter.printGameStatus(engine);
-            try {
-                engine.Turn();
-            } catch (BadCardRequestException ex) {
-                myprint("bad card request!!");
-                ex.printStackTrace();
-            }
+            engine.Turn();
             //printEventQueue(engine);
             count++;
+            System.out.println(engine.getCurrentPlayer().getName() + "'s turn is over.");
         } while (!engine.isGameOver());
 
+        System.out.println("GAME OVER");
         GameStatusPrinter.printGameStatus(engine);
         System.out.println("count=" + count);
-        System.out.println("ENDGAME");
-    }
-
-    private static void printEventQueue(Engine engine) {
-        while (!engine.getEventQueue().isEmpty()) {
-            myprint(engine.getEventQueue().pop().toString());
-        }
     }
 
     private static engine.Engine makeEngineFromXML(String xmlPathString)
@@ -78,10 +73,6 @@ public class Main {
         }
 
         return xmlPathString;
-    }
-
-    private static void myprint(String s) {
-        System.out.println("\t" + s);
     }
 
     private static class BadArgumentException extends Exception {

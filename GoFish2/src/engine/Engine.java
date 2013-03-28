@@ -22,7 +22,7 @@ public class Engine {
     private HashMultimap<Series, Card> cardsBySeries;
     private boolean isGameStarted;
 
-    public void Turn() throws BadCardRequestException {
+    public void Turn() {
         if (!this.isGameStarted) {
             startGame();
         }
@@ -96,9 +96,6 @@ public class Engine {
         if (!this.isGameStarted) {
             return false;
         }
-
-
-
 
         boolean onePlayerLeft = isOnePlayerLeft();
         if (onePlayerLeft) {

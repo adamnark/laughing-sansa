@@ -88,7 +88,7 @@ public class Player {
     }
 
     public boolean makeMove(LinkedList<Player> otherPlayers, Set<Series> availableSeries)
-            throws BadCardRequestException {
+    {// throws BadCardRequestException {
         
         if (!this.isPlaying()){
             return false;
@@ -102,7 +102,8 @@ public class Player {
         
         boolean isValidRequest = RequestValidator.validateRequest(request, this.hand);
         if (!isValidRequest) {
-            throw new BadCardRequestException();
+            return false;
+            //throw new BadCardRequestException();
         }
 
 
