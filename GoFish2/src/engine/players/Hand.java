@@ -1,6 +1,7 @@
 package engine.players;
 
 import engine.cards.Card;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.NoSuchElementException;
@@ -20,6 +21,13 @@ public class Hand {
 
     public Hand() {
         this.cards = new ArrayList<>();
+    }
+    
+    public Hand(Hand other){
+        this();
+        for (Card card : other.cards) {
+            this.cards.add(new Card(card));
+        }
     }
 
     public void addCardsToHand(Collection<Card> cards) {

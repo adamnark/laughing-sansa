@@ -1,5 +1,6 @@
 package xml;
 
+import engine.Engine;
 import engine.cards.Card;
 import engine.GameSettings;
 import generated.Gofish;
@@ -28,6 +29,14 @@ public class SettingsFromXML {
         this.gofish = (Gofish) jaxbUnmarshaller.unmarshal(file);
     }
 
+    public engine.Engine makeEngineFromXML() {
+        engine.Engine engine;
+        engine = new engine.Engine();
+        engine.setGameSettings(this.generateGameSettings());
+        engine.addPlayers(this.generatePlayers());
+        return engine;
+    }
+
     public GameSettings generateGameSettings() {
         this.gameSettings = new GameSettings();
         this.gameSettings.setAllowMutipleRequests(this.gofish.getSettings().isAllowMutipleRequests());
@@ -44,7 +53,6 @@ public class SettingsFromXML {
         }
 
         return lst;
-
     }
 
     private engine.players.Player convertToEnginePlayer(generated.Player generatedPlayer) {
@@ -61,7 +69,7 @@ public class SettingsFromXML {
         for (Card card : convertCards(generatedPlayer.getCards().getCard())) {
             enginePlayer.getHand().addCardToHand(card);
         }
-        
+
         return enginePlayer;
     }
 
@@ -76,5 +84,4 @@ public class SettingsFromXML {
 
         return lst;
     }
-
 }

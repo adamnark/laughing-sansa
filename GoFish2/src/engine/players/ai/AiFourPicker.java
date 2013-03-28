@@ -5,6 +5,7 @@ import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Hand;
 import engine.players.IFourPicker;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -35,5 +36,4 @@ public class AiFourPicker implements IFourPicker {
 
         return four.isEmpty() ? null : four;
     }
-    
 }

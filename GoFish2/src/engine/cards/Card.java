@@ -1,5 +1,6 @@
 package engine.cards;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -25,6 +26,14 @@ public final class Card {
         this();
         for (String string : series) {
             addSeries(new Series(string));
+        }
+    }
+    
+    public Card(Card other){
+        this();
+        this.name = other.name;
+        for (Series otherSeries : other.series) {
+            this.series.add(otherSeries);
         }
     }
 

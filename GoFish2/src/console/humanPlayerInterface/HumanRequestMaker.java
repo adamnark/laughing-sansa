@@ -7,12 +7,13 @@ import engine.players.Player;
 import java.util.List;
 import engine.request.IRequestMaker;
 import engine.request.Request;
+import java.io.Serializable;
 
 /**
  *
  * @author adamnark
  */
-public class HumanRequestMaker implements IRequestMaker {
+public class HumanRequestMaker implements IRequestMaker{
 
     @Override
     public Request makeRequest(Hand hand, List<Series> availableSeries, List<Player> otherPlayers) {

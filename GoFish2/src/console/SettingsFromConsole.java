@@ -5,6 +5,8 @@ import engine.GameSettings;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Player;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  *
@@ -12,33 +14,52 @@ import engine.players.Player;
  */
 public class SettingsFromConsole {
 
+    private int numberOfPlayers;
+    private boolean allowMutipleRequestsFromUser;
+    private boolean forceShowOfSeriesFromUser;
+    private LinkedList<Player> players;
+
+    public SettingsFromConsole() {
+        this.players = new LinkedList<>();
+    }
+
     public Engine makeEngineFromConsole() {
-        engine.Engine engine = new engine.Engine();
+        this.numberOfPlayers = getNumberOfPlayers();
+        Engine engine = new Engine();
         engine.setGameSettings(getGameSettingsFromUser());
 
-        int numberOfPlayers = getNumberOfPlayers();
         addPlayersFromUser(engine, numberOfPlayers);
 
         return engine;
+    }
 
+    public Engine createEngineWithLastSettings() throws Exception {
+        if (this.players.isEmpty()) {
+            throw new Exception("Can't restore settings, first time calling!");
+        }
+
+        Engine engine = new Engine();
+        engine.setGameSettings(getLastGameSettings());
+        engine.addPlayers(addPlayersFromHistory());
+        return engine;
     }
 
     private boolean getAllowMutipleRequestsFromUser() {
         System.out.println("Allow Mutiple Requests? ");
-
-        return console.utils.InputUtils.readBoolean();
+        this.allowMutipleRequestsFromUser = console.utils.InputUtils.readBoolean();
+        return this.allowMutipleRequestsFromUser;
     }
 
     private boolean getForceShowOfSeriesFromUser() {
         System.out.println("Force Show Of Series? ");
-
-        return console.utils.InputUtils.readBoolean();
+        this.forceShowOfSeriesFromUser = console.utils.InputUtils.readBoolean();
+        return this.forceShowOfSeriesFromUser;
     }
 
     private int getNumberOfPlayers() {
         System.out.println("How many players? minimum 3, maximum 6:");
-
-        return console.utils.InputUtils.readInteger(3, 6);
+        this.numberOfPlayers = console.utils.InputUtils.readInteger(3, 6);
+        return this.numberOfPlayers;
     }
 
     private GameSettings getGameSettingsFromUser() {
@@ -55,6 +76,7 @@ public class SettingsFromConsole {
             Player player = getPlayerFromUser(i);
             generateHandForPlayer(player, i);
             engine.addPlayer(player);
+            this.players.add(new Player(player));
         }
     }
 
@@ -87,7 +109,7 @@ public class SettingsFromConsole {
     }
 
     private void generateHandForPlayer(Player player, int playerNumber) {
-        generateSeriesForPlayer(player, playerNumber, "bloop");
+        generateSeriesForPlayer(player, playerNumber, "floop");
         generateSeriesForPlayer(player, playerNumber, "scoop");
         generateSeriesForPlayer(player, playerNumber, "droop");
         generateSeriesForPlayer(player, playerNumber, "kloop");
@@ -100,5 +122,23 @@ public class SettingsFromConsole {
             generatedCard.setName(seriesName + " " + playerNumber);
             player.getHand().addCardToHand(generatedCard);
         }
+    }
+
+    private GameSettings getLastGameSettings() {
+        GameSettings gameSettings = new GameSettings();
+        gameSettings.setAllowMutipleRequests(this.allowMutipleRequestsFromUser);
+        gameSettings.setForceShowOfSeries(this.forceShowOfSeriesFromUser);
+        return gameSettings;
+
+    }
+
+    private Collection<Player> addPlayersFromHistory() {
+        LinkedList<Player> lst = new LinkedList<>();
+
+        for (Player player : this.players) {
+            lst.add(new Player(player));
+        }
+
+        return lst;
     }
 }

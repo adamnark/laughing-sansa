@@ -8,8 +8,6 @@
 	<player type="COMPUTER" name="John">
 	    <cards>
 		<card name="kenny">
-<!--		     please bare in mind that there might be several entries 
-		     in the series tag, for example, an actor with several movies -->
 		    <series>southpark</series>
 		</card>
 		<card name="kyle">

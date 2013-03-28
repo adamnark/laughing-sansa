@@ -5,13 +5,10 @@ import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Hand;
 import engine.players.IFourPicker;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.regex.MatchResult;
+
 
 /**
  *
@@ -72,40 +69,40 @@ public class HumanFourPicker implements IFourPicker {
 
     }
 
-    private LinkedList<Card> parseUserInput(String input, Hand hand) throws BadInputException {
-        if (input == null || input.equals("")) {
-            return null;
-        }
-        LinkedList<Card> four = new LinkedList<>();
-        Scanner sc = new Scanner(input);
-        sc.findInLine("(\\d+) (\\d+) (\\d+) (\\d+)");
-        MatchResult result;
-        try {
-            result = sc.match();
-        } catch (IllegalStateException ex) {
-            throw new BadInputException("I need four integers for this to work. seperate with spaces.");
-        }
-        for (int i = 1; i <= result.groupCount(); i++) {
-            int cardNum;
-            try {
-                cardNum = Integer.parseInt(result.group(i)) - 1;
-            } catch (java.lang.NumberFormatException ex) {
-                throw new BadInputException("what are you doing? just enter four little numbers. with spcaces. please.");
-            }
-
-            if (cardNum < 0 || cardNum > hand.getCards().size()) {
-                throw new BadInputException("Please enter valid card numbers. you can do it. just a little effort.");
-            }
-
-            four.add(hand.getCards().get(cardNum));
-        }
-
-        if (!validateFour(four)) {
-            throw new BadInputException("this is NOT a good four to throw. pick 4 cards that have common serieses or leave blank. sigh.");
-        }
-
-        return four;
-    }
+//    private LinkedList<Card> parseUserInput(String input, Hand hand) throws BadInputException {
+//        if (input == null || input.equals("")) {
+//            return null;
+//        }
+//        LinkedList<Card> four = new LinkedList<>();
+//        Scanner sc = new Scanner(input);
+//        sc.findInLine("(\\d+) (\\d+) (\\d+) (\\d+)");
+//        MatchResult result;
+//        try {
+//            result = sc.match();
+//        } catch (IllegalStateException ex) {
+//            throw new BadInputException("I need four integers for this to work. seperate with spaces.");
+//        }
+//        for (int i = 1; i <= result.groupCount(); i++) {
+//            int cardNum;
+//            try {
+//                cardNum = Integer.parseInt(result.group(i)) - 1;
+//            } catch (java.lang.NumberFormatException ex) {
+//                throw new BadInputException("what are you doing? just enter four little numbers. with spcaces. please.");
+//            }
+//
+//            if (cardNum < 0 || cardNum > hand.getCards().size()) {
+//                throw new BadInputException("Please enter valid card numbers. you can do it. just a little effort.");
+//            }
+//
+//            four.add(hand.getCards().get(cardNum));
+//        }
+//
+//        if (!validateFour(four)) {
+//            throw new BadInputException("this is NOT a good four to throw. pick 4 cards that have common serieses or leave blank. sigh.");
+//        }
+//
+//        return four;
+//    }
 
     private boolean validateFour(Collection<Card> cards) {
         if (cards == null) {

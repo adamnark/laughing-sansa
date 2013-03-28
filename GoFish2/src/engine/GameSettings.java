@@ -1,5 +1,7 @@
 package engine;
 
+import java.io.Serializable;
+
 /**
  *
  * @author adamnark

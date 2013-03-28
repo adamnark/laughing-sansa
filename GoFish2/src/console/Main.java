@@ -1,10 +1,7 @@
 package console;
 
-import console.utils.GameStatusPrinter;
 import engine.Engine;
 import engine.Validator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import xml.SettingsFromXML;
 
@@ -17,28 +14,23 @@ public class Main {
     private static String defaultXmlPath = "xml-resources/gofish.xml";
 
     public static void main(String[] args) {
-        String xmlPathString;
-        try {
-            xmlPathString = getArgs(args);
-        } catch (BadArgumentException ex) {
-            System.out.println("Valid argument is a path to an XML.");
+
+        String xmlPathString = getArgs(args);
+        if (xmlPathString == null) {
             return;
         }
 
-        Engine engine = new Engine();
-        boolean isMakeEngineFromXML = askFromXML();
-        if (isMakeEngineFromXML) {
-            engine = makeEngineFromXML(xmlPathString);
-            if (engine == null) {
-                System.out.println("Bad XML file provided, xml unmarshalling failed.");
-                return;
-            }
-        } else {
-            engine = new SettingsFromConsole().makeEngineFromConsole();
-            if (engine == null) {
-                System.out.println("Bad settings provided by the user.");
-                return;
-            }
+        SettingsFromConsole settingsFromConsole = new SettingsFromConsole();
+        SettingsFromXML settingsFromXML;
+        try {
+            settingsFromXML = new SettingsFromXML(xmlPathString);
+        } catch (JAXBException ex) {
+            System.out.println(xmlPathString + " failed to load.");
+            settingsFromXML = null;
+        }
+        Engine engine = createEngine(settingsFromConsole, settingsFromXML);
+        if (engine == null) {
+            return;
         }
 
         if (new Validator(engine).validateEngineState() == false) {
@@ -46,51 +38,17 @@ public class Main {
             return;
         }
 
-        System.out.println("game starting");
-        int count = 0;
-
-
+        boolean playAgain = false;
         do {
-            GameStatusPrinter.printGameStatus(engine);
-            try {
-                engine.Turn();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                System.out.println("an error occured during play. ");
-                return;
-            }
-
-            //printEventQueue(engine);
-            count++;
-            System.out.println(engine.getCurrentPlayer().getName() + "'s turn is over.");
-        } while (!engine.isGameOver());
-
-        System.out.println(
-                "GAME OVER");
-        GameStatusPrinter.printGameStatus(engine);
-
-        System.out.println(
-                "count=" + count);
+            break;
+        } while (true);
     }
 
-    private static engine.Engine makeEngineFromXML(String xmlPathString) {// throws JAXBException {
-        engine.Engine engine;
-        try {
-            SettingsFromXML settingsFromXML = new SettingsFromXML(xmlPathString);
-            engine = new Engine();
-            engine.setGameSettings(settingsFromXML.generateGameSettings());
-            engine.addPlayers(settingsFromXML.generatePlayers());
-        } catch (JAXBException ex) {
-            return null;
-        }
-        return engine;
-    }
-
-    private static String getArgs(String[] args)
-            throws BadArgumentException {
+    private static String getArgs(String[] args) {
         String xmlPathString = Main.defaultXmlPath;
         if (args.length > 1) {
-            throw new BadArgumentException();
+            System.out.println("Valid argument is a path to an XML.");
+            return null;
         } else if (args.length == 1) {
             xmlPathString = args[0];
         }
@@ -105,6 +63,26 @@ public class Main {
         return choice == 1;
 
 
+    }
+
+    private static Engine createEngine(SettingsFromConsole xmlPathString, SettingsFromXML settingsFromXML) {
+        Engine engine;
+        boolean isMakeEngineFromXML = askFromXML();
+        if (isMakeEngineFromXML) {
+            //engine = makeEngineFromXML(xmlPathString);
+
+            if (engine == null) {
+                System.out.println("Bad XML file provided, xml unmarshalling failed.");
+                return null;
+            }
+        } else {
+            engine = new SettingsFromConsole().makeEngineFromConsole();
+            if (engine == null) {
+                System.out.println("Bad settings provided by the user.");
+                return null;
+            }
+        }
+        return engine;
     }
 
     private static class BadArgumentException extends Exception {

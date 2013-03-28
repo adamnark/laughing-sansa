@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import engine.request.RequestValidator;
+import java.io.Serializable;
 
 /**
  *
@@ -33,11 +34,19 @@ public class Player {
         this.name = "%default name%";
     }
 
+    public Player(Player other) {
+        this.score = 0;
+        this.isHuman = other.isHuman;
+        this.fourPicker = other.fourPicker;
+        this.requestMaker = other.requestMaker;
+        this.hand = new Hand(other.hand);
+    }
+
     @Override
     public String toString() {
         return name + "{ hand=" + hand + ", score=" + score + '}';
     }
-    
+
     public static Player createAIPlayer() {
         Player player = new Player();
         player.isHuman = false;
@@ -52,8 +61,6 @@ public class Player {
         this.fourPicker = fourPicker;
         this.requestMaker = requestMaker;
     }
-    
-    
 
     public Hand getHand() {
         return hand;
@@ -87,19 +94,18 @@ public class Player {
         this.requestMaker = requestMaker;
     }
 
-    public boolean makeMove(LinkedList<Player> otherPlayers, Set<Series> availableSeries)
-    {// throws BadCardRequestException {
-        
-        if (!this.isPlaying()){
+    public boolean makeMove(LinkedList<Player> otherPlayers, Set<Series> availableSeries) {// throws BadCardRequestException {
+
+        if (!this.isPlaying()) {
             return false;
         }
-        
+
         Request request = this.requestMaker.makeRequest(this.hand, new ArrayList<>(availableSeries), otherPlayers);
 
         if (request == null) {
             return false;
         }
-        
+
         boolean isValidRequest = RequestValidator.validateRequest(request, this.hand);
         if (!isValidRequest) {
             return false;

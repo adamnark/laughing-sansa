@@ -5,6 +5,7 @@ import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.BadCardRequestException;
 import engine.players.Player;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -156,7 +157,10 @@ public class Engine {
             addPlayer(player);
         }
     }
+    
     public void addPlayer(Player newPlayer){
         this.players.add(newPlayer);
     }
+    
+    
 }
