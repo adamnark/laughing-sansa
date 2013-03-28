@@ -1,6 +1,5 @@
 package xml;
 
-import engine.Engine;
 import engine.cards.Card;
 import engine.GameSettings;
 import generated.Gofish;

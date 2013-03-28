@@ -2,6 +2,8 @@ package console;
 
 import engine.Engine;
 import engine.Validator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import xml.SettingsFromXML;
 
@@ -12,6 +14,10 @@ import xml.SettingsFromXML;
 public class Main {
 
     private static String defaultXmlPath = "xml-resources/gofish.xml";
+    private static String userXmlPath;
+    private static SettingsFromConsole settingsFromConsole;
+    private static SettingsFromXML settingsFromXML;
+    private static boolean isLastGameFromXML;
 
     public static void main(String[] args) {
 
@@ -20,15 +26,7 @@ public class Main {
             return;
         }
 
-        SettingsFromConsole settingsFromConsole = new SettingsFromConsole();
-        SettingsFromXML settingsFromXML;
-        try {
-            settingsFromXML = new SettingsFromXML(xmlPathString);
-        } catch (JAXBException ex) {
-            System.out.println(xmlPathString + " failed to load.");
-            settingsFromXML = null;
-        }
-        Engine engine = createEngine(settingsFromConsole, settingsFromXML);
+        Engine engine = createEngine();
         if (engine == null) {
             return;
         }
@@ -40,49 +38,66 @@ public class Main {
 
         boolean playAgain = false;
         do {
-            break;
+            ConsoleGame game = new ConsoleGame(engine);
+            game.PlayGame();
+            if (askUserIfRematch()) {
+                try {
+                    engine = resetEngine();
+                } catch (Exception ex) {
+                    System.out.println("an error occured when trying to reset engine from user settings.");
+                    ex.printStackTrace();
+                }
+            } else {
+                playAgain = false;
+            }
         } while (true);
     }
 
     private static String getArgs(String[] args) {
-        String xmlPathString = Main.defaultXmlPath;
         if (args.length > 1) {
             System.out.println("Valid argument is a path to an XML.");
-            return null;
+            userXmlPath = null;
         } else if (args.length == 1) {
-            xmlPathString = args[0];
+            userXmlPath = args[0];
+        } else if (args.length == 0) {
+            userXmlPath = defaultXmlPath;
+        } else {
+            userXmlPath = null;
         }
-
-        return xmlPathString;
+        return userXmlPath;
     }
 
     private static boolean askFromXML() {
         System.out.println("Do you want to use xml or enter settings manually?\n1-xml, 2-manual\nchoice:");
         int choice = console.utils.InputUtils.readInteger(1, 2);
-
         return choice == 1;
-
-
     }
 
-    private static Engine createEngine(SettingsFromConsole xmlPathString, SettingsFromXML settingsFromXML) {
-        Engine engine;
-        boolean isMakeEngineFromXML = askFromXML();
-        if (isMakeEngineFromXML) {
-            //engine = makeEngineFromXML(xmlPathString);
-
-            if (engine == null) {
-                System.out.println("Bad XML file provided, xml unmarshalling failed.");
-                return null;
-            }
-        } else {
-            engine = new SettingsFromConsole().makeEngineFromConsole();
-            if (engine == null) {
-                System.out.println("Bad settings provided by the user.");
+    private static Engine createEngine() {
+        Main.isLastGameFromXML = askFromXML();
+        if (Main.isLastGameFromXML) {
+            try {
+                settingsFromXML = new SettingsFromXML(Main.userXmlPath);
+            } catch (JAXBException ex) {
+                System.out.println(Main.userXmlPath + " failed to load.");
                 return null;
             }
         }
-        return engine;
+
+        return Main.isLastGameFromXML
+                ? settingsFromXML.makeEngineFromXML()
+                : settingsFromConsole.makeEngineFromConsole();
+    }
+
+    private static boolean askUserIfRematch() {
+        System.out.println("Would you like to play again with the same settings?");
+        return console.utils.InputUtils.readBoolean();
+    }
+
+    private static Engine resetEngine() throws Exception {
+        return isLastGameFromXML
+                ? Main.settingsFromXML.makeEngineFromXML()
+                : Main.settingsFromConsole.createEngineWithLastSettings();
     }
 
     private static class BadArgumentException extends Exception {
