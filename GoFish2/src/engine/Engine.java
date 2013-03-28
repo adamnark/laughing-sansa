@@ -22,7 +22,7 @@ public class Engine {
     private HashMultimap<Series, Card> cardsBySeries;
     private boolean isGameStarted;
 
-    public void Turn() {
+    public void Turn() throws Exception {
         if (!this.isGameStarted) {
             startGame();
         }
@@ -76,7 +76,10 @@ public class Engine {
         this.isGameStarted = false;
     }
 
-    private void startGame() {
+    private void startGame() throws Exception {
+        if (this.gameSettings == null){
+            throw new Exception("Game started with no settings");
+        }
         this.isGameStarted = true;
         initCardMap();
     }
@@ -150,7 +153,10 @@ public class Engine {
 
     public void addPlayers(Collection<Player> newPlayers) {
         for (Player player : newPlayers) {
-            this.players.add(player);
+            addPlayer(player);
         }
+    }
+    public void addPlayer(Player newPlayer){
+        this.players.add(newPlayer);
     }
 }

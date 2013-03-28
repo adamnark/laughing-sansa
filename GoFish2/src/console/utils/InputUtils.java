@@ -27,6 +27,15 @@ public class InputUtils {
         return line;
     }
 
+    public static String readLineNotEmpty() {
+        String line;
+        do {
+            line = readLine();
+        } while (line.equals(""));
+
+        return line;
+    }
+
     public static int readInteger(int min, int max) {
         int val = -1;
         boolean ok = false;
@@ -45,7 +54,13 @@ public class InputUtils {
                 ok = true;
             }
         } while (!ok);
-        
+
         return val;
+    }
+
+    public static boolean readBoolean() {
+        System.out.println("1-true, 2-false:\n");
+        int value = readInteger(1, 2);
+        return value == 1;
     }
 }

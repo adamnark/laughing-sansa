@@ -5,27 +5,40 @@
 		<forceShowOfSeries>true</forceShowOfSeries>
     </settings>
     <players>
-	<player type="HUMAN" name="John">
+	<player type="COMPUTER" name="John">
 	    <cards>
 			<card name="wata">
 				<series>Boris</series>
-				<series>First</series>
 				<series>Red</series>
 			</card>
 			<card name="atsuo">
 				<series>Boris</series>
-				<series>Second</series>
 				<series>Green</series>
 			</card>
 			<card name="michio">
-				<series>Third</series>
 				<series>Boris</series>
 				<series>Black</series>
 			</card>
 			<card name="takeshi">
-				<series>Fourth</series>
 				<series>Boris</series>
 				<series>White</series>
+			</card>
+			<card name="bomp 1">
+				<series>Boop</series>
+				<series>Beep</series>
+				<series>Blimp</series>
+			</card>
+			<card name="klik 1">
+				<series>Klik</series>
+				<series>Klink</series>
+			</card>
+			<card name="plop 1">
+				<series>Pop</series>
+				<series>Prop</series>
+			</card>
+			<card name="tang 1">
+				<series>Ting</series>
+				<series>Tong</series>
 			</card>
 	    </cards>
 	</player>
@@ -33,47 +46,74 @@
 	    <cards>
 			<card name="omar">
 				<series>Bosnian Rainbows</series>
-				<series>First</series>
 				<series>Black</series>
 			</card>
 			<card name="teri">
-				<series>Second</series>
 				<series>Green</series>
 				<series>Bosnian Rainbows</series>
 			</card>
 			<card name="deantoni">
 				<series>Bosnian Rainbows</series>
-				<series>Third</series>
 				<series>Red</series>
 			</card>
 			<card name="jimmy">
-				<series>Fourth</series>
 				<series>Led Zeppelin</series>
 				<series>White</series>
+			</card>
+			<card name="bomp 2">
+				<series>Boop</series>
+				<series>Beep</series>
+				<series>Blimp</series>
+			</card>
+			<card name="klik 2">
+				<series>Klik</series>
+				<series>Klink</series>
+			</card>
+			<card name="plop 2">
+				<series>Pop</series>
+				<series>Prop</series>
+			</card>
+			<card name="tang 2">
+				<series>Ting</series>
+				<series>Tong</series>
 			</card>
 	    </cards>
 	</player>
 	<player type="COMPUTER" name="George">
 	    <cards>
 			<card name="nici">
-				<series>First</series>
 				<series>Green</series>
 				<series>Bosnian Rainbows</series>
 			</card>
 			<card name="robert">
-				<series>Second</series>
 				<series>Black</series>
 				<series>Led Zeppelin</series>
 			</card>
 			<card name="john1">
 				<series>Led Zeppelin</series>
 				<series>Red</series>
-				<series>Third</series>
 			</card>
 			<card name="bill">
 				<series>White</series>
 				<series>Mastodon</series>
-				<series>Fourth</series>    
+				    
+			</card>
+			<card name="bomp 3">
+				<series>Boop</series>
+				<series>Beep</series>
+				<series>Blimp</series>
+			</card>
+			<card name="klik 3">
+				<series>Klik</series>
+				<series>Klink</series>
+			</card>
+			<card name="plop 3">
+				<series>Pop</series>
+				<series>Prop</series>
+			</card>
+			<card name="tang 3">
+				<series>Ting</series>
+				<series>Tong</series>
 			</card>
 	    </cards>
 	</player>
@@ -81,24 +121,37 @@
 	    <cards>
 			<card name="brent">
 				<series>Black</series>
-				<series>First</series>
 				<series>Mastodon</series>
 			</card>
 			<card name="brann">
 				<series>Green</series>
-				<series>Second</series>
 				<series>Mastodon</series>
 			</card>
 			<card name="troy">
 				<series>Mastodon</series>
 				<series>White</series>
-				<series>Third</series>
 			</card>
 			<card name="john2">
 				<series>Led Zeppelin</series>
-				<series>Fourth</series>    
 				<series>Red</series>    
 			</card>
+			<card name="bomp 4">
+				<series>Boop</series>
+				<series>Beep</series>
+				<series>Blimp</series>
+			</card>
+			<card name="klik 4">
+				<series>Klik</series>
+				<series>Klink</series>
+			</card>
+			<card name="plop 4">
+				<series>Pop</series>
+				<series>Prop</series>
+			</card>
+			<card name="tang 4">
+				<series>Ting</series>
+				<series>Tong</series>
+			</card>			
 	    </cards>
 	</player>
     </players>

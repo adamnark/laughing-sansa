@@ -3,7 +3,8 @@ package console;
 import console.utils.GameStatusPrinter;
 import engine.Engine;
 import engine.Validator;
-import engine.players.BadCardRequestException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import xml.SettingsFromXML;
 
@@ -29,30 +30,36 @@ public class Main {
         if (isMakeEngineFromXML) {
             engine = makeEngineFromXML(xmlPathString);
             if (engine == null) {
-                System.out.println("Bad XML file provided.");
+                System.out.println("Bad XML file provided, xml unmarshalling failed.");
                 return;
             }
         } else {
-            engine = makeEngineFromConsole();
-            if (engine == null){
+            engine = new SettingsFromConsole().makeEngineFromConsole();
+            if (engine == null) {
                 System.out.println("Bad settings provided by the user.");
+                return;
             }
         }
 
-        if (new Validator(engine)
-                .validateEngineState() == false) {
-            System.out.println("Bad settings provided.");
+        if (new Validator(engine).validateEngineState() == false) {
+            System.out.println("Bad settings provided, validation failed.");
             return;
         }
 
-        System.out.println(
-                "game starting");
+        System.out.println("game starting");
         int count = 0;
 
 
         do {
             GameStatusPrinter.printGameStatus(engine);
-            engine.Turn();
+            try {
+                engine.Turn();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                System.out.println("an error occured during play. ");
+                return;
+            }
+
             //printEventQueue(engine);
             count++;
             System.out.println(engine.getCurrentPlayer().getName() + "'s turn is over.");

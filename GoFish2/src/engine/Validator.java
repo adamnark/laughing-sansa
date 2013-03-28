@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package engine;
 
 import engine.players.Player;
@@ -50,7 +46,8 @@ public class Validator {
     private boolean isDistinctPlayerNames() {
         for (Player player1 : engine.getPlayers()) {
             for (Player player2 : engine.getPlayers()) {
-                if (player1 != player2 && player1.getName().equals(player2.getName())) {
+                if (player1 != player2
+                        && player1.getName().equals(player2.getName())) {
                     return false;
                 }
             }
