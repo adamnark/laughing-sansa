@@ -16,7 +16,7 @@ public class Main {
     private static String defaultXmlPath = "xml-resources/gofish.xml";
 
     public static void main(String[] args) {
-        String xmlPathString = "";
+        String xmlPathString;
         try {
             xmlPathString = getArgs(args);
         } catch (BadArgumentException ex) {
@@ -25,21 +25,31 @@ public class Main {
         }
 
         Engine engine = new Engine();
-
-        try {
+        boolean isMakeEngineFromXML = askFromXML();
+        if (isMakeEngineFromXML) {
             engine = makeEngineFromXML(xmlPathString);
-        } catch (JAXBException ex) {
-            System.out.println("Bad XML file provided.");
+            if (engine == null) {
+                System.out.println("Bad XML file provided.");
+                return;
+            }
+        } else {
+            engine = makeEngineFromConsole();
+            if (engine == null){
+                System.out.println("Bad settings provided by the user.");
+            }
+        }
+
+        if (new Validator(engine)
+                .validateEngineState() == false) {
+            System.out.println("Bad settings provided.");
             return;
         }
 
-        if (new Validator(engine).validateEngineState() == false) {
-            System.out.println("Bad XML file provided.");
-            return;
-        }
-
-        System.out.println("game starting");
+        System.out.println(
+                "game starting");
         int count = 0;
+
+
         do {
             GameStatusPrinter.printGameStatus(engine);
             engine.Turn();
@@ -48,18 +58,24 @@ public class Main {
             System.out.println(engine.getCurrentPlayer().getName() + "'s turn is over.");
         } while (!engine.isGameOver());
 
-        System.out.println("GAME OVER");
+        System.out.println(
+                "GAME OVER");
         GameStatusPrinter.printGameStatus(engine);
-        System.out.println("count=" + count);
+
+        System.out.println(
+                "count=" + count);
     }
 
-    private static engine.Engine makeEngineFromXML(String xmlPathString)
-            throws JAXBException {
-        SettingsFromXML settingsFromXML = new SettingsFromXML(xmlPathString);
-        engine.Engine engine = new Engine();
-        engine.setGameSettings(settingsFromXML.generateGameSettings());
-        engine.addPlayers(settingsFromXML.generatePlayers());
-
+    private static engine.Engine makeEngineFromXML(String xmlPathString) {// throws JAXBException {
+        engine.Engine engine;
+        try {
+            SettingsFromXML settingsFromXML = new SettingsFromXML(xmlPathString);
+            engine = new Engine();
+            engine.setGameSettings(settingsFromXML.generateGameSettings());
+            engine.addPlayers(settingsFromXML.generatePlayers());
+        } catch (JAXBException ex) {
+            return null;
+        }
         return engine;
     }
 
@@ -73,6 +89,15 @@ public class Main {
         }
 
         return xmlPathString;
+    }
+
+    private static boolean askFromXML() {
+        System.out.println("Do you want to use xml or enter settings manually?\n1-xml, 2-manual\nchoice:");
+        int choice = console.utils.InputUtils.readInteger(1, 2);
+
+        return choice == 1;
+
+
     }
 
     private static class BadArgumentException extends Exception {
