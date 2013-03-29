@@ -3,9 +3,7 @@ package engine;
 import com.google.common.collect.HashMultimap;
 import engine.cards.Card;
 import engine.cards.Series;
-import engine.players.BadCardRequestException;
 import engine.players.Player;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -23,28 +21,24 @@ public class Engine {
     private HashMultimap<Series, Card> cardsBySeries;
     private boolean isGameStarted;
 
-    public void Turn() throws Exception {
-        if (!this.isGameStarted) {
-            startGame();
-        }
-
+    public void currentPlayerThrowFour() {
         boolean cardsWereThrown = getCurrentPlayer().throwFour();
         if (cardsWereThrown) {
             getCurrentPlayer().increaseScore();
             this.eventQueue.add(Event.FOUR_CARDS_THROWN);
+        }else{
+            this.eventQueue.add(Event.FOUR_CARDS_NOT_THROWN);
         }
 
+    }
+
+    public void currentPlayerMakeRequest() {
         boolean cardWasTaken;
         cardWasTaken = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
         if (cardWasTaken) {
             this.eventQueue.add(Event.SUCCESSFUL_REQUEST);
         } else {
             this.eventQueue.add(Event.FAILED_REQUEST);
-        }
-
-        if (!cardWasTaken || !this.gameSettings.isAllowMutipleRequests()) {
-            advanceTurn();
-            this.eventQueue.add(Event.TURN_UPDATED);
         }
     }
 
@@ -59,14 +53,10 @@ public class Engine {
     }
 
     public static enum Event {
-
-        TURN_UPDATED,
-        SCORE_UPDATED,
-        HAND_UPDATED,
-        GAME_OVER,
         FAILED_REQUEST,
         SUCCESSFUL_REQUEST,
-        FOUR_CARDS_THROWN,
+        FOUR_CARDS_THROWN, 
+        FOUR_CARDS_NOT_THROWN,
     }
 
     public Engine() {
@@ -77,10 +67,7 @@ public class Engine {
         this.isGameStarted = false;
     }
 
-    private void startGame() throws Exception {
-        if (this.gameSettings == null){
-            throw new Exception("Game started with no settings");
-        }
+    public void startGame() {
         this.isGameStarted = true;
         initCardMap();
     }
@@ -157,10 +144,8 @@ public class Engine {
             addPlayer(player);
         }
     }
-    
-    public void addPlayer(Player newPlayer){
+
+    public void addPlayer(Player newPlayer) {
         this.players.add(newPlayer);
     }
-    
-    
 }

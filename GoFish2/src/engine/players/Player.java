@@ -26,12 +26,15 @@ public class Player {
     private IFourPicker fourPicker;
     private IRequestMaker requestMaker;
     private boolean isHuman;
+    
+    private Collection<Card> lastCardsThrown;
 
     public Player() {
         this.hand = new Hand();
         this.isHuman = true;
         this.score = 0;
         this.name = "%default name%";
+        this.lastCardsThrown = null;
     }
 
     public Player(Player other) {
@@ -47,6 +50,10 @@ public class Player {
         return name + "{ hand=" + hand + ", score=" + score + '}';
     }
 
+    public boolean isHuman(){
+        return this.isHuman;
+    }
+    
     public static Player createAIPlayer() {
         Player player = new Player();
         player.isHuman = false;
@@ -137,16 +144,20 @@ public class Player {
     }
 
     public boolean throwFour() {
-        Collection<Card> fourCards = this.fourPicker.pickFour(hand);
-        if (fourCards == null) {
+        this.lastCardsThrown = this.fourPicker.pickFour(hand);
+        if (this.lastCardsThrown == null) {
             return false;
         }
 
-        for (Card card : fourCards) {
+        for (Card card : this.lastCardsThrown) {
             this.hand.removeCardFromHand(card);
         }
-
+        
         return true;
+    }
+    
+    public Collection<Card> getLastCardsThrown(){
+        return this.lastCardsThrown;
     }
 
     public void increaseScore() {

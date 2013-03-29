@@ -3,6 +3,7 @@ package console.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -62,5 +63,54 @@ public class InputUtils {
         System.out.println("1-true, 2-false:\n");
         int value = readInteger(1, 2);
         return value == 1;
+    }
+    
+    public static void pressEnterToContinue(){
+        System.out.println("Press enter to continue . . .");
+        readLine();
+    }
+    
+    public static int readOptionFromMenu(List<MenuOption> options){
+        int i = 1;
+        
+        for (MenuOption option : options) {
+            System.out.println(i + ": "+ option.getText());
+            i++;
+        }
+        System.out.println("Your choice:");
+        int choice = readInteger(1, options.size());
+        
+        return choice - 1;
+    }
+
+    public static class MenuOption{
+        String text;
+        IAction action;
+
+        public MenuOption(String text, IAction action) {
+            this.text = text;
+            this.action = action;
+        }
+        
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        public IAction getAction() {
+            return action;
+        }
+
+        public void setAction(IAction action) {
+            this.action = action;
+        }
+    
+    }
+    
+    public static interface IAction{
+        public void action();
     }
 }

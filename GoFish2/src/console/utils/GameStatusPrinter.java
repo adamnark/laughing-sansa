@@ -21,7 +21,7 @@ public class GameStatusPrinter {
         System.out.println("");
     }
 
-    private static void printSeperator() {
+    public static void printSeperator() {
         String line80 = "--------------------------------------------------------------------------------";
         System.out.print("\n" + line80 + "\n");
     }

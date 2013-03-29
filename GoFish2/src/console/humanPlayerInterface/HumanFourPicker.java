@@ -38,7 +38,6 @@ public class HumanFourPicker implements IFourPicker {
         }else{
             System.out.println("not throwing any cards...");
         }
-        console.utils.InputUtils.readLine();
 
         return four;
     }
@@ -57,7 +56,7 @@ public class HumanFourPicker implements IFourPicker {
         LinkedList<Card> lst = new LinkedList<>();
         for (int i = 1; i <= 4; i++) {
             System.out.print("pick card #" + i + ": ");
-            int cardNumber = console.utils.InputUtils.readInteger(0, 4);
+            int cardNumber = console.utils.InputUtils.readInteger(0, hand.getCards().size());
             if (cardNumber == 0) {
                 return null;
             }

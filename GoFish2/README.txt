@@ -12,5 +12,6 @@ NOTES:
 	if one card is a member of two serieses, then we assume all other cards are
 	members of two serieses.
 
- 
+	XML settings file is provided as an argument to the program. If there is a problem
+	with it's format, the game will default to getting settings manually from the user.
 	

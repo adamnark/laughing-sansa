@@ -2,8 +2,8 @@ package console;
 
 import engine.Engine;
 import engine.Validator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import console.utils.InputUtils;
+import console.utils.GameStatusPrinter;
 import javax.xml.bind.JAXBException;
 import xml.SettingsFromXML;
 
@@ -26,20 +26,31 @@ public class Main {
             return;
         }
 
-        Engine engine = createEngine();
-        if (engine == null) {
-            return;
-        }
+        Engine engine;
+        boolean isValidSettingsProvided = true;
+        do {
+            engine = createEngine();
+            if (engine == null) {
+                return;
+            }
 
-        if (new Validator(engine).validateEngineState() == false) {
-            System.out.println("Bad settings provided, validation failed.");
-            return;
-        }
+            if (new Validator(engine).validateEngineState() == false) {
+                System.out.println("Bad settings provided, validation failed.");
+                isValidSettingsProvided = false;
+            }
+        } while (!isValidSettingsProvided);
 
-        boolean playAgain = false;
+
+        boolean playAgain;
         do {
             ConsoleGame game = new ConsoleGame(engine);
-            game.PlayGame();
+            try {
+                game.PlayGame();
+            } catch (Exception ex) {
+                System.out.println("an error occured during play, game controller out of state.");
+                ex.printStackTrace();
+                return;
+            }
             if (askUserIfRematch()) {
                 try {
                     engine = resetEngine();
@@ -47,10 +58,11 @@ public class Main {
                     System.out.println("an error occured when trying to reset engine from user settings.");
                     ex.printStackTrace();
                 }
+                playAgain = true;
             } else {
                 playAgain = false;
             }
-        } while (true);
+        } while (playAgain);
     }
 
     private static String getArgs(String[] args) {
@@ -69,7 +81,7 @@ public class Main {
 
     private static boolean askFromXML() {
         System.out.println("Do you want to use xml or enter settings manually?\n1-xml, 2-manual\nchoice:");
-        int choice = console.utils.InputUtils.readInteger(1, 2);
+        int choice = InputUtils.readInteger(1, 2);
         return choice == 1;
     }
 
@@ -79,9 +91,13 @@ public class Main {
             try {
                 settingsFromXML = new SettingsFromXML(Main.userXmlPath);
             } catch (JAXBException ex) {
-                System.out.println(Main.userXmlPath + " failed to load.");
-                return null;
+                System.out.println(Main.userXmlPath + " failed to load.\nDefine a game manually then:\n");
+                Main.isLastGameFromXML = false;
+
             }
+        }
+        if (!Main.isLastGameFromXML) {
+            Main.settingsFromConsole = new SettingsFromConsole();
         }
 
         return Main.isLastGameFromXML
@@ -91,7 +107,7 @@ public class Main {
 
     private static boolean askUserIfRematch() {
         System.out.println("Would you like to play again with the same settings?");
-        return console.utils.InputUtils.readBoolean();
+        return InputUtils.readBoolean();
     }
 
     private static Engine resetEngine() throws Exception {

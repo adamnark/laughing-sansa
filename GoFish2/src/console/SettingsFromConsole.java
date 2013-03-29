@@ -5,6 +5,8 @@ import engine.GameSettings;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Player;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -109,17 +111,18 @@ public class SettingsFromConsole {
     }
 
     private void generateHandForPlayer(Player player, int playerNumber) {
-        generateSeriesForPlayer(player, playerNumber, "floop");
-        generateSeriesForPlayer(player, playerNumber, "scoop");
-        generateSeriesForPlayer(player, playerNumber, "droop");
-        generateSeriesForPlayer(player, playerNumber, "kloop");
+        RandomStringGenerator rsg = new RandomStringGenerator();
+        generateSeriesForPlayer(player, rsg, "floop");
+        generateSeriesForPlayer(player, rsg, "scoop");
+        generateSeriesForPlayer(player, rsg, "droop");
+        generateSeriesForPlayer(player, rsg, "kloop");
     }
 
-    private void generateSeriesForPlayer(Player player, int playerNumber, String seriesName) {
+    private void generateSeriesForPlayer(Player player, RandomStringGenerator rsg, String seriesName) {
         for (int i = 0; i < 4; i++) {
             Card generatedCard = new Card();
             generatedCard.addSeries(new Series(seriesName));
-            generatedCard.setName(seriesName + " " + playerNumber);
+            generatedCard.setName(seriesName + " " + rsg.makeRandomString());
             player.getHand().addCardToHand(generatedCard);
         }
     }
@@ -140,5 +143,14 @@ public class SettingsFromConsole {
         }
 
         return lst;
+    }
+
+    private class RandomStringGenerator {
+
+        private SecureRandom random = new SecureRandom();
+
+        public String makeRandomString() {
+            return new BigInteger(32, random).toString(32);
+        }
     }
 }
