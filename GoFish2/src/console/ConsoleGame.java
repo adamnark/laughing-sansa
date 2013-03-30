@@ -1,5 +1,4 @@
-/*
- */
+
 package console;
 
 import engine.Engine;
