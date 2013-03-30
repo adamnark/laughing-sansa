@@ -15,8 +15,11 @@ NOTES:
 	XML settings file is provided as an argument to the program. If there is a problem
 	with it's format, or if it does not exist, the game will default to getting 
 	settings manually from the user.
+	The user can NOT supply a path to an xml path, the default
+	
 	
 	WHEN the user opts for a manual game, he can choose settings, choose player types
 	and names, but cards are automatically generated. sorry, but I didn't think it's
 	reasonable to enter 28+ cards (each with different names etc). 
 	
+

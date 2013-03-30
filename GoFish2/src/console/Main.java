@@ -19,14 +19,13 @@ public class Main {
     private static boolean isLastGameFromXML;
 
     public static void main(String[] args) {
-
         String xmlPathString = getArgs(args);
         if (xmlPathString == null) {
             return;
         }
 
         Engine engine;
-        boolean isValidSettingsProvided = true;
+        boolean isValidSettingsProvided;
         do {
             engine = createEngine();
             if (engine == null) {
@@ -36,10 +35,12 @@ public class Main {
             if (new Validator(engine).validateEngineState() == false) {
                 System.out.println("Bad settings provided, validation failed.");
                 isValidSettingsProvided = false;
+            } else {
+                isValidSettingsProvided = true;
             }
         } while (!isValidSettingsProvided);
 
-
+        printWelcome();
         boolean playAgain;
         do {
             ConsoleGame game = new ConsoleGame(engine);
@@ -54,7 +55,7 @@ public class Main {
                 try {
                     engine = resetEngine();
                 } catch (Exception ex) {
-                    System.out.println("an error occured when trying to reset engine from user settings.");
+                    System.out.println("an error occured when trying to reset engine.");
                     ex.printStackTrace();
                 }
                 playAgain = true;
@@ -62,6 +63,8 @@ public class Main {
                 playAgain = false;
             }
         } while (playAgain);
+
+        printGoodbye();
     }
 
     private static String getArgs(String[] args) {
@@ -79,7 +82,9 @@ public class Main {
     }
 
     private static boolean askFromXML() {
-        System.out.println("Do you want to use xml or enter settings manually?\n1-xml, 2-manual\nchoice:");
+        System.out.println("Do you want to use xml or enter settings manually?");
+        System.out.println("(xml settings file I have is "+ Main.userXmlPath +")");
+        System.out.println("1-xml, 2-manual\nchoice:");
         int choice = InputUtils.readInteger(1, 2);
         return choice == 1;
     }
@@ -113,6 +118,30 @@ public class Main {
         return isLastGameFromXML
                 ? Main.settingsFromXML.makeEngineFromXML()
                 : Main.settingsFromConsole.createEngineWithLastSettings();
+    }
+
+    private static void printWelcome() {
+        String welcome = "                                     _          _      \n"
+                + "                                    | | o      | |    |\n"
+                + "                         __,  __    | |     ,  | |    |\n"
+                + "                        /  | /  \\_  |/  |  / \\_|/ \\   |\n"
+                + "                        \\_/|/\\__/   |__/|_/ \\/ |   |_/o\n"
+                + "                          /|        |\\                 \n"
+                + "                          \\|        |/ ";
+
+        System.out.println(welcome);
+    }
+
+    private static void printGoodbye() {
+        String goodbye = "                                           _              \n"
+                + "                                        | | |            |\n"
+                + "                       __,  __   __   __| | |         _  |\n"
+                + "                      /  | /  \\_/  \\_/  | |/ \\_|   | |/  |\n"
+                + "                      \\_/|/\\__/ \\__/ \\_/|_/\\_/  \\_/|/|__/o\n"
+                + "                        /|                        /|      \n"
+                + "                        \\|                        \\| ";
+
+        System.out.println(goodbye);
     }
 
     private static class BadArgumentException extends Exception {

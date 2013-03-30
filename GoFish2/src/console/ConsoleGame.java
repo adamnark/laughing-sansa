@@ -36,6 +36,7 @@ public class ConsoleGame {
             checkAndAdvanceTurn();
         } while (!engine.isGameOver());
         System.out.println("Game over!");
+        System.out.println(engine.getWinner().getName() + " is the winner with " + engine.getWinner().getScore() + " points!");
     }
 
     private void doPlayerActionForHuman() throws Exception {
@@ -72,10 +73,11 @@ public class ConsoleGame {
                 case FOUR_CARDS_NOT_THROWN:
                     handleFourCardsNotThrown();
                     break;
-                    
+
                 case PLAYER_OUT_OF_CARDS:
                     handlePlayerOutOfCards();
-
+                    break;
+                    
                 default:
                     throw new AssertionError();
             }

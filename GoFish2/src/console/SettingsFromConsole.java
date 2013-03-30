@@ -47,13 +47,13 @@ public class SettingsFromConsole {
     }
 
     private boolean getAllowMutipleRequestsFromUser() {
-        System.out.println("Allow Mutiple Requests? ");
+        System.out.println("Allow Mutiple requests? (not recommended!)");
         this.allowMutipleRequestsFromUser = console.utils.InputUtils.readBoolean();
         return this.allowMutipleRequestsFromUser;
     }
 
     private boolean getForceShowOfSeriesFromUser() {
-        System.out.println("Force Show Of Series? ");
+        System.out.println("Force show of series? ");
         this.forceShowOfSeriesFromUser = console.utils.InputUtils.readBoolean();
         return this.forceShowOfSeriesFromUser;
     }

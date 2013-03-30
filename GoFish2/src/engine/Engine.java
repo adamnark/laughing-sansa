@@ -26,11 +26,11 @@ public class Engine {
         if (cardsWereThrown) {
             getCurrentPlayer().increaseScore();
             this.eventQueue.add(Event.FOUR_CARDS_THROWN);
-        }else{
+        } else {
             this.eventQueue.add(Event.FOUR_CARDS_NOT_THROWN);
         }
-        
-        if (!getCurrentPlayer().isPlaying()){
+
+        if (!getCurrentPlayer().isPlaying()) {
             this.eventQueue.add(Event.PLAYER_OUT_OF_CARDS);
         }
 
@@ -56,10 +56,22 @@ public class Engine {
         return count == 1;
     }
 
+    public Player getWinner() {
+        Player winner = getCurrentPlayer();
+        for (Player player : players) {
+            if (player.getScore() >= winner.getScore()) {
+                winner = player;
+            }
+        }
+        
+        return winner;
+    }
+
     public static enum Event {
+
         FAILED_REQUEST,
         SUCCESSFUL_REQUEST,
-        FOUR_CARDS_THROWN, 
+        FOUR_CARDS_THROWN,
         FOUR_CARDS_NOT_THROWN,
         PLAYER_OUT_OF_CARDS,
     }

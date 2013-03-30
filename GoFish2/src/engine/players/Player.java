@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 import engine.request.RequestValidator;
 import java.io.Serializable;
+import java.util.Collections;
 
 /**
  *
@@ -26,7 +27,6 @@ public class Player {
     private IFourPicker fourPicker;
     private IRequestMaker requestMaker;
     private boolean isHuman;
-    
     private Collection<Card> lastCardsThrown;
 
     public Player() {
@@ -38,6 +38,7 @@ public class Player {
     }
 
     public Player(Player other) {
+        this.name = other.name;
         this.score = 0;
         this.isHuman = other.isHuman;
         this.fourPicker = other.fourPicker;
@@ -50,10 +51,10 @@ public class Player {
         return name + "{ hand=" + hand + ", score=" + score + '}';
     }
 
-    public boolean isHuman(){
+    public boolean isHuman() {
         return this.isHuman;
     }
-    
+
     public static Player createAIPlayer() {
         Player player = new Player();
         player.isHuman = false;
@@ -70,7 +71,7 @@ public class Player {
     }
 
     public Hand getHand() {
-        return hand;
+        return this.hand;
     }
 
     public void setHand(Hand hand) {
@@ -152,11 +153,11 @@ public class Player {
         for (Card card : this.lastCardsThrown) {
             this.hand.removeCardFromHand(card);
         }
-        
+
         return true;
     }
-    
-    public Collection<Card> getLastCardsThrown(){
+
+    public Collection<Card> getLastCardsThrown() {
         return this.lastCardsThrown;
     }
 
