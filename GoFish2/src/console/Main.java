@@ -3,7 +3,6 @@ package console;
 import engine.Engine;
 import engine.Validator;
 import console.utils.InputUtils;
-import console.utils.GameStatusPrinter;
 import javax.xml.bind.JAXBException;
 import xml.SettingsFromXML;
 

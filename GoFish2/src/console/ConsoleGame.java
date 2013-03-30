@@ -31,7 +31,7 @@ public class ConsoleGame {
                 doPlayerActionForComputer();
             }
             InputUtils.pressEnterToContinue();
-            GameStatusPrinter.printGameStatus(engine);
+            //GameStatusPrinter.printGameStatus(engine);
             handleEventQueue();
             InputUtils.pressEnterToContinue();
             checkAndAdvanceTurn();
