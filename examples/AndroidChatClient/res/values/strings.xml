@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Chat Client</string>
-    <string name="hostname">Host Address</string>
-    <string name="hostDefault">http://10.0.2.2:8080/chat</string>
-    <string name="usernameLabel">Username</string>
-    <string name="loginButton">Login</string>
-    <string name="send">Send</string>
-</resources>

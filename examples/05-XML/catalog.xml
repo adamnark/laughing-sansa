@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/Z:/Dropbox/MTA/Java%202012%20B/Exercise/yaniv.xsd" uri="xml-resources/jaxb/YanivBiniding/yaniv.xsd"/>
-    <system systemId="file:////vmware-host/Shared%20Folders/Dropbox/MTA/Java%202012%20B/Exercise/yaniv.xsd" uri="xml-resources/jaxb/YanivBinding/yaniv.xsd"/>
-    <system systemId="file:/C:/mta/05-XML/../../Users/Iblecher/Dropbox/MTA/Java%202012%20C/Exercise/durak.xsd" uri="xml-resources/jaxb/Durak/durak.xsd"/>
-    <system systemId="file:/C:/mta/05-XML/../../Users/Iblecher/Dropbox/MTA/Java%202013%20A/Exercise/clue.xsd" uri="xml-resources/jaxb/ClueBinding/clue.xsd"/>
-</catalog>
