@@ -12,7 +12,7 @@ import xml.SettingsFromXML;
  */
 public class Main {
 
-    private static String defaultXmlPath = "xml-resources/gofish.xml";
+    private static final String defaultXmlPath = "xml-resources/gofish.xml";
     private static String userXmlPath;
     private static SettingsFromConsole settingsFromConsole;
     private static SettingsFromXML settingsFromXML;
@@ -83,7 +83,7 @@ public class Main {
 
     private static boolean askFromXML() {
         System.out.println("Do you want to use xml or enter settings manually?");
-        System.out.println("(xml settings file I have is "+ Main.userXmlPath +")");
+        System.out.println("(xml settings file I have is " + Main.userXmlPath + ")");
         System.out.println("1-xml, 2-manual\nchoice:");
         int choice = InputUtils.readInteger(1, 2);
         return choice == 1;
@@ -121,7 +121,7 @@ public class Main {
     }
 
     private static void printWelcome() {
-        String welcome = "                                     _          _      \n"
+        final String welcome = "                                     _          _      \n"
                 + "                                    | | o      | |    |\n"
                 + "                         __,  __    | |     ,  | |    |\n"
                 + "                        /  | /  \\_  |/  |  / \\_|/ \\   |\n"
@@ -133,7 +133,7 @@ public class Main {
     }
 
     private static void printGoodbye() {
-        String goodbye = "                                           _              \n"
+        final String goodbye = "                                           _              \n"
                 + "                                        | | |            |\n"
                 + "                       __,  __   __   __| | |         _  |\n"
                 + "                      /  | /  \\_/  \\_/  | |/ \\_|   | |/  |\n"

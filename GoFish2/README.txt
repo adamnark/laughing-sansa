@@ -1,4 +1,5 @@
 NOTES:
+	THE class that you should start is console.Main (class Main in package console)
 
 	ENDGAME happens not only when there's no more options to create a four, but also
 	when there's only one player left.
@@ -16,7 +17,6 @@ NOTES:
 	with it's format, or if it does not exist, the game will default to getting 
 	settings manually from the user.
 	The user can NOT supply a path to an xml path, the default
-	
 	
 	WHEN the user opts for a manual game, he can choose settings, choose player types
 	and names, but cards are automatically generated. sorry, but I didn't think it's
