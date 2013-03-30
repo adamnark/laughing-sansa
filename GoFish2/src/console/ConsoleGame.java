@@ -1,4 +1,3 @@
-
 package console;
 
 import engine.Engine;
@@ -73,6 +72,9 @@ public class ConsoleGame {
                 case FOUR_CARDS_NOT_THROWN:
                     handleFourCardsNotThrown();
                     break;
+                    
+                case PLAYER_OUT_OF_CARDS:
+                    handlePlayerOutOfCards();
 
                 default:
                     throw new AssertionError();
@@ -81,7 +83,8 @@ public class ConsoleGame {
     }
 
     private void checkAndAdvanceTurn() {
-        if (this.hasPlayerRequested && this.hasPlayerThrownFour) {
+        if ((!engine.getCurrentPlayer().isPlaying())
+                || (this.hasPlayerRequested && this.hasPlayerThrownFour)) {
             this.hasPlayerRequested = false;
             this.hasPlayerThrownFour = false;
             this.engine.advanceTurn();
@@ -116,12 +119,29 @@ public class ConsoleGame {
             options.add(new InputUtils.MenuOption("Request a card from another player", action));
         }
 
+        InputUtils.IAction action = new InputUtils.IAction() {
+            @Override
+            public void action() {
+                skipTurnForPlayer();
+            }
+        };
+
+        options.add(new InputUtils.MenuOption("Skip your turn", action));
+
+
+
         int optionIndex = InputUtils.readOptionFromMenu(options);
         options.get(optionIndex).getAction().action();
     }
 
+    private void skipTurnForPlayer() {
+        System.out.println(engine.getCurrentPlayer().getName() + " skips a turn!");
+        this.hasPlayerRequested = true;
+        this.hasPlayerThrownFour = true;
+    }
+
     private void handleSuccessfulRequest() {
-        System.out.println(engine.getCurrentPlayer().getName() + " has made a successful request! w-o-w.");
+        System.out.println(engine.getCurrentPlayer().getName() + " has made a successful request!");
         if (!engine.getGameSettings().isAllowMutipleRequests()) {
             this.hasPlayerRequested = true;
         } else {
@@ -137,7 +157,7 @@ public class ConsoleGame {
             System.out.println("the cards " + engine.getCurrentPlayer().getName() + " has thrown are:");
             GameStatusPrinter.printCards(engine.getCurrentPlayer().getLastCardsThrown());
         } else {
-            System.out.println(engine.getCurrentPlayer().getName() + "doesn't have to show them to you!");
+            System.out.println(engine.getCurrentPlayer().getName() + " doesn't have to show them to you!");
         }
     }
 
@@ -149,5 +169,9 @@ public class ConsoleGame {
     private void handleFourCardsNotThrown() {
         System.out.println(engine.getCurrentPlayer().getName() + " couldn't throw four cards!");
         this.hasPlayerThrownFour = true;
+    }
+
+    private void handlePlayerOutOfCards() {
+        System.out.println(engine.getCurrentPlayer().getName() + " is out of cards and out of the game!!");
     }
 }

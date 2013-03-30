@@ -29,6 +29,10 @@ public class Engine {
         }else{
             this.eventQueue.add(Event.FOUR_CARDS_NOT_THROWN);
         }
+        
+        if (!getCurrentPlayer().isPlaying()){
+            this.eventQueue.add(Event.PLAYER_OUT_OF_CARDS);
+        }
 
     }
 
@@ -57,6 +61,7 @@ public class Engine {
         SUCCESSFUL_REQUEST,
         FOUR_CARDS_THROWN, 
         FOUR_CARDS_NOT_THROWN,
+        PLAYER_OUT_OF_CARDS,
     }
 
     public Engine() {

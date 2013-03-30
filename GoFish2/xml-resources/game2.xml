@@ -2,10 +2,10 @@
 <gofish xsi:noNamespaceSchemaLocation="gofish.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <settings>
 		<allowMutipleRequests>false</allowMutipleRequests>
-		<forceShowOfSeries>true</forceShowOfSeries>
+		<forceShowOfSeries>false</forceShowOfSeries>
     </settings>
     <players>
-	    <player type="HUMAN" name="Natalie">
+	    <player type="COMPUTER" name="Natalie">
 	        <cards>
 			    <card name="kookie 1">
 			        <series>kookie</series>
