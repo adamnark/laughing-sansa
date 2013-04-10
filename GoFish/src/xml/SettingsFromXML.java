@@ -57,11 +57,13 @@ public class SettingsFromXML {
     private engine.players.Player convertToEnginePlayer(generated.Player generatedPlayer) {
         boolean isAIPlayer = generatedPlayer.getType().equals(PlayerType.COMPUTER);
 
-        engine.players.Player enginePlayer =
+        
+/*        engine.players.Player enginePlayer =
                 isAIPlayer
                 ? engine.players.Player.createAIPlayer()
                 : new engine.players.Player(new console.humanPlayerInterface.HumanFourPicker(), new console.humanPlayerInterface.HumanRequestMaker());
-
+*/
+        engine.players.Player enginePlayer = engine.players.Player.createAIPlayer();
         enginePlayer.setName(generatedPlayer.getName());
 
 

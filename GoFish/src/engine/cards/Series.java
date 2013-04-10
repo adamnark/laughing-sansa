@@ -1,6 +1,5 @@
 package engine.cards;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**

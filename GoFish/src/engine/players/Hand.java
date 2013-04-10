@@ -1,7 +1,6 @@
 package engine.players;
 
 import engine.cards.Card;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.NoSuchElementException;
