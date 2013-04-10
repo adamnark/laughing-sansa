@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gofish xsi:noNamespaceSchemaLocation="gofish.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <settings>
+		<allowMutipleRequests>true</allowMutipleRequests>
+		<forceShowOfSeries>true</forceShowOfSeries>
+    </settings>
+    <players>
+	<player type="COMPUTER" name="John">
+	    <cards>
+			<card name="wata">
+				<series>Boris</series>
+				<series>Red</series>
+			</card>
+			<card name="atsuo">
+				<series>Boris</series>
+				<series>Green</series>
+			</card>
+			<card name="michio">
+				<series>Boris</series>
+				<series>Black</series>
+			</card>
+			<card name="takeshi">
+				<series>Boris</series>
+				<series>White</series>
+			</card>
+			<card name="bomp 1">
+				<series>Boop</series>
+				<series>Beep</series>
+				<series>Blimp</series>
+			</card>
+			<card name="klik 1">
+				<series>Klik</series>
+				<series>Klink</series>
+			</card>
+			<card name="plop 1">
+				<series>Pop</series>
+				<series>Prop</series>
+			</card>
+			<card name="tang 1">
+				<series>Ting</series>
+				<series>Tong</series>
+			</card>
+	    </cards>
+	</player>
+	<player type="COMPUTER" name="Paul">
+	    <cards>
+			<card name="omar">
+				<series>Bosnian Rainbows</series>
+				<series>Black</series>
+			</card>
+			<card name="teri">
+				<series>Green</series>
+				<series>Bosnian Rainbows</series>
+			</card>
+			<card name="deantoni">
+				<series>Bosnian Rainbows</series>
+				<series>Red</series>
+			</card>
+			<card name="jimmy">
+				<series>Led Zeppelin</series>
+				<series>White</series>
+			</card>
+			<card name="bomp 2">
+				<series>Boop</series>
+				<series>Beep</series>
+				<series>Blimp</series>
+			</card>
+			<card name="klik 2">
+				<series>Klik</series>
+				<series>Klink</series>
+			</card>
+			<card name="plop 2">
+				<series>Pop</series>
+				<series>Prop</series>
+			</card>
+			<card name="tang 2">
+				<series>Ting</series>
+				<series>Tong</series>
+			</card>
+	    </cards>
+	</player>
+	<player type="COMPUTER" name="George">
+	    <cards>
+			<card name="nici">
+				<series>Green</series>
+				<series>Bosnian Rainbows</series>
+			</card>
+			<card name="robert">
+				<series>Black</series>
+				<series>Led Zeppelin</series>
+			</card>
+			<card name="john1">
+				<series>Led Zeppelin</series>
+				<series>Red</series>
+			</card>
+			<card name="bill">
+				<series>White</series>
+				<series>Mastodon</series>
+				    
+			</card>
+			<card name="bomp 3">
+				<series>Boop</series>
+				<series>Beep</series>
+				<series>Blimp</series>
+			</card>
+			<card name="klik 3">
+				<series>Klik</series>
+				<series>Klink</series>
+			</card>
+			<card name="plop 3">
+				<series>Pop</series>
+				<series>Prop</series>
+			</card>
+			<card name="tang 3">
+				<series>Ting</series>
+				<series>Tong</series>
+			</card>
+	    </cards>
+	</player>
+	<player type="COMPUTER" name="Ringo">
+	    <cards>
+			<card name="brent">
+				<series>Black</series>
+				<series>Mastodon</series>
+			</card>
+			<card name="brann">
+				<series>Green</series>
+				<series>Mastodon</series>
+			</card>
+			<card name="troy">
+				<series>Mastodon</series>
+				<series>White</series>
+			</card>
+			<card name="john2">
+				<series>Led Zeppelin</series>
+				<series>Red</series>    
+			</card>
+			<card name="bomp 4">
+				<series>Boop</series>
+				<series>Beep</series>
+				<series>Blimp</series>
+			</card>
+			<card name="klik 4">
+				<series>Klik</series>
+				<series>Klink</series>
+			</card>
+			<card name="plop 4">
+				<series>Pop</series>
+				<series>Prop</series>
+			</card>
+			<card name="tang 4">
+				<series>Ting</series>
+				<series>Tong</series>
+			</card>			
+	    </cards>
+	</player>
+    </players>
+</gofish>
