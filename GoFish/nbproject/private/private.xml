@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/xml/SettingsFromXML.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/Engine.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/GameSettings.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/Validator.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/cards/Card.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/cards/Series.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/players/BadCardRequestException.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/players/Hand.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/players/IFourPicker.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/players/Player.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/players/ai/AiFourPicker.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/players/ai/AiRequestMaker.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/request/IRequestMaker.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/request/Request.java</file>
-        <file>file:/home/adam/workspace/laughing-sansa/GoFish/src/engine/request/RequestValidator.java</file>
-    </open-files>
 </project-private>

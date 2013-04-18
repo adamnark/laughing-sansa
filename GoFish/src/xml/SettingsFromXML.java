@@ -44,7 +44,7 @@ public class SettingsFromXML {
         return gameSettings;
     }
 
-    public LinkedList<engine.players.Player> generatePlayers() {
+    private LinkedList<engine.players.Player> generatePlayers() {
         LinkedList<engine.players.Player> lst = new LinkedList<>();
 
         for (generated.Player generatedPlayer : gofish.getPlayers().getPlayer()) {

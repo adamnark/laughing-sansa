@@ -15,8 +15,6 @@ public final class Series {
         return this.name;
     }
 
-    
-    
     public Series() {
     }
 
@@ -42,18 +40,17 @@ public final class Series {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        boolean isEqual;
         final Series other = (Series) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
+        if (obj == null) {
+            isEqual = false;
+        } else if (getClass() != obj.getClass()) {
+            isEqual = false;
+        } else if (!Objects.equals(this.name, other.name)) {
+            isEqual = false;
+        } else {
+            isEqual = true;
         }
-        return true;
+        return isEqual;
     }
-    
-    
 }
