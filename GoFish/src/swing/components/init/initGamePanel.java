@@ -25,62 +25,110 @@ public class initGamePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        buttonManual = new javax.swing.JButton();
+        buttonReplay = new javax.swing.JButton();
+        buttonQuit = new javax.swing.JButton();
+        buttonXml3 = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(800, 800));
+        setBackground(new java.awt.Color(204, 255, 255));
+        setMaximumSize(new java.awt.Dimension(600, 400));
+        setMinimumSize(new java.awt.Dimension(600, 400));
+        setPreferredSize(new java.awt.Dimension(600, 400));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 255));
         jPanel3.setMinimumSize(new java.awt.Dimension(400, 800));
         jPanel3.setPreferredSize(new java.awt.Dimension(200, 200));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel1.setText("NEW GAME");
-        jPanel3.add(jLabel1);
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("New Game");
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 80));
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 700, Short.MAX_VALUE))
+        );
+
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 100));
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
         jPanel1.setLayout(null);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton1.setText("Manual");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonManual.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        buttonManual.setText("Manual");
+        buttonManual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonManualActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(400, 310, 370, 100);
+        jPanel1.add(buttonManual);
+        buttonManual.setBounds(350, 40, 230, 80);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton2.setText("XML");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonReplay.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        buttonReplay.setText("Play with last settings");
+        buttonReplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buttonReplayActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2);
-        jButton2.setBounds(20, 310, 360, 100);
+        jPanel1.add(buttonReplay);
+        buttonReplay.setBounds(30, 180, 230, 80);
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 800, 720));
+        buttonQuit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        buttonQuit.setText("Quit");
+        buttonQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonQuitActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonQuit);
+        buttonQuit.setBounds(350, 180, 230, 80);
+
+        buttonXml3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        buttonXml3.setText("XML");
+        buttonXml3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonXml3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonXml3);
+        buttonXml3.setBounds(30, 40, 230, 80);
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 600, 300));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonManualActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void buttonReplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReplayActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_buttonReplayActionPerformed
+
+    private void buttonQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonQuitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonQuitActionPerformed
+
+    private void buttonXml3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonXml3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonXml3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton buttonManual;
+    private javax.swing.JButton buttonQuit;
+    private javax.swing.JButton buttonReplay;
+    private javax.swing.JButton buttonXml3;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
