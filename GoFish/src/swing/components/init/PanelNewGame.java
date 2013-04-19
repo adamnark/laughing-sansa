@@ -6,13 +6,13 @@ package swing.components.init;
  *
  * @author adamnark
  */
-public class initGamePanel extends javax.swing.JPanel {
+public class PanelNewGame extends javax.swing.JPanel {
 
     /**
      * Creates new form initGamePanel
      */
-    public initGamePanel() {
-        initComponents();
+    public PanelNewGame() {
+        initComponents();        
     }
 
     /**
@@ -24,13 +24,12 @@ public class initGamePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        panelNewGameButtons = new javax.swing.JPanel();
         buttonManual = new javax.swing.JButton();
         buttonReplay = new javax.swing.JButton();
         buttonQuit = new javax.swing.JButton();
-        buttonXml3 = new javax.swing.JButton();
+        buttonXml = new javax.swing.JButton();
+        panelTitle = new swing.components.init.panelTitle();
 
         setBackground(new java.awt.Color(204, 255, 255));
         setMaximumSize(new java.awt.Dimension(600, 400));
@@ -38,31 +37,8 @@ public class initGamePanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(600, 400));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel3.setMinimumSize(new java.awt.Dimension(400, 800));
-        jPanel3.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("New Game");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 700, Short.MAX_VALUE))
-        );
-
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 100));
-
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
-        jPanel1.setLayout(null);
+        panelNewGameButtons.setBackground(new java.awt.Color(255, 204, 204));
+        panelNewGameButtons.setLayout(null);
 
         buttonManual.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         buttonManual.setText("Manual");
@@ -71,7 +47,7 @@ public class initGamePanel extends javax.swing.JPanel {
                 buttonManualActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonManual);
+        panelNewGameButtons.add(buttonManual);
         buttonManual.setBounds(350, 40, 230, 80);
 
         buttonReplay.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -81,7 +57,7 @@ public class initGamePanel extends javax.swing.JPanel {
                 buttonReplayActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonReplay);
+        panelNewGameButtons.add(buttonReplay);
         buttonReplay.setBounds(30, 180, 230, 80);
 
         buttonQuit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -91,20 +67,23 @@ public class initGamePanel extends javax.swing.JPanel {
                 buttonQuitActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonQuit);
+        panelNewGameButtons.add(buttonQuit);
         buttonQuit.setBounds(350, 180, 230, 80);
 
-        buttonXml3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        buttonXml3.setText("XML");
-        buttonXml3.addActionListener(new java.awt.event.ActionListener() {
+        buttonXml.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        buttonXml.setText("XML");
+        buttonXml.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonXml3ActionPerformed(evt);
+                buttonXmlActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonXml3);
-        buttonXml3.setBounds(30, 40, 230, 80);
+        panelNewGameButtons.add(buttonXml);
+        buttonXml.setBounds(30, 40, 230, 80);
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 600, 300));
+        add(panelNewGameButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 600, 300));
+
+        panelTitle.setText("New Game");
+        add(panelTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManualActionPerformed
@@ -119,17 +98,16 @@ public class initGamePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonQuitActionPerformed
 
-    private void buttonXml3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonXml3ActionPerformed
+    private void buttonXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonXmlActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buttonXml3ActionPerformed
+    }//GEN-LAST:event_buttonXmlActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonManual;
     private javax.swing.JButton buttonQuit;
     private javax.swing.JButton buttonReplay;
-    private javax.swing.JButton buttonXml3;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton buttonXml;
+    private javax.swing.JPanel panelNewGameButtons;
+    private swing.components.init.panelTitle panelTitle;
     // End of variables declaration//GEN-END:variables
 }

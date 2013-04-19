@@ -31,21 +31,19 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        initGamePanel2 = new swing.components.init.initGamePanel();
+        initGamePanel = new swing.components.init.PanelNewGame();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Go Fish - Swing");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
-        setPreferredSize(new java.awt.Dimension(600, 400));
         setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
-        getContentPane().add(initGamePanel2, "card2");
+        getContentPane().add(initGamePanel, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private swing.components.init.initGamePanel initGamePanel2;
+    private swing.components.init.PanelNewGame initGamePanel;
     // End of variables declaration//GEN-END:variables
 }
