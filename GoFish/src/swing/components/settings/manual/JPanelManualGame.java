@@ -26,29 +26,17 @@ public class JPanelManualGame extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelTitle1 = new swing.components.settings.JPanelTitle();
-        jPanelManualSub1 = new swing.components.settings.manual.JPanelManualSub();
+        jPanelManualSub2 = new swing.components.settings.manual.JPanelManualSub();
 
         setBackground(new java.awt.Color(255, 255, 204));
         setLayout(null);
         add(jPanelTitle1);
         jPanelTitle1.setBounds(0, 0, 600, 50);
-
-        javax.swing.GroupLayout jPanelManualSub1Layout = new javax.swing.GroupLayout(jPanelManualSub1);
-        jPanelManualSub1.setLayout(jPanelManualSub1Layout);
-        jPanelManualSub1Layout.setHorizontalGroup(
-            jPanelManualSub1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
-        jPanelManualSub1Layout.setVerticalGroup(
-            jPanelManualSub1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-
-        add(jPanelManualSub1);
-        jPanelManualSub1.setBounds(0, 50, 600, 400);
+        add(jPanelManualSub2);
+        jPanelManualSub2.setBounds(0, 50, 600, 400);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private swing.components.settings.manual.JPanelManualSub jPanelManualSub1;
+    private swing.components.settings.manual.JPanelManualSub jPanelManualSub2;
     private swing.components.settings.JPanelTitle jPanelTitle1;
     // End of variables declaration//GEN-END:variables
 
