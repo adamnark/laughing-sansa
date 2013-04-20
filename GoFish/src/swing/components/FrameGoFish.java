@@ -2,24 +2,30 @@
  */
 package swing.components;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Container;
+import javax.swing.JFrame;
+import swing.components.settings.JPanelSettingsMenu;
+
 /**
  *
  * @author adamnark
  */
-public class MainFrame extends javax.swing.JFrame {
+public class FrameGoFish extends JFrame {
 
+    JPanelGoFish jPanelGoFish;
+    
     /**
      * Creates new form GameFrame
      */
-    public MainFrame() {
+    public FrameGoFish() {
         initComponents();
         setLocationRelativeTo(null);
-        initListeners();
-
-    }
-    
-    private void initListeners() {
         
+        Container contentPane = this.getContentPane();
+        jPanelGoFish = new JPanelGoFish();
+        contentPane.add(jPanelGoFish, BorderLayout.CENTER);
     }
 
     /**
@@ -31,19 +37,17 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        initGamePanel = new swing.components.init.PanelNewGame();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Go Fish - Swing");
+        setBackground(new java.awt.Color(255, 102, 51));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(600, 400));
+        setMaximumSize(new java.awt.Dimension(600, 450));
+        setMinimumSize(new java.awt.Dimension(600, 450));
         setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
-        getContentPane().add(initGamePanel, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private swing.components.init.PanelNewGame initGamePanel;
     // End of variables declaration//GEN-END:variables
 }

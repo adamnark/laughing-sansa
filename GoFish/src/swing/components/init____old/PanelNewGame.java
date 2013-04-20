@@ -1,6 +1,8 @@
 /*
  */
-package swing.components.init;
+package swing.components.init____old;
+
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -15,6 +17,10 @@ public class PanelNewGame extends javax.swing.JPanel {
         initComponents();        
     }
 
+    public void addManualButtonAction(ActionListener al){
+        this.buttonManual.addActionListener(al);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +35,7 @@ public class PanelNewGame extends javax.swing.JPanel {
         buttonReplay = new javax.swing.JButton();
         buttonQuit = new javax.swing.JButton();
         buttonXml = new javax.swing.JButton();
-        panelTitle = new swing.components.init.panelTitle();
+        panelTitle = new swing.components.init____old.panelTitle();
 
         setBackground(new java.awt.Color(204, 255, 255));
         setMaximumSize(new java.awt.Dimension(600, 400));
@@ -58,7 +64,7 @@ public class PanelNewGame extends javax.swing.JPanel {
             }
         });
         panelNewGameButtons.add(buttonReplay);
-        buttonReplay.setBounds(30, 180, 230, 80);
+        buttonReplay.setBounds(30, 240, 230, 80);
 
         buttonQuit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         buttonQuit.setText("Quit");
@@ -68,7 +74,7 @@ public class PanelNewGame extends javax.swing.JPanel {
             }
         });
         panelNewGameButtons.add(buttonQuit);
-        buttonQuit.setBounds(350, 180, 230, 80);
+        buttonQuit.setBounds(350, 240, 230, 80);
 
         buttonXml.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         buttonXml.setText("XML");
@@ -80,7 +86,7 @@ public class PanelNewGame extends javax.swing.JPanel {
         panelNewGameButtons.add(buttonXml);
         buttonXml.setBounds(30, 40, 230, 80);
 
-        add(panelNewGameButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 600, 300));
+        add(panelNewGameButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 600, 350));
 
         panelTitle.setText("New Game");
         add(panelTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -108,6 +114,6 @@ public class PanelNewGame extends javax.swing.JPanel {
     private javax.swing.JButton buttonReplay;
     private javax.swing.JButton buttonXml;
     private javax.swing.JPanel panelNewGameButtons;
-    private swing.components.init.panelTitle panelTitle;
+    private swing.components.init____old.panelTitle panelTitle;
     // End of variables declaration//GEN-END:variables
 }

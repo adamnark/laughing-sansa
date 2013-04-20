@@ -6,7 +6,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
-import swing.components.MainFrame;
+import swing.components.FrameGoFish;
 
 /**
  *
@@ -20,7 +20,7 @@ public class SwingUtils {
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-	    java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	    java.util.logging.Logger.getLogger(FrameGoFish.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	}
     }
     
