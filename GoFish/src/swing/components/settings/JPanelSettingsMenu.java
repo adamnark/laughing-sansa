@@ -38,7 +38,6 @@ public class JPanelSettingsMenu extends javax.swing.JPanel {
         jPanelTitle1 = new swing.components.settings.JPanelTitle();
         jButtonManualGame = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(204, 204, 255));
         setMaximumSize(new java.awt.Dimension(600, 450));
         setMinimumSize(new java.awt.Dimension(600, 450));
         setLayout(null);
