@@ -163,4 +163,5 @@ pip-log.txt
 .DS_Store
 
 
-/GoFish2/nbproject/private/
+/GoFish2/nbproject/private/*
+
