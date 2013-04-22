@@ -56,7 +56,7 @@ public class FrameGoFish extends JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initListeners() {
-        this.jPanelGoFish.addPropertyChangeListener(JPanelGoFish.EXIT_EVENT, new PropertyChangeListener() {
+        this.jPanelGoFish.addPropertyChangeListener(JPanelGoFish.EVENT_EXIT, new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {

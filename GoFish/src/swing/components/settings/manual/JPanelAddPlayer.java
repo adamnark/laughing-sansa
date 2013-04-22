@@ -108,6 +108,7 @@ public class JPanelAddPlayer extends javax.swing.JPanel {
         });
 
         jLabelErrorMessage.setForeground(new java.awt.Color(255, 51, 51));
+        jLabelErrorMessage.setText("ERROR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -120,12 +121,12 @@ public class JPanelAddPlayer extends javax.swing.JPanel {
                         .addComponent(jLabelPlayerName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldPlayerName))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonAddPlayer))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jCheckBoxIsPlayerHuman)
                         .addGap(0, 127, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonAddPlayer))
                     .addComponent(jLabelErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -138,10 +139,9 @@ public class JPanelAddPlayer extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxIsPlayerHuman)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jButtonAddPlayer)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelErrorMessage))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -5,13 +5,11 @@ package swing.components.settings.manual;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import swing.components.settings.manual.playeritem.exceptions.DuplicateNameException;
 import swing.components.settings.manual.playeritem.PlayerItem;
 import swing.components.settings.manual.playeritem.PlayerItemCollection;
 import swing.components.settings.manual.playeritem.PlayerItemRenderer;
+import swing.components.settings.manual.playeritem.exceptions.DuplicateNameException;
 import swing.components.settings.manual.playeritem.exceptions.TooManyPlayersException;
 
 /**
@@ -20,6 +18,8 @@ import swing.components.settings.manual.playeritem.exceptions.TooManyPlayersExce
  */
 public class JPanelManualSub extends javax.swing.JPanel {
 
+    public static final String EVENT_START_GAME = "Start Game Event";
+    public static final String EVENT_BACK = "Back Event";
     private DefaultListModel<PlayerItem> listModel;
     private PlayerItemCollection playerItemsCollection;
 
@@ -42,11 +42,11 @@ public class JPanelManualSub extends javax.swing.JPanel {
         this.jPanelAddPlayer1.addPropertyChangeListener(
                 JPanelAddPlayer.ADD_PLAYER_EVENT,
                 new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent pce) {
-                addPlayer();
-            }
-        });
+                    @Override
+                    public void propertyChange(PropertyChangeEvent pce) {
+                        addPlayer();
+                    }
+                });
     }
 
     private void addPlayer() {
@@ -64,7 +64,7 @@ public class JPanelManualSub extends javax.swing.JPanel {
     }
 
     private void removePlayer() {
-        int selection = this.jList1.getSelectedIndex();
+        int selection = this.jListPlayers.getSelectedIndex();
         if (selection > -1) {
             PlayerItem pi = this.listModel.getElementAt(selection);
             playerItemsCollection.removePlayer(pi.getName());
@@ -84,14 +84,16 @@ public class JPanelManualSub extends javax.swing.JPanel {
         jCheckBoxAllowMutipleRequests = new javax.swing.JCheckBox();
         jCheckBoxForceShowOfSeries = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jListPlayers = new javax.swing.JList();
         jButtonStart = new javax.swing.JButton();
         jButtonBack = new javax.swing.JButton();
         jPanelAddPlayer1 = new swing.components.settings.manual.JPanelAddPlayer();
+        jPanelTitle1 = new swing.components.settings.JPanelTitle();
         jButtonRemovePlayer = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
+        setPreferredSize(new java.awt.Dimension(600, 400));
 
         jCheckBoxAllowMutipleRequests.setText("Allow Mutiple Requests");
         jCheckBoxAllowMutipleRequests.addActionListener(new java.awt.event.ActionListener() {
@@ -102,15 +104,28 @@ public class JPanelManualSub extends javax.swing.JPanel {
 
         jCheckBoxForceShowOfSeries.setText("Force Show Of Series");
 
-        jList1.setModel(listModel);
-        jList1.setCellRenderer(new PlayerItemRenderer());
-        jScrollPane1.setViewportView(jList1);
+        jListPlayers.setModel(listModel);
+        jListPlayers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListPlayers.setCellRenderer(new PlayerItemRenderer());
+        jScrollPane1.setViewportView(jListPlayers);
 
         jButtonStart.setText("Start Game");
+        jButtonStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStartActionPerformed(evt);
+            }
+        });
 
         jButtonBack.setText("Back");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
 
-        jButtonRemovePlayer.setText("Remove");
+        jPanelTitle1.setTitle("Manual Game");
+
+        jButtonRemovePlayer.setText("Remove selected player");
         jButtonRemovePlayer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRemovePlayerActionPerformed(evt);
@@ -125,40 +140,47 @@ public class JPanelManualSub extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonRemovePlayer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCheckBoxAllowMutipleRequests)
+                                    .addComponent(jCheckBoxForceShowOfSeries))
+                                .addGap(121, 121, 121))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jPanelAddPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBoxForceShowOfSeries)
-                            .addComponent(jCheckBoxAllowMutipleRequests)
-                            .addComponent(jPanelAddPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonRemovePlayer)))
+                        .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jPanelTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanelAddPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jCheckBoxAllowMutipleRequests)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBoxForceShowOfSeries))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jCheckBoxForceShowOfSeries)
+                        .addGap(26, 26, 26))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonRemovePlayer)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -169,24 +191,35 @@ public class JPanelManualSub extends javax.swing.JPanel {
     private void jButtonRemovePlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemovePlayerActionPerformed
         removePlayer();
     }//GEN-LAST:event_jButtonRemovePlayerActionPerformed
+
+    private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
+        if (isEnoughPlayers()) {
+            firePropertyChange(EVENT_START_GAME, false, true);
+        } else {
+            this.jPanelAddPlayer1.showErrorMessage("Not enough players! add some more.");
+        }
+    }//GEN-LAST:event_jButtonStartActionPerformed
+
+    private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+        firePropertyChange(EVENT_BACK, false, true);
+    }//GEN-LAST:event_jButtonBackActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonRemovePlayer;
     private javax.swing.JButton jButtonStart;
     private javax.swing.JCheckBox jCheckBoxAllowMutipleRequests;
     private javax.swing.JCheckBox jCheckBoxForceShowOfSeries;
-    private javax.swing.JList jList1;
+    private javax.swing.JList jListPlayers;
     private swing.components.settings.manual.JPanelAddPlayer jPanelAddPlayer1;
+    private swing.components.settings.JPanelTitle jPanelTitle1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
     private void addMockPlayers() {
         try {
             this.playerItemsCollection.addPlayer("Moxie", true);
-            this.playerItemsCollection.addPlayer("Doxie", true);
-            this.playerItemsCollection.addPlayer("Coxie", false);
             this.playerItemsCollection.addPlayer("Noxie", false);
-            this.playerItemsCollection.addPlayer("Soxie", true);
         } catch (DuplicateNameException ex) {
             System.out.println("oups1");
         } catch (TooManyPlayersException ex) {
@@ -196,5 +229,9 @@ public class JPanelManualSub extends javax.swing.JPanel {
         for (PlayerItem playerItem : this.playerItemsCollection.getList()) {
             this.listModel.addElement(playerItem);
         }
+    }
+
+    private boolean isEnoughPlayers() {
+        return this.playerItemsCollection.getList().size() >= 3;
     }
 }

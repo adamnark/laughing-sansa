@@ -10,7 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import swing.components.settings.JPanelSettingsMenu;
-import swing.components.settings.manual.JPanelManualGame;
+import swing.components.settings.manual.JPanelManualSub;
 
 /**
  *
@@ -18,9 +18,13 @@ import swing.components.settings.manual.JPanelManualGame;
  */
 public class JPanelGoFish extends JPanel {
 
-    public static final String EXIT_EVENT = "Exit Event";
+    public static final String EVENT_EXIT = "Exit Event";
+    
+    private static final String CARD_MENU = "Card - main menu";
+    private static final String CARD_MANUAL_SETTINGS = "Card - manual settings";
+    
     private JPanelSettingsMenu jPanelSettingsMenu;
-    private JPanelManualGame jPanelManualGame;
+    private JPanelManualSub jPanelManualSub;
     private CardLayout cardLayout;
 
     public JPanelGoFish() {
@@ -35,28 +39,29 @@ public class JPanelGoFish extends JPanel {
         this.setLayout(this.cardLayout);
 
         jPanelSettingsMenu = new JPanelSettingsMenu();
-        jPanelManualGame = new JPanelManualGame();
+        jPanelManualSub = new JPanelManualSub();
     }
 
     private void initCards() {
-        this.add(jPanelSettingsMenu, "SettingsMenu");
-        this.add(jPanelManualGame, "SettingsManual");
+        this.add(jPanelSettingsMenu, CARD_MENU);
+        this.add(jPanelManualSub, CARD_MANUAL_SETTINGS);
     }
 
     private void initListeners() {
         this.jPanelSettingsMenu.addButtonManualGameListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                cardLayout.show(JPanelGoFish.this, "SettingsManual");
+                cardLayout.show(JPanelGoFish.this, CARD_MANUAL_SETTINGS);
             }
         });
+        
+        this.jPanelManualSub.addPropertyChangeListener(JPanelManualSub.EVENT_BACK, new PropertyChangeListener() {
 
-        this.jPanelManualGame.addBackActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {
-                cardLayout.show(JPanelGoFish.this, "SettingsMenu");
+            public void propertyChange(PropertyChangeEvent evt) {
+                cardLayout.show(JPanelGoFish.this, CARD_MENU);
             }
-        });
+        } );
 
         this.jPanelSettingsMenu.addPropertyChangeListener(JPanelSettingsMenu.EXIT_EVENT, new PropertyChangeListener() {
             @Override
@@ -64,9 +69,21 @@ public class JPanelGoFish extends JPanel {
                 fireExitEvent();
             }
         });
+        
+        this.jPanelManualSub.addPropertyChangeListener(JPanelManualSub.EVENT_START_GAME, new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                startGame();
+            }
+        });
     }
 
     private void fireExitEvent() {
-        firePropertyChange(EXIT_EVENT, true, false);
+        firePropertyChange(EVENT_EXIT, true, false);
+    }
+    
+    private void startGame(){
+        
     }
 }
