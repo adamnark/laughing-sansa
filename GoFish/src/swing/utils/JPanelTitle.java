@@ -1,6 +1,6 @@
 /*
  */
-package swing.components.settings;
+package swing.utils;
 
 /**
  *

@@ -132,7 +132,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBackActionPerformed"/>
       </Events>
     </Component>
-    <Component class="swing.components.settings.JPanelTitle" name="jPanelTitle1">
+    <Component class="swing.utils.JPanelTitle" name="jPanelTitle1">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jPanelTitle1.setTitle(&quot;Manual Game&quot;);"/>
       </AuxValues>

@@ -26,7 +26,7 @@
     <Property name="useNullLayout" type="boolean" value="true"/>
   </Layout>
   <SubComponents>
-    <Component class="swing.components.settings.JPanelTitle" name="jPanelTitle1">
+    <Component class="swing.utils.JPanelTitle" name="jPanelTitle1">
       <Properties>
         <Property name="alignmentX" type="float" value="0.0"/>
         <Property name="alignmentY" type="float" value="0.0"/>

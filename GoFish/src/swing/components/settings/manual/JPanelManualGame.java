@@ -109,7 +109,7 @@ public class JPanelManualGame extends javax.swing.JPanel {
         jListPlayers = new javax.swing.JList();
         jButtonStart = new javax.swing.JButton();
         jButtonBack = new javax.swing.JButton();
-        jPanelTitle1 = new swing.components.settings.JPanelTitle();
+        jPanelTitle1 = new swing.utils.JPanelTitle();
         jButtonRemovePlayer = new javax.swing.JButton();
         jPanelAddPlayer1 = new swing.components.settings.manual.JPanelAddPlayer();
 
@@ -230,7 +230,7 @@ public class JPanelManualGame extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBoxForceShowOfSeries;
     private javax.swing.JList jListPlayers;
     private swing.components.settings.manual.JPanelAddPlayer jPanelAddPlayer1;
-    private swing.components.settings.JPanelTitle jPanelTitle1;
+    private swing.utils.JPanelTitle jPanelTitle1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 

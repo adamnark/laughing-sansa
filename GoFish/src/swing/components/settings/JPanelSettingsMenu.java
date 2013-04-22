@@ -36,7 +36,7 @@ public class JPanelSettingsMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelTitle1 = new swing.components.settings.JPanelTitle();
+        jPanelTitle1 = new swing.utils.JPanelTitle();
         jButtonManualGame = new javax.swing.JButton();
         jButtonXMLGame = new javax.swing.JButton();
         jButtonXMLGame1 = new javax.swing.JButton();
@@ -94,6 +94,6 @@ public class JPanelSettingsMenu extends javax.swing.JPanel {
     private javax.swing.JButton jButtonManualGame;
     private javax.swing.JButton jButtonXMLGame;
     private javax.swing.JButton jButtonXMLGame1;
-    private swing.components.settings.JPanelTitle jPanelTitle1;
+    private swing.utils.JPanelTitle jPanelTitle1;
     // End of variables declaration//GEN-END:variables
 }
