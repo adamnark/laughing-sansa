@@ -48,11 +48,11 @@ public class JPanelManualGame extends javax.swing.JPanel {
         return guiEngineMaker;
     }
 
-    public boolean getAllowMutipleRequests() {
+    private boolean getAllowMutipleRequests() {
         return this.jCheckBoxAllowMutipleRequests.isSelected();
     }
 
-    public boolean getForceShowOfCards() {
+    private boolean getForceShowOfCards() {
         return this.jCheckBoxForceShowOfSeries.isSelected();
     }
 
