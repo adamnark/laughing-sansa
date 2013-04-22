@@ -1,6 +1,6 @@
 /*
  */
-package swing.components.settings.manual.playerItem;
+package swing.components.settings.manual.playeritem;
 
 import javax.swing.ImageIcon;
 import swing.utils.SwingUtils;

@@ -1,4 +1,4 @@
-package swing.components.settings.manual.playerItem.exceptions;
+package swing.components.settings.manual.playeritem.exceptions;
 
 /**
  *

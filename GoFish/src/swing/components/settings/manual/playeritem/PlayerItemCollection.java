@@ -1,7 +1,7 @@
-package swing.components.settings.manual.playerItem;
+package swing.components.settings.manual.playeritem;
 
-import swing.components.settings.manual.playerItem.exceptions.TooManyPlayersException;
-import swing.components.settings.manual.playerItem.exceptions.DuplicateNameException;
+import swing.components.settings.manual.playeritem.exceptions.TooManyPlayersException;
+import swing.components.settings.manual.playeritem.exceptions.DuplicateNameException;
 import java.util.LinkedList;
 import java.util.List;
 

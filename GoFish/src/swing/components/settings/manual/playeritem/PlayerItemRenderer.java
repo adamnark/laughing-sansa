@@ -1,6 +1,6 @@
 /*
  */
-package swing.components.settings.manual.playerItem;
+package swing.components.settings.manual.playeritem;
 
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;

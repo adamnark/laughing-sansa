@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
  */
 public class JPanelSettingsMenu extends javax.swing.JPanel {
 
+    public static final String EXIT_EVENT = "Exit Event";
     /**
      * Creates new form JPanelSettingsMenu
      */
@@ -37,6 +38,8 @@ public class JPanelSettingsMenu extends javax.swing.JPanel {
 
         jPanelTitle1 = new swing.components.settings.JPanelTitle();
         jButtonManualGame = new javax.swing.JButton();
+        jButtonXMLGame = new javax.swing.JButton();
+        jButtonXMLGame1 = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 450));
         setMinimumSize(new java.awt.Dimension(600, 450));
@@ -54,15 +57,43 @@ public class JPanelSettingsMenu extends javax.swing.JPanel {
             }
         });
         add(jButtonManualGame);
-        jButtonManualGame.setBounds(20, 70, 190, 80);
+        jButtonManualGame.setBounds(230, 80, 140, 60);
+
+        jButtonXMLGame.setText("Exit");
+        jButtonXMLGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonXMLGameActionPerformed(evt);
+            }
+        });
+        add(jButtonXMLGame);
+        jButtonXMLGame.setBounds(230, 340, 140, 60);
+
+        jButtonXMLGame1.setText("XML Game");
+        jButtonXMLGame1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonXMLGame1ActionPerformed(evt);
+            }
+        });
+        add(jButtonXMLGame1);
+        jButtonXMLGame1.setBounds(230, 160, 140, 60);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonManualGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManualGameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonManualGameActionPerformed
 
+    private void jButtonXMLGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXMLGameActionPerformed
+        this.firePropertyChange(EXIT_EVENT, true, false);
+    }//GEN-LAST:event_jButtonXMLGameActionPerformed
+
+    private void jButtonXMLGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXMLGame1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonXMLGame1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonManualGame;
+    private javax.swing.JButton jButtonXMLGame;
+    private javax.swing.JButton jButtonXMLGame1;
     private swing.components.settings.JPanelTitle jPanelTitle1;
     // End of variables declaration//GEN-END:variables
 }

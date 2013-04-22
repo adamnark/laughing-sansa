@@ -6,6 +6,8 @@ package swing.components;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import swing.components.settings.JPanelSettingsMenu;
 import swing.components.settings.manual.JPanelManualGame;
@@ -16,15 +18,14 @@ import swing.components.settings.manual.JPanelManualGame;
  */
 public class JPanelGoFish extends JPanel {
 
-    JPanelSettingsMenu jPanelSettingsMenu;
-    JPanelManualGame jPanelManualGame;
-    CardLayout cardLayout;
+    public static final String EXIT_EVENT = "Exit Event";
+    private JPanelSettingsMenu jPanelSettingsMenu;
+    private JPanelManualGame jPanelManualGame;
+    private CardLayout cardLayout;
 
     public JPanelGoFish() {
         initComponents();
-
         initCards();
-
         initListeners();
     }
 
@@ -56,5 +57,16 @@ public class JPanelGoFish extends JPanel {
                 cardLayout.show(JPanelGoFish.this, "SettingsMenu");
             }
         });
+
+        this.jPanelSettingsMenu.addPropertyChangeListener(JPanelSettingsMenu.EXIT_EVENT, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                fireExitEvent();
+            }
+        });
+    }
+
+    private void fireExitEvent() {
+        firePropertyChange(EXIT_EVENT, true, false);
     }
 }

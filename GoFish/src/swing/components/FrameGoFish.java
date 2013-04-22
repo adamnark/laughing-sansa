@@ -5,7 +5,10 @@ package swing.components;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Container;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 import swing.components.settings.JPanelSettingsMenu;
 
 /**
@@ -26,6 +29,8 @@ public class FrameGoFish extends JFrame {
         Container contentPane = this.getContentPane();
         jPanelGoFish = new JPanelGoFish();
         contentPane.add(jPanelGoFish, BorderLayout.CENTER);
+        
+        initListeners();
     }
 
     /**
@@ -49,4 +54,18 @@ public class FrameGoFish extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
+    private void initListeners() {
+        this.jPanelGoFish.addPropertyChangeListener(JPanelGoFish.EXIT_EVENT, new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                exit();
+            }
+        });
+    }
+    
+    private void exit(){
+        this.dispose();
+    }
 }

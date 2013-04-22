@@ -1,6 +1,6 @@
 /*
  */
-package swing.components.settings.manual.playerItem;
+package swing.components.settings.manual.playeritem;
 
 /**
  *

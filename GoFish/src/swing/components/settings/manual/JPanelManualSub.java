@@ -8,11 +8,11 @@ import java.beans.PropertyChangeListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import swing.components.settings.manual.playerItem.exceptions.DuplicateNameException;
-import swing.components.settings.manual.playerItem.PlayerItem;
-import swing.components.settings.manual.playerItem.PlayerItemCollection;
-import swing.components.settings.manual.playerItem.PlayerItemRenderer;
-import swing.components.settings.manual.playerItem.exceptions.TooManyPlayersException;
+import swing.components.settings.manual.playeritem.exceptions.DuplicateNameException;
+import swing.components.settings.manual.playeritem.PlayerItem;
+import swing.components.settings.manual.playeritem.PlayerItemCollection;
+import swing.components.settings.manual.playeritem.PlayerItemRenderer;
+import swing.components.settings.manual.playeritem.exceptions.TooManyPlayersException;
 
 /**
  *
