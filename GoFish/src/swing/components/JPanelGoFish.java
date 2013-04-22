@@ -10,7 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import swing.components.settings.JPanelSettingsMenu;
-import swing.components.settings.manual.JPanelManualSub;
+import swing.components.settings.manual.JPanelManualGame;
 
 /**
  *
@@ -24,7 +24,7 @@ public class JPanelGoFish extends JPanel {
     private static final String CARD_MANUAL_SETTINGS = "Card - manual settings";
     
     private JPanelSettingsMenu jPanelSettingsMenu;
-    private JPanelManualSub jPanelManualSub;
+    private JPanelManualGame jPanelManualSub;
     private CardLayout cardLayout;
 
     public JPanelGoFish() {
@@ -39,7 +39,7 @@ public class JPanelGoFish extends JPanel {
         this.setLayout(this.cardLayout);
 
         jPanelSettingsMenu = new JPanelSettingsMenu();
-        jPanelManualSub = new JPanelManualSub();
+        jPanelManualSub = new JPanelManualGame();
     }
 
     private void initCards() {
@@ -55,7 +55,7 @@ public class JPanelGoFish extends JPanel {
             }
         });
         
-        this.jPanelManualSub.addPropertyChangeListener(JPanelManualSub.EVENT_BACK, new PropertyChangeListener() {
+        this.jPanelManualSub.addPropertyChangeListener(JPanelManualGame.EVENT_BACK, new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -70,7 +70,7 @@ public class JPanelGoFish extends JPanel {
             }
         });
         
-        this.jPanelManualSub.addPropertyChangeListener(JPanelManualSub.EVENT_START_GAME, new PropertyChangeListener() {
+        this.jPanelManualSub.addPropertyChangeListener(JPanelManualGame.EVENT_START_GAME, new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {

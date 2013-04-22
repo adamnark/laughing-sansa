@@ -16,22 +16,44 @@ import swing.components.settings.manual.playeritem.exceptions.TooManyPlayersExce
  *
  * @author adam
  */
-public class JPanelManualSub extends javax.swing.JPanel {
+public class JPanelManualGame extends javax.swing.JPanel {
 
     public static final String EVENT_START_GAME = "Start Game Event";
     public static final String EVENT_BACK = "Back Event";
     private DefaultListModel<PlayerItem> listModel;
     private PlayerItemCollection playerItemsCollection;
+    private GUIEngineMaker guiEngineMaker;
 
     /**
      * Creates new form JPanelManualSub
      */
-    public JPanelManualSub() {
+    public JPanelManualGame() {
         listModel = new DefaultListModel<>();
         playerItemsCollection = new PlayerItemCollection();
         initComponents();
         addMockPlayers();
         initListeners();
+    }
+
+    private void initGUIMaker() {
+        this.guiEngineMaker = new GUIEngineMaker();
+        this.guiEngineMaker.setAllowMutipleRequests(this.getAllowMutipleRequests());
+        this.guiEngineMaker.setForceShowOfSeries(this.getForceShowOfCards());
+        for (PlayerItem playerItem : playerItemsCollection.getList()) {
+            this.guiEngineMaker.addPlayer(playerItem);
+        }
+    }
+
+    public GUIEngineMaker getGuiEngineMaker() {
+        return guiEngineMaker;
+    }
+
+    public boolean getAllowMutipleRequests() {
+        return this.jCheckBoxAllowMutipleRequests.isSelected();
+    }
+
+    public boolean getForceShowOfCards() {
+        return this.jCheckBoxForceShowOfSeries.isSelected();
     }
 
     public void addBackButtonListener(ActionListener al) {
@@ -42,11 +64,11 @@ public class JPanelManualSub extends javax.swing.JPanel {
         this.jPanelAddPlayer1.addPropertyChangeListener(
                 JPanelAddPlayer.ADD_PLAYER_EVENT,
                 new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange(PropertyChangeEvent pce) {
-                        addPlayer();
-                    }
-                });
+            @Override
+            public void propertyChange(PropertyChangeEvent pce) {
+                addPlayer();
+            }
+        });
     }
 
     private void addPlayer() {
@@ -190,6 +212,7 @@ public class JPanelManualSub extends javax.swing.JPanel {
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
         if (isEnoughPlayers()) {
+            initGUIMaker();
             firePropertyChange(EVENT_START_GAME, false, true);
         } else {
             this.jPanelAddPlayer1.showErrorMessage("Not enough players! add some more.");
@@ -199,7 +222,6 @@ public class JPanelManualSub extends javax.swing.JPanel {
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         firePropertyChange(EVENT_BACK, false, true);
     }//GEN-LAST:event_jButtonBackActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonRemovePlayer;
