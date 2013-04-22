@@ -9,8 +9,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
-import swing.components.settings.JPanelSettingsMenu;
+import swing.components.settings.JPanelMainMenu;
 import swing.components.settings.manual.JPanelManualGame;
+import swing.components.settings.xml.JPanelXMLSettings;
 
 /**
  *
@@ -19,13 +20,13 @@ import swing.components.settings.manual.JPanelManualGame;
 public class JPanelGoFish extends JPanel {
 
     public static final String EVENT_EXIT = "Exit Event";
-    
     private static final String CARD_MENU = "Card - main menu";
     private static final String CARD_MANUAL_SETTINGS = "Card - manual settings";
-    
-    private JPanelSettingsMenu jPanelSettingsMenu;
-    private JPanelManualGame jPanelManualGame;
+    private static final String CARD_XML_SETTINGS = "Card - XML settings";
     private CardLayout cardLayout;
+    private JPanelMainMenu jPanelMainMenu;
+    private JPanelManualGame jPanelManualGame;
+    private JPanelXMLSettings jPanelXMLSettings;
 
     public JPanelGoFish() {
         initComponents();
@@ -38,40 +39,30 @@ public class JPanelGoFish extends JPanel {
         this.cardLayout = new CardLayout(0, 0);
         this.setLayout(this.cardLayout);
 
-        jPanelSettingsMenu = new JPanelSettingsMenu();
+        jPanelMainMenu = new JPanelMainMenu();
         jPanelManualGame = new JPanelManualGame();
+        jPanelXMLSettings = new JPanelXMLSettings();
     }
 
     private void initCards() {
-        this.add(jPanelSettingsMenu, CARD_MENU);
+        this.add(jPanelMainMenu, CARD_MENU);
         this.add(jPanelManualGame, CARD_MANUAL_SETTINGS);
+        this.add(jPanelXMLSettings, CARD_XML_SETTINGS);
     }
 
     private void initListeners() {
-        this.jPanelSettingsMenu.addButtonManualGameListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                cardLayout.show(JPanelGoFish.this, CARD_MANUAL_SETTINGS);
-            }
-        });
-        
-        this.jPanelManualGame.addPropertyChangeListener(JPanelManualGame.EVENT_BACK, new PropertyChangeListener() {
+        initMainMenuListeners();
+        initManualSettingsListeners();
+    }
 
+    private void initManualSettingsListeners() {
+        this.jPanelManualGame.addPropertyChangeListener(JPanelManualGame.EVENT_BACK, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 cardLayout.show(JPanelGoFish.this, CARD_MENU);
             }
-        } );
-
-        this.jPanelSettingsMenu.addPropertyChangeListener(JPanelSettingsMenu.EXIT_EVENT, new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                fireExitEvent();
-            }
         });
-        
         this.jPanelManualGame.addPropertyChangeListener(JPanelManualGame.EVENT_START_GAME, new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 startGame();
@@ -79,11 +70,36 @@ public class JPanelGoFish extends JPanel {
         });
     }
 
+    private void initMainMenuListeners() {
+        this.jPanelMainMenu.addPropertyChangeListener(JPanelMainMenu.EVENT_GOTO_MANUAL, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent pce) {
+                cardLayout.show(JPanelGoFish.this, CARD_MANUAL_SETTINGS);
+            }
+        });
+
+        this.jPanelMainMenu.addPropertyChangeListener(JPanelMainMenu.EVENT_EXIT, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                fireExitEvent();
+            }
+        });
+
+        this.jPanelMainMenu.addPropertyChangeListener(JPanelMainMenu.EVENT_GOTO_XML, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent pce) {
+                cardLayout.show(JPanelGoFish.this, CARD_XML_SETTINGS);
+            }
+        });
+
+    }
+
     private void fireExitEvent() {
         firePropertyChange(EVENT_EXIT, true, false);
     }
-    
-    private void startGame(){
-        
+
+    private void startGame() {
+        //save the factory for later!
+        //jPanelManualGame.getGuiEngineMaker().makeEngine();
     }
 }
