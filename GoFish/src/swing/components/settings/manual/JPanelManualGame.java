@@ -2,6 +2,8 @@
  */
 package swing.components.settings.manual;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author adam
@@ -42,5 +44,9 @@ public class JPanelManualGame extends javax.swing.JPanel {
 
     private void setTitle() {
         this.jPanelTitle1.setTitle("Manual Game Settings");
+    }
+    
+    public void addBackActionListener(ActionListener al){
+        this.jPanelManualSub2.addBackButtonListener(al);
     }
 }

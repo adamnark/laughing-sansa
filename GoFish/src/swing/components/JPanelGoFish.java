@@ -1,4 +1,5 @@
 /*
+ * 
  */
 package swing.components;
 
@@ -15,10 +16,10 @@ import swing.components.settings.manual.JPanelManualGame;
  */
 public class JPanelGoFish extends JPanel {
 
-    JPanelSettingsMenu jPanelSettingsMenu; 
-    JPanelManualGame jPanelManualGame; 
+    JPanelSettingsMenu jPanelSettingsMenu;
+    JPanelManualGame jPanelManualGame;
     CardLayout cardLayout;
-    
+
     public JPanelGoFish() {
         initComponents();
 
@@ -43,10 +44,16 @@ public class JPanelGoFish extends JPanel {
 
     private void initListeners() {
         this.jPanelSettingsMenu.addButtonManualGameListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent ae) {
-               cardLayout.show(JPanelGoFish.this, "SettingsManual");
+                cardLayout.show(JPanelGoFish.this, "SettingsManual");
+            }
+        });
+
+        this.jPanelManualGame.addBackActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                cardLayout.show(JPanelGoFish.this, "SettingsMenu");
             }
         });
     }
