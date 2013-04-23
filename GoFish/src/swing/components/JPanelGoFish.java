@@ -4,8 +4,6 @@
 package swing.components;
 
 import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
@@ -53,13 +51,18 @@ public class JPanelGoFish extends JPanel {
     private void initListeners() {
         initMainMenuListeners();
         initManualSettingsListeners();
+        initXMLSettingsListeners();
+    }
+
+    private void showMainMenu() {
+        cardLayout.show(JPanelGoFish.this, CARD_MENU);
     }
 
     private void initManualSettingsListeners() {
         this.jPanelManualGame.addPropertyChangeListener(JPanelManualGame.EVENT_BACK, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                cardLayout.show(JPanelGoFish.this, CARD_MENU);
+                showMainMenu();
             }
         });
         this.jPanelManualGame.addPropertyChangeListener(JPanelManualGame.EVENT_START_GAME, new PropertyChangeListener() {
@@ -92,6 +95,15 @@ public class JPanelGoFish extends JPanel {
             }
         });
 
+    }
+
+    private void initXMLSettingsListeners() {
+        jPanelXMLSettings.addPropertyChangeListener(JPanelXMLSettings.EVENT_BACK, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent pce) {
+                showMainMenu();
+            }
+        });
     }
 
     private void fireExitEvent() {

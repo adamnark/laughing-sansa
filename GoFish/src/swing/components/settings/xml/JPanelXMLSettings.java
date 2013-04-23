@@ -2,17 +2,36 @@
  */
 package swing.components.settings.xml;
 
+import engine.Engine;
+import engine.Validator;
+import java.awt.Color;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.bind.JAXBException;
+import xml.SettingsFromXML;
+
 /**
  *
  * @author adam
  */
 public class JPanelXMLSettings extends javax.swing.JPanel {
 
+    public static final String EVENT_BACK = "Event Go Back XML";
+    private SettingsFromXML settingsFromXML;
+
     /**
      * Creates new form JPanelXMLSettings
      */
     public JPanelXMLSettings() {
         initComponents();
+        settingsFromXML = null;
+        this.clearMessage();
+        this.disableStartButton();
     }
 
     /**
@@ -25,23 +44,187 @@ public class JPanelXMLSettings extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelTitle1 = new swing.utils.JPanelTitle();
+        jButtonBack = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButtonOpenFile = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaXMLContent = new javax.swing.JTextArea();
+        jLabelMessage = new javax.swing.JLabel();
+        jButtonStart = new javax.swing.JButton();
 
         jPanelTitle1.setTitle("Load Game From XML");
+
+        jButtonBack.setText("Back");
+        jButtonBack.setPreferredSize(new java.awt.Dimension(55, 23));
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Choose an XML file to load:");
+
+        jButtonOpenFile.setText("Open...");
+        jButtonOpenFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOpenFileActionPerformed(evt);
+            }
+        });
+
+        jTextAreaXMLContent.setColumns(20);
+        jTextAreaXMLContent.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        jTextAreaXMLContent.setRows(5);
+        jTextAreaXMLContent.setTabSize(4);
+        jTextAreaXMLContent.setFocusable(false);
+        jScrollPane1.setViewportView(jTextAreaXMLContent);
+
+        jLabelMessage.setText("ERROR/MESSAGE");
+        jLabelMessage.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        jButtonStart.setText("Start Game");
+        jButtonStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelTitle1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonOpenFile))
+                            .addComponent(jLabelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 400, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jButtonOpenFile))
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabelMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+        this.firePropertyChange(EVENT_BACK, false, true);
+    }//GEN-LAST:event_jButtonBackActionPerformed
+
+    private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonStartActionPerformed
+
+    private void jButtonOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpenFileActionPerformed
+        clearMessage();
+        chooseFile();
+    }//GEN-LAST:event_jButtonOpenFileActionPerformed
+
+    private void chooseFile() {
+        final JFileChooser fc = makeFileChooser();
+        int dialougeResult = fc.showOpenDialog(this);
+        if (dialougeResult == JFileChooser.APPROVE_OPTION) {
+            showFileContent(fc.getSelectedFile());
+            String pathToXMLFile = fc.getSelectedFile().getPath();
+            tryGeneratingSettingsFromXML(pathToXMLFile);
+            tryValidation();
+        }
+    }
+
+    private void tryGeneratingSettingsFromXML(String pathToXMLFile) {
+        try {
+            settingsFromXML = new SettingsFromXML(pathToXMLFile);
+        } catch (JAXBException ex) {
+            showMessage("That's not a valid GoFish game file.", Color.RED);
+            settingsFromXML = null;
+        }
+    }
+
+    public SettingsFromXML getSettingsFromXML() {
+        return this.settingsFromXML;
+    }
+
+    private JFileChooser makeFileChooser() {
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Choose a game xml file to load:");
+        fc.setMultiSelectionEnabled(false);
+        FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter("GoFish XML files (*.xml)", "xml");
+        fc.setFileFilter(xmlFilter);
+
+        return fc;
+    }
+
+    private void clearMessage() {
+        this.jLabelMessage.setText("");
+    }
+
+    private void showMessage(String message, Color color) {
+        this.jLabelMessage.setText(message);
+        this.jLabelMessage.setForeground(color);
+    }
+
+    private void showFileContent(File file) {
+        String content;
+        try {
+            content = new Scanner(file).useDelimiter("\\Z").next();
+        } catch (FileNotFoundException ex) {
+            content = "(file not found)";
+        }
+        this.jTextAreaXMLContent.setText(content);
+        this.jTextAreaXMLContent.setCaretPosition(0);
+    }
+
+    private void tryValidation() {
+        Engine tempEngine = settingsFromXML.makeEngineFromXML();
+        Validator val = new Validator(tempEngine);
+        if (!val.validateEngineState()) {
+            showMessage("File did not pass validation ;(", Color.RED);
+        } else {
+            showMessage("File OK!", Color.BLUE);
+            enableStartButton();
+        }
+    }
+
+    private void disableStartButton() {
+        this.jButtonStart.setEnabled(false);
+    }
+
+    private void enableStartButton() {
+        this.jButtonStart.setEnabled(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonBack;
+    private javax.swing.JButton jButtonOpenFile;
+    private javax.swing.JButton jButtonStart;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelMessage;
     private swing.utils.JPanelTitle jPanelTitle1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaXMLContent;
     // End of variables declaration//GEN-END:variables
 }
