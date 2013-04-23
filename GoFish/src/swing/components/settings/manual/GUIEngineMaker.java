@@ -8,8 +8,8 @@ import engine.players.Player;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.LinkedList;
-import swing.components.settings.manual.playeritem.PlayerItem;
-import swing.components.settings.manual.playeritem.PlayerType;
+import swing.utils.playeritem.PlayerItem;
+import swing.utils.playeritem.PlayerType;
 import swing.playerinterface.SwingFourPicker;
 import swing.playerinterface.SwingRequestMaker;
 
