@@ -43,6 +43,7 @@ public class JPanelMainMenu extends javax.swing.JPanel {
         jButtonManualGame = new javax.swing.JButton();
         jButtonExit = new javax.swing.JButton();
         jButtonXMLGame = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 450));
         setMinimumSize(new java.awt.Dimension(600, 450));
@@ -79,6 +80,15 @@ public class JPanelMainMenu extends javax.swing.JPanel {
         });
         add(jButtonXMLGame);
         jButtonXMLGame.setBounds(230, 160, 140, 60);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1);
+        jButton1.setBounds(450, 230, 73, 23);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonManualGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManualGameActionPerformed
@@ -92,7 +102,14 @@ public class JPanelMainMenu extends javax.swing.JPanel {
     private void jButtonXMLGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXMLGameActionPerformed
         this.firePropertyChange(EVENT_GOTO_XML, true, false);
     }//GEN-LAST:event_jButtonXMLGameActionPerformed
+
+    public static final String EVENT_TEST = "event test test test";
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.firePropertyChange(EVENT_TEST, false, true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonExit;
     private javax.swing.JButton jButtonManualGame;
     private javax.swing.JButton jButtonXMLGame;

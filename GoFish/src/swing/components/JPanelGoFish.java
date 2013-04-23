@@ -7,6 +7,7 @@ import java.awt.CardLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
+import swing.components.game.JPanelTest;
 import swing.components.settings.JPanelMainMenu;
 import swing.components.settings.manual.JPanelManualGame;
 import swing.components.settings.xml.JPanelXMLSettings;
@@ -21,6 +22,7 @@ public class JPanelGoFish extends JPanel {
     private static final String CARD_MENU = "Card - main menu";
     private static final String CARD_MANUAL_SETTINGS = "Card - manual settings";
     private static final String CARD_XML_SETTINGS = "Card - XML settings";
+    private static final String CARD_TEST = "Card - TEST REMOVE THIS";
     private CardLayout cardLayout;
     private JPanelMainMenu jPanelMainMenu;
     private JPanelManualGame jPanelManualGame;
@@ -46,6 +48,7 @@ public class JPanelGoFish extends JPanel {
         this.add(jPanelMainMenu, CARD_MENU);
         this.add(jPanelManualGame, CARD_MANUAL_SETTINGS);
         this.add(jPanelXMLSettings, CARD_XML_SETTINGS);
+        this.add(new JPanelTest(), CARD_TEST);
     }
 
     private void initListeners() {
@@ -55,7 +58,7 @@ public class JPanelGoFish extends JPanel {
     }
 
     private void showMainMenu() {
-        cardLayout.show(JPanelGoFish.this, CARD_MENU);
+        cardLayout.show(this, CARD_MENU);
     }
 
     private void initManualSettingsListeners() {
@@ -94,7 +97,19 @@ public class JPanelGoFish extends JPanel {
                 cardLayout.show(JPanelGoFish.this, CARD_XML_SETTINGS);
             }
         });
+        
+        this.jPanelMainMenu.addPropertyChangeListener(JPanelMainMenu.EVENT_TEST, new PropertyChangeListener() {
 
+            @Override
+            public void propertyChange(PropertyChangeEvent pce) {
+                showTestPanel();
+            }
+        });
+
+    }
+    
+    private void showTestPanel(){
+        cardLayout.show(this, CARD_TEST);
     }
 
     private void initXMLSettingsListeners() {
