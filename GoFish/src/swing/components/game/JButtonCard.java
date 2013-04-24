@@ -8,8 +8,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -26,7 +24,7 @@ public class JButtonCard extends JButton {
 
     public static final String EVENT_CLICKED = "JPanelCard was clicked";
     private JPanelColors jPanelColors;
-    private JLabel jLableCardName;
+    private JLabel jLabelCardName;
     private static List<Series> availableSeries;
     private static List<Color> colorList;
     private static boolean isDictionaryInitiated = false;
@@ -43,16 +41,18 @@ public class JButtonCard extends JButton {
 
     private void initComponents(Card card) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setPreferredSize(new Dimension(80, 100));
+        this.setPreferredSize(new Dimension(75, 105));
         this.setBorder(BorderFactory.createLineBorder(Color.black));
 
         this.jPanelColors = new JPanelColors(generateColorsFromCard(card));
-        this.jLableCardName = new JLabel();
-        jLableCardName.setHorizontalAlignment(JLabel.CENTER);
-        jLableCardName.setText(card.getName());
+        this.jLabelCardName = new JLabel();
+        this.jLabelCardName.setHorizontalAlignment(JLabel.CENTER);
+        
+        jLabelCardName.setText(card.getName());
+        jLabelCardName.setPreferredSize(new Dimension(75,15));
 
         this.add(jPanelColors);
-        this.add(jLableCardName);
+        this.add(jLabelCardName);
     }
 
     private void initListeners() {
@@ -63,11 +63,11 @@ public class JButtonCard extends JButton {
             }
         });
     }
-    
-    public boolean isHighlighted(){
+
+    public boolean isHighlighted() {
         return this.isHighlighted;
     }
-    
+
     private void toggle() {
         isHighlighted = !isHighlighted;
         if (isHighlighted) {
@@ -78,11 +78,13 @@ public class JButtonCard extends JButton {
     }
 
     public void highlight() {
-        this.jLableCardName.setForeground(Color.blue);
+        this.jLabelCardName.setForeground(Color.RED);
+        this.jLabelCardName.setFont(new java.awt.Font("Tahoma", 1, 12));
     }
 
     public void lowlight() {
-        this.jLableCardName.setForeground(this.getForeground());
+        this.jLabelCardName.setForeground(this.getForeground());
+        this.jLabelCardName.setFont(new java.awt.Font("Tahoma", 0, 12));
     }
 
     private List<Color> generateColorsFromCard(Card card) {

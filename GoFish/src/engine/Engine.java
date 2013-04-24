@@ -37,14 +37,14 @@ public class Engine {
 
     }
 
-    public List<Series> getAvailableSeries(){
+    public List<Series> getAvailableSeries() {
         List<Series> lst = new LinkedList<>();
         for (Series series : this.cardsBySeries.keySet()) {
             lst.add(series);
         }
         return lst;
     }
-    
+
     public void currentPlayerMakeRequest() {
         boolean cardWasTaken;
         cardWasTaken = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
@@ -72,7 +72,7 @@ public class Engine {
                 winner = player;
             }
         }
-        
+
         return winner;
     }
 
