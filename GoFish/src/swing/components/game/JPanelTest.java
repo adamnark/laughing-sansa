@@ -25,7 +25,7 @@ public class JPanelTest extends javax.swing.JPanel {
         for (Card card : cards) {
             JButtonCard jPanelCard = new JButtonCard(card);
             this.add(jPanelCard);
-            
+
         }
     }
 
@@ -43,28 +43,27 @@ public class JPanelTest extends javax.swing.JPanel {
 
     private LinkedList<Series> makeSeries() {
         LinkedList<Series> series = new LinkedList<>();
-        series.add(new Series("ting tong"));
-        series.add(new Series("fing fong"));
-        series.add(new Series("ling long"));
-        series.add(new Series("ping pong"));
-        series.add(new Series("shing shong"));
-        series.add(new Series("zing zong"));
-        
+        for (int i = 0; i < 60; i++) {
+            series.add(new Series(i % 5 + " ting"));
+        }
+
         return series;
     }
 
     private LinkedList<Card> makeCards(LinkedList<Series> series) {
         LinkedList<Card> cards = new LinkedList<>();
-        
-        for (int i = 0; i < series.size(); i+=2) {
+
+        for (int i = 0; i < series.size(); i += 3) {
             Series srs1 = series.get(i);
-            Series srs2 = series.get(i+1);
+            Series srs2 = series.get(i + 1);
+            Series srs3 = series.get(i + 2);
             Card card = new Card();
             card.addSeries(srs1);
             card.addSeries(srs2);
+            card.addSeries(srs3);
             card.setName(srs1.getName());
             cards.add(card);
-            
+
         }
 
         return cards;
