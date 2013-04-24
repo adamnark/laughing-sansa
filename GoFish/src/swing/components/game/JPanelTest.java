@@ -2,6 +2,10 @@
  */
 package swing.components.game;
 
+import engine.cards.Card;
+import engine.cards.Series;
+import java.util.LinkedList;
+
 /**
  *
  * @author adamnark
@@ -13,6 +17,16 @@ public class JPanelTest extends javax.swing.JPanel {
      */
     public JPanelTest() {
         initComponents();
+        LinkedList<Series> series = makeSeries();
+        LinkedList<Card> cards = makeCards(series);
+
+        JButtonCard.setAvailableSeries(series);
+
+        for (Card card : cards) {
+            JButtonCard jPanelCard = new JButtonCard(card);
+            this.add(jPanelCard);
+            
+        }
     }
 
     /**
@@ -23,27 +37,36 @@ public class JPanelTest extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jPanelCard1 = new swing.components.game.JPanelCard();
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jPanelCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(199, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jPanelCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(226, Short.MAX_VALUE))
-        );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private swing.components.game.JPanelCard jPanelCard1;
     // End of variables declaration//GEN-END:variables
+
+    private LinkedList<Series> makeSeries() {
+        LinkedList<Series> series = new LinkedList<>();
+        series.add(new Series("ting tong"));
+        series.add(new Series("fing fong"));
+        series.add(new Series("ling long"));
+        series.add(new Series("ping pong"));
+        series.add(new Series("shing shong"));
+        series.add(new Series("zing zong"));
+        
+        return series;
+    }
+
+    private LinkedList<Card> makeCards(LinkedList<Series> series) {
+        LinkedList<Card> cards = new LinkedList<>();
+        
+        for (int i = 0; i < series.size(); i+=2) {
+            Series srs1 = series.get(i);
+            Series srs2 = series.get(i+1);
+            Card card = new Card();
+            card.addSeries(srs1);
+            card.addSeries(srs2);
+            card.setName(srs1.getName());
+            cards.add(card);
+            
+        }
+
+        return cards;
+    }
 }
