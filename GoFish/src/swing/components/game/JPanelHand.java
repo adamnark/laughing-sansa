@@ -2,20 +2,65 @@
  */
 package swing.components.game;
 
+import engine.cards.Card;
+import engine.cards.Series;
+import engine.players.Hand;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * @author adam
  */
 public class JPanelHand extends javax.swing.JPanel {
 
+    private Hand handModel;
+    private LinkedList<JButtonCard> jPanelButtonCardList;
+    private static boolean isClassInitiated = false;
+
     /**
      * Creates new form JPanelHand
      */
     public JPanelHand() {
+        if (!JPanelHand.isClassInitiated) {
+            throw new RuntimeException("Can't instantiate JPanelHand before calling setAvailableSeries()!");
+        }
+
+        this.jPanelButtonCardList = new LinkedList<>();
+        this.handModel = null;
         initComponents();
     }
-    
-    public void setPlayerName(String name){
+
+    public void setHandModel(Hand handModel) {
+        this.handModel = handModel;
+    }
+
+    public void update() {
+        if (this.handModel == null) {
+            throw new RuntimeException("JPanelHand needs a hand model! please call setHandModel().");
+        }
+
+        for (JButtonCard jButtonCard : jPanelButtonCardList) {
+            this.remove(jButtonCard);
+        }
+
+        this.addButtonsFromHandModel();
+        this.revalidate();
+        this.repaint();
+    }
+
+    private void addButtonsFromHandModel() {
+        for (Card card : this.handModel.getCards()) {
+            this.jPanelButtonCardList.add(new JButtonCard(card));
+        }
+    }
+
+    public static void setAvailableSeries(List<Series> availableSeries) {
+        JButtonCard.setAvailableSeries(availableSeries);
+        JPanelHand.isClassInitiated = true;
+    }
+
+    public void setPlayerName(String name) {
         String title = name + "'s Hand";
         this.setBorder(javax.swing.BorderFactory.createTitledBorder(title));
     }

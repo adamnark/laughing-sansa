@@ -3,13 +3,19 @@
 package swing.components;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.plaf.basic.BasicComboBoxUI;
-import swing.components.settings.JPanelMainMenu;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import swing.utils.SwingUtils;
 
 /**
  *
@@ -18,19 +24,21 @@ import swing.components.settings.JPanelMainMenu;
 public class FrameGoFish extends JFrame {
 
     JPanelGoFish jPanelGoFish;
-    
+
     /**
      * Creates new form GameFrame
      */
     public FrameGoFish() {
         initComponents();
         setLocationRelativeTo(null);
-        
+
         Container contentPane = this.getContentPane();
         jPanelGoFish = new JPanelGoFish();
         contentPane.add(jPanelGoFish, BorderLayout.CENTER);
-        
+
         initListeners();
+
+        initMenuBar();
     }
 
     /**
@@ -57,15 +65,69 @@ public class FrameGoFish extends JFrame {
 
     private void initListeners() {
         this.jPanelGoFish.addPropertyChangeListener(JPanelGoFish.EVENT_EXIT, new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 exit();
             }
         });
     }
-    
-    private void exit(){
+
+    private void exit() {
         this.dispose();
+    }
+
+    private void initMenuBar() {
+        JMenuBar menuBar = makeMenuBar();
+        this.setJMenuBar(menuBar);
+    }
+
+    private JMenuBar makeMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu menu1 = new JMenu("Game");
+        JMenuItem menuItemNew = new JMenuItem("New Game");
+        menuItemNew.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newGame();
+            }
+        });
+
+        JMenuItem menuItemExit = new JMenuItem("Exit");
+        menuItemExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+            }
+        });
+
+        menu1.add(menuItemNew);
+        menu1.addSeparator();
+        menu1.add(menuItemExit);
+
+        JMenu menu2 = new JMenu("Help");
+        JMenuItem menuItemAbout = new JMenuItem("About");
+        menuItemAbout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                popupAbout();
+            }
+        });
+        menu2.add(menuItemAbout);
+
+
+
+        menuBar.add(menu1);
+        menuBar.add(menu2);
+
+        return menuBar;
+    }
+
+    private void newGame() {
+    }
+
+    private void popupAbout() {
+        ImageIcon ia = SwingUtils.getImageIcon("about_icon.png");
+        JOptionPane.showMessageDialog(this, "Adam Narkunski's GoFish!", "About", JOptionPane.INFORMATION_MESSAGE, ia);
     }
 }

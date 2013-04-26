@@ -1,6 +1,5 @@
 package swing.components.game;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
