@@ -197,7 +197,7 @@ public class JPanelXMLSettings extends javax.swing.JPanel {
     }
 
     private void tryValidation() {
-        Engine tempEngine = settingsFromXML.makeEngineFromXML();
+        Engine tempEngine = settingsFromXML.makeEngine();
         Validator val = new Validator(tempEngine);
         if (!val.validateEngineState()) {
             showMessage("File did not pass validation ;(", Color.RED);

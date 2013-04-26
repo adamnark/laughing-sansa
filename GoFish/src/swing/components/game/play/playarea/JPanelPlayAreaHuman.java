@@ -4,6 +4,8 @@
  */
 package swing.components.game.play.playarea;
 
+import swing.components.game.play.JPanelHand;
+
 /**
  *
  * @author Natalie
@@ -15,6 +17,10 @@ public class JPanelPlayAreaHuman extends javax.swing.JPanel {
      */
     public JPanelPlayAreaHuman() {
         initComponents();
+    }
+    
+    public JPanelHand getJPanelHand(){
+        return jPanelHand2;
     }
 
     /**

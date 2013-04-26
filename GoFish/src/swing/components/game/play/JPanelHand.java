@@ -24,7 +24,7 @@ public class JPanelHand extends javax.swing.JPanel {
      */
     public JPanelHand() {
         if (!JPanelHand.isClassInitiated) {
-            //throw new RuntimeException("Can't instantiate JPanelHand before calling setAvailableSeries()!");
+            throw new RuntimeException("Can't instantiate JPanelHand before calling setAvailableSeries()!");
         }
 
         this.jPanelButtonCardList = new LinkedList<>();

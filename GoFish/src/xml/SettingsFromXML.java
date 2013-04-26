@@ -28,7 +28,7 @@ public class SettingsFromXML {
         this.gofish = (Gofish) jaxbUnmarshaller.unmarshal(file);
     }
 
-    public engine.Engine makeEngineFromXML() {
+    public engine.Engine makeEngine() {
         engine.Engine engine;
         engine = new engine.Engine();
         engine.setGameSettings(this.generateGameSettings());

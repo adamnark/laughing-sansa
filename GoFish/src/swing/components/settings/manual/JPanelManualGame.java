@@ -238,6 +238,7 @@ public class JPanelManualGame extends javax.swing.JPanel {
         try {
             this.playerItemsCollection.addPlayer("Moxie", true);
             this.playerItemsCollection.addPlayer("Noxie", false);
+            this.playerItemsCollection.addPlayer("Voxie", false);
         } catch (DuplicateNameException ex) {
             System.out.println("oups1");
         } catch (TooManyPlayersException ex) {

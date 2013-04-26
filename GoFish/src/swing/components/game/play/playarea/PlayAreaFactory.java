@@ -20,8 +20,7 @@ public class PlayAreaFactory {
         } else {
             jPanel = makeComputerPlayArea(player);
         }
-
-
+        
         return jPanel;
     }
 

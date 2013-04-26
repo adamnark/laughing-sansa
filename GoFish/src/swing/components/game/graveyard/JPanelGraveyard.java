@@ -51,6 +51,7 @@ public class JPanelGraveyard extends javax.swing.JPanel {
     private void initComponents() {
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Graveyard"));
+        setPreferredSize(new java.awt.Dimension(100, 33));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

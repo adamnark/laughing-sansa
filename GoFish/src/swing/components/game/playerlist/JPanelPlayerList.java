@@ -34,6 +34,8 @@ public class JPanelPlayerList extends javax.swing.JPanel {
         this.engine = engine;
         addAllPlayers();
         refreshCurrentPlayer();
+        validate();
+        repaint();
     }
 
     public void refreshCurrentPlayer() {
@@ -59,6 +61,9 @@ public class JPanelPlayerList extends javax.swing.JPanel {
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         jListPlayers.setModel(this.listModel);
+        jListPlayers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListPlayers.setFocusable(false);
+        jListPlayers.setPreferredSize(new java.awt.Dimension(100, 100));
         jListPlayers.setCellRenderer(new PlayerItemRenderer());
         jScrollPane1.setViewportView(jListPlayers);
 
