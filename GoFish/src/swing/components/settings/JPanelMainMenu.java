@@ -70,7 +70,7 @@ public class JPanelMainMenu extends javax.swing.JPanel {
             }
         });
         add(jButtonExit);
-        jButtonExit.setBounds(230, 310, 140, 60);
+        jButtonExit.setBounds(230, 330, 140, 60);
 
         jButtonXMLGame.setText("XML Game");
         jButtonXMLGame.addActionListener(new java.awt.event.ActionListener() {
@@ -81,14 +81,14 @@ public class JPanelMainMenu extends javax.swing.JPanel {
         add(jButtonXMLGame);
         jButtonXMLGame.setBounds(230, 160, 140, 60);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("TESTER");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         add(jButton1);
-        jButton1.setBounds(404, 230, 140, 23);
+        jButton1.setBounds(10, 80, 140, 240);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonManualGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManualGameActionPerformed

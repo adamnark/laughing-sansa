@@ -124,6 +124,7 @@ public class FrameGoFish extends JFrame {
     }
 
     private void newGame() {
+        jPanelGoFish.showMainMenu();
     }
 
     private void popupAbout() {

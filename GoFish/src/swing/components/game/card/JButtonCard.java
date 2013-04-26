@@ -1,6 +1,6 @@
 /*
  */
-package swing.components.game;
+package swing.components.game.card;
 
 import engine.cards.Card;
 import engine.cards.Series;

@@ -9,6 +9,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import swing.components.game.JPanelTest;
 import swing.components.settings.JPanelMainMenu;
+import swing.components.settings.manual.GUIEngineMaker;
 import swing.components.settings.manual.JPanelManualGame;
 import swing.components.settings.xml.JPanelXMLSettings;
 
@@ -27,11 +28,16 @@ public class JPanelGoFish extends JPanel {
     private JPanelMainMenu jPanelMainMenu;
     private JPanelManualGame jPanelManualGame;
     private JPanelXMLSettings jPanelXMLSettings;
+    private GUIEngineMaker guiEngineMaker = null;
 
     public JPanelGoFish() {
         initComponents();
         initCards();
         initListeners();
+    }
+
+    public void showMainMenu() {
+        cardLayout.show(this, CARD_MENU);
     }
 
     private void initComponents() {
@@ -57,10 +63,6 @@ public class JPanelGoFish extends JPanel {
         initXMLSettingsListeners();
     }
 
-    private void showMainMenu() {
-        cardLayout.show(this, CARD_MENU);
-    }
-
     private void initManualSettingsListeners() {
         this.jPanelManualGame.addPropertyChangeListener(JPanelManualGame.EVENT_BACK, new PropertyChangeListener() {
             @Override
@@ -68,10 +70,10 @@ public class JPanelGoFish extends JPanel {
                 showMainMenu();
             }
         });
-        this.jPanelManualGame.addPropertyChangeListener(JPanelManualGame.EVENT_START_GAME, new PropertyChangeListener() {
+        this.jPanelManualGame.addPropertyChangeListener(JPanelManualGame.EVENT_START, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                startGame();
+                startManualGame();
             }
         });
     }
@@ -97,9 +99,8 @@ public class JPanelGoFish extends JPanel {
                 cardLayout.show(JPanelGoFish.this, CARD_XML_SETTINGS);
             }
         });
-        
-        this.jPanelMainMenu.addPropertyChangeListener(JPanelMainMenu.EVENT_TEST, new PropertyChangeListener() {
 
+        this.jPanelMainMenu.addPropertyChangeListener(JPanelMainMenu.EVENT_TEST, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent pce) {
                 showTestPanel();
@@ -107,8 +108,8 @@ public class JPanelGoFish extends JPanel {
         });
 
     }
-    
-    private void showTestPanel(){
+
+    private void showTestPanel() {
         cardLayout.show(this, CARD_TEST);
     }
 
@@ -125,8 +126,9 @@ public class JPanelGoFish extends JPanel {
         firePropertyChange(EVENT_EXIT, true, false);
     }
 
-    private void startGame() {
-        //save the factory for later!
-        //jPanelManualGame.getGuiEngineMaker().makeEngine();
+    private void startManualGame() {
+        this.guiEngineMaker = jPanelManualGame.getGuiEngineMaker();
+
+
     }
 }

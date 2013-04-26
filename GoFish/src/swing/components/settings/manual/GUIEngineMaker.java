@@ -35,15 +35,6 @@ public class GUIEngineMaker {
         return engine;
     }
 
-    private GameSettings initGameSettings() {
-        GameSettings gs = new GameSettings();
-
-        gs.setAllowMutipleRequests(allowMutipleRequests);
-        gs.setForceShowOfSeries(forceShowOfSeries);
-
-        return gs;
-    }
-
     public void addPlayer(PlayerItem player) {
         this.playerItems.add(player);
     }
@@ -54,6 +45,15 @@ public class GUIEngineMaker {
 
     public void setForceShowOfSeries(boolean forceShowOfSeries) {
         this.forceShowOfSeries = forceShowOfSeries;
+    }
+
+    private GameSettings initGameSettings() {
+        GameSettings gs = new GameSettings();
+
+        gs.setAllowMutipleRequests(allowMutipleRequests);
+        gs.setForceShowOfSeries(forceShowOfSeries);
+
+        return gs;
     }
 
     private void addPlayers(Engine engine) {

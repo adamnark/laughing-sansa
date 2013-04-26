@@ -2,6 +2,7 @@
  */
 package swing.components.game;
 
+import swing.components.game.card.JButtonCard;
 import engine.cards.Card;
 import engine.cards.Series;
 import java.util.LinkedList;

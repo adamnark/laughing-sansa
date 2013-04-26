@@ -1,7 +1,8 @@
 /*
  */
-package swing.components.game;
+package swing.components.game.play;
 
+import swing.components.game.card.JButtonCard;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Hand;
@@ -23,7 +24,7 @@ public class JPanelHand extends javax.swing.JPanel {
      */
     public JPanelHand() {
         if (!JPanelHand.isClassInitiated) {
-            throw new RuntimeException("Can't instantiate JPanelHand before calling setAvailableSeries()!");
+            //throw new RuntimeException("Can't instantiate JPanelHand before calling setAvailableSeries()!");
         }
 
         this.jPanelButtonCardList = new LinkedList<>();
@@ -80,11 +81,11 @@ public class JPanelHand extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGap(0, 388, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

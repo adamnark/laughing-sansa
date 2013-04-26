@@ -18,8 +18,8 @@ import swing.utils.playeritem.exceptions.TooManyPlayersException;
  */
 public class JPanelManualGame extends javax.swing.JPanel {
 
-    public static final String EVENT_START_GAME = "Start Game Event";
-    public static final String EVENT_BACK = "Back Event";
+    public static final String EVENT_START = "Start Game Event Manual";
+    public static final String EVENT_BACK = "Back Event Manual";
     private DefaultListModel<PlayerItem> listModel;
     private PlayerItemCollection playerItemsCollection;
     private GUIEngineMaker guiEngineMaker;
@@ -213,7 +213,7 @@ public class JPanelManualGame extends javax.swing.JPanel {
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
         if (isEnoughPlayers()) {
             initGUIMaker();
-            firePropertyChange(EVENT_START_GAME, false, true);
+            firePropertyChange(EVENT_START, false, true);
         } else {
             this.jPanelAddPlayer1.showErrorMessage("Not enough players! add some more.");
         }

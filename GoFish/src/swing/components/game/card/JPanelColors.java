@@ -1,4 +1,4 @@
-package swing.components.game;
+package swing.components.game.card;
 
 import java.awt.Color;
 import java.awt.Dimension;
