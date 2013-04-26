@@ -28,14 +28,14 @@ public class JPanelManualGame extends javax.swing.JPanel {
      * Creates new form JPanelManualSub
      */
     public JPanelManualGame() {
-        listModel = new DefaultListModel<>();
-        playerItemsCollection = new PlayerItemCollection();
+        this.listModel = new DefaultListModel<>();
+        this.playerItemsCollection = new PlayerItemCollection();
         initComponents();
         addMockPlayers();
         initListeners();
     }
 
-    private void initGUIMaker() {
+    private void initGUIEngineMaker() {
         this.guiEngineMaker = new GUIEngineMaker();
         this.guiEngineMaker.setAllowMutipleRequests(this.getAllowMutipleRequests());
         this.guiEngineMaker.setForceShowOfSeries(this.getForceShowOfCards());
@@ -212,7 +212,7 @@ public class JPanelManualGame extends javax.swing.JPanel {
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
         if (isEnoughPlayers()) {
-            initGUIMaker();
+            initGUIEngineMaker();
             firePropertyChange(EVENT_START, false, true);
         } else {
             this.jPanelAddPlayer1.showErrorMessage("Not enough players! add some more.");

@@ -24,8 +24,9 @@ public class JPanelTest extends javax.swing.JPanel {
         JButtonCard.setAvailableSeries(series);
 
         for (Card card : cards) {
-            JButtonCard jPanelCard = new JButtonCard(card);
-            this.add(jPanelCard);
+            JButtonCard jBtnCard = new JButtonCard(card);
+            //jBtnCard.setEnabled(false);
+            this.add(jBtnCard);
 
         }
     }

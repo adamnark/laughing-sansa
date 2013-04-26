@@ -51,7 +51,7 @@ public class PlayerItemCollection {
         }
     }
 
-    private PlayerItem getPlayerItem(String name) {
+    public PlayerItem getPlayerItem(String name) {
         for (PlayerItem playerItem : list) {
             if (playerItem.getName().equals(name)) {
                 return playerItem;

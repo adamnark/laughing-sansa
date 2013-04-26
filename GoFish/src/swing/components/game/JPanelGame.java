@@ -4,17 +4,29 @@
  */
 package swing.components.game;
 
+import engine.Engine;
+
 /**
  *
  * @author Natalie
  */
 public class JPanelGame extends javax.swing.JPanel {
 
+    private Engine engine;
+    
     /**
      * Creates new form JPanelGame
      */
     public JPanelGame() {
         initComponents();
+        this.engine = null;
+    }
+    
+    public void initGame(Engine engine){
+        this.engine = engine;
+        initGraveyard();
+        initPlayAreaCards();
+        initPlayersList();
     }
 
     /**
@@ -27,8 +39,8 @@ public class JPanelGame extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelGraveyard1 = new swing.components.game.graveyard.JPanelGraveyard();
-        jPanelPlayArea1 = new swing.components.game.play.JPanelPlayArea();
         jPanelPlayerList1 = new swing.components.game.playerlist.JPanelPlayerList();
+        jPanelPlayAreaCards1 = new swing.components.game.play.playarea.JPanelPlayAreaCards();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -40,11 +52,10 @@ public class JPanelGame extends javax.swing.JPanel {
         );
         jPanelGraveyard1Layout.setVerticalGroup(
             jPanelGraveyard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         add(jPanelGraveyard1, java.awt.BorderLayout.LINE_END);
-        add(jPanelPlayArea1, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout jPanelPlayerList1Layout = new javax.swing.GroupLayout(jPanelPlayerList1);
         jPanelPlayerList1.setLayout(jPanelPlayerList1Layout);
@@ -54,14 +65,27 @@ public class JPanelGame extends javax.swing.JPanel {
         );
         jPanelPlayerList1Layout.setVerticalGroup(
             jPanelPlayerList1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         add(jPanelPlayerList1, java.awt.BorderLayout.LINE_START);
+        add(jPanelPlayAreaCards1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.components.game.graveyard.JPanelGraveyard jPanelGraveyard1;
-    private swing.components.game.play.JPanelPlayArea jPanelPlayArea1;
+    private swing.components.game.play.playarea.JPanelPlayAreaCards jPanelPlayAreaCards1;
     private swing.components.game.playerlist.JPanelPlayerList jPanelPlayerList1;
     // End of variables declaration//GEN-END:variables
+
+    private void initGraveyard() {
+        this.jPanelGraveyard1.setEngine(engine);
+    }
+
+    private void initPlayAreaCards() {
+        
+    }
+
+    private void initPlayersList() {
+        this.jPanelPlayerList1.
+    }
 }

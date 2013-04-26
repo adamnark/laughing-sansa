@@ -21,11 +21,13 @@ public class Engine {
     private LinkedList<Event> eventQueue;
     private HashMultimap<Series, Card> cardsBySeries;
     private boolean isGameStarted;
+    private Collection<Card> lastCardsThrown;
 
     public void currentPlayerThrowFour() {
         boolean cardsWereThrown = getCurrentPlayer().throwFour();
         if (cardsWereThrown) {
             getCurrentPlayer().increaseScore();
+            setLastCardsThrown(getCurrentPlayer().getLastCardsThrown());
             this.eventQueue.add(Event.FOUR_CARDS_THROWN);
         } else {
             this.eventQueue.add(Event.FOUR_CARDS_NOT_THROWN);
@@ -34,9 +36,12 @@ public class Engine {
         if (!getCurrentPlayer().isPlaying()) {
             this.eventQueue.add(Event.PLAYER_OUT_OF_CARDS);
         }
-
     }
 
+    public Collection<Card> getLastCardsThrown(){
+        return this.lastCardsThrown;
+    }
+    
     public List<Series> getAvailableSeries() {
         List<Series> lst = new LinkedList<>();
         for (Series series : this.cardsBySeries.keySet()) {
@@ -74,6 +79,10 @@ public class Engine {
         }
 
         return winner;
+    }
+
+    private void setLastCardsThrown(Collection<Card> lastCardsThrown) {
+        this.lastCardsThrown = lastCardsThrown;
     }
 
     public static enum Event {

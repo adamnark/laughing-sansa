@@ -2,18 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package swing.components.game.play;
+package swing.components.game.play.playarea;
 
 /**
  *
  * @author Natalie
  */
-public class JPanelPlayArea extends javax.swing.JPanel {
+public class JPanelPlayAreaHuman extends javax.swing.JPanel {
 
     /**
      * Creates new form JPanelPlayArea
      */
-    public JPanelPlayArea() {
+    public JPanelPlayAreaHuman() {
         initComponents();
     }
 

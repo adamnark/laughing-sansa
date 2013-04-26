@@ -4,17 +4,43 @@
  */
 package swing.components.game.playerlist;
 
+import engine.Engine;
+import engine.players.Player;
+import javax.swing.DefaultListModel;
+import swing.utils.playeritem.PlayerItem;
+import swing.utils.playeritem.PlayerItemCollection;
+import swing.utils.playeritem.PlayerItemRenderer;
+
 /**
  *
  * @author Natalie
  */
 public class JPanelPlayerList extends javax.swing.JPanel {
 
+    Engine engine;
+    private DefaultListModel<PlayerItem> listModel;
+    private PlayerItemCollection playerItemsCollection;
+
     /**
      * Creates new form JPanelPlayerList
      */
     public JPanelPlayerList() {
+        this.listModel = new DefaultListModel<>();
+        this.playerItemsCollection = new PlayerItemCollection();
         initComponents();
+    }
+
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+        addAllPlayers();
+        refreshCurrentPlayer();
+    }
+
+    public void refreshCurrentPlayer() {
+        Player currentPlayer = engine.getCurrentPlayer();
+        PlayerItem pi = this.playerItemsCollection.getPlayerItem(currentPlayer.getName());
+        int index = this.listModel.indexOf(pi);
+        this.jListPlayers.setSelectedIndex(index);
     }
 
     /**
@@ -26,19 +52,27 @@ public class JPanelPlayerList extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Player List"));
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListPlayers = new javax.swing.JList();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
-        );
+        setBorder(javax.swing.BorderFactory.createTitledBorder("Player List"));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
+
+        jListPlayers.setModel(this.listModel);
+        jListPlayers.setCellRenderer(new PlayerItemRenderer());
+        jScrollPane1.setViewportView(jListPlayers);
+
+        add(jScrollPane1);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList jListPlayers;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void addAllPlayers() {
+        for (Player player : this.engine.getPlayers()) {
+            PlayerItem pi = this.playerItemsCollection.addPlayer(player.getName(), player.isHuman());
+            this.listModel.addElement(pi);
+        }
+    }
 }
