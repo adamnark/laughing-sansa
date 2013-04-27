@@ -105,13 +105,15 @@ public class JPanelGame extends javax.swing.JPanel {
         jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_SKIP, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                skipTurn();
+                advanceTurn();
             }
         });
     }
     
-    private void skipTurn(){
+    private void advanceTurn(){
         this.engine.advanceTurn();
         this.jPanelPlayAreaCards.showCard(this.engine.getCurrentPlayer().getName());
+        this.jPanelPlayerList.refreshCurrentPlayer();
     }
+    
 }

@@ -4,16 +4,13 @@
  */
 package swing.components.game.play.playarea;
 
+import swing.components.game.play.PlayEvents;
+
 /**
  *
  * @author Natalie
  */
 public class JPanelActions extends javax.swing.JPanel {
-
-    public static final String EVENT_REQUEST = "JPanelActions - request";
-    public static final String EVENT_THROW = "JPanelActions - throw";
-    public static final String EVENT_SKIP = "JPanelActions - skip";
-
     /**
      * Creates new form JPanelActions
      */
@@ -68,15 +65,15 @@ public class JPanelActions extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRequestActionPerformed
-        this.firePropertyChange(EVENT_REQUEST, false, true);
+        this.firePropertyChange(PlayEvents.EVENT_REQUEST, false, true);
     }//GEN-LAST:event_jButtonRequestActionPerformed
 
     private void jButtonThrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThrowActionPerformed
-        this.firePropertyChange(EVENT_THROW, false, true);
+        this.firePropertyChange(PlayEvents.EVENT_THROW, false, true);
     }//GEN-LAST:event_jButtonThrowActionPerformed
 
     private void jButtonSkipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSkipActionPerformed
-        this.firePropertyChange(EVENT_SKIP, false, true);
+        this.firePropertyChange(PlayEvents.EVENT_SKIP, false, true);
     }//GEN-LAST:event_jButtonSkipActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonRequest;
