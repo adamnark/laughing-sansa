@@ -29,7 +29,7 @@ public class PlayAreaFactory {
 
     private static JPanel makeComputerPlayArea(Player player) {
         JPanelPlayAreaComputer jPanelC = new JPanelPlayAreaComputer();
-
+        jPanelC.setPlayerName(player.getName());
         return jPanelC;
     }
 

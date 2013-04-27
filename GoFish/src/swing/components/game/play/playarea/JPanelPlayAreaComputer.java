@@ -37,4 +37,8 @@ public class JPanelPlayAreaComputer extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPlay;
     // End of variables declaration//GEN-END:variables
+
+    public void setPlayerName(String name) {
+        setBorder(javax.swing.BorderFactory.createTitledBorder(name + "'s turn"));
+    }
 }

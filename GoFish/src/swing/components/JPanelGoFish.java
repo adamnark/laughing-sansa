@@ -54,14 +54,13 @@ public class JPanelGoFish extends JPanel {
         this.jPanelMainMenu = new JPanelMainMenu();
         this.jPanelManualGame = new JPanelManualGame();
         this.jPanelXMLSettings = new JPanelXMLSettings();
-        this.jPanelGame = new JPanelGame();
+        //this.jPanelGame = new JPanelGame();
     }
 
     private void initCards() {
         this.add(jPanelMainMenu, CARD_MENU);
         this.add(jPanelManualGame, CARD_MANUAL_SETTINGS);
         this.add(jPanelXMLSettings, CARD_XML_SETTINGS);
-        this.add(jPanelGame, CARD_GAME);
         this.add(new JPanelTest(), CARD_TEST);
     }
 
@@ -145,6 +144,7 @@ public class JPanelGoFish extends JPanel {
         this.settingsFromXML = this.jPanelXMLSettings.getSettingsFromXML();
         Engine engine = this.settingsFromXML.makeEngine();
         engine.startGame();
+        makeGameCard();
         this.jPanelGame.initGame(engine);
         showGameCard();
     }
@@ -153,8 +153,14 @@ public class JPanelGoFish extends JPanel {
         this.guiEngineMaker = jPanelManualGame.getGuiEngineMaker();
         Engine engine = this.guiEngineMaker.makeEngine();
         engine.startGame();
+        makeGameCard();
         this.jPanelGame.initGame(engine);
         showGameCard();
+    }
+
+    private void makeGameCard() {
+        this.jPanelGame = new JPanelGame();
+        this.add(jPanelGame, CARD_GAME);
     }
 
     private void showGameCard() {

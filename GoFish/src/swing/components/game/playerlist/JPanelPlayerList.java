@@ -9,7 +9,7 @@ import engine.players.Player;
 import javax.swing.DefaultListModel;
 import swing.utils.playeritem.PlayerItem;
 import swing.utils.playeritem.PlayerItemCollection;
-import swing.utils.playeritem.PlayerItemRenderer;
+import swing.utils.playeritem.PlayerItemRendererWithScore;
 
 /**
  *
@@ -63,8 +63,7 @@ public class JPanelPlayerList extends javax.swing.JPanel {
         jListPlayers.setModel(this.listModel);
         jListPlayers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListPlayers.setFocusable(false);
-        jListPlayers.setPreferredSize(new java.awt.Dimension(100, 100));
-        jListPlayers.setCellRenderer(new PlayerItemRenderer());
+        jListPlayers.setCellRenderer(new PlayerItemRendererWithScore());
         jScrollPane1.setViewportView(jListPlayers);
 
         add(jScrollPane1);

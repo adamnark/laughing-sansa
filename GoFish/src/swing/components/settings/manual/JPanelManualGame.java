@@ -33,6 +33,7 @@ public class JPanelManualGame extends javax.swing.JPanel {
         initComponents();
         addMockPlayers();
         initListeners();
+        setFocus();
     }
 
     private void initGUIEngineMaker() {
@@ -253,5 +254,9 @@ public class JPanelManualGame extends javax.swing.JPanel {
 
     private boolean isEnoughPlayers() {
         return this.playerItemsCollection.getList().size() >= 3;
+    }
+
+    private void setFocus() {
+        this.jButtonStart.requestFocus();
     }
 }
