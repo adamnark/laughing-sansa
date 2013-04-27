@@ -88,7 +88,7 @@ public class JPanelMainMenu extends javax.swing.JPanel {
             }
         });
         add(jButton1);
-        jButton1.setBounds(10, 80, 140, 240);
+        jButton1.setBounds(430, 80, 140, 240);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonManualGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManualGameActionPerformed

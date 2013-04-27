@@ -7,8 +7,8 @@ package swing.components.game;
 import engine.Engine;
 import engine.players.Player;
 import javax.swing.JPanel;
-import swing.components.game.play.JPanelHand;
-import swing.components.game.play.playarea.PlayAreaFactory;
+import swing.components.game.play.playarea.JPanelHand;
+import swing.components.game.play.PlayAreaFactory;
 
 /**
  *
@@ -18,7 +18,7 @@ public class JPanelGame extends javax.swing.JPanel {
 
     private Engine engine;
     private swing.components.game.graveyard.JPanelGraveyard jPanelGraveyard;
-    private swing.components.game.play.playarea.JPanelPlayAreaCards jPanelPlayAreaCards;
+    private swing.components.game.play.JPanelPlayAreaCards jPanelPlayAreaCards;
     private swing.components.game.playerlist.JPanelPlayerList jPanelPlayerList;
 
     /**
@@ -48,13 +48,14 @@ public class JPanelGame extends javax.swing.JPanel {
     private void initComponents() {
 
         this.jPanelPlayerList = new swing.components.game.playerlist.JPanelPlayerList();
-        this.jPanelPlayAreaCards = new swing.components.game.play.playarea.JPanelPlayAreaCards();
+        this.jPanelPlayAreaCards = new swing.components.game.play.JPanelPlayAreaCards();
         this.jPanelGraveyard = new swing.components.game.graveyard.JPanelGraveyard();
-
+        
         setLayout(new java.awt.BorderLayout());
         add(jPanelPlayerList, java.awt.BorderLayout.WEST);
         add(jPanelPlayAreaCards, java.awt.BorderLayout.CENTER);
         add(jPanelGraveyard, java.awt.BorderLayout.EAST);
+        
     }
 
     private void initGraveyard() {
@@ -68,7 +69,7 @@ public class JPanelGame extends javax.swing.JPanel {
             this.jPanelPlayAreaCards.addCard(jPanelPlayArea, playerName);
         }
 
-        this.jPanelPlayAreaCards.showCard(engine.getCurrentPlayer().getName());
+        //this.jPanelPlayAreaCards.showCard(engine.getCurrentPlayer().getName());
     }
 
     private void initPlayersList() {

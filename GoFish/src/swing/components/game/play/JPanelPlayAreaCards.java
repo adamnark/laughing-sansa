@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package swing.components.game.play.playarea;
+package swing.components.game.play;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -20,7 +20,7 @@ public class JPanelPlayAreaCards extends JPanel {
     }
     
     public void addCard(JPanel jPanelPlayArea, String playerName){
-        this.cardLayout.addLayoutComponent(jPanelPlayArea, playerName);
+        this.add(jPanelPlayArea, playerName);
     }
     
     public void showCard(String playerName){

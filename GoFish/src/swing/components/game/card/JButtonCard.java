@@ -41,7 +41,7 @@ public class JButtonCard extends JButton {
 
     private void initComponents(Card card) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setPreferredSize(new Dimension(75, 105));
+        this.setPreferredSize(new Dimension(50, 60));
         this.setBorder(BorderFactory.createLineBorder(Color.black));
 
         this.jPanelColors = new JPanelColors(generateColorsFromCard(card));

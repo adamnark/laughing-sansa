@@ -144,6 +144,7 @@ public class JPanelGoFish extends JPanel {
     private void startXMLGame() {
         this.settingsFromXML = this.jPanelXMLSettings.getSettingsFromXML();
         Engine engine = this.settingsFromXML.makeEngine();
+        engine.startGame();
         this.jPanelGame.initGame(engine);
         showGameCard();
     }
@@ -151,6 +152,7 @@ public class JPanelGoFish extends JPanel {
     private void startManualGame() {
         this.guiEngineMaker = jPanelManualGame.getGuiEngineMaker();
         Engine engine = this.guiEngineMaker.makeEngine();
+        engine.startGame();
         this.jPanelGame.initGame(engine);
         showGameCard();
     }

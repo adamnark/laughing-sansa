@@ -2,10 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package swing.components.game.play.playarea;
+package swing.components.game.play;
 
 import engine.players.Player;
 import javax.swing.JPanel;
+import swing.components.game.play.playarea.JPanelHand;
+import swing.components.game.play.playarea.JPanelPlayAreaComputer;
+import swing.components.game.play.playarea.JPanelPlayAreaHuman;
 
 /**
  *
@@ -20,7 +23,7 @@ public class PlayAreaFactory {
         } else {
             jPanel = makeComputerPlayArea(player);
         }
-        
+
         return jPanel;
     }
 
@@ -32,8 +35,13 @@ public class PlayAreaFactory {
 
     private static JPanel makeHumanPlayArea(Player player) {
         JPanelPlayAreaHuman jPanelH = new JPanelPlayAreaHuman();
-        jPanelH.getJPanelHand().setHandModel(player.getHand());
-
+        initJPanelHand(player, jPanelH.getJPanelHand());
         return jPanelH;
+    }
+
+    private static void initJPanelHand(Player player, JPanelHand jPanelHand) {
+        jPanelHand.setHandModel(player.getHand());
+        jPanelHand.setPlayerName(player.getName());
+        jPanelHand.update();
     }
 }
