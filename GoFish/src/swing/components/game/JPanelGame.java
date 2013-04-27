@@ -6,8 +6,11 @@ package swing.components.game;
 
 import engine.Engine;
 import engine.players.Player;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import swing.components.game.play.PlayAreaFactory;
+import swing.components.game.play.PlayEvents;
 import swing.components.game.play.playarea.JPanelHand;
 
 /**
@@ -50,12 +53,12 @@ public class JPanelGame extends javax.swing.JPanel {
         this.jPanelPlayerList = new swing.components.game.playerlist.JPanelPlayerList();
         this.jPanelPlayAreaCards = new swing.components.game.play.JPanelPlayAreaCards();
         this.jPanelGraveyard = new swing.components.game.graveyard.JPanelGraveyard();
-        
+
         setLayout(new java.awt.BorderLayout());
         add(jPanelPlayerList, java.awt.BorderLayout.WEST);
         add(jPanelPlayAreaCards, java.awt.BorderLayout.CENTER);
         add(jPanelGraveyard, java.awt.BorderLayout.EAST);
-        
+
     }
 
     private void initGraveyard() {
@@ -66,10 +69,9 @@ public class JPanelGame extends javax.swing.JPanel {
         for (Player player : this.engine.getPlayers()) {
             String playerName = player.getName();
             JPanel jPanelPlayArea = PlayAreaFactory.makeJPanelPlayArea(player);
+            initCardListeners(jPanelPlayArea);
             this.jPanelPlayAreaCards.addCard(jPanelPlayArea, playerName);
         }
-
-        //this.jPanelPlayAreaCards.showCard(engine.getCurrentPlayer().getName());
     }
 
     private void initPlayersList() {
@@ -79,5 +81,37 @@ public class JPanelGame extends javax.swing.JPanel {
     private void initHandClass() {
         JPanelHand.setAvailableSeries(engine.getAvailableSeries());
 
+    }
+
+    private void initCardListeners(JPanel jPanelPlayArea) {
+        jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_PLAY_COMPUTER_TURN, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_REQUEST, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_THROW, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_SKIP, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                skipTurn();
+            }
+        });
+    }
+    
+    private void skipTurn(){
+        this.engine.advanceTurn();
+        this.jPanelPlayAreaCards.showCard(this.engine.getCurrentPlayer().getName());
     }
 }

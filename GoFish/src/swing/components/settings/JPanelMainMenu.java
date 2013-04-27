@@ -54,6 +54,7 @@ public class JPanelMainMenu extends javax.swing.JPanel {
         add(jPanelTitle1);
         jPanelTitle1.setBounds(0, 0, 600, 50);
 
+        jButtonManualGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu_manual_icon.png"))); // NOI18N
         jButtonManualGame.setText("Manual Game");
         jButtonManualGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +64,7 @@ public class JPanelMainMenu extends javax.swing.JPanel {
         add(jButtonManualGame);
         jButtonManualGame.setBounds(230, 80, 140, 60);
 
+        jButtonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu_exit_icon.png"))); // NOI18N
         jButtonExit.setText("Exit");
         jButtonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +74,7 @@ public class JPanelMainMenu extends javax.swing.JPanel {
         add(jButtonExit);
         jButtonExit.setBounds(230, 330, 140, 60);
 
+        jButtonXMLGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu_xml_icon.png"))); // NOI18N
         jButtonXMLGame.setText("XML Game");
         jButtonXMLGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,7 +91,7 @@ public class JPanelMainMenu extends javax.swing.JPanel {
             }
         });
         add(jButton1);
-        jButton1.setBounds(430, 80, 140, 240);
+        jButton1.setBounds(500, 340, 70, 40);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonManualGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManualGameActionPerformed

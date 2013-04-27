@@ -64,10 +64,20 @@ public class JPanelPlayerList extends javax.swing.JPanel {
         jListPlayers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListPlayers.setFocusable(false);
         jListPlayers.setCellRenderer(new PlayerItemRendererWithScore());
+        jListPlayers.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListPlayersValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jListPlayers);
 
         add(jScrollPane1);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jListPlayersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListPlayersValueChanged
+
+    }//GEN-LAST:event_jListPlayersValueChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList jListPlayers;
     private javax.swing.JScrollPane jScrollPane1;

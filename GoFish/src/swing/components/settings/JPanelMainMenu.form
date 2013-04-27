@@ -39,6 +39,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonManualGame">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/menu_manual_icon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Manual Game"/>
       </Properties>
       <Events>
@@ -52,6 +55,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonExit">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/menu_exit_icon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Exit"/>
       </Properties>
       <Events>
@@ -65,6 +71,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonXMLGame">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/menu_xml_icon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="XML Game"/>
       </Properties>
       <Events>
@@ -85,7 +94,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="430" y="80" width="140" height="240"/>
+          <AbsoluteConstraints x="500" y="340" width="70" height="40"/>
         </Constraint>
       </Constraints>
     </Component>

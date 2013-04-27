@@ -53,6 +53,7 @@ public class JPanelXMLSettings extends javax.swing.JPanel {
 
         jPanelTitle1.setTitle("Load Game From XML");
 
+        jButtonBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu_exit_icon.png"))); // NOI18N
         jButtonBack.setText("Back");
         jButtonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,6 +80,7 @@ public class JPanelXMLSettings extends javax.swing.JPanel {
         jLabelMessage.setText("ERROR/MESSAGE");
         jLabelMessage.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
+        jButtonStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu_startgame_icon.png"))); // NOI18N
         jButtonStart.setText("Start Game");
         jButtonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

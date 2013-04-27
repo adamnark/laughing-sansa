@@ -4,11 +4,16 @@
  */
 package swing.components.game.play.playarea;
 
+import swing.components.game.play.PlayEvents;
+
 /**
  *
  * @author Natalie
  */
 public class JPanelPlayAreaComputer extends javax.swing.JPanel {
+
+    private static final String EVENT_PLAY = "JPanelPlayAreaComputer - play out computer turn";
+    private String playerName;
 
     /**
      * Creates new form JPanelComputerPlayArea
@@ -32,13 +37,27 @@ public class JPanelPlayAreaComputer extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jButtonPlay.setText("Play");
+        jButtonPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPlayActionPerformed(evt);
+            }
+        });
         add(jButtonPlay, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
+        this.firePropertyChange(PlayEvents.EVENT_PLAY_COMPUTER_TURN, null, playerName);
+    }//GEN-LAST:event_jButtonPlayActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPlay;
     // End of variables declaration//GEN-END:variables
 
     public void setPlayerName(String name) {
+        this.playerName = name;
         setBorder(javax.swing.BorderFactory.createTitledBorder(name + "'s turn"));
+    }
+
+    public String getPlayerName() {
+        return this.playerName;
     }
 }

@@ -38,6 +38,9 @@
             <Property name="selectionMode" type="int" value="0"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="jListPlayersValueChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jListPlayers.setCellRenderer(new PlayerItemRendererWithScore());"/>
           </AuxValues>

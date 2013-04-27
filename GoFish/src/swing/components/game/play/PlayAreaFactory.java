@@ -35,13 +35,7 @@ public class PlayAreaFactory {
 
     private static JPanel makeHumanPlayArea(Player player) {
         JPanelPlayAreaHuman jPanelH = new JPanelPlayAreaHuman();
-        initJPanelHand(player, jPanelH.getJPanelHand());
+        jPanelH.setPlayer(player);
         return jPanelH;
-    }
-
-    private static void initJPanelHand(Player player, JPanelHand jPanelHand) {
-        jPanelHand.setHandModel(player.getHand());
-        jPanelHand.setPlayerName(player.getName());
-        jPanelHand.update();
     }
 }

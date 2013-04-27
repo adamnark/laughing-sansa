@@ -36,9 +36,14 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jCheckBoxAllowMutipleRequests" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jCheckBoxForceShowOfSeries" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanelAddPlayer1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jCheckBoxAllowMutipleRequests" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jCheckBoxForceShowOfSeries" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" pref="302" max="32767" attributes="0"/>
@@ -59,16 +64,15 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="jPanelTitle1" min="-2" pref="50" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="jPanelAddPlayer1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="jCheckBoxAllowMutipleRequests" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jCheckBoxForceShowOfSeries" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" alignment="1" min="-2" pref="250" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="250" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonRemovePlayer" min="-2" max="-2" attributes="0"/>
@@ -118,6 +122,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButtonStart">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/menu_startgame_icon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Start Game"/>
       </Properties>
       <Events>
@@ -126,6 +133,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonBack">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/menu_exit_icon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Back"/>
       </Properties>
       <Events>
