@@ -67,8 +67,11 @@ public class JPanelPlayAreaHuman extends JPanel {
     }
 
     private void fireThrow() {
+        this.firePropertyChange(PlayEvents.EVENT_THROW, this.playerModel, this.playerModel.getName());
+
     }
 
     private void fireRequst() {
+        this.firePropertyChange(PlayEvents.EVENT_REQUEST, this.playerModel, this.playerModel.getName());
     }
 }
