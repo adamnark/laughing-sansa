@@ -10,6 +10,8 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import swing.playerinterface.SwingFourPicker;
+import swing.playerinterface.SwingRequestMaker;
 
 /**
  *
@@ -57,13 +59,11 @@ public class SettingsFromXML {
     private engine.players.Player convertToEnginePlayer(generated.Player generatedPlayer) {
         boolean isAIPlayer = generatedPlayer.getType().equals(PlayerType.COMPUTER);
 
-        
-/*        engine.players.Player enginePlayer =
+
+        engine.players.Player enginePlayer =
                 isAIPlayer
                 ? engine.players.Player.createAIPlayer()
-                : new engine.players.Player(new console.humanPlayerInterface.HumanFourPicker(), new console.humanPlayerInterface.HumanRequestMaker());
-*/
-        engine.players.Player enginePlayer = engine.players.Player.createAIPlayer();
+                : new engine.players.Player(new SwingFourPicker(), new SwingRequestMaker());
         enginePlayer.setName(generatedPlayer.getName());
 
 
