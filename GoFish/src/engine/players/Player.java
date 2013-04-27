@@ -1,16 +1,16 @@
 package engine.players;
 
-import engine.request.IRequestMaker;
-import engine.request.Request;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.ai.AiFourPicker;
 import engine.players.ai.AiRequestMaker;
+import engine.request.IRequestMaker;
+import engine.request.Request;
+import engine.request.RequestValidator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Set;
-import engine.request.RequestValidator;
 
 /**
  *

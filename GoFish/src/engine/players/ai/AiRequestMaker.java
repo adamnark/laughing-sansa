@@ -3,10 +3,10 @@ package engine.players.ai;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Hand;
-import engine.request.IRequestMaker;
 import engine.players.Player;
-import java.util.ArrayList;
+import engine.request.IRequestMaker;
 import engine.request.Request;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 

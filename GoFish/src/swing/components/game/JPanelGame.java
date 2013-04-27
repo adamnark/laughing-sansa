@@ -7,8 +7,8 @@ package swing.components.game;
 import engine.Engine;
 import engine.players.Player;
 import javax.swing.JPanel;
-import swing.components.game.play.playarea.JPanelHand;
 import swing.components.game.play.PlayAreaFactory;
+import swing.components.game.play.playarea.JPanelHand;
 
 /**
  *

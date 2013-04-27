@@ -23,7 +23,15 @@ public class Engine {
     private boolean isGameStarted;
     private Collection<Card> lastCardsThrown;
 
-    public void currentPlayerThrowFour() {
+    public Engine() {
+        this.players = new ArrayList<>();
+        this.eventQueue = new LinkedList<>();
+        this.currentPlayerIndex = 0;
+        this.cardsBySeries = HashMultimap.create();
+        this.isGameStarted = false;
+    }
+
+    public void currentPlayerThrowFour(){
         boolean cardsWereThrown = getCurrentPlayer().throwFour();
         if (cardsWereThrown) {
             getCurrentPlayer().increaseScore();
@@ -37,8 +45,8 @@ public class Engine {
             this.eventQueue.add(Event.PLAYER_OUT_OF_CARDS);
         }
     }
-
-    public Collection<Card> getLastCardsThrown(){
+    
+    public Collection<Card> getLastCardsThrown() {
         return this.lastCardsThrown;
     }
     
@@ -83,23 +91,6 @@ public class Engine {
 
     private void setLastCardsThrown(Collection<Card> lastCardsThrown) {
         this.lastCardsThrown = lastCardsThrown;
-    }
-
-    public static enum Event {
-
-        FAILED_REQUEST,
-        SUCCESSFUL_REQUEST,
-        FOUR_CARDS_THROWN,
-        FOUR_CARDS_NOT_THROWN,
-        PLAYER_OUT_OF_CARDS,
-    }
-
-    public Engine() {
-        this.players = new ArrayList<>();
-        this.eventQueue = new LinkedList<>();
-        this.currentPlayerIndex = 0;
-        this.cardsBySeries = HashMultimap.create();
-        this.isGameStarted = false;
     }
 
     public void startGame() {
@@ -182,5 +173,14 @@ public class Engine {
 
     public void addPlayer(Player newPlayer) {
         this.players.add(newPlayer);
+    }
+
+    public static enum Event {
+
+        FAILED_REQUEST,
+        SUCCESSFUL_REQUEST,
+        FOUR_CARDS_THROWN,
+        FOUR_CARDS_NOT_THROWN,
+        PLAYER_OUT_OF_CARDS,
     }
 }

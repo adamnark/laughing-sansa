@@ -1,9 +1,9 @@
 package swing.utils.playeritem;
 
-import swing.utils.playeritem.exceptions.TooManyPlayersException;
-import swing.utils.playeritem.exceptions.DuplicateNameException;
 import java.util.LinkedList;
 import java.util.List;
+import swing.utils.playeritem.exceptions.DuplicateNameException;
+import swing.utils.playeritem.exceptions.TooManyPlayersException;
 
 /**
  *

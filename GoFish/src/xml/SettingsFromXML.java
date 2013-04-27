@@ -1,7 +1,7 @@
 package xml;
 
-import engine.cards.Card;
 import engine.GameSettings;
+import engine.cards.Card;
 import generated.Gofish;
 import generated.PlayerType;
 import java.io.File;
