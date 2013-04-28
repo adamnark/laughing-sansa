@@ -13,4 +13,10 @@ public interface IPlayAreaPanel {
     public void disableThrowing();
 
     public void disableRequsting();
+    
+    public void enableThrowing();
+
+    public void enableRequsting();
+    
+    
 }

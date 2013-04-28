@@ -78,6 +78,21 @@ public class JPanelPlayAreaComputer extends javax.swing.JPanel implements IPlayA
 
     @Override
     public void refresh() {
-        
+    }
+
+    @Override
+    public void disableThrowing() {
+    }
+
+    @Override
+    public void disableRequsting() {
+    }
+
+    @Override
+    public void enableThrowing() {
+    }
+
+    @Override
+    public void enableRequsting() {
     }
 }

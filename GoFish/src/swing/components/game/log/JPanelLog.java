@@ -25,28 +25,25 @@ public class JPanelLog extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
-        jTextPane1.setEditable(false);
-        jTextPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTextPane1.setCaretColor(new java.awt.Color(255, 255, 255));
-        jTextPane1.setFocusable(false);
-        jTextPane1.setPreferredSize(new java.awt.Dimension(600, 50));
-        jScrollPane1.setViewportView(jTextPane1);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         add(jScrollPane1);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 
     public void appendToLog(String string) {
-        this.jTextPane1.setText(this.jTextPane1.getText() + "\r\n" + string);
+        this.jTextArea1.setText(this.jTextArea1.getText() + "\r\n" + string);
     }
     public void setText(String string){
-        this.jTextPane1.setText(string);
+        this.jTextArea1.setText(string);
     }
 }

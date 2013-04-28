@@ -18,20 +18,27 @@ public class JPanelPlayAreaCards extends JPanel {
 
     private CardLayout cardLayout;
     private Map<String, IPlayAreaPanel> cardMap;
+    private String currentCard;
 
     public JPanelPlayAreaCards() {
         initComponents();
         //this.cards = new LinkedList<>();
         this.cardMap = new HashMap<>();
+        this.currentCard = null;
     }
 
     public void addCard(IPlayAreaPanel jPanelPlayArea, String playerName) {
         this.add((JPanel) jPanelPlayArea, playerName);
         this.cardMap.put(playerName, jPanelPlayArea);
+        if (currentCard == null) {
+            currentCard = playerName;
+        }
     }
 
     public void showCard(String playerName) {
+        resetCard(playerName);
         this.cardLayout.show(this, playerName);
+        this.currentCard = playerName;
     }
 
     private void initComponents() {
@@ -46,6 +53,15 @@ public class JPanelPlayAreaCards extends JPanel {
     }
 
     public void disableThrowingForCurrentCard() {
-        
+        cardMap.get(this.currentCard).disableThrowing();
+    }
+
+    public void disableRequestingForCurrentCard() {
+        cardMap.get(this.currentCard).disableRequsting();
+    }
+
+    private void resetCard(String playerName) {
+        cardMap.get(playerName).enableRequsting();
+        cardMap.get(playerName).enableThrowing();
     }
 }

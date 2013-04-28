@@ -80,4 +80,20 @@ public class JPanelActions extends javax.swing.JPanel {
     private javax.swing.JButton jButtonSkip;
     private javax.swing.JButton jButtonThrow;
     // End of variables declaration//GEN-END:variables
+
+    void diableThrowing() {
+        this.jButtonThrow.setEnabled(false);
+    }
+
+    void disableRequsting() {
+        this.jButtonRequest.setEnabled(false);
+    }
+
+    void enableThrowing() {
+        this.jButtonThrow.setEnabled(true);
+    }
+
+    void enableRequsting() {
+        this.jButtonRequest.setEnabled(true);
+    }
 }

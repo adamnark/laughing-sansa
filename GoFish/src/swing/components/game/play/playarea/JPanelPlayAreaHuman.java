@@ -15,7 +15,7 @@ import swing.components.game.play.PlayEvents;
  *
  * @author Natalie
  */
-public class JPanelPlayAreaHuman extends JPanel implements IPlayAreaPanel{
+public class JPanelPlayAreaHuman extends JPanel implements IPlayAreaPanel {
 
     private JPanelActions jPanelActions;
     private JPanelHand jPanelHand;
@@ -82,5 +82,25 @@ public class JPanelPlayAreaHuman extends JPanel implements IPlayAreaPanel{
     @Override
     public void refresh() {
         this.jPanelHand.refresh();
+    }
+
+    @Override
+    public void disableThrowing() {
+        this.jPanelActions.diableThrowing();
+    }
+
+    @Override
+    public void disableRequsting() {
+        this.jPanelActions.disableRequsting();
+    }
+
+    @Override
+    public void enableThrowing() {
+        this.jPanelActions.enableThrowing();
+    }
+
+    @Override
+    public void enableRequsting() {
+        this.jPanelActions.enableRequsting();
     }
 }

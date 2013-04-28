@@ -6,6 +6,7 @@ package swing.components.game.play;
 
 import engine.players.Player;
 import javax.swing.JPanel;
+import swing.components.game.play.playarea.IPlayAreaPanel;
 import swing.playerinterface.SwingFourPicker;
 import swing.components.game.play.playarea.JPanelPlayAreaComputer;
 import swing.components.game.play.playarea.JPanelPlayAreaHuman;
@@ -16,8 +17,8 @@ import swing.components.game.play.playarea.JPanelPlayAreaHuman;
  */
 public class PlayAreaFactory {
 
-    public static JPanel makeJPanelPlayArea(Player player) {
-        JPanel jPanel;
+    public static IPlayAreaPanel makeJPanelPlayArea(Player player) {
+        IPlayAreaPanel jPanel;
         if (player.isHuman()) {
             jPanel = makeHumanPlayArea(player);
         } else {
@@ -27,14 +28,14 @@ public class PlayAreaFactory {
         return jPanel;
     }
 
-    private static JPanel makeComputerPlayArea(Player player) {
+    private static IPlayAreaPanel makeComputerPlayArea(Player player) {
         JPanelPlayAreaComputer jPanelC = new JPanelPlayAreaComputer();
         jPanelC.setPlayerName(player.getName());
         
         return jPanelC;
     }
 
-    private static JPanel makeHumanPlayArea(Player player) {
+    private static IPlayAreaPanel makeHumanPlayArea(Player player) {
         JPanelPlayAreaHuman jPanelH = new JPanelPlayAreaHuman();
         jPanelH.setPlayer(player);
         SwingFourPicker swingFourPicker = new SwingFourPicker();

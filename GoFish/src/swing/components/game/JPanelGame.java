@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import swing.components.game.log.JPanelLog;
 import swing.components.game.play.PlayAreaFactory;
 import swing.components.game.play.PlayEvents;
+import swing.components.game.play.playarea.IPlayAreaPanel;
 import swing.components.game.play.playarea.JPanelHand;
 import swing.utils.SwingUtils;
 
@@ -79,8 +80,8 @@ public class JPanelGame extends javax.swing.JPanel {
     private void initPlayAreaCards() {
         for (Player player : this.engine.getPlayers()) {
             String playerName = player.getName();
-            JPanel jPanelPlayArea = PlayAreaFactory.makeJPanelPlayArea(player);
-            initCardListeners(jPanelPlayArea);
+            IPlayAreaPanel jPanelPlayArea = PlayAreaFactory.makeJPanelPlayArea(player);
+            initCardListeners((JPanel) jPanelPlayArea);
             this.jPanelPlayAreaCards.addCard(jPanelPlayArea, playerName);
         }
     }
