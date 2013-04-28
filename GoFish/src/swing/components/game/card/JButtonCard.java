@@ -29,27 +29,33 @@ public class JButtonCard extends JButton {
     private static List<Color> colorList;
     private static boolean isDictionaryInitiated = false;
     private boolean isHighlighted = false;
+    private Card cardModel;
 
     public JButtonCard(Card card) {
         if (!isDictionaryInitiated) {
             throw new RuntimeException("JPanelCard class is not initiated! call setAvaiableSeries() before instantiating.");
         }
 
-        initComponents(card);
+        this.cardModel = card;
+        initComponents();
         initListeners();
     }
 
-    private void initComponents(Card card) {
+    public Card getCardModel() {
+        return cardModel;
+    }
+
+    private void initComponents() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new Dimension(50, 60));
         this.setBorder(BorderFactory.createLineBorder(Color.black));
 
-        this.jPanelColors = new JPanelColors(generateColorsFromCard(card));
+        this.jPanelColors = new JPanelColors(generateColorsFromCard(this.cardModel));
         this.jLabelCardName = new JLabel();
         this.jLabelCardName.setHorizontalAlignment(JLabel.CENTER);
-        
-        jLabelCardName.setText(card.getName());
-        jLabelCardName.setPreferredSize(new Dimension(75,15));
+
+        jLabelCardName.setText(this.cardModel.getName());
+        jLabelCardName.setPreferredSize(new Dimension(75, 15));
 
         this.add(jPanelColors);
         this.add(jLabelCardName);

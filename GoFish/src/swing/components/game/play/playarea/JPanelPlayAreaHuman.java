@@ -4,18 +4,18 @@
  */
 package swing.components.game.play.playarea;
 
-import swing.components.game.play.PlayEvents;
 import engine.players.Player;
 import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
+import swing.components.game.play.PlayEvents;
 
 /**
  *
  * @author Natalie
  */
-public class JPanelPlayAreaHuman extends JPanel {
+public class JPanelPlayAreaHuman extends JPanel implements IPlayAreaPanel{
 
     private JPanelActions jPanelActions;
     private JPanelHand jPanelHand;
@@ -29,7 +29,7 @@ public class JPanelPlayAreaHuman extends JPanel {
     public void setPlayer(Player player) {
         this.playerModel = player;
         this.jPanelHand.setHandModel(player.getHand());
-        this.jPanelHand.update();
+        this.jPanelHand.refresh();
     }
 
     private void initComponents() {
@@ -73,5 +73,14 @@ public class JPanelPlayAreaHuman extends JPanel {
 
     private void fireRequst() {
         this.firePropertyChange(PlayEvents.EVENT_REQUEST, this.playerModel, this.playerModel.getName());
+    }
+
+    public JPanelHand getJPanelHand() {
+        return jPanelHand;
+    }
+
+    @Override
+    public void refresh() {
+        this.jPanelHand.refresh();
     }
 }

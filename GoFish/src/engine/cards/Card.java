@@ -73,7 +73,7 @@ public final class Card {
     }
 
     public String getName() {
-        String suffix = this.isValid ? "" : "<dead>";
+        //String suffix = this.isValid ? "" : "<dead>";
         return name;// + suffix;
     }
 

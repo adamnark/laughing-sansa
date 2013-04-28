@@ -1,5 +1,7 @@
 package engine.players;
 
+import engine.players.exceptions.InvalidFourRuntimeException;
+import com.google.common.collect.HashMultimap;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.ai.AiFourPicker;
@@ -142,16 +144,25 @@ public class Player {
     }
 
     public boolean throwFour() {
-        this.lastCardsThrown = this.fourPicker.pickFour(hand);
-        if (this.lastCardsThrown == null) {
-            return false;
-        }
+        boolean cardsWereThrown;
+        Collection<Card> four = this.fourPicker.pickFour(hand);
 
-        for (Card card : this.lastCardsThrown) {
-            this.hand.removeCardFromHand(card);
-        }
+        if (four == null || !validateFour(four)) {
+            throw new InvalidFourRuntimeException();
+        } else {
+            this.lastCardsThrown = this.fourPicker.pickFour(hand);
+            if (this.lastCardsThrown == null) {
+                cardsWereThrown = false;
+            } else {
+                for (Card card : this.lastCardsThrown) {
+                    this.hand.removeCardFromHand(card);
+                }
 
-        return true;
+                cardsWereThrown = true;
+            }
+        }
+        
+        return cardsWereThrown;
     }
 
     public Collection<Card> getLastCardsThrown() {
@@ -172,5 +183,30 @@ public class Player {
 
     public boolean isPlaying() {
         return !this.hand.getCards().isEmpty();
+    }
+
+    private boolean validateFour(Collection<Card> cards) {
+        boolean isValid;
+        if (cards == null) {
+            isValid = true;
+        } else {
+            HashMultimap<Series, Card> map = HashMultimap.create();
+            for (Card card : cards) {
+                for (Series series : card.getSeries()) {
+                    map.put(series, card);
+                }
+            }
+
+            isValid = false;
+            for (Series series : map.keySet()) {
+                int count = map.get(series).size();
+                if (count == 4) {
+                    isValid = true;
+                    break;
+                }
+            }
+        }
+        
+        return isValid;
     }
 }

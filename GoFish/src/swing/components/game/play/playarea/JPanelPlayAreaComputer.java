@@ -10,7 +10,7 @@ import swing.components.game.play.PlayEvents;
  *
  * @author Natalie
  */
-public class JPanelPlayAreaComputer extends javax.swing.JPanel {
+public class JPanelPlayAreaComputer extends javax.swing.JPanel implements IPlayAreaPanel {
 
     private static final String EVENT_PLAY = "JPanelPlayAreaComputer - play out computer turn";
     private String playerName;
@@ -74,5 +74,10 @@ public class JPanelPlayAreaComputer extends javax.swing.JPanel {
 
     public String getPlayerName() {
         return this.playerName;
+    }
+
+    @Override
+    public void refresh() {
+        
     }
 }

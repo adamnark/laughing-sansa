@@ -32,11 +32,15 @@ public class JPanelHand extends javax.swing.JPanel {
         initComponents();
     }
 
+    public LinkedList<JButtonCard> getjPanelButtonCardList() {
+        return jPanelButtonCardList;
+    }
+
     public void setHandModel(Hand handModel) {
         this.handModel = handModel;
     }
 
-    public void update() {
+    public void refresh() {
         if (this.handModel == null) {
             throw new RuntimeException("JPanelHand needs a hand model! please call setHandModel().");
         }
@@ -46,11 +50,13 @@ public class JPanelHand extends javax.swing.JPanel {
         }
 
         this.addButtonsFromHandModel();
-        this.revalidate();
+        this.validate();
         this.repaint();
     }
 
     private void addButtonsFromHandModel() {
+        this.jPanelButtonCardList = new LinkedList<>();
+
         for (Card card : this.handModel.getCards()) {
             this.jPanelButtonCardList.add(new JButtonCard(card));
         }

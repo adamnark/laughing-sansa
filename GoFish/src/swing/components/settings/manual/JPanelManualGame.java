@@ -118,6 +118,7 @@ public class JPanelManualGame extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(600, 400));
         setPreferredSize(new java.awt.Dimension(600, 400));
 
+        jCheckBoxAllowMutipleRequests.setSelected(true);
         jCheckBoxAllowMutipleRequests.setText("Allow Mutiple Requests");
         jCheckBoxAllowMutipleRequests.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,7 +195,7 @@ public class JPanelManualGame extends javax.swing.JPanel {
                         .addComponent(jCheckBoxAllowMutipleRequests)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBoxForceShowOfSeries)
-                        .addGap(0, 159, Short.MAX_VALUE))
+                        .addGap(0, 109, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addGap(1, 1, 1)
                 .addComponent(jButtonRemovePlayer)

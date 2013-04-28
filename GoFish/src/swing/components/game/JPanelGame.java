@@ -5,6 +5,7 @@
 package swing.components.game;
 
 import engine.Engine;
+import engine.players.exceptions.InvalidFourRuntimeException;
 import engine.players.Player;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -114,7 +115,7 @@ public class JPanelGame extends javax.swing.JPanel {
         jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_THROW, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                handleThrowFourCards();
             }
         });
         jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_SKIP, new PropertyChangeListener() {
@@ -185,9 +186,11 @@ public class JPanelGame extends javax.swing.JPanel {
     private void handleFourCardsThrown() {
         appendToLog(this.engine.getCurrentPlayer().getName() + " has thrown four cards!");
         this.jPanelPlayerList.refresh();
-        if(this.engine.getGameSettings().isForceShowOfSeries()){
+        this.jPanelPlayAreaCards.refresh();
+        if (this.engine.getGameSettings().isForceShowOfSeries()) {
             this.jPanelGraveyard.refresh();
         }
+        this.jPanelPlayAreaCards.disableThrowingForCurrentCard();
     }
 
     private void handlePlayerOutOfCards() {
@@ -206,6 +209,15 @@ public class JPanelGame extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, winrar + " wins with " + score + " points!", "Game over", JOptionPane.DEFAULT_OPTION, ia);
             this.firePropertyChange(JPanelGame.EVENT_GAME_OVER, true, false);
             this.isGameOver = true;
+        }
+    }
+
+    private void handleThrowFourCards() {
+        try {
+            this.engine.currentPlayerThrowFour();
+            getMessagesFromEngine();
+        } catch (InvalidFourRuntimeException ex) {
+            appendToLog("ERROR: Throw FOUR(4) cards of the same series!");
         }
     }
 }

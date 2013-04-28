@@ -6,7 +6,7 @@ package swing.components.game.play;
 
 import engine.players.Player;
 import javax.swing.JPanel;
-import swing.components.game.play.playarea.JPanelHand;
+import swing.playerinterface.SwingFourPicker;
 import swing.components.game.play.playarea.JPanelPlayAreaComputer;
 import swing.components.game.play.playarea.JPanelPlayAreaHuman;
 
@@ -30,12 +30,17 @@ public class PlayAreaFactory {
     private static JPanel makeComputerPlayArea(Player player) {
         JPanelPlayAreaComputer jPanelC = new JPanelPlayAreaComputer();
         jPanelC.setPlayerName(player.getName());
+        
         return jPanelC;
     }
 
     private static JPanel makeHumanPlayArea(Player player) {
         JPanelPlayAreaHuman jPanelH = new JPanelPlayAreaHuman();
         jPanelH.setPlayer(player);
+        SwingFourPicker swingFourPicker = new SwingFourPicker();
+        swingFourPicker.init(jPanelH.getJPanelHand());
+        player.setFourPicker(swingFourPicker);
+        
         return jPanelH;
     }
 }
