@@ -8,10 +8,14 @@ import engine.Engine;
 import engine.players.Player;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import swing.components.game.log.JPanelLog;
 import swing.components.game.play.PlayAreaFactory;
 import swing.components.game.play.PlayEvents;
 import swing.components.game.play.playarea.JPanelHand;
+import swing.utils.SwingUtils;
 
 /**
  *
@@ -19,10 +23,12 @@ import swing.components.game.play.playarea.JPanelHand;
  */
 public class JPanelGame extends javax.swing.JPanel {
 
+    public static final String EVENT_GAME_OVER = "JPanelGame EVENT_GAME_OVER";
     private Engine engine;
     private swing.components.game.graveyard.JPanelGraveyard jPanelGraveyard;
     private swing.components.game.play.JPanelPlayAreaCards jPanelPlayAreaCards;
     private swing.components.game.playerlist.JPanelPlayerList jPanelPlayerList;
+    private swing.components.game.log.JPanelLog jPanelLog;
 
     /**
      * Creates new form JPanelGame
@@ -38,6 +44,7 @@ public class JPanelGame extends javax.swing.JPanel {
         initGraveyard();
         initPlayAreaCards();
         initPlayersList();
+        initLog();
         revalidate();
         repaint();
     }
@@ -53,10 +60,12 @@ public class JPanelGame extends javax.swing.JPanel {
         this.jPanelPlayerList = new swing.components.game.playerlist.JPanelPlayerList();
         this.jPanelPlayAreaCards = new swing.components.game.play.JPanelPlayAreaCards();
         this.jPanelGraveyard = new swing.components.game.graveyard.JPanelGraveyard();
+        this.jPanelLog = new JPanelLog();
 
         setLayout(new java.awt.BorderLayout());
-        add(jPanelPlayerList, java.awt.BorderLayout.WEST);
+        add(jPanelLog, java.awt.BorderLayout.NORTH);
         add(jPanelPlayAreaCards, java.awt.BorderLayout.CENTER);
+        add(jPanelPlayerList, java.awt.BorderLayout.WEST);
         add(jPanelGraveyard, java.awt.BorderLayout.EAST);
 
     }
@@ -80,14 +89,19 @@ public class JPanelGame extends javax.swing.JPanel {
 
     private void initHandClass() {
         JPanelHand.setAvailableSeries(engine.getAvailableSeries());
-
     }
 
     private void initCardListeners(JPanel jPanelPlayArea) {
+        jPanelPlayArea.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent pce) {
+                getMessagesFromEngine();
+            }
+        });
         jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_PLAY_COMPUTER_TURN, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                playComputerTurn();
             }
         });
         jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_REQUEST, new PropertyChangeListener() {
@@ -109,11 +123,84 @@ public class JPanelGame extends javax.swing.JPanel {
             }
         });
     }
-    
-    private void advanceTurn(){
+
+    private void advanceTurn() {
         this.engine.advanceTurn();
         this.jPanelPlayAreaCards.showCard(this.engine.getCurrentPlayer().getName());
         this.jPanelPlayerList.refreshCurrentPlayer();
     }
-    
+
+    private void getMessagesFromEngine() {
+        checkGameOver();
+        while (!this.engine.getEventQueue().isEmpty()) {
+            Engine.Event poppedEvent = this.engine.getEventQueue().pop();
+            switch (poppedEvent) {
+                case FAILED_REQUEST:
+                    handleFailedRequset();
+                    break;
+                case FOUR_CARDS_NOT_THROWN:
+                    handleFourCardsNotThrown();
+                    break;
+                case FOUR_CARDS_THROWN:
+                    handleFourCardsThrown();
+                    break;
+                case PLAYER_OUT_OF_CARDS:
+                    handlePlayerOutOfCards();
+                    break;
+                case SUCCESSFUL_REQUEST:
+                    handleSuccessfulRequest();
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+
+        }
+    }
+
+    private void playComputerTurn() {
+        this.engine.currentPlayerMakeRequest();
+        getMessagesFromEngine();
+        this.engine.currentPlayerThrowFour();
+        getMessagesFromEngine();
+        this.advanceTurn();
+    }
+
+    private void initLog() {
+        this.jPanelLog.setText("Game started!");
+    }
+
+    private void appendToLog(String string) {
+        this.jPanelLog.appendToLog(string);
+    }
+
+    private void handleFailedRequset() {
+        appendToLog(this.engine.getCurrentPlayer().getName() + " has made a bad request!");
+    }
+
+    private void handleFourCardsNotThrown() {
+        appendToLog(this.engine.getCurrentPlayer().getName() + " hasn't thrown any cards!");
+    }
+
+    private void handleFourCardsThrown() {
+        appendToLog(this.engine.getCurrentPlayer().getName() + " has thrown four cards!");
+        this.jPanelPlayerList.refresh();
+    }
+
+    private void handlePlayerOutOfCards() {
+        appendToLog(this.engine.getCurrentPlayer().getName() + " has run out of cards!");
+    }
+
+    private void handleSuccessfulRequest() {
+        appendToLog(this.engine.getCurrentPlayer().getName() + " has made a successful request!");
+    }
+
+    private void checkGameOver() {
+        if (this.engine.isGameOver()) {
+            String winrar = engine.getWinner().getName();
+            int score = engine.getWinner().getScore();
+            ImageIcon ia = SwingUtils.getImageIcon("gameover_icon.png");
+            JOptionPane.showMessageDialog(this, winrar + " wins with " + score + " points!", "Game over", JOptionPane.DEFAULT_OPTION, ia);
+            this.firePropertyChange(JPanelGame.EVENT_GAME_OVER, true, false);
+        }
+    }
 }

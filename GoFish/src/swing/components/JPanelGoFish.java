@@ -9,7 +9,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import swing.components.game.JPanelGame;
-import swing.components.game.JPanelTest;
 import swing.components.settings.JPanelMainMenu;
 import swing.components.settings.manual.GUIEngineMaker;
 import swing.components.settings.manual.JPanelManualGame;
@@ -27,7 +26,6 @@ public class JPanelGoFish extends JPanel {
     private static final String CARD_MANUAL_SETTINGS = "Card - manual settings";
     private static final String CARD_XML_SETTINGS = "Card - xml settings";
     private static final String CARD_GAME = "Card - game";
-    private static final String CARD_TEST = "Card - TEST REMOVE THIS";
     private CardLayout cardLayout;
     private JPanelMainMenu jPanelMainMenu;
     private JPanelManualGame jPanelManualGame;
@@ -54,20 +52,20 @@ public class JPanelGoFish extends JPanel {
         this.jPanelMainMenu = new JPanelMainMenu();
         this.jPanelManualGame = new JPanelManualGame();
         this.jPanelXMLSettings = new JPanelXMLSettings();
-        //this.jPanelGame = new JPanelGame();
     }
 
     private void initCards() {
         this.add(jPanelMainMenu, CARD_MENU);
         this.add(jPanelManualGame, CARD_MANUAL_SETTINGS);
         this.add(jPanelXMLSettings, CARD_XML_SETTINGS);
-        this.add(new JPanelTest(), CARD_TEST);
+
     }
 
     private void initListeners() {
         initMainMenuListeners();
         initManualSettingsListeners();
         initXMLSettingsListeners();
+        //initGameListeners(); will trigger null pointer exception!
     }
 
     private void initManualSettingsListeners() {
@@ -106,18 +104,6 @@ public class JPanelGoFish extends JPanel {
                 cardLayout.show(JPanelGoFish.this, CARD_XML_SETTINGS);
             }
         });
-
-        this.jPanelMainMenu.addPropertyChangeListener(JPanelMainMenu.EVENT_TEST, new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent pce) {
-                showTestPanel();
-            }
-        });
-
-    }
-
-    private void showTestPanel() {
-        cardLayout.show(this, CARD_TEST);
     }
 
     private void initXMLSettingsListeners() {
@@ -160,10 +146,20 @@ public class JPanelGoFish extends JPanel {
 
     private void makeGameCard() {
         this.jPanelGame = new JPanelGame();
+        initGameListeners();
         this.add(jPanelGame, CARD_GAME);
     }
 
     private void showGameCard() {
         cardLayout.show(this, CARD_GAME);
+    }
+
+    private void initGameListeners() {
+        this.jPanelGame.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent pce) {
+                showMainMenu();
+            }
+        });
     }
 }

@@ -8,6 +8,9 @@ import engine.players.Player;
  */
 public class Validator {
 
+    private static final int MINIMUM_NUMBER_OF_CARDS = 12;
+    private static final int MINIMUM_NUMBER_OF_PLAYERS = 3;
+    private static final int MAXIMUM_NUMBER_OF_PLAYERS = 6;
     Engine engine;
 
     public Validator(Engine engine) {
@@ -15,11 +18,12 @@ public class Validator {
     }
 
     public boolean validateEngineState() {
-        if (countOfCards() < 28) {
+        if (countOfCards() < MINIMUM_NUMBER_OF_CARDS) {
             return false;
         }
 
-        if (countOfPlayers() < 3 || countOfPlayers() > 6) {
+        if (countOfPlayers() < MINIMUM_NUMBER_OF_PLAYERS
+                || countOfPlayers() > MAXIMUM_NUMBER_OF_PLAYERS) {
             return false;
         }
 

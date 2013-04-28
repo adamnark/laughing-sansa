@@ -89,4 +89,13 @@ public class JPanelPlayerList extends javax.swing.JPanel {
             this.listModel.addElement(pi);
         }
     }
+
+    public void refresh() {
+        for (Player player : this.engine.getPlayers()) {
+            PlayerItem playerItem = this.playerItemsCollection.getPlayerItem(player.getName());
+            playerItem.setScore(player.getScore());
+        }
+        
+        this.jListPlayers.repaint();
+    }
 }
