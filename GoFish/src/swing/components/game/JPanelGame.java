@@ -29,6 +29,7 @@ public class JPanelGame extends javax.swing.JPanel {
     private swing.components.game.play.JPanelPlayAreaCards jPanelPlayAreaCards;
     private swing.components.game.playerlist.JPanelPlayerList jPanelPlayerList;
     private swing.components.game.log.JPanelLog jPanelLog;
+    private boolean isGameOver = false;
 
     /**
      * Creates new form JPanelGame
@@ -131,7 +132,6 @@ public class JPanelGame extends javax.swing.JPanel {
     }
 
     private void getMessagesFromEngine() {
-        checkGameOver();
         while (!this.engine.getEventQueue().isEmpty()) {
             Engine.Event poppedEvent = this.engine.getEventQueue().pop();
             switch (poppedEvent) {
@@ -155,6 +155,7 @@ public class JPanelGame extends javax.swing.JPanel {
             }
 
         }
+        checkGameOver();
     }
 
     private void playComputerTurn() {
@@ -195,12 +196,13 @@ public class JPanelGame extends javax.swing.JPanel {
     }
 
     private void checkGameOver() {
-        if (this.engine.isGameOver()) {
+        if (this.engine.isGameOver() && !this.isGameOver) {
             String winrar = engine.getWinner().getName();
             int score = engine.getWinner().getScore();
             ImageIcon ia = SwingUtils.getImageIcon("gameover_icon.png");
             JOptionPane.showMessageDialog(this, winrar + " wins with " + score + " points!", "Game over", JOptionPane.DEFAULT_OPTION, ia);
             this.firePropertyChange(JPanelGame.EVENT_GAME_OVER, true, false);
+            this.isGameOver = true;
         }
     }
 }

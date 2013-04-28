@@ -34,7 +34,6 @@ public class JPanelPlayAreaComputer extends javax.swing.JPanel {
         jButtonPlay = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Computer player's turn"));
-        setLayout(new java.awt.BorderLayout());
 
         jButtonPlay.setText("Play");
         jButtonPlay.addActionListener(new java.awt.event.ActionListener() {
@@ -42,7 +41,23 @@ public class JPanelPlayAreaComputer extends javax.swing.JPanel {
                 jButtonPlayActionPerformed(evt);
             }
         });
-        add(jButtonPlay, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(132, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(105, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed

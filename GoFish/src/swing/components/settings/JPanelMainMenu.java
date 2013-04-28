@@ -2,8 +2,6 @@
  */
 package swing.components.settings;
 
-import java.awt.event.ActionListener;
-
 /**
  *
  * @author adam
@@ -13,6 +11,7 @@ public class JPanelMainMenu extends javax.swing.JPanel {
     public static final String EVENT_EXIT = "Exit Event";
     public static final String EVENT_GOTO_XML = "Event Go to XML";
     public static final String EVENT_GOTO_MANUAL = "Event Go to Manual";
+    public static final String EVENT_REPLAY = "Event Replay";
 
     /**
      * Creates new form JPanelSettingsMenu
@@ -23,13 +22,13 @@ public class JPanelMainMenu extends javax.swing.JPanel {
     }
 
     private void setTitle() {
-        this.jPanelTitle1.setTitle("New Game");
+        this.jPanelTitle1.setTitle("GO FISH!");
     }
 
-    public void addButtonManualGameListener(ActionListener al) {
-        this.jButtonManualGame.addActionListener(al);
+    public void enableButtonReplay(){
+        this.jButtonReplay.setEnabled(true);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,25 +42,21 @@ public class JPanelMainMenu extends javax.swing.JPanel {
         jButtonManualGame = new javax.swing.JButton();
         jButtonExit = new javax.swing.JButton();
         jButtonXMLGame = new javax.swing.JButton();
+        jButtonReplay = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 450));
         setMinimumSize(new java.awt.Dimension(600, 450));
-        setLayout(null);
 
         jPanelTitle1.setAlignmentX(0.0F);
         jPanelTitle1.setAlignmentY(0.0F);
-        add(jPanelTitle1);
-        jPanelTitle1.setBounds(0, 0, 600, 50);
 
         jButtonManualGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu_manual_icon.png"))); // NOI18N
-        jButtonManualGame.setText("Manual Game");
+        jButtonManualGame.setText("Start a new game");
         jButtonManualGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonManualGameActionPerformed(evt);
             }
         });
-        add(jButtonManualGame);
-        jButtonManualGame.setBounds(140, 80, 330, 60);
 
         jButtonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu_exit_icon.png"))); // NOI18N
         jButtonExit.setText("Exit");
@@ -70,18 +65,52 @@ public class JPanelMainMenu extends javax.swing.JPanel {
                 jButtonExitActionPerformed(evt);
             }
         });
-        add(jButtonExit);
-        jButtonExit.setBounds(140, 260, 330, 60);
 
         jButtonXMLGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu_xml_icon.png"))); // NOI18N
-        jButtonXMLGame.setText("XML Game");
+        jButtonXMLGame.setText("Load game from XML");
         jButtonXMLGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonXMLGameActionPerformed(evt);
             }
         });
-        add(jButtonXMLGame);
-        jButtonXMLGame.setBounds(140, 150, 330, 60);
+
+        jButtonReplay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu_replay_icon.png"))); // NOI18N
+        jButtonReplay.setText("Replay with last settings");
+        jButtonReplay.setEnabled(false);
+        jButtonReplay.setFocusCycleRoot(true);
+        jButtonReplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReplayActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonManualGame, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonXMLGame, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonReplay, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButtonManualGame, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jButtonXMLGame, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jButtonReplay, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonManualGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManualGameActionPerformed
@@ -96,10 +125,15 @@ public class JPanelMainMenu extends javax.swing.JPanel {
         this.firePropertyChange(EVENT_GOTO_XML, true, false);
     }//GEN-LAST:event_jButtonXMLGameActionPerformed
 
-    public static final String EVENT_TEST = "event test test test";
+    private void jButtonReplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReplayActionPerformed
+        this.firePropertyChange(EVENT_REPLAY, false, true);
+    }//GEN-LAST:event_jButtonReplayActionPerformed
+
+    //public static final String EVENT_TEST = "event test test test";
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonExit;
     private javax.swing.JButton jButtonManualGame;
+    private javax.swing.JButton jButtonReplay;
     private javax.swing.JButton jButtonXMLGame;
     private swing.utils.JPanelTitle jPanelTitle1;
     // End of variables declaration//GEN-END:variables

@@ -31,16 +31,23 @@ public class JPanelGoFish extends JPanel {
     private JPanelManualGame jPanelManualGame;
     private JPanelXMLSettings jPanelXMLSettings;
     private JPanelGame jPanelGame;
-    private GUIEngineMaker guiEngineMaker = null;
+    private GUIEngineMaker guiEngineMaker;
     private SettingsFromXML settingsFromXML;
+    private boolean isLastGameManual;
 
     public JPanelGoFish() {
         initComponents();
         initCards();
         initListeners();
+        guiEngineMaker = null;
+        settingsFromXML = null;
     }
 
     public void showMainMenu() {
+        if (this.settingsFromXML != null || this.guiEngineMaker != null) {
+            this.jPanelMainMenu.enableButtonReplay();
+        }
+
         cardLayout.show(this, CARD_MENU);
     }
 
@@ -104,6 +111,23 @@ public class JPanelGoFish extends JPanel {
                 cardLayout.show(JPanelGoFish.this, CARD_XML_SETTINGS);
             }
         });
+
+        this.jPanelMainMenu.addPropertyChangeListener(JPanelMainMenu.EVENT_REPLAY, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent pce) {
+                replayWithLastSettings();
+            }
+        });
+    }
+
+    private void replayWithLastSettings() {
+        Engine engine;
+        if (!isLastGameManual) {
+            engine = this.settingsFromXML.makeEngine();
+        } else {
+            engine = this.guiEngineMaker.makeEngine();
+        }
+        startGame(engine);
     }
 
     private void initXMLSettingsListeners() {
@@ -127,17 +151,21 @@ public class JPanelGoFish extends JPanel {
     }
 
     private void startXMLGame() {
+        isLastGameManual = false;
         this.settingsFromXML = this.jPanelXMLSettings.getSettingsFromXML();
         Engine engine = this.settingsFromXML.makeEngine();
-        engine.startGame();
-        makeGameCard();
-        this.jPanelGame.initGame(engine);
-        showGameCard();
+        startGame(engine);
+
     }
 
     private void startManualGame() {
+        isLastGameManual = true;
         this.guiEngineMaker = jPanelManualGame.getGuiEngineMaker();
         Engine engine = this.guiEngineMaker.makeEngine();
+        startGame(engine);
+    }
+
+    private void startGame(Engine engine) {
         engine.startGame();
         makeGameCard();
         this.jPanelGame.initGame(engine);
