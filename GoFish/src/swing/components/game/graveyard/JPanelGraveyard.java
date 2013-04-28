@@ -70,5 +70,6 @@ public class JPanelGraveyard extends javax.swing.JPanel {
         JButtonCard jButtonCard = new JButtonCard(card);
         jButtonCard.setEnabled(false);
         this.jButtonCardList.add(jButtonCard);
+        this.add(jButtonCard);
     }
 }

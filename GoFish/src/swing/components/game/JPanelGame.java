@@ -185,6 +185,9 @@ public class JPanelGame extends javax.swing.JPanel {
     private void handleFourCardsThrown() {
         appendToLog(this.engine.getCurrentPlayer().getName() + " has thrown four cards!");
         this.jPanelPlayerList.refresh();
+        if(this.engine.getGameSettings().isForceShowOfSeries()){
+            this.jPanelGraveyard.refresh();
+        }
     }
 
     private void handlePlayerOutOfCards() {

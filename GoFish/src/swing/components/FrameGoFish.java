@@ -4,6 +4,8 @@ package swing.components;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -36,8 +38,9 @@ public class FrameGoFish extends JFrame {
         contentPane.add(jPanelGoFish, BorderLayout.CENTER);
 
         initListeners();
-
         initMenuBar();
+        initIcon();
+        
     }
 
     /**
@@ -99,7 +102,6 @@ public class FrameGoFish extends JFrame {
                 exit();
             }
         });
-
         menu1.add(menuItemNew);
         menu1.addSeparator();
         menu1.add(menuItemExit);
@@ -114,8 +116,6 @@ public class FrameGoFish extends JFrame {
         });
         menu2.add(menuItemAbout);
 
-
-
         menuBar.add(menu1);
         menuBar.add(menu2);
 
@@ -129,5 +129,10 @@ public class FrameGoFish extends JFrame {
     private void popupAbout() {
         ImageIcon ia = SwingUtils.getImageIcon("about_icon.png");
         JOptionPane.showMessageDialog(this, "Adam Narkunski's GoFish!", "About", JOptionPane.INFORMATION_MESSAGE, ia);
+    }
+
+    private void initIcon() {
+        Image img = SwingUtils.getImage("window_icon.png");
+        this.setIconImage(img);
     }
 }

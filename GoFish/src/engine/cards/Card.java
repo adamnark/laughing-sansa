@@ -74,7 +74,7 @@ public final class Card {
 
     public String getName() {
         String suffix = this.isValid ? "" : "<dead>";
-        return name + suffix;
+        return name;// + suffix;
     }
 
     public void setName(String name) {
