@@ -46,6 +46,6 @@ public class JPanelPlayAreaCards extends JPanel {
     }
 
     public void disableThrowingForCurrentCard() {
-        kooki
+        
     }
 }
