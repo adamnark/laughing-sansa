@@ -149,7 +149,7 @@ public class Player {
         if (!validateFour(four)) {
             throw new InvalidFourRuntimeException();
         } else {
-            this.lastCardsThrown = this.fourPicker.pickFour(hand);
+            this.lastCardsThrown = four;//this.fourPicker.pickFour(hand);
             if (this.lastCardsThrown == null) {
                 cardsWereThrown = false;
             } else {

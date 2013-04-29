@@ -128,9 +128,11 @@ public class JPanelGame extends javax.swing.JPanel {
     }
 
     private void advanceTurn() {
-        this.engine.advanceTurn();
-        this.jPanelPlayAreaCards.showCard(this.engine.getCurrentPlayer().getName());
-        this.jPanelPlayerList.refreshCurrentPlayer();
+        if (!this.engine.isGameOver()) {
+            this.engine.advanceTurn();
+            this.jPanelPlayAreaCards.showCard(this.engine.getCurrentPlayer().getName());
+            this.jPanelPlayerList.refreshCurrentPlayer();
+        }
     }
 
     private void getMessagesFromEngine() {
@@ -155,15 +157,20 @@ public class JPanelGame extends javax.swing.JPanel {
                 default:
                     throw new AssertionError();
             }
-
         }
+
         checkGameOver();
     }
 
     private void playComputerTurn() {
         handleRequestCardCmd();
-        handleThrowFourCardsCmd();
-        this.advanceTurn();
+        if (!isGameOver) {
+            handleThrowFourCardsCmd();
+        }
+        
+        if (!isGameOver) {
+            this.advanceTurn();
+        }
     }
 
     private void initLog() {
@@ -178,7 +185,6 @@ public class JPanelGame extends javax.swing.JPanel {
         appendToLog(this.engine.getCurrentPlayer().getName() + " has made a bad request!");
         this.jPanelPlayAreaCards.refresh();
         this.jPanelPlayAreaCards.disableRequestingForCurrentCard();
-
     }
 
     private void handleFourCardsNotThrown() {
@@ -192,6 +198,7 @@ public class JPanelGame extends javax.swing.JPanel {
         if (this.engine.getGameSettings().isForceShowOfSeries()) {
             this.jPanelGraveyard.refresh();
         }
+
         this.jPanelPlayAreaCards.disableThrowingForCurrentCard();
     }
 
@@ -215,8 +222,8 @@ public class JPanelGame extends javax.swing.JPanel {
             int score = engine.getWinner().getScore();
             ImageIcon ia = SwingUtils.getImageIcon("gameover_icon.png");
             JOptionPane.showMessageDialog(this, winrar + " wins with " + score + " points!", "Game over", JOptionPane.DEFAULT_OPTION, ia);
-            this.firePropertyChange(JPanelGame.EVENT_GAME_OVER, true, false);
             this.isGameOver = true;
+            this.firePropertyChange(JPanelGame.EVENT_GAME_OVER, true, false);
         }
     }
 

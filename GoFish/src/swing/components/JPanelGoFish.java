@@ -72,7 +72,6 @@ public class JPanelGoFish extends JPanel {
         initMainMenuListeners();
         initManualSettingsListeners();
         initXMLSettingsListeners();
-        //initGameListeners(); will trigger null pointer exception!
     }
 
     private void initManualSettingsListeners() {
@@ -155,7 +154,6 @@ public class JPanelGoFish extends JPanel {
         this.settingsFromXML = this.jPanelXMLSettings.getSettingsFromXML();
         Engine engine = this.settingsFromXML.makeEngine();
         startGame(engine);
-
     }
 
     private void startManualGame() {
@@ -183,7 +181,7 @@ public class JPanelGoFish extends JPanel {
     }
 
     private void initGameListeners() {
-        this.jPanelGame.addPropertyChangeListener(new PropertyChangeListener() {
+        this.jPanelGame.addPropertyChangeListener(JPanelGame.EVENT_GAME_OVER, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent pce) {
                 showMainMenu();

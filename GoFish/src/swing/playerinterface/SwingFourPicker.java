@@ -3,6 +3,7 @@ package swing.playerinterface;
 import engine.cards.Card;
 import engine.players.Hand;
 import engine.players.IFourPicker;
+import engine.players.exceptions.InvalidFourRuntimeException;
 import java.util.Collection;
 import java.util.LinkedList;
 import swing.components.game.card.JButtonCard;
@@ -31,6 +32,10 @@ public class SwingFourPicker implements IFourPicker {
             if (jButtonCard.isHighlighted()) {
                 four.add(jButtonCard.getCardModel());
             }
+        }
+        
+        if (four.size() != 4) {
+            throw new InvalidFourRuntimeException();
         }
 
         return makeFourOrNull(four);
