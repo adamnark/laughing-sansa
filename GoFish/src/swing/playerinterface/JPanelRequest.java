@@ -5,6 +5,7 @@ package swing.playerinterface;
 import engine.cards.Series;
 import engine.players.Hand;
 import engine.players.Player;
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -29,6 +30,21 @@ public class JPanelRequest extends javax.swing.JPanel {
     public JPanelRequest() {
         initComponents();
         jCheckBoxes = new LinkedList<>();
+        clearErrorMessage();
+    }
+
+    public final void clearErrorMessage() {
+        this.jLabelErrorMessage.setText("");
+    }
+
+    public void setErrorMessage(String message) {
+        this.jLabelErrorMessage.setText(message);
+        this.jLabelErrorMessage.setForeground(Color.red);
+    }
+
+    public void appendErrorMessage(String message) {
+        String old = this.jLabelErrorMessage.getText();
+        setErrorMessage(old + "\n" + message);
     }
 
     /**
@@ -45,6 +61,7 @@ public class JPanelRequest extends javax.swing.JPanel {
         jComboBoxOtherPlayers = new javax.swing.JComboBox();
         jPanelSeries = new javax.swing.JPanel();
         jButtonOk = new javax.swing.JButton();
+        jLabelErrorMessage = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(400, 400));
         setMinimumSize(new java.awt.Dimension(400, 400));
@@ -67,52 +84,59 @@ public class JPanelRequest extends javax.swing.JPanel {
             }
         });
 
+        jLabelErrorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelErrorMessage.setText("ERRORS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(jButtonOk))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jPanelSeries, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxOtherPlayers, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(jButtonOk)
+                        .addComponent(jPanelSeries, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jComboBoxOtherPlayers, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(37, 37, 37)))
+                    .addComponent(jLabelErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBoxOtherPlayers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addComponent(jPanelSeries, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelSeries, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jButtonOk)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkActionPerformed
-        firePropertyChange(EVENT_DONE, false, true);
+        clearErrorMessage();
+        boolean isValid = validateRequest();
+        if (isValid) {
+            firePropertyChange(EVENT_DONE, false, true);
+        }
     }//GEN-LAST:event_jButtonOkActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOk;
     private javax.swing.JComboBox jComboBoxOtherPlayers;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelErrorMessage;
     private javax.swing.JPanel jPanelSeries;
     // End of variables declaration//GEN-END:variables
 
@@ -164,5 +188,34 @@ public class JPanelRequest extends javax.swing.JPanel {
         }
 
         return lst;
+    }
+
+    private boolean validateRequest() {
+        if (getSelectedSeries().size() != howManySeriesToPick()) {
+            appendErrorMessage("Pick " + howManySeriesToPick() + " series.");
+            return false;
+        }
+
+        if (!findSeriesInHand()) {
+            appendErrorMessage("Include at least one series you have in you hand!");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean findSeriesInHand() {
+        for (String string : getSelectedSeries()) {
+            Series series = new Series(string);
+            if (hand.isSeriesInHand(series)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private int howManySeriesToPick() {
+        return this.hand.getCards().get(0).getSeries().size();
     }
 }

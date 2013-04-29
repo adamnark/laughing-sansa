@@ -78,17 +78,15 @@ public class GUIEngineMaker {
 
     private void generateHandForPlayer(Player player) {
         RandomStringGenerator rsg = new RandomStringGenerator();
-        generateSeriesForPlayer(player, rsg, "Ao", "Bo","Co");
-        generateSeriesForPlayer(player, rsg, "Ki","Mi","Li");
-        generateSeriesForPlayer(player, rsg, "Za","Xa","Va");
+        generateSeriesForPlayer(player, rsg, "Ao");
+        generateSeriesForPlayer(player, rsg, "Ki");
+        generateSeriesForPlayer(player, rsg, "Va");
     }
 
-    private void generateSeriesForPlayer(Player player, RandomStringGenerator rsg, String seriesName, String seriesName2, String seriesName3) {
+    private void generateSeriesForPlayer(Player player, RandomStringGenerator rsg, String seriesName) {
         for (int i = 0; i < 4; i++) {
             Card generatedCard = new Card();
             generatedCard.addSeries(new Series(seriesName));
-            generatedCard.addSeries(new Series(seriesName2));
-            generatedCard.addSeries(new Series(seriesName3));
             generatedCard.setName(seriesName + " " + rsg.makeRandomString());
             player.getHand().addCardToHand(generatedCard);
         }

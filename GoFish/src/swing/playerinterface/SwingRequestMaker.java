@@ -21,15 +21,17 @@ public class SwingRequestMaker implements IRequestMaker {
 
     private JDialog jDialog;
     private JPanelRequest jPanelRequest;
+    private List<Player> otherPlayers;
 
     @Override
     public Request makeRequest(Hand hand, List<Series> availableSeries, List<Player> otherPlayers) {
+        this.otherPlayers = otherPlayers;
         initJPanelRequest(hand, availableSeries, otherPlayers);
         initDialog();
         jDialog.setVisible(true);
-        System.out.println(this.jPanelRequest.getSelectedPlayerName());
 
-        return new Request(null, null);
+        Request r = getRequestFromJPanel();
+        return r;
     }
 
     private void initDialog() {
@@ -48,12 +50,39 @@ public class SwingRequestMaker implements IRequestMaker {
         this.jPanelRequest.setAvailableSeries(availableSeries);
         this.jPanelRequest.setListOfPlayers(otherPlayers);
         this.jPanelRequest.addPropertyChangeListener(JPanelRequest.EVENT_DONE, new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent pce) {
                 jDialog.setVisible(false);
             }
         });
 
+    }
+
+    private Request getRequestFromJPanel() {
+        Player player = getPlayer();
+        Card card = makeCard();
+
+        return new Request(player, card);
+    }
+
+    private Player getPlayer() {
+        String name = this.jPanelRequest.getSelectedPlayerName();
+        for (Player player : otherPlayers) {
+            if (name.equals(player.getName())) {
+                return player;
+            }
+        }
+
+        return null;
+    }
+
+    private Card makeCard() {
+        List<String> lst = this.jPanelRequest.getSelectedSeries();
+        Card card = new Card();
+        for (String string : lst) {
+            card.addSeries(new Series(string));
+        }
+
+        return card;
     }
 }

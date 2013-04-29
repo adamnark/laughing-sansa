@@ -102,13 +102,11 @@ public class Player {
     }
 
     public boolean makeMove(LinkedList<Player> otherPlayers, Set<Series> availableSeries) {// throws BadCardRequestException {
-
         if (!this.isPlaying()) {
             return false;
         }
 
         Request request = this.requestMaker.makeRequest(this.hand, new ArrayList<>(availableSeries), otherPlayers);
-
         if (request == null) {
             return false;
         }
@@ -119,8 +117,7 @@ public class Player {
             //throw new BadCardRequestException();
         }
 
-
-        Card victim = request.getOtherPlayer().GiveUpACard(request.getCardIWant());
+        Card victim = request.getOtherPlayer().giveUpACard(request.getCardIWant());
         if (victim == null) {
             return false;
         } else {
@@ -129,7 +126,7 @@ public class Player {
         }
     }
 
-    private Card GiveUpACard(Card requestedCard) {
+    private Card giveUpACard(Card requestedCard) {
         Card victim = null;
         for (Card card : this.hand.getCards()) {
             if (card.equals(requestedCard)) {
@@ -137,9 +134,11 @@ public class Player {
                 break;
             }
         }
+        
         if (victim != null) {
             this.hand.removeCardFromHand(victim);
         }
+        
         return victim;
     }
 

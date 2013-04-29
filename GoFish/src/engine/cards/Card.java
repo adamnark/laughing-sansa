@@ -27,8 +27,8 @@ public final class Card {
             addSeries(new Series(string));
         }
     }
-    
-    public Card(Card other){
+
+    public Card(Card other) {
         this();
         this.name = other.name;
         for (Series otherSeries : other.series) {
@@ -55,21 +55,23 @@ public final class Card {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
+        boolean retVal = true;
+        if (obj == null || getClass() != obj.getClass()) {
+            retVal = false;
         }
 
         final Card other = (Card) obj;
+        if (other.getSeries().size() != this.getSeries().size()) {
+            retVal = false;
+        }
+
         for (Series my_series : this.series) {
             if (!other.series.contains(my_series)) {
-                return false;
+                retVal = false;
             }
         }
 
-        return true;
+        return retVal;
     }
 
     public String getName() {

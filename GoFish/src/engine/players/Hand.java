@@ -1,6 +1,7 @@
 package engine.players;
 
 import engine.cards.Card;
+import engine.cards.Series;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.NoSuchElementException;
@@ -21,8 +22,8 @@ public class Hand {
     public Hand() {
         this.cards = new ArrayList<>();
     }
-    
-    public Hand(Hand other){
+
+    public Hand(Hand other) {
         this();
         for (Card card : other.cards) {
             this.cards.add(new Card(card));
@@ -32,8 +33,8 @@ public class Hand {
     public void addCardsToHand(Collection<Card> cards) {
         this.cards.addAll(cards);
     }
-    
-    public void addCardToHand(Card card){
+
+    public void addCardToHand(Card card) {
         card.makeValid();
         this.cards.add(card);
     }
@@ -48,5 +49,14 @@ public class Hand {
 
     public ArrayList<Card> getCards() {
         return cards;
+    }
+
+    public boolean isSeriesInHand(Series series) {
+        for (Card card : getCards()) {
+            if (card.isInSeries(series)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
