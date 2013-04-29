@@ -49,7 +49,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSkip">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Skip"/>
+        <Property name="text" type="java.lang.String" value="Done"/>
         <Property name="toolTipText" type="java.lang.String" value="Skip the rest of your turn"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[100, 70]"/>

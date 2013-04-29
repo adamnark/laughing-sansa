@@ -5,11 +5,10 @@
 package swing.components.game.play;
 
 import engine.players.Player;
-import swing.components.JFrameGoFish;
 import swing.components.game.play.playarea.IPlayAreaPanel;
-import swing.playerinterface.SwingFourPicker;
 import swing.components.game.play.playarea.JPanelPlayAreaComputer;
 import swing.components.game.play.playarea.JPanelPlayAreaHuman;
+import swing.playerinterface.SwingFourPicker;
 import swing.playerinterface.SwingRequestMaker;
 
 /**

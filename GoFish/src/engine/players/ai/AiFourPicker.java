@@ -20,15 +20,8 @@ public class AiFourPicker implements IFourPicker {
 
     @Override
     public Collection<Card> pickFour(Hand hand) {
-        HashMultimap<Series, Card> map = HashMultimap.create();
-
         Collections.shuffle(hand.getCards());
-
-        for (Card cardInHand : hand.getCards()) {
-            for (Series series : cardInHand.getSeries()) {
-                map.put(series, cardInHand);
-            }
-        }
+        HashMultimap<Series, Card> map = initMultimap(hand);
 
         LinkedList<Card> four = new LinkedList<>();
         for (Series series : map.keySet()) {
@@ -45,10 +38,20 @@ public class AiFourPicker implements IFourPicker {
     private Collection<? extends Card> firstFourFromSet(Set<Card> cards) {
         Set<Card> firstFour = new HashSet<>();
         Iterator<Card> it = cards.iterator();
-        for (int i = 0; i < 4; i++) {
+        while (firstFour.size() < 4) {
             firstFour.add(it.next());
         }
-        
+
         return firstFour;
+    }
+
+    private HashMultimap<Series, Card> initMultimap(Hand hand) {
+        HashMultimap<Series, Card> map = HashMultimap.create();
+        for (Card cardInHand : hand.getCards()) {
+            for (Series series : cardInHand.getSeries()) {
+                map.put(series, cardInHand);
+            }
+        }
+        return map;
     }
 }

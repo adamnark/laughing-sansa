@@ -1,11 +1,11 @@
 package engine.players;
 
-import engine.players.exceptions.InvalidFourRuntimeException;
 import com.google.common.collect.HashMultimap;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.ai.AiFourPicker;
 import engine.players.ai.AiRequestMaker;
+import engine.players.exceptions.InvalidFourRuntimeException;
 import engine.request.IRequestMaker;
 import engine.request.Request;
 import engine.request.RequestValidator;
@@ -134,11 +134,11 @@ public class Player {
                 break;
             }
         }
-        
+
         if (victim != null) {
             this.hand.removeCardFromHand(victim);
         }
-        
+
         return victim;
     }
 
@@ -146,7 +146,7 @@ public class Player {
         boolean cardsWereThrown;
         Collection<Card> four = this.fourPicker.pickFour(hand);
 
-        if (four == null || !validateFour(four)) {
+        if (!validateFour(four)) {
             throw new InvalidFourRuntimeException();
         } else {
             this.lastCardsThrown = this.fourPicker.pickFour(hand);
@@ -160,7 +160,7 @@ public class Player {
                 cardsWereThrown = true;
             }
         }
-        
+
         return cardsWereThrown;
     }
 
@@ -205,7 +205,7 @@ public class Player {
                 }
             }
         }
-        
+
         return isValid;
     }
 }

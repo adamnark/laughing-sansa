@@ -8,8 +8,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -24,7 +26,7 @@ public class JButtonCard extends JButton {
 
     public static final String EVENT_CLICKED = "JPanelCard was clicked";
     private JPanelColors jPanelColors;
-    private JLabel jLabelCardName;
+   // private JLabel jLabelCardName;
     private static List<Series> availableSeries;
     private static List<Color> colorList;
     private static boolean isDictionaryInitiated = false;
@@ -49,16 +51,19 @@ public class JButtonCard extends JButton {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new Dimension(50, 60));
         this.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.setContentAreaFilled(false);
 
         this.jPanelColors = new JPanelColors(generateColorsFromCard(this.cardModel));
-        this.jLabelCardName = new JLabel();
-        this.jLabelCardName.setHorizontalAlignment(JLabel.CENTER);
+        this.setToolTipText(this.cardModel.getName());
+        //this.jLabelCardName = new JLabel();
+        //this.jLabelCardName.setHorizontalAlignment(JLabel.CENTER);
 
-        jLabelCardName.setText(this.cardModel.getName());
-        jLabelCardName.setPreferredSize(new Dimension(75, 15));
+        //jLabelCardName.set//Text(this.cardModel.getName());
+        //      jLabelCardName
+        //.setPreferredSize(new Dimension(75, 15));
 
         this.add(jPanelColors);
-        this.add(jLabelCardName);
+        //this.add(jLabelCardName);
     }
 
     private void initListeners() {
@@ -84,24 +89,29 @@ public class JButtonCard extends JButton {
     }
 
     public void highlight() {
-        this.jLabelCardName.setForeground(Color.RED);
-        this.jLabelCardName.setFont(new java.awt.Font("Tahoma", 1, 12));
+        this.setBorder(BorderFactory.createLineBorder(Color.red,3));
+
+//        this.jLabelCardName.setForeground(Color.RED);
+//        this.jLabelCardName.setFont(new java.awt.Font("Tahoma", 1, 12));
     }
 
     public void lowlight() {
-        this.jLabelCardName.setForeground(this.getForeground());
-        this.jLabelCardName.setFont(new java.awt.Font("Tahoma", 0, 12));
+        this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+
+//        this.jLabelCardName.setForeground(this.getForeground());
+//        this.jLabelCardName.setFont(new java.awt.Font("Tahoma", 0, 12));
     }
 
-    private List<Color> generateColorsFromCard(Card card) {
-        LinkedList<Color> lst = new LinkedList<>();
+    private Map<Color, String> generateColorsFromCard(Card card) {
+        Map<Color, String> map = new HashMap<>();
+
         for (Series series : card.getSeries()) {
             int i = availableSeries.indexOf(series);
             Color color = colorList.get(i);
-            lst.add(color);
+            map.put(color, series.getName());
         }
 
-        return lst;
+        return map;
     }
 
     public static void setAvailableSeries(List<Series> availableSeries) {

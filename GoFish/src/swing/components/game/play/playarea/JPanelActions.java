@@ -53,7 +53,7 @@ public class JPanelActions extends javax.swing.JPanel {
         });
         add(jButtonThrow);
 
-        jButtonSkip.setText("Skip");
+        jButtonSkip.setText("Done");
         jButtonSkip.setToolTipText("Skip the rest of your turn");
         jButtonSkip.setPreferredSize(new java.awt.Dimension(100, 70));
         jButtonSkip.addActionListener(new java.awt.event.ActionListener() {

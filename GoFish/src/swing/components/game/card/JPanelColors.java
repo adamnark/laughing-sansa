@@ -2,8 +2,10 @@ package swing.components.game.card;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.List;
+//import java.util.List;
+import java.util.Map;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -12,9 +14,10 @@ import javax.swing.JPanel;
  */
 public class JPanelColors extends JPanel {
 
-    private final List<Color> colors;
+    //private final List<Color> colors;
+    private Map<Color, String> colors;
 
-    public JPanelColors(List<Color> colors) {
+    public JPanelColors(Map<Color, String> colors) {
         this.colors = colors;
         initComponents();
     }
@@ -23,11 +26,16 @@ public class JPanelColors extends JPanel {
         this.setPreferredSize(new Dimension(100, 70));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        int numberOfColors = this.colors.size();
+        //int numberOfColors = this.colors.size();
+//        for (int i = 0; i < numberOfColors; i++) {
+//            JPanel panel = new JPanel();
+//            panel.setBackground(colors.get(i));
+//            this.add(panel);
 
-        for (int i = 0; i < numberOfColors; i++) {
+        for (Color color : colors.keySet()) {
             JPanel panel = new JPanel();
-            panel.setBackground(colors.get(i));
+            panel.setBackground(color);
+            panel.add(new JLabel(colors.get(color)));
             this.add(panel);
         }
     }

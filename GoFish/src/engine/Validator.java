@@ -8,7 +8,7 @@ import engine.players.Player;
  */
 public class Validator {
 
-    private static final int MINIMUM_NUMBER_OF_CARDS = 12;
+    private static final int MINIMUM_NUMBER_OF_CARDS = 28;
     private static final int MINIMUM_NUMBER_OF_PLAYERS = 3;
     private static final int MAXIMUM_NUMBER_OF_PLAYERS = 6;
     Engine engine;

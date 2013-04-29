@@ -5,14 +5,13 @@
 package swing.components.game;
 
 import engine.Engine;
-import engine.players.exceptions.InvalidFourRuntimeException;
 import engine.players.Player;
+import engine.players.exceptions.InvalidFourRuntimeException;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import swing.components.JFrameGoFish;
 import swing.components.game.log.JPanelLog;
 import swing.components.game.play.PlayAreaFactory;
 import swing.components.game.play.PlayEvents;
@@ -111,13 +110,13 @@ public class JPanelGame extends javax.swing.JPanel {
         jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_REQUEST, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                handleRequestCard();
+                handleRequestCardCmd();
             }
         });
         jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_THROW, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                handleThrowFourCards();
+                handleThrowFourCardsCmd();
             }
         });
         jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_SKIP, new PropertyChangeListener() {
@@ -162,10 +161,8 @@ public class JPanelGame extends javax.swing.JPanel {
     }
 
     private void playComputerTurn() {
-        this.engine.currentPlayerMakeRequest();
-        getMessagesFromEngine();
-        this.engine.currentPlayerThrowFour();
-        getMessagesFromEngine();
+        handleRequestCardCmd();
+        handleThrowFourCardsCmd();
         this.advanceTurn();
     }
 
@@ -179,6 +176,9 @@ public class JPanelGame extends javax.swing.JPanel {
 
     private void handleFailedRequset() {
         appendToLog(this.engine.getCurrentPlayer().getName() + " has made a bad request!");
+        this.jPanelPlayAreaCards.refresh();
+        this.jPanelPlayAreaCards.disableRequestingForCurrentCard();
+
     }
 
     private void handleFourCardsNotThrown() {
@@ -201,6 +201,12 @@ public class JPanelGame extends javax.swing.JPanel {
 
     private void handleSuccessfulRequest() {
         appendToLog(this.engine.getCurrentPlayer().getName() + " has made a successful request!");
+        this.jPanelPlayAreaCards.refresh();
+        if (!engine.getGameSettings().isAllowMutipleRequests()) {
+            this.jPanelPlayAreaCards.disableRequestingForCurrentCard();
+        } else {
+            appendToLog(this.engine.getCurrentPlayer().getName() + " gets to make another request~~!");
+        }
     }
 
     private void checkGameOver() {
@@ -214,7 +220,7 @@ public class JPanelGame extends javax.swing.JPanel {
         }
     }
 
-    private void handleThrowFourCards() {
+    private void handleThrowFourCardsCmd() {
         try {
             this.engine.currentPlayerThrowFour();
             getMessagesFromEngine();
@@ -223,7 +229,7 @@ public class JPanelGame extends javax.swing.JPanel {
         }
     }
 
-    private void handleRequestCard() {
+    private void handleRequestCardCmd() {
         this.engine.currentPlayerMakeRequest();
         getMessagesFromEngine();
     }
