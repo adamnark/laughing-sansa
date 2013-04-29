@@ -12,6 +12,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import swing.components.JFrameGoFish;
 import swing.components.game.log.JPanelLog;
 import swing.components.game.play.PlayAreaFactory;
 import swing.components.game.play.PlayEvents;
@@ -110,7 +111,7 @@ public class JPanelGame extends javax.swing.JPanel {
         jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_REQUEST, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                handleRequestCard();
             }
         });
         jPanelPlayArea.addPropertyChangeListener(PlayEvents.EVENT_THROW, new PropertyChangeListener() {
@@ -220,5 +221,10 @@ public class JPanelGame extends javax.swing.JPanel {
         } catch (InvalidFourRuntimeException ex) {
             appendToLog("ERROR: Throw FOUR(4) cards of the same series!");
         }
+    }
+
+    private void handleRequestCard() {
+        this.engine.currentPlayerMakeRequest();
+        getMessagesFromEngine();
     }
 }

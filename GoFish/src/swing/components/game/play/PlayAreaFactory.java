@@ -5,11 +5,12 @@
 package swing.components.game.play;
 
 import engine.players.Player;
-import javax.swing.JPanel;
+import swing.components.JFrameGoFish;
 import swing.components.game.play.playarea.IPlayAreaPanel;
 import swing.playerinterface.SwingFourPicker;
 import swing.components.game.play.playarea.JPanelPlayAreaComputer;
 import swing.components.game.play.playarea.JPanelPlayAreaHuman;
+import swing.playerinterface.SwingRequestMaker;
 
 /**
  *
@@ -41,6 +42,8 @@ public class PlayAreaFactory {
         SwingFourPicker swingFourPicker = new SwingFourPicker();
         swingFourPicker.init(jPanelH.getJPanelHand());
         player.setFourPicker(swingFourPicker);
+        
+        SwingRequestMaker swingRequestMaker = new SwingRequestMaker();
         
         return jPanelH;
     }

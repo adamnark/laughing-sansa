@@ -78,16 +78,17 @@ public class GUIEngineMaker {
 
     private void generateHandForPlayer(Player player) {
         RandomStringGenerator rsg = new RandomStringGenerator();
-        generateSeriesForPlayer(player, rsg, "floop");
-        generateSeriesForPlayer(player, rsg, "scoop");
-        generateSeriesForPlayer(player, rsg, "droop");
-        generateSeriesForPlayer(player, rsg, "kloop");
+        generateSeriesForPlayer(player, rsg, "Ao", "Bo","Co");
+        generateSeriesForPlayer(player, rsg, "Ki","Mi","Li");
+        generateSeriesForPlayer(player, rsg, "Za","Xa","Va");
     }
 
-    private void generateSeriesForPlayer(Player player, RandomStringGenerator rsg, String seriesName) {
+    private void generateSeriesForPlayer(Player player, RandomStringGenerator rsg, String seriesName, String seriesName2, String seriesName3) {
         for (int i = 0; i < 4; i++) {
             Card generatedCard = new Card();
             generatedCard.addSeries(new Series(seriesName));
+            generatedCard.addSeries(new Series(seriesName2));
+            generatedCard.addSeries(new Series(seriesName3));
             generatedCard.setName(seriesName + " " + rsg.makeRandomString());
             player.getHand().addCardToHand(generatedCard);
         }
@@ -98,7 +99,7 @@ public class GUIEngineMaker {
         private SecureRandom random = new SecureRandom();
 
         public String makeRandomString() {
-            return new BigInteger(32, random).toString(32);
+            return new BigInteger(16, random).toString(16);
         }
     }
 }

@@ -1,7 +1,7 @@
 package swing;
 
 import javax.swing.SwingUtilities;
-import swing.components.FrameGoFish;
+import swing.components.JFrameGoFish;
 import swing.utils.SwingUtils;
 
 /**
@@ -18,7 +18,7 @@ public class Main {
         	SwingUtilities.invokeLater(new Runnable() {
 	    @Override
 	    public void run() {
-		FrameGoFish gameFrame = new FrameGoFish();
+		JFrameGoFish gameFrame = new JFrameGoFish();
 		gameFrame.setVisible(true);
 	    }
 	});

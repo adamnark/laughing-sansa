@@ -118,7 +118,6 @@ public class JPanelManualGame extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(600, 400));
         setPreferredSize(new java.awt.Dimension(600, 400));
 
-        jCheckBoxAllowMutipleRequests.setSelected(true);
         jCheckBoxAllowMutipleRequests.setText("Allow Mutiple Requests");
         jCheckBoxAllowMutipleRequests.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,6 +125,7 @@ public class JPanelManualGame extends javax.swing.JPanel {
             }
         });
 
+        jCheckBoxForceShowOfSeries.setSelected(true);
         jCheckBoxForceShowOfSeries.setText("Force Show Of Series");
 
         jListPlayers.setModel(listModel);
@@ -191,12 +191,12 @@ public class JPanelManualGame extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelAddPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBoxAllowMutipleRequests)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(jCheckBoxForceShowOfSeries)
-                        .addGap(0, 109, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBoxAllowMutipleRequests)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
                 .addGap(1, 1, 1)
                 .addComponent(jButtonRemovePlayer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)

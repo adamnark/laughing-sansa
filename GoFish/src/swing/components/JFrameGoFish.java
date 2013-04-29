@@ -21,25 +21,25 @@ import swing.utils.SwingUtils;
  *
  * @author adamnark
  */
-public class FrameGoFish extends JFrame {
+public class JFrameGoFish extends JFrame {
 
     JPanelGoFish jPanelGoFish;
 
     /**
      * Creates new form GameFrame
      */
-    public FrameGoFish() {
+    public JFrameGoFish() {
         initComponents();
         setLocationRelativeTo(null);
 
         Container contentPane = this.getContentPane();
-        jPanelGoFish = new JPanelGoFish();
+        this.jPanelGoFish = new JPanelGoFish();
         contentPane.add(jPanelGoFish, BorderLayout.CENTER);
 
         initListeners();
         initMenuBar();
         initIcon();
-        
+
     }
 
     /**
