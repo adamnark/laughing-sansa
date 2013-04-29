@@ -16,7 +16,6 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 /**
  *
@@ -26,7 +25,6 @@ public class JButtonCard extends JButton {
 
     public static final String EVENT_CLICKED = "JPanelCard was clicked";
     private JPanelColors jPanelColors;
-   // private JLabel jLabelCardName;
     private static List<Series> availableSeries;
     private static List<Color> colorList;
     private static boolean isDictionaryInitiated = false;
@@ -55,15 +53,8 @@ public class JButtonCard extends JButton {
 
         this.jPanelColors = new JPanelColors(generateColorsFromCard(this.cardModel));
         this.setToolTipText(this.cardModel.getName());
-        //this.jLabelCardName = new JLabel();
-        //this.jLabelCardName.setHorizontalAlignment(JLabel.CENTER);
-
-        //jLabelCardName.set//Text(this.cardModel.getName());
-        //      jLabelCardName
-        //.setPreferredSize(new Dimension(75, 15));
 
         this.add(jPanelColors);
-        //this.add(jLabelCardName);
     }
 
     private void initListeners() {
@@ -90,16 +81,10 @@ public class JButtonCard extends JButton {
 
     public void highlight() {
         this.setBorder(BorderFactory.createLineBorder(Color.red,3));
-
-//        this.jLabelCardName.setForeground(Color.RED);
-//        this.jLabelCardName.setFont(new java.awt.Font("Tahoma", 1, 12));
     }
 
     public void lowlight() {
         this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-
-//        this.jLabelCardName.setForeground(this.getForeground());
-//        this.jLabelCardName.setFont(new java.awt.Font("Tahoma", 0, 12));
     }
 
     private Map<Color, String> generateColorsFromCard(Card card) {

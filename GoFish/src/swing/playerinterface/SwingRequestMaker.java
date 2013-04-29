@@ -22,6 +22,7 @@ public class SwingRequestMaker implements IRequestMaker {
     private JDialog jDialog;
     private JPanelRequest jPanelRequest;
     private List<Player> otherPlayers;
+    private boolean isOk;
 
     @Override
     public Request makeRequest(Hand hand, List<Series> availableSeries, List<Player> otherPlayers) {
@@ -52,6 +53,14 @@ public class SwingRequestMaker implements IRequestMaker {
         this.jPanelRequest.addPropertyChangeListener(JPanelRequest.EVENT_DONE, new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent pce) {
+                isOk = true;
+                jDialog.setVisible(false);
+            }
+        });
+        this.jPanelRequest.addPropertyChangeListener(JPanelRequest.EVENT_CANCEL, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent pce) {
+                isOk = false;
                 jDialog.setVisible(false);
             }
         });
@@ -59,6 +68,9 @@ public class SwingRequestMaker implements IRequestMaker {
     }
 
     private Request getRequestFromJPanel() {
+        if (!isOk) {
+            return null;
+        }
         Player player = getPlayer();
         Card card = makeCard();
 

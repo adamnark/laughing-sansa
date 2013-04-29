@@ -31,8 +31,8 @@ public class JPanelAddPlayer extends javax.swing.JPanel {
     public String getPlayerName() {
         return this.jTextFieldPlayerName.getText();
     }
-    
-    public boolean isPlayerHuman(){
+
+    public boolean isPlayerHuman() {
         return this.jCheckBoxIsPlayerHuman.isSelected();
     }
 
@@ -101,6 +101,7 @@ public class JPanelAddPlayer extends javax.swing.JPanel {
         jCheckBoxIsPlayerHuman.setText("Human Player");
 
         jButtonAddPlayer.setText("Add Player");
+        jButtonAddPlayer.setEnabled(false);
         jButtonAddPlayer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAddPlayerActionPerformed(evt);

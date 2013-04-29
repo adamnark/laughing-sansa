@@ -7,6 +7,7 @@ import engine.cards.Series;
 import engine.players.Player;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Collections;
 import java.util.LinkedList;
 import swing.playerinterface.SwingFourPicker;
 import swing.playerinterface.SwingRequestMaker;
@@ -78,15 +79,21 @@ public class GUIEngineMaker {
 
     private void generateHandForPlayer(Player player) {
         RandomStringGenerator rsg = new RandomStringGenerator();
-        generateSeriesForPlayer(player, rsg, "Ao");
-        generateSeriesForPlayer(player, rsg, "Ki");
-        generateSeriesForPlayer(player, rsg, "Va");
+        generateSeriesForPlayer(player, rsg, "Ao", "Mo", "Ni");
+        generateSeriesForPlayer(player, rsg, "Ki", "Mo", "Ni");
+        generateSeriesForPlayer(player, rsg, "Va", "Mo", "Ni");
+        Collections.shuffle(player.getHand().getCards());
     }
 
-    private void generateSeriesForPlayer(Player player, RandomStringGenerator rsg, String seriesName) {
+    private void generateSeriesForPlayer(Player player, RandomStringGenerator rsg, String seriesName, String seriesName2, String seriesName3) {
         for (int i = 0; i < 4; i++) {
             Card generatedCard = new Card();
             generatedCard.addSeries(new Series(seriesName));
+            if (i % 2 == 0) {
+                generatedCard.addSeries(new Series(seriesName2));
+            }else{
+                generatedCard.addSeries(new Series(seriesName3));
+            }
             generatedCard.setName(seriesName + " " + rsg.makeRandomString());
             player.getHand().addCardToHand(generatedCard);
         }

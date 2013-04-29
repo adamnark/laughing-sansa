@@ -33,6 +33,7 @@ public class JPanelActions extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("What do you want to do?"));
 
+        jButtonRequest.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonRequest.setText("Request");
         jButtonRequest.setToolTipText("Request a card");
         jButtonRequest.setPreferredSize(new java.awt.Dimension(100, 70));
@@ -43,6 +44,7 @@ public class JPanelActions extends javax.swing.JPanel {
         });
         add(jButtonRequest);
 
+        jButtonThrow.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonThrow.setText("Throw");
         jButtonThrow.setToolTipText("Throw selected cards");
         jButtonThrow.setPreferredSize(new java.awt.Dimension(100, 70));
@@ -53,6 +55,7 @@ public class JPanelActions extends javax.swing.JPanel {
         });
         add(jButtonThrow);
 
+        jButtonSkip.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonSkip.setText("Done");
         jButtonSkip.setToolTipText("Skip the rest of your turn");
         jButtonSkip.setPreferredSize(new java.awt.Dimension(100, 70));

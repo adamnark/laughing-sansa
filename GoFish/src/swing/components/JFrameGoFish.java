@@ -1,20 +1,25 @@
-/*
- */
 package swing.components;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JToolBar;
 import swing.utils.SwingUtils;
 
 /**
@@ -34,12 +39,12 @@ public class JFrameGoFish extends JFrame {
 
         Container contentPane = this.getContentPane();
         this.jPanelGoFish = new JPanelGoFish();
+        contentPane.add(makeJToolbar(), BorderLayout.PAGE_START);
         contentPane.add(jPanelGoFish, BorderLayout.CENTER);
 
         initListeners();
         initMenuBar();
         initIcon();
-
     }
 
     /**
@@ -54,10 +59,9 @@ public class JFrameGoFish extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Go Fish - Swing");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(600, 450));
-        setMinimumSize(new java.awt.Dimension(600, 450));
+        setMaximumSize(new java.awt.Dimension(600, 500));
+        setMinimumSize(new java.awt.Dimension(600, 500));
         setResizable(false);
-        getContentPane().setLayout(new java.awt.CardLayout());
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -133,5 +137,66 @@ public class JFrameGoFish extends JFrame {
     private void initIcon() {
         Image img = SwingUtils.getImage("window_icon.png");
         this.setIconImage(img);
+    }
+
+    private Component makeJToolbar() {
+        JToolBar jToolbar = new JToolBar();
+        jToolbar.setFloatable(true);
+        jToolbar.setPreferredSize(new Dimension(600, 40));
+        jToolbar.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        JButton btn1 = makeNewGameButton();
+        JButton btn2 = makeAboutButton();
+        JButton btn3 = makeExitButton();
+
+        jToolbar.add(btn1);
+        jToolbar.add(btn2);
+
+        jToolbar.add(new JToolBar.Separator());
+        jToolbar.add(btn3);
+
+        return jToolbar;
+    }
+
+    private JButton makeNewGameButton() {
+        Icon icn = SwingUtils.getImageIcon("toolbar1_icon.png");
+        JButton btn = new JButton("New Game ", icn);
+        btn.setToolTipText("New Game!");
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                newGame();
+            }
+        });
+
+        return btn;
+    }
+
+    private JButton makeAboutButton() {
+        Icon icn = SwingUtils.getImageIcon("toolbar2_icon.png");
+        JButton btn = new JButton("About ", icn);
+        btn.setToolTipText("About!");
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                popupAbout();
+            }
+        });
+
+        return btn;
+    }
+
+    private JButton makeExitButton() {
+        Icon icn = SwingUtils.getImageIcon("toolbar3_icon.png");
+        JButton btn = new JButton("Exit ", icn);
+        btn.setToolTipText("Exit!");
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                exit();
+            }
+        });
+
+        return btn;
     }
 }

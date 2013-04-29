@@ -2,7 +2,6 @@ package swing.components.game.card;
 
 import java.awt.Color;
 import java.awt.Dimension;
-//import java.util.List;
 import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
