@@ -167,7 +167,7 @@ public class JPanelGame extends javax.swing.JPanel {
         if (!isGameOver) {
             handleThrowFourCardsCmd();
         }
-        
+
         if (!isGameOver) {
             this.advanceTurn();
         }
@@ -213,6 +213,9 @@ public class JPanelGame extends javax.swing.JPanel {
             this.jPanelPlayAreaCards.disableRequestingForCurrentCard();
         } else {
             appendToLog(this.engine.getCurrentPlayer().getName() + " gets to make another request~~!");
+            if (!this.engine.isGameOver() && !this.engine.getCurrentPlayer().isHuman()) {
+                handleRequestCardCmd();
+            }
         }
     }
 
