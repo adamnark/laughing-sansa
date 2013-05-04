@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package swing.components.game;
 
 import engine.Engine;
@@ -21,7 +17,7 @@ import swing.utils.SwingUtils;
 
 /**
  *
- * @author Natalie
+ * @author Adam
  */
 public class JPanelGame extends javax.swing.JPanel {
 
