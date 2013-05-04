@@ -29,6 +29,7 @@ public class JPanelPlayAreaHuman extends JPanel implements IPlayAreaPanel {
     public void setPlayer(Player player) {
         this.playerModel = player;
         this.jPanelHand.setHandModel(player.getHand());
+        this.jPanelHand.setPlayerName(player.getName());
         this.jPanelHand.refresh();
     }
 
