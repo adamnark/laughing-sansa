@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='GoFish2' version='1.0'>
-	<schema type='-xmlschema' package='' name='GoFish Game Settings'>
+<schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='GoFish' version='1.0'>
+	<schema type='-xmlschema' package='' name='GoFish'>
 		<xjc-options>
 		</xjc-options>
 		<schema-sources>
-			<schema-source location='xml-resources/jaxb/GoFish Game Settings/gofish.xsd' origLocation='xml-resources/gofish.xsd'/>
+			<schema-source location='src/conf/xml-resources/jaxb/GoFish/gofish.xsd' origLocation='xml-resources/gofish.xsd'/>
 		</schema-sources>
 		<bindings>
 		</bindings>

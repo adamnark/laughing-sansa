@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!--
             *** GENERATED FROM xml_binding_cfg.xml - DO NOT EDIT  ***
             *** Configure thru JAXB Wizard.                       ***
-        --><project name="GoFish_jaxb" default="default" basedir=".">
+        --><project name="GoFish2_jaxb" default="default" basedir=".">
     <target name="xjc-typedef-target" depends="-init-project">
         <typedef classname="com.sun.tools.xjc.XJCTask" name="xjc" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig">
             <classpath path="${jaxbwiz.xjcdef.classpath}"/>
@@ -11,20 +11,19 @@
     <target name="jaxb-code-generation" depends="xjc-typedef-target,-do-init,-init-macrodef-javac">
         <mkdir dir="${build.generated.sources.dir}/jaxb" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
         <mkdir dir="build/generated/jaxbCache" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
-        <mkdir dir="build/generated/jaxbCache/GoFish"/>
-        <xjc destdir="build/generated/jaxbCache/GoFish" catalog="catalog.xml">
+        <mkdir dir="build/generated/jaxbCache/GoFish Game Settings"/>
+        <xjc destdir="build/generated/jaxbCache/GoFish Game Settings" catalog="catalog.xml">
             <classpath>
                 <pathelement location="${src.dir}"/>
                 <pathelement path="${jaxbwiz.xjcrun.classpath}"/>
             </classpath>
             <arg value="-xmlschema"/>
-            <schema file="src/conf/xml-resources/jaxb/GoFish/gofish.xsd"/>
-            <depends file="src/conf/xml-resources/jaxb/GoFish/gofish.xsd"/>
-            <produces dir="build/generated/jaxbCache/GoFish"/>
+            <schema file="xml-resources/jaxb/GoFish Game Settings/gofish.xsd"/>
+            <depends file="xml-resources/jaxb/GoFish Game Settings/gofish.xsd"/>
+            <produces dir="build/generated/jaxbCache/GoFish Game Settings"/>
         </xjc>
         <copy todir="${build.generated.sources.dir}/jaxb">
-            <fileset dir="build/generated/jaxbCache/GoFish"/>
+            <fileset dir="build/generated/jaxbCache/GoFish Game Settings"/>
         </copy>
-        <!--*** Web project javac macro does not support sourcepath attribute, so do not pass "sourcepath=${src.dir}"-->
     </target>
 </project>
