@@ -5,16 +5,3 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
-root { 
-    display: block;
-}
-
-h1 {
-    color: red;
-}
-
-body {
-    background-color: beige;
-}
-
