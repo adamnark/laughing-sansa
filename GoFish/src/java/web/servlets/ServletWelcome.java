@@ -7,7 +7,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import web.servlets.assets.ServletNavbar;
+import web.servlets.assets.NavbarPrinter;
 
 /**
  *
@@ -35,7 +35,7 @@ public class ServletWelcome extends HttpServlet {
             out.println("<html lang=\"en\">");
             printHTMLHead(out);
 
-            printHTMLBody(out, request, response);
+            printHTMLBody(out);
             out.println("</html>");
         }
     }
@@ -98,19 +98,17 @@ public class ServletWelcome extends HttpServlet {
         out.println("");
     }
 
-    private void printHTMLBody(PrintWriter out, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void printHTMLBody(PrintWriter out) throws ServletException, IOException {
         out.println("<body>");
-        printNavBar(out, request, response);
+        printNavBar(out);
         printMenu(out);
 
         printScripts(out);
         out.println("</body>");
     }
 
-    private void printNavBar(PrintWriter out, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute(ServletNavbar.REQUEST_ATTRIBUTE, ServletNavbar.NavbarItems.HOME);
-        RequestDispatcher rd = request.getRequestDispatcher("navbar");
-        rd.include(request, response);
+    private void printNavBar(PrintWriter out) throws ServletException, IOException {
+        NavbarPrinter.printNavbar(out, NavbarPrinter.NavbarItems.HOME);
     }
 
     private void printScripts(PrintWriter out) {
