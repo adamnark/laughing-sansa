@@ -2,20 +2,17 @@
  */
 package web.servlets;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
+import web.servlets.assets.HeadPrinter;
+import web.servlets.assets.NavbarPrinter;
 
 /**
  *
  * @author adamnark
  */
-@WebServlet(name = "ServletNewGame", urlPatterns = {"/newgame"})
-public class ServletNewGame extends HttpServlet {
+public class GoFishServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -30,20 +27,13 @@ public class ServletNewGame extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletNewGame</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletNewGame at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
+            out.println("<html lang=\"en\">");
+            printHTMLHead(out);
+            printHTMLBody(out);
             out.println("</html>");
-        } finally {            
-            out.close();
         }
     }
 
@@ -87,4 +77,40 @@ public class ServletNewGame extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void printHTMLHead(PrintWriter out) {
+        String title = getPageTitle();
+        HeadPrinter.printHead(out, title);
+
+    }
+
+    protected String getPageTitle() {
+        return "GoFish -- Adam Narkunski";
+    }
+
+    private void printHTMLBody(PrintWriter out) throws ServletException, IOException {
+        out.println("<body>");
+        printNavBar(out);
+        printContent(out);
+        printScripts(out);
+        out.println("</body>");
+    }
+
+    private void printNavBar(PrintWriter out) throws ServletException, IOException {
+        NavbarPrinter.NavbarItems activeItem = getActiveItem();
+        NavbarPrinter.printNavbar(out, activeItem);
+    }
+
+    protected NavbarPrinter.NavbarItems getActiveItem() {
+        return null;
+    }
+
+    private void printScripts(PrintWriter out) {
+        HeadPrinter.printScripts(out);
+    }
+
+    protected void printContent(PrintWriter out) {
+        out.println("<h1>you should override me!</h1> <i>GoFish Servlet</i>");
+    }
+
 }
