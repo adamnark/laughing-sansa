@@ -1,6 +1,6 @@
 /*
  */
-package web.servlets.assets;
+package web.servlets.printers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,14 +36,14 @@ public class NavbarPrinter {
             public String toString() {
                 return "About";
             }
-        }
+        },
     }
 
     public static void printNavbar(PrintWriter out, NavbarItems activeItem) throws IOException {
         out.println("<div class=\"navbar navbar-inverse navbar-fixed-top\">");
         out.println("<div class=\"navbar-inner\">");
         out.println("<div class=\"container\">");
-        out.println("<a class=\"brand\" href=\"#\">Go Fish</a>");
+        out.println("<a class=\"brand\" href=\"home\">Go Fish</a>");
         out.println("<div class=\"nav-collapse collapse\">");
         out.println("<ul class=\"nav\">");
 
@@ -56,6 +56,7 @@ public class NavbarPrinter {
         }
 
         out.println("</ul>");
+        
         out.println("</div>");
         out.println("</div>");
         out.println("</div>");

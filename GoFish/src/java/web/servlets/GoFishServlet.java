@@ -5,8 +5,8 @@ package web.servlets;
 import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
-import web.servlets.assets.HeadPrinter;
-import web.servlets.assets.NavbarPrinter;
+import web.servlets.printers.HeadPrinter;
+import web.servlets.printers.NavbarPrinter;
 
 /**
  *
@@ -80,8 +80,16 @@ public class GoFishServlet extends HttpServlet {
 
     private void printHTMLHead(PrintWriter out) {
         String title = getPageTitle();
-        HeadPrinter.printHead(out, title);
 
+        HeadPrinter.printHeadStart(out, title);
+        addToHTMLHead(out);
+        HeadPrinter.printHeadEnd(out);
+
+
+    }
+
+    protected void addToHTMLHead(PrintWriter out) {
+        
     }
 
     protected String getPageTitle() {
@@ -91,7 +99,10 @@ public class GoFishServlet extends HttpServlet {
     private void printHTMLBody(PrintWriter out) throws ServletException, IOException {
         out.println("<body>");
         printNavBar(out);
+        out.println("<div class=\"container\">");
         printContent(out);
+        out.println("</div> <!-- container -->");
+        out.println("");
         printScripts(out);
         out.println("</body>");
     }
@@ -110,7 +121,6 @@ public class GoFishServlet extends HttpServlet {
     }
 
     protected void printContent(PrintWriter out) {
-        out.println("<h1>you should override me!</h1> <i>GoFish Servlet</i>");
+        out.println("<center><h1>you should override me!</h1><br /><i>GoFish Servlet</i></center>");
     }
-
 }

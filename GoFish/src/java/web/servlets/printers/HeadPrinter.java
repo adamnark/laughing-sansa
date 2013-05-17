@@ -1,4 +1,4 @@
-package web.servlets.assets;
+package web.servlets.printers;
 
 import java.io.PrintWriter;
 
@@ -8,7 +8,7 @@ import java.io.PrintWriter;
  */
 public class HeadPrinter {
 
-    public static void printHead(PrintWriter out, String title) {
+    public static void printHeadStart(PrintWriter out, String title) {
         out.println("<head>");
         out.println("<meta charset=\"utf-8\">");
         out.println("<title>" + title + "</title>");
@@ -17,6 +17,10 @@ public class HeadPrinter {
         out.println("<meta name=\"author\" content=\"Adam Narkunski\">");
         out.println("");
         printStyles(out);
+
+    }
+
+    public static void printHeadEnd(PrintWriter out) {
         out.println("</head>");
         out.println("");
     }
