@@ -14,11 +14,6 @@ import web.servlets.printers.NavbarPrinter;
 public class HomeServlet extends GoFishServlet {
 
     @Override
-    protected String getPageTitle() {
-        return "GoFish Home -- Adam Narkunski";
-    }
-
-    @Override
     protected NavbarPrinter.NavbarItems getActiveItem() {
         return NavbarPrinter.NavbarItems.HOME;
     }
