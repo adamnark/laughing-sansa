@@ -93,7 +93,7 @@ public class GoFishServlet extends HttpServlet {
     }
 
     protected String getPageTitle() {
-        return "GoFish -- Adam Narkunski";
+        return "GoFish [@adamnark]";
     }
 
     private void printHTMLBody(PrintWriter out) throws ServletException, IOException {

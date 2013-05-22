@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>kakiel</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Go Fish v3.0">
+        <meta name="author" content="Adam Narkunski">
+
+        <!-- Le styles -->
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <style>body {padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */}</style>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link rel="shortcut icon" href="img/favicon.png">
+    </head>
+
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="home">Go Fish</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li><a href="home">Home</a></li>
+                            <li class="active"><a href="newgame">New Game</a></li>
+                            <li><a href="loadgame">Load Game</a></li>
+                            <li><a href="about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="span7">
+                <form class="form-horizontal" action="newgame" method="post">
+                    <fieldset>
+
+                        <!-- Form Name -->
+                        <legend>Start a new game!</legend>
+
+                        <!-- Button Drop Down -->
+                        <div class="control-group">
+                            <label class="control-label" for="playername">Add player</label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input name="playername" type="text" id="playername" class="input-medium" placeholder="Moxie">
+                                    <input class="btn" type="submit" name="action" value="add" />
+                                </div>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="ishuman">
+                                    Human player
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="gameoptions">Game Options</label>
+                            <div class="controls">
+                                <label class="checkbox" for="gameoptions-0">
+                                    <input type="checkbox" name="gameoptions" id="gameoptions-0" value="allow-multiple-requests" checked="checked">
+                                    Allow multiple requests
+                                </label>
+                                <label class="checkbox" for="gameoptions-1">
+                                    <input type="checkbox" name="gameoptions" id="gameoptions-1" value="force-show-of-cards">
+                                    Force show of cards
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="control-group form-actions">
+                            <label class="control-label" for="buttonSubmit"></label>
+                            <div class="controls">
+                                <button id="buttonSubmit"  name="action" value="start"  class="btn btn-primary" type='submit'>Start Game!</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+            <div class="span3">
+                <legend>List of players:</legend>
+
+                <ul>
+                </ul>
+
+            </div>
+        </div> <!-- container -->
+
+        <!-- Le javascript
+        ================================================== -->
+        <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    </body>
+</html>
