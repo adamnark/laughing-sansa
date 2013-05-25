@@ -1,5 +1,7 @@
 package engine.Factory;
 
+import engine.players.Player;
+
 /**
  *
  * @author adamnark
@@ -12,10 +14,8 @@ public class PlayerItem {
     public PlayerItem() {
     }
 
-    
-    public String getImgTag(){
-        String path = this.isHuman() ? "img/icon_guy.png" : "img/icon_thomas.png";
-        return "<img src='" + path + "'>";
+    public PlayerItem(Player p){
+        this(p.getName(), p.isHuman());
     }
     
     public PlayerItem(String playerName, boolean isHuman) {

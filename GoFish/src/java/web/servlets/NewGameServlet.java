@@ -19,6 +19,7 @@ import web.servlets.printers.ErrorPrinter;
 import web.servlets.printers.NavbarPrinter;
 import engine.Factory.PlayerItem;
 import engine.GameSettings;
+import web.servlets.printers.PlayerItemPrinter;
 
 /**
  *
@@ -34,18 +35,31 @@ public class NewGameServlet extends GoFishServlet {
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_ACTION_ADD = "Add";
     private static final String PARAM_ACTION_START = "start";
-    private List<PlayerItem> players = new LinkedList<>();
-    private List<String> errors = new LinkedList<>();
+    private List<PlayerItem> players;
+    private List<String> errors;
     private GameMetadata lastConfiguration;
+
+    public NewGameServlet() {
+        super();
+        players = new LinkedList<>();
+        errors = new LinkedList<>();
+        addDefaultPlayers();
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        this.errors.clear();
+
         switch (request.getParameter(PARAM_ACTION)) {
             case PARAM_ACTION_ADD:
                 tryAddPlayer(request);
                 break;
             case PARAM_ACTION_START:
-                generateEngine(request);
+                if (isEnoughPlayers()) {
+                    setEngineContextAttribute(request);
+                    forwardRequestToPlayServlet(request, response);
+                }
                 break;
             default:
                 break;
@@ -124,9 +138,8 @@ public class NewGameServlet extends GoFishServlet {
         out.println("</div>");
     }
 
-    private void printPlayerItem(PrintWriter out, PlayerItem player) {
-
-        out.println("<li>" + player.getImgTag() + player.getPlayerName() + "</li>");
+    private void printPlayerItem(PrintWriter out, PlayerItem item) {
+        out.println("<li>" + PlayerItemPrinter.makeImgTag(item) + item.getPlayerName() + "</li>");
     }
 
     private void addPlayerFromRequest(HttpServletRequest request) throws PlayerNameExistsException, PlayerNameIsEmptyException, TooManyPlayersException {
@@ -163,7 +176,6 @@ public class NewGameServlet extends GoFishServlet {
     }
 
     private void tryAddPlayer(HttpServletRequest request) {
-        this.errors.clear();
         try {
             this.addPlayerFromRequest(request);
         } catch (PlayerNameExistsException ex) {
@@ -181,11 +193,18 @@ public class NewGameServlet extends GoFishServlet {
 
         return EngineFactory.generateEngine(players, gs);
     }
-    
-    private Engine generateEngineFromLastConfiguration(){
-        return EngineFactory.generateEngine(
-                this.lastConfiguration.getPlayers(), 
-                this.lastConfiguration.getGameSettings());
+
+    private Engine generateEngineFromLastConfiguration() {
+        Engine engine;
+        if (this.lastConfiguration == null) {
+            engine = null;
+        } else {
+            engine = EngineFactory.generateEngine(
+                    this.lastConfiguration.getPlayers(),
+                    this.lastConfiguration.getGameSettings());
+        }
+
+        return engine;
     }
 
     private GameSettings generateGameSettings(HttpServletRequest request) {
@@ -197,6 +216,33 @@ public class NewGameServlet extends GoFishServlet {
         gs.setForceShowOfSeries(forceShow);
 
         return gs;
+    }
+
+    private boolean isEnoughPlayers() {
+        boolean enoughPlayers = true;
+        if (this.players.size() < 3) {
+            enoughPlayers = false;
+            this.errors.add("We need at least three players to play.");
+        }
+
+        return enoughPlayers;
+    }
+
+    private void setEngineContextAttribute(HttpServletRequest request) {
+        Engine engine = generateEngine(request);
+        this.getServletContext().setAttribute(ATTR_ENGINE, engine);
+    }
+
+    private void forwardRequestToPlayServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/play").forward(request, response);
+    }
+
+    private void addDefaultPlayers() {
+        boolean isHuman = true;
+        PlayerItem player1 = new PlayerItem("Moxie", isHuman);
+        PlayerItem player2 = new PlayerItem("Boxie", !isHuman);
+        this.players.add(player1);
+        this.players.add(player2);
     }
 
     private class GameMetadata {

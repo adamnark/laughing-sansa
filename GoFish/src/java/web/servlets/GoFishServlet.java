@@ -14,6 +14,8 @@ import web.servlets.printers.NavbarPrinter;
  */
 public class GoFishServlet extends HttpServlet {
 
+    protected static final String ATTR_ENGINE = "attribute-engine";
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and

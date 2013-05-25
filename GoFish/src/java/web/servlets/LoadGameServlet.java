@@ -3,15 +3,11 @@
 package web.servlets;
 
 import engine.Engine;
-import engine.Validator;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -47,6 +43,9 @@ public class LoadGameServlet extends GoFishServlet {
         this.errors.clear();
         generateEngineFromParam(request);
         validateGeneratedEngine();
+        if (settingsFromXML != null) {
+            request.getRequestDispatcher("/play").forward(request, response);
+        }
 
         super.doPost(request, response);
     }
@@ -66,12 +65,15 @@ public class LoadGameServlet extends GoFishServlet {
 
     private void validateGeneratedEngine() {
         if (settingsFromXML != null) {
-            Validator v = new Validator(settingsFromXML.makeEngine());
+            Engine e = settingsFromXML.makeEngine();
+            Validator v = new Validator(e);
             boolean isValid = v.validateEngineState();
             if (!isValid) {
                 errors.add("You've provided an invalid GoFish file... it did not pass validation:");
                 errors.addAll(v.getErrors());
                 settingsFromXML = null;
+            } else {
+                addEngineToServletContext(e);
             }
         }
     }
@@ -83,12 +85,8 @@ public class LoadGameServlet extends GoFishServlet {
 
     @Override
     protected void printContent(PrintWriter out) {
-        if (this.settingsFromXML == null) {
-            printForm(out);
-            ErrorPrinter.printErrors(out, errors);
-        } else {
-            out.print("<h1>OK</h1>");
-        }
+        printForm(out);
+        ErrorPrinter.printErrors(out, errors);
     }
 
     private void printForm(PrintWriter out) {
@@ -119,5 +117,9 @@ public class LoadGameServlet extends GoFishServlet {
         out.println("</form>");
         out.println("</div>");
         out.println("</div>");
+    }
+
+    private void addEngineToServletContext(Engine e) {
+        this.getServletContext().setAttribute(ATTR_ENGINE, e);
     }
 }
