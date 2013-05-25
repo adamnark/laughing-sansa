@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import web.servlets.printers.NavbarPrinter;
 import web.servlets.printers.PlayerItemPrinter;
-import static web.servlets.printers.PlayerItemPrinter.makeImgTag;
 
 /**
  *
@@ -37,7 +36,9 @@ public class PlayServlet extends GoFishServlet {
 
     @Override
     protected void printContent(PrintWriter out) {
-        out.println("<ul>");
+        out.println("<h3>" + "Players:"  +"</h1>");
+
+        out.println("<ul class='inline'>");
         for (Player player : engine.getPlayers()) {
             PlayerItem pi = new PlayerItem(player);
             out.print("<li>");

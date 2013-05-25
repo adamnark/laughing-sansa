@@ -3,6 +3,7 @@
 package web.servlets;
 
 import engine.Engine;
+import engine.Validator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -15,10 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.xml.bind.JAXBException;
+import web.servlets.printers.ErrorPrinter;
 import web.servlets.printers.NavbarPrinter;
 import xml.SettingsFromXML;
-import engine.Validator;
-import web.servlets.printers.ErrorPrinter;
 
 /**
  *

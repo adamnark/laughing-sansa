@@ -4,7 +4,8 @@ package web.servlets;
 
 import engine.Engine;
 import engine.Factory.EngineFactory;
-import web.servlets.exceptions.TooManyPlayersException;
+import engine.Factory.PlayerItem;
+import engine.GameSettings;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -15,10 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import web.servlets.exceptions.PlayerNameExistsException;
 import web.servlets.exceptions.PlayerNameIsEmptyException;
+import web.servlets.exceptions.TooManyPlayersException;
 import web.servlets.printers.ErrorPrinter;
 import web.servlets.printers.NavbarPrinter;
-import engine.Factory.PlayerItem;
-import engine.GameSettings;
 import web.servlets.printers.PlayerItemPrinter;
 
 /**
@@ -74,7 +74,7 @@ public class NewGameServlet extends GoFishServlet {
 
     @Override
     protected void printContent(PrintWriter out) {
-        out.println("<div class=\"row\">");
+        out.println("<div class='row'>");
         printForm(out);
         printListOfPlayers(out);
         out.println("</div>");
@@ -82,40 +82,41 @@ public class NewGameServlet extends GoFishServlet {
     }
 
     private void printForm(PrintWriter out) {
-        out.println("<div class=\"span6\">");
-        out.println("<form class=\"form-horizontal\" action=\"newgame\" method=\"post\">");
+        out.println("<div class='span6'>");
+        out.println("<form class='form-horizontal' action='newgame' method='post'>");
         out.println("<fieldset>");
         out.println("");
-        out.println("<legend>Start a new game!</legend>");
+        out.println("<h3>Start a new game!</h3>");
+        out.println("<ul class=\"nav nav-list\"><li class=\"divider\"></li></ul>");
         out.println("");
-        out.println("<div class=\"control-group\">");
-        out.println("<label class=\"control-label\" for=\"" + PARAM_PLAYERNAME + "\">Add player</label>");
-        out.println("<div class=\"controls\">");
-        out.println("<div class=\"input-append\">");
-        out.println("<input name=\"" + PARAM_PLAYERNAME + "\" type=\"text\" id=\"" + PARAM_PLAYERNAME + "\" class=\"input-medium\" placeholder=\"Name\">");
-        out.println("<input class=\"btn\" type=\"submit\" name=\"" + PARAM_ACTION + "\" value=\"" + PARAM_ACTION_ADD + "\" />");
+        out.println("<div class='control-group'>");
+        out.println("<label class='control-label' for='" + PARAM_PLAYERNAME + "'>Add player</label>");
+        out.println("<div class='controls'>");
+        out.println("<div class='input-append'>");
+        out.println("<input name='" + PARAM_PLAYERNAME + "' type='text' id='" + PARAM_PLAYERNAME + "' class='input-medium' placeholder='Name'>");
+        out.println("<input class='btn' type='submit' name='" + PARAM_ACTION + "' value='" + PARAM_ACTION_ADD + "' />");
         out.println("</div>");
-        out.println("<label class=\"checkbox\"><input type=\"checkbox\" name=\"" + PARAM_IS_HUMAN + "\" />Human player</label>");
+        out.println("<label class='checkbox'><input type='checkbox' name='" + PARAM_IS_HUMAN + "' />Human player</label>");
         out.println("");
         out.println("</div>");
         out.println("</div>");
         out.println("");
-        out.println("<div class=\"control-group\">");
-        out.println("<label class=\"control-label\" for=\"gameoptions\">Game Options</label>");
-        out.println("<div class=\"controls\">");
-        out.println("<label class=\"checkbox\"><input type=\"checkbox\" name=\"" + PARAM_ALLOW_MULTIPLE + "\" />");
+        out.println("<div class='control-group'>");
+        out.println("<label class='control-label' for='gameoptions'>Game Options</label>");
+        out.println("<div class='controls'>");
+        out.println("<label class='checkbox'><input type='checkbox' name='" + PARAM_ALLOW_MULTIPLE + "' />");
         out.println("Allow multiple requests");
         out.println("</label>");
-        out.println("<label class=\"checkbox\"><input type=\"checkbox\" name=\"" + PARAM_FORCE_SHOW + "\" />");
+        out.println("<label class='checkbox'><input type='checkbox' name='" + PARAM_FORCE_SHOW + "' />");
         out.println("Force show of cards");
         out.println("</label>");
         out.println("</div>");
         out.println("</div>");
         out.println("");
-        out.println("<div class=\"control-group form-actions\">");
-        out.println("<label class=\"control-label\" for=\"buttonSubmit\"></label>");
-        out.println("<div class=\"controls\">");
-        out.println("<button id=\"buttonSubmit\"  name=\"" + PARAM_ACTION + "\" value=\"" + PARAM_ACTION_START + "\"  class=\"btn btn-primary\" type='submit'>Start Game!</button>");
+        out.println("<div class='control-group form-actions'>");
+        out.println("<label class='control-label' for='buttonSubmit'></label>");
+        out.println("<div class='controls'>");
+        out.println("<button id='buttonSubmit'  name='" + PARAM_ACTION + "' value='" + PARAM_ACTION_START + "'  class='btn btn-primary' type='submit'>Start Game!</button>");
         out.println("</div>");
         out.println("</div>");
         out.println("");
@@ -125,10 +126,9 @@ public class NewGameServlet extends GoFishServlet {
     }
 
     private void printListOfPlayers(PrintWriter out) {
-        out.println("<div class=\"span4\" >");
-        out.println("<legend>List of players:</legend>");
-        out.println("");
-        out.println("<ul>");
+        out.println("<div class='span3'>");
+        out.println("<h3>List of players:</h3>");
+        out.println("<ul class='nav nav-list'><li class='divider'></li>");
         for (PlayerItem playerItem : players) {
             printPlayerItem(out, playerItem);
         }
@@ -139,7 +139,17 @@ public class NewGameServlet extends GoFishServlet {
     }
 
     private void printPlayerItem(PrintWriter out, PlayerItem item) {
-        out.println("<li>" + PlayerItemPrinter.makeImgTag(item) + item.getPlayerName() + "</li>");
+        out.println("<li>");
+        
+        out.println("<div style='display:inline-block'>");
+        out.println(PlayerItemPrinter.makeImgTag(item));
+        out.println("</div>");
+        
+        out.println("<div style='display:inline-block'>");
+        out.println(item.getPlayerName());
+        out.println("</div>");
+
+        out.println("</li>");
     }
 
     private void addPlayerFromRequest(HttpServletRequest request) throws PlayerNameExistsException, PlayerNameIsEmptyException, TooManyPlayersException {
@@ -241,8 +251,10 @@ public class NewGameServlet extends GoFishServlet {
         boolean isHuman = true;
         PlayerItem player1 = new PlayerItem("Moxie", isHuman);
         PlayerItem player2 = new PlayerItem("Boxie", !isHuman);
+        PlayerItem player3 = new PlayerItem("Foxie", !isHuman);
         this.players.add(player1);
         this.players.add(player2);
+        this.players.add(player3);
     }
 
     private class GameMetadata {
