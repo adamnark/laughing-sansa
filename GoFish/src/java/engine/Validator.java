@@ -1,6 +1,10 @@
 package engine;
 
+import engine.cards.Card;
 import engine.players.Player;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -12,22 +16,36 @@ public class Validator {
     private static final int MINIMUM_NUMBER_OF_PLAYERS = 3;
     private static final int MAXIMUM_NUMBER_OF_PLAYERS = 6;
     Engine engine;
+    private List<String> errors;
 
     public Validator(Engine engine) {
         this.engine = engine;
+        this.errors = new LinkedList<>();
     }
 
     public boolean validateEngineState() {
         if (countOfCards() < MINIMUM_NUMBER_OF_CARDS) {
+            this.errors.add("Not enough cards. "
+                    + MINIMUM_NUMBER_OF_CARDS
+                    + " cards are required to play.");
             return false;
         }
 
         if (countOfPlayers() < MINIMUM_NUMBER_OF_PLAYERS
                 || countOfPlayers() > MAXIMUM_NUMBER_OF_PLAYERS) {
+            this.errors.add("number of players should be between "
+                    + MINIMUM_NUMBER_OF_PLAYERS
+                    + " and "
+                    + MAXIMUM_NUMBER_OF_PLAYERS
+                    + ".");
             return false;
         }
 
         if (!isDistinctPlayerNames()) {
+            return false;
+        }
+
+        if (!isDistinctCards()) {
             return false;
         }
 
@@ -48,14 +66,47 @@ public class Validator {
     }
 
     private boolean isDistinctPlayerNames() {
+        boolean valid = true;
         for (Player player1 : engine.getPlayers()) {
             for (Player player2 : engine.getPlayers()) {
-                if (player1 != player2
-                        && player1.getName().equals(player2.getName())) {
+                if (player1 != player2 && player1.getName().equals(player2.getName())) {
+                    this.errors.add("Player name "
+                            + player1.getName()
+                            + " repeats.");
                     return false;
                 }
             }
         }
-        return true;
+        
+        return valid;
+    }
+
+    public List<String> getErrors() {
+        return errors;
+    }
+
+    
+    private boolean isDistinctCards() {
+        boolean valid = true;
+        List<Card> list = new LinkedList<>();
+        roundUpCardsToCollection(list);
+        for (Card card1 : list) {
+            for (Card card2 : list) {
+                if (card1 != card2 && card1.getName().equals(card2.getName())) {
+                    this.errors.add("The card "
+                            + card1.getName()
+                            + " is duplicated. Card names cannot repeat.");
+                    return false;
+                }
+            }
+        }
+
+        return valid;
+    }
+
+    private void roundUpCardsToCollection(Collection<Card> clctn) {
+        for (Player player : this.engine.getPlayers()) {
+            clctn.addAll(player.getHand().getCards());
+        }
     }
 }

@@ -2,6 +2,8 @@
  */
 package web.servlets;
 
+import engine.Engine;
+import engine.Factory.EngineFactory;
 import web.servlets.exceptions.TooManyPlayersException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,8 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import web.servlets.exceptions.PlayerNameExistsException;
 import web.servlets.exceptions.PlayerNameIsEmptyException;
+import web.servlets.printers.ErrorPrinter;
 import web.servlets.printers.NavbarPrinter;
-import web.servlets.utils.PlayerItem;
+import engine.Factory.PlayerItem;
+import engine.GameSettings;
 
 /**
  *
@@ -25,11 +29,14 @@ public class NewGameServlet extends GoFishServlet {
 
     private static final String PARAM_PLAYERNAME = "playername";
     private static final String PARAM_IS_HUMAN = "ishuman";
+    private static final String PARAM_ALLOW_MULTIPLE = "allowmultiple";
+    private static final String PARAM_FORCE_SHOW = "forceshow";
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_ACTION_ADD = "Add";
     private static final String PARAM_ACTION_START = "start";
     private List<PlayerItem> players = new LinkedList<>();
     private List<String> errors = new LinkedList<>();
+    private GameMetadata lastConfiguration;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,6 +45,7 @@ public class NewGameServlet extends GoFishServlet {
                 tryAddPlayer(request);
                 break;
             case PARAM_ACTION_START:
+                generateEngine(request);
                 break;
             default:
                 break;
@@ -56,7 +64,7 @@ public class NewGameServlet extends GoFishServlet {
         printForm(out);
         printListOfPlayers(out);
         out.println("</div>");
-        printErrors(out);
+        ErrorPrinter.printErrors(out, this.errors);
     }
 
     private void printForm(PrintWriter out) {
@@ -73,7 +81,7 @@ public class NewGameServlet extends GoFishServlet {
         out.println("<input name=\"" + PARAM_PLAYERNAME + "\" type=\"text\" id=\"" + PARAM_PLAYERNAME + "\" class=\"input-medium\" placeholder=\"Name\">");
         out.println("<input class=\"btn\" type=\"submit\" name=\"" + PARAM_ACTION + "\" value=\"" + PARAM_ACTION_ADD + "\" />");
         out.println("</div>");
-        out.println("<label class=\"checkbox\"><input type=\"checkbox\" name=\"ishuman\" />Human player</label>");
+        out.println("<label class=\"checkbox\"><input type=\"checkbox\" name=\"" + PARAM_IS_HUMAN + "\" />Human player</label>");
         out.println("");
         out.println("</div>");
         out.println("</div>");
@@ -81,12 +89,10 @@ public class NewGameServlet extends GoFishServlet {
         out.println("<div class=\"control-group\">");
         out.println("<label class=\"control-label\" for=\"gameoptions\">Game Options</label>");
         out.println("<div class=\"controls\">");
-        out.println("<label class=\"checkbox\" for=\"gameoptions-0\">");
-        out.println("<input type=\"checkbox\" name=\"gameoptions\" id=\"gameoptions-0\" value=\"allow-multiple-requests\" checked=\"checked\">");
+        out.println("<label class=\"checkbox\"><input type=\"checkbox\" name=\"" + PARAM_ALLOW_MULTIPLE + "\" />");
         out.println("Allow multiple requests");
         out.println("</label>");
-        out.println("<label class=\"checkbox\" for=\"gameoptions-1\">");
-        out.println("<input type=\"checkbox\" name=\"gameoptions\" id=\"gameoptions-1\" value=\"force-show-of-cards\">");
+        out.println("<label class=\"checkbox\"><input type=\"checkbox\" name=\"" + PARAM_FORCE_SHOW + "\" />");
         out.println("Force show of cards");
         out.println("</label>");
         out.println("</div>");
@@ -156,23 +162,6 @@ public class NewGameServlet extends GoFishServlet {
         return val;
     }
 
-    private void printErrors(PrintWriter out) {
-        if (!errors.isEmpty()) {
-            out.println("<div class=\"row\">");
-            out.println("<div class=\"alert alert-error span3 offset1\">");
-            out.println("<ul>");
-            for (String error : errors) {
-                out.println("<li>");
-                out.println(error);
-                out.println("</li>");
-            }
-            out.println("</ul>");
-            out.println("</div>");
-            out.println("</div>");
-            out.println("");
-        }
-    }
-
     private void tryAddPlayer(HttpServletRequest request) {
         this.errors.clear();
         try {
@@ -183,6 +172,49 @@ public class NewGameServlet extends GoFishServlet {
             this.errors.add("Nothing is not a good name for you. Type something.");
         } catch (TooManyPlayersException ex) {
             this.errors.add("Enough players already! Start the game!");
+        }
+    }
+
+    private Engine generateEngine(HttpServletRequest request) {
+        GameSettings gs = generateGameSettings(request);
+        this.lastConfiguration = new GameMetadata(gs, players);
+
+        return EngineFactory.generateEngine(players, gs);
+    }
+    
+    private Engine generateEngineFromLastConfiguration(){
+        return EngineFactory.generateEngine(
+                this.lastConfiguration.getPlayers(), 
+                this.lastConfiguration.getGameSettings());
+    }
+
+    private GameSettings generateGameSettings(HttpServletRequest request) {
+        GameSettings gs = new GameSettings();
+        boolean allowMultiple = request.getParameter(PARAM_ALLOW_MULTIPLE) != null;
+        boolean forceShow = request.getParameter(PARAM_FORCE_SHOW) != null;
+
+        gs.setAllowMutipleRequests(allowMultiple);
+        gs.setForceShowOfSeries(forceShow);
+
+        return gs;
+    }
+
+    private class GameMetadata {
+
+        private GameSettings gameSettings;
+        private List<PlayerItem> players;
+
+        public GameMetadata(GameSettings gameSettings, List<PlayerItem> players) {
+            this.gameSettings = gameSettings;
+            this.players = new LinkedList<>(players);
+        }
+
+        public GameSettings getGameSettings() {
+            return gameSettings;
+        }
+
+        public List<PlayerItem> getPlayers() {
+            return players;
         }
     }
 }

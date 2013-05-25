@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>vonderland load game</title>
+        <title>WONDERLANDSSSSS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Go Fish v3.0">
         <meta name="author" content="Adam Narkunski">
@@ -23,8 +22,8 @@
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li><a href="home">Home</a></li>
-                            <li class="active"><a href="newgame">New Game</a></li>
-                            <li><a href="loadgame">Load Game</a></li>
+                            <li><a href="newgame">New Game</a></li>
+                            <li class="active"><a href="loadgame">Load Game</a></li>
                             <li><a href="about">About</a></li>
                         </ul>
                     </div>
@@ -33,43 +32,51 @@
         </div>
 
         <div class="container">
-            <div class="row">
-                <div class="span6">
+            <div class='row'
+                 <div class='span6'>
                     <form 
-                        class="form-horizontal" 
-                        action="loadgame" 
-                        method="post"
-                        enctype="multipart/form-data">
+                        class='form-horizontal' 
+                        action='#' 
+                        method='post'
+                        enctype='multipart/form-data'>
                         <fieldset>
                             <legend>Load a game!</legend>
 
-                            <!-- File Button --> 
-                            <div class="control-group">
-                                <label class="control-label" for="filebutton">XML File:</label>
-                                <div class="controls">
-                                    <input id="filebutton" name="filebutton" class="input-file" type="file">
+                            <div class='control-group'>
+                                <label class='control-label' for='filebutton'>XML File:</label>
+                                <div class='controls'>
+                                    <input name='file1' type='file' id='filebutton' class='input-file'>
                                 </div>
                             </div>
 
-                            <!-- Button -->
-                            <div class="control-group">
-                                <label class="control-label" for="start">Start the game</label>
-                                <div class="controls">
-                                    <button id="start" name="start" class="btn btn-primary">Start</button>
+                            <div class='control-group'>
+                                <label class='control-label' for='start'>Start the game</label>
+                                <div class='controls'>
+                                    <input type='submit' id='start' name='start' class='btn btn-primary' value='Start'>
                                 </div>
                             </div>
-
                         </fieldset>
                     </form>
                 </div>
             </div>
-        </div>
-    </div> <!-- container -->
+            <div class="row">
+                <div class="alert alert-error span3 offset1">
+                    <ul>
+                        <li>
+                            You've provided an invalid XML file... javax.xml.bind.UnmarshalException
+                            - with linked exception:
+                            [org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.]
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-    <!-- Le javascript
-    ================================================== -->
-    <script src="bootstrap/js/jquery.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+        </div> <!-- container -->
 
-</body>
+        <!-- Le javascript
+        ================================================== -->
+        <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    </body>
 </html>

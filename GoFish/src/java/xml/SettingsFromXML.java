@@ -5,6 +5,7 @@ import engine.cards.Card;
 import generated.Gofish;
 import generated.PlayerType;
 import java.io.File;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
@@ -24,10 +25,17 @@ public class SettingsFromXML {
 
     public SettingsFromXML(String xmlFileName)
             throws JAXBException {
-        File file = new File(xmlFileName);
         JAXBContext jaxbContext = JAXBContext.newInstance(Gofish.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        File file = new File(xmlFileName);
         this.gofish = (Gofish) jaxbUnmarshaller.unmarshal(file);
+    }
+    
+    public SettingsFromXML(InputStream xmlInputStream)
+            throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(Gofish.class);
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        this.gofish = (Gofish) jaxbUnmarshaller.unmarshal(xmlInputStream);
     }
 
     public engine.Engine makeEngine() {
