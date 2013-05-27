@@ -56,19 +56,19 @@ public final class Card {
     @Override
     public boolean equals(Object obj) {
         boolean retVal = true;
-        
+
         if (obj == null || getClass() != obj.getClass()) {
             retVal = false;
-        }
-
-        final Card other = (Card) obj;
-        if (other.getSeries().size() != this.getSeries().size()) {
-            retVal = false;
-        }
-
-        for (Series thisSeries : this.series) {
-            if (!other.series.contains(thisSeries)) {
+        } else {
+            final Card other = (Card) obj;
+            if (other.getSeries().size() != this.getSeries().size()) {
                 retVal = false;
+            }
+
+            for (Series thisSeries : this.series) {
+                if (!other.series.contains(thisSeries)) {
+                    retVal = false;
+                }
             }
         }
 

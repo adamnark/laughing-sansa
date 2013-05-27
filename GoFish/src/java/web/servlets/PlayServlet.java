@@ -33,7 +33,7 @@ public class PlayServlet extends GoFishServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.engine = (Engine) this.getServletContext().getAttribute(ATTR_ENGINE);
 
-        addLastClickedCardToList(request);
+        handleLastClickedCard(request);
 
 
         super.processRequest(request, response);
@@ -58,7 +58,7 @@ public class PlayServlet extends GoFishServlet {
         printHand(out);
         out.println("<hr>");
 
-        //printVisibleForm();
+        printThrowFourForm();
         printHiddenForm(out);
     }
 
@@ -93,14 +93,23 @@ public class PlayServlet extends GoFishServlet {
         out.println("<ul>");
 
         for (Card card : engine.getCurrentPlayer().getHand().getCards()) {
-            String cssClass = "hand"; 
-            if (this.clickedCards.contains(card)) {
+            String cssClass = "hand";
+            if (isCardInClickedCards(card)) {
                 cssClass += " clicked";
             }
-            
+
             printCard(out, card, cssClass);
         }
         out.println("</ul>");
+    }
+
+    private boolean isCardInClickedCards(Card card) {
+        for (Card card1 : clickedCards) {
+            if (card1.getName().equals(card.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void printCard(PrintWriter out, Card card, String cssClass) {
@@ -159,17 +168,34 @@ public class PlayServlet extends GoFishServlet {
 
     private void printHiddenForm(PrintWriter out) {
         out.println("<form action='play' method='post' name='clickform'>");
-        //out.println("<input type='hidden' id='card'  name='" + PARAM_CLICK_CARD + "'/>");
         out.println("</form>");
     }
 
-    private void addLastClickedCardToList(HttpServletRequest request) {
+    private void handleLastClickedCard(HttpServletRequest request) {
         String cardName = (String) request.getParameter(PARAM_CLICK_CARD);
-        Card currentCard = engine.getCurrentPlayer().getCard(cardName);
-        if (this.clickedCards.contains(currentCard)) {
-            this.clickedCards.remove(currentCard);
-        } else {
-            this.clickedCards.add(currentCard);
+        if (cardName != null) {
+            Card currentCard = engine.getCurrentPlayer().getCard(cardName);
+            toggleCurrentCard(currentCard);
         }
+    }
+
+    private void toggleCurrentCard(Card currentCard) {
+        int i = 0;
+        for (Card card : clickedCards) {
+            if (card.getName().equals(currentCard.getName())) {
+                break;
+            }
+            i++;
+        }
+
+        if (i < clickedCards.size()) {
+            clickedCards.remove(i);
+        } else {
+            clickedCards.add(currentCard);
+        }
+    }
+
+    private void printThrowFourForm() {
+        
     }
 }
