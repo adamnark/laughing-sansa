@@ -68,12 +68,12 @@ public class SettingsFromXML {
         boolean isAIPlayer = generatedPlayer.getType().equals(PlayerType.COMPUTER);
 
 
-        engine.players.Player enginePlayer = engine.players.Player.createAIPlayer();
-        /*        isAIPlayer
+        engine.players.Player enginePlayer =
+                isAIPlayer
                 ? engine.players.Player.createAIPlayer()
-                : new engine.players.Player(new SwingFourPicker(), new SwingRequestMaker());
+                : new engine.players.Player();
         
-        */
+        
         enginePlayer.setName(generatedPlayer.getName());
 
 

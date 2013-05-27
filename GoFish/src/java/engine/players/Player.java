@@ -12,6 +12,7 @@ import engine.request.RequestValidator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -170,6 +171,21 @@ public class Player {
 
     public void increaseScore() {
         this.score++;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Player other = (Player) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
     }
 
     public void setName(String name) {

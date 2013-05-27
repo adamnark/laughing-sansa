@@ -49,9 +49,9 @@ public class EngineFactory {
 
     private static void generateHandForPlayer(Player player) {
         RandomStringGenerator rsg = new RandomStringGenerator();
-        generateSeriesForPlayer(player, rsg, "Ao", "Mo", "Ni");
-        generateSeriesForPlayer(player, rsg, "Ki", "Mo", "Ni");
-        generateSeriesForPlayer(player, rsg, "Va", "Mo", "Ni");
+        generateSeriesForPlayer(player, rsg, "Ser1", "Ser2", "Ser3");
+        generateSeriesForPlayer(player, rsg, "Ser1", "Ser2", "Ser3");
+        generateSeriesForPlayer(player, rsg, "Ser1", "Ser2", "Ser3");
         Collections.shuffle(player.getHand().getCards());
     }
 
@@ -69,7 +69,7 @@ public class EngineFactory {
             } else {
                 generatedCard.addSeries(new Series(seriesName3));
             }
-            generatedCard.setName(seriesName + " " + rsg.makeRandomString());
+            generatedCard.setName(/*seriesName + " " + */rsg.makeRandomString());
             player.getHand().addCardToHand(generatedCard);
         }
     }

@@ -4,6 +4,8 @@ package web.servlets;
 
 import engine.Engine;
 import engine.Factory.PlayerItem;
+import engine.cards.Card;
+import engine.cards.Series;
 import engine.players.Player;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,7 +28,7 @@ public class PlayServlet extends GoFishServlet {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.engine = (Engine) this.getServletContext().getAttribute(ATTR_ENGINE);
-        super.processRequest(request, response); //To change body of generated methods, choose Tools | Templates.
+        super.processRequest(request, response);
     }
 
     @Override
@@ -36,29 +38,58 @@ public class PlayServlet extends GoFishServlet {
 
     @Override
     protected void printContent(PrintWriter out) {
-        out.println("<h3>" + "Players:"  +"</h1>");
+        printPlayersList(out);
+        out.println("<hr>");
+        printHand(out);
+    }
 
+    private void printPlayersList(PrintWriter out) {
+        Player currentPlayer = engine.getCurrentPlayer();
+        out.println("<h3>" + "Players:" + "</h1>");
         out.println("<ul class='inline'>");
         for (Player player : engine.getPlayers()) {
-            PlayerItem pi = new PlayerItem(player);
-            out.print("<li>");
-            out.print(PlayerItemPrinter.makeImgTag(pi) + pi.getPlayerName()); 
-            out.print("</li>");
+            if (player.equals(currentPlayer)) {
+                out.print("<li style='background:rgb(205, 255, 150);'>");
+            } else {
+                out.print("<li>");
+            }
+
+            out.print(PlayerItemPrinter.makeImgTag(new PlayerItem(player)));
+            out.print(" ");
+            out.print(player.getName());
+            out.print(" : ");
+            out.print(player.getScore());
+            out.println();
+        }
+
+        out.println("</ul>");
+    }
+
+    private void printHand(PrintWriter out) {
+        
+        out.println("<h3>");
+        out.println( engine.getCurrentPlayer().getName() + "'s Hand:");
+        out.println("</h3>");
+        
+        out.println("<ul>");
+
+        for (Card card : engine.getCurrentPlayer().getHand().getCards()) {
+            printCard(out, card);
         }
         out.println("</ul>");
+    }
+
+    private void printCard(PrintWriter out, Card card) {
+        out.println("<li>");
+        out.print(card.getName());
+        out.print(" : {");
+        for (Series series : card.getSeries()) {
+            out.print(series.getName());
+            out.print(" ");
+        }
+        out.print("}");
         
-        out.print("<p> current player is ");
-        out.print(engine.getCurrentPlayer().getName());
-        out.println("</p>");
-        
-        out.println("<p>");
-        out.println("isAllowMutipleRequests: " + engine.getGameSettings().isAllowMutipleRequests());
-        out.println("</p>");
-        out.println("<p>");
-        out.println("isForceShowOfSeries: " + engine.getGameSettings().isForceShowOfSeries());
-        out.println("</p>");
-        
-        
+        out.println("</li>");
         
     }
 }

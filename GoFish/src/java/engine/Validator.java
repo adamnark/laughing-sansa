@@ -24,11 +24,13 @@ public class Validator {
     }
 
     public boolean validateEngineState() {
+        boolean isValid = true;
+        
         if (countOfCards() < MINIMUM_NUMBER_OF_CARDS) {
             this.errors.add("Not enough cards. "
                     + MINIMUM_NUMBER_OF_CARDS
                     + " cards are required to play.");
-            return false;
+            isValid =  false;
         }
 
         if (countOfPlayers() < MINIMUM_NUMBER_OF_PLAYERS
@@ -38,20 +40,36 @@ public class Validator {
                     + " and "
                     + MAXIMUM_NUMBER_OF_PLAYERS
                     + ".");
-            return false;
+            isValid =   false;
         }
 
         if (!isDistinctPlayerNames()) {
-            return false;
+            isValid =   false;
         }
 
         if (!isDistinctCards()) {
-            return false;
+            isValid =   false;
         }
 
-        return true;
+        if(!isHumanPlayerExist()){
+            this.errors.add("There must be at least one human player.");
+            isValid = false;
+        }
+        
+        return isValid;
     }
 
+    private boolean isHumanPlayerExist(){
+        boolean isHumanPlaying = false;
+        for (Player player : engine.getPlayers()) {
+            if (player.isHuman()) {
+                isHumanPlaying = true;
+            }
+        }
+        
+        return isHumanPlaying;
+    }
+    
     private int countOfCards() {
         int count = 0;
         for (Player player : engine.getPlayers()) {
