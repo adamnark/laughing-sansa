@@ -26,7 +26,7 @@ public class HeadPrinter {
     }
 
     private static void printStyles(PrintWriter out) {
-        out.println("<!-- Le styles -->");
+        out.println("<link href='css/gofish.css' rel='stylesheet'>");
         out.println("<link href=\"bootstrap/css/bootstrap.css\" rel=\"stylesheet\">");
         out.println("<style>body {padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */}</style>");
         out.println("<link href=\"bootstrap/css/bootstrap.css\" rel=\"stylesheet\">");

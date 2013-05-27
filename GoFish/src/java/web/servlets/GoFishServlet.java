@@ -15,7 +15,7 @@ import web.servlets.printers.NavbarPrinter;
 public class GoFishServlet extends HttpServlet {
 
     protected static final String ATTR_ENGINE = "attribute-engine";
-    
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -36,6 +36,8 @@ public class GoFishServlet extends HttpServlet {
             printHTMLHead(out);
             printHTMLBody(out);
             out.println("</html>");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -84,14 +86,13 @@ public class GoFishServlet extends HttpServlet {
         String title = getPageTitle();
 
         HeadPrinter.printHeadStart(out, title);
-        addToHTMLHead(out);
+        moreHTMLHead(out);
         HeadPrinter.printHeadEnd(out);
 
 
     }
 
-    protected void addToHTMLHead(PrintWriter out) {
-        
+    protected void moreHTMLHead(PrintWriter out) {
     }
 
     protected String getPageTitle() {
@@ -120,9 +121,13 @@ public class GoFishServlet extends HttpServlet {
 
     private void printScripts(PrintWriter out) {
         HeadPrinter.printScripts(out);
+        printMoreScripts(out);
     }
 
     protected void printContent(PrintWriter out) {
         out.println("<center><h1>you should override me!</h1><br /><i>GoFish Servlet</i></center>");
+    }
+
+    protected void printMoreScripts(PrintWriter out) {
     }
 }

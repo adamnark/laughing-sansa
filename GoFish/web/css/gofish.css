@@ -5,3 +5,7 @@
     Description:
         Purpose of the stylesheet follows.
 */
+
+.clicked {
+    color: red;   
+}

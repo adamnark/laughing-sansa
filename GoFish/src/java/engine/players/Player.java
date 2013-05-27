@@ -70,6 +70,16 @@ public class Player {
         this.requestMaker = requestMaker;
     }
 
+    public Card getCard(String name) {
+        for (Card card : hand.getCards()) {
+            if (card.getName().equals(name)) {
+                return card;
+            }
+        }
+        
+        return null;
+    }
+
     public Hand getHand() {
         return this.hand;
     }
