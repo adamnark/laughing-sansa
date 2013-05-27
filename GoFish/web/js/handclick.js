@@ -9,9 +9,21 @@ function addHidden(theForm, key, value) {
 
 $(".hand").click(function() {
     /*$(this).toggleClass("clicked");*/
-    var form = $("[name='clickform']").get(0);
+    var form = $("[name='playerform']").get(0);
     var key = 'card';
     var value = $(this).attr('card');
     addHidden(form, key, value);
+    form.submit();
+});
+
+$("#skip").click(function(){
+    var form = $("[name='playerform']").get(0);
+    addHidden(form, 'action', 'skip');
+    form.submit();
+});
+
+$("#throw").click(function(){
+    var form = $("[name='playerform']").get(0);
+    addHidden(form, 'action', 'throw');
     form.submit();
 });

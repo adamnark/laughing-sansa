@@ -43,14 +43,20 @@ public class NewGameServlet extends GoFishServlet {
         super();
         players = new LinkedList<>();
         errors = new LinkedList<>();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.errors.clear();
+        this.players.clear();
         addDefaultPlayers();
+
+        super.doGet(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         this.errors.clear();
-
         switch (request.getParameter(PARAM_ACTION)) {
             case PARAM_ACTION_ADD:
                 tryAddPlayer(request);
@@ -140,11 +146,11 @@ public class NewGameServlet extends GoFishServlet {
 
     private void printPlayerItem(PrintWriter out, PlayerItem item) {
         out.println("<li>");
-        
+
         out.println("<div style='display:inline-block'>");
         out.println(PlayerItemPrinter.makeImgTag(item));
         out.println("</div>");
-        
+
         out.println("<div style='display:inline-block'>");
         out.println(item.getPlayerName());
         out.println("</div>");

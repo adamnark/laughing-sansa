@@ -5,7 +5,7 @@ import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.ai.AiFourPicker;
 import engine.players.ai.AiRequestMaker;
-import engine.players.exceptions.InvalidFourRuntimeException;
+import engine.players.exceptions.InvalidFourException;
 import engine.request.IRequestMaker;
 import engine.request.Request;
 import engine.request.RequestValidator;
@@ -153,12 +153,12 @@ public class Player {
         return victim;
     }
 
-    public boolean throwFour() {
+    public boolean throwFour() throws InvalidFourException {
         boolean cardsWereThrown;
         Collection<Card> four = this.fourPicker.pickFour(hand);
 
         if (!validateFour(four)) {
-            throw new InvalidFourRuntimeException();
+            throw new InvalidFourException("Must use 4 cards that share a series");
         } else {
             this.lastCardsThrown = four;//this.fourPicker.pickFour(hand);
             if (this.lastCardsThrown == null) {

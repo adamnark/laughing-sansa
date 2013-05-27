@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import web.playerinterface.WebFourPicker;
 
 /**
  *
@@ -40,8 +41,9 @@ public class EngineFactory {
         if (!playerItem.isHuman()) {
             player = Player.createAIPlayer();
         } else {
-            player = new Player();// new Player(new SwingFourPicker(), new SwingRequestMaker());
+            player = new Player(new WebFourPicker(), null);
         }
+        
         player.setName(playerItem.getPlayerName());
 
         return player;

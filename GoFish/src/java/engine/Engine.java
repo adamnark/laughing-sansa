@@ -4,6 +4,7 @@ import com.google.common.collect.HashMultimap;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Player;
+import engine.players.exceptions.InvalidFourException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -31,7 +32,7 @@ public class Engine {
         this.isGameStarted = false;
     }
 
-    public void currentPlayerThrowFour(){
+    public void currentPlayerThrowFour() throws InvalidFourException{
         boolean cardsWereThrown = getCurrentPlayer().throwFour();
         if (cardsWereThrown) {
             getCurrentPlayer().increaseScore();
