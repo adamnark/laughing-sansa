@@ -42,6 +42,7 @@ public class PlayServlet extends GoFishServlet {
     private static final String PARAM_ACTION_THROW = "throw";
     public static final String PARAM_ACTION_REQUEST = "request";
     public static final String PARAM_ACTION_REQUEST_DONE = "requestform";
+    public static final String PARAM_ACTION_AI_TURN = "aiturn";
     private CurrentPlayerState currentPlayerState;
 
     @Override
@@ -52,6 +53,8 @@ public class PlayServlet extends GoFishServlet {
         this.errors.clear();
         handleLastClickedCard(request);
         handleSkipTurn();
+        handleAITurn(request, response);
+
         handleThrowFour();
         handleRequestCard(request, response);
         handleRequestDone(request, response);
@@ -105,16 +108,20 @@ public class PlayServlet extends GoFishServlet {
         out.println("<hr>");
         printGraveyard(out);
         out.println("<hr>");
-        printLastFiveMessages(out);
+        printLastMessages(out, 15);
         out.println("<hr>");
         ErrorPrinter.printErrors(out, this.errors);
     }
 
     private void printPlayerForm(PrintWriter out) {
         out.print("<form name='playerform' method='post' action='play' class='form-inline'>");
-        printSkipTurnButton(out);
-        printThrowFourButton(out);
-        printRequestCardButton(out);
+        if (engine.getCurrentPlayer().isHuman()) {
+            printSkipTurnButton(out);
+            printThrowFourButton(out);
+            printRequestCardButton(out);
+        } else {
+            printPlayComputerTurnButton(out);
+        }
         out.print("</form>");
     }
 
@@ -122,6 +129,10 @@ public class PlayServlet extends GoFishServlet {
         if (!currentPlayerState.hasThrownFour()) {
             out.print("<input id='throw' type='button' class='btn' value='Throw cards'>");
         }
+    }
+
+    private void printPlayComputerTurnButton(PrintWriter out) {
+        out.print("<input id='aiturn' type='button' class='btn' value='Play Turn'>");
     }
 
     private void printRequestCardButton(PrintWriter out) {
@@ -157,19 +168,21 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void printHand(PrintWriter out) {
-        printTitle(out, engine.getCurrentPlayer().getName() + "'s Hand:");
+        if (engine.getCurrentPlayer().isHuman()) {
+            printTitle(out, engine.getCurrentPlayer().getName() + "'s Hand:");
 
-        out.println("<ul class='inline'>");
-        for (Card card : engine.getCurrentPlayer().getHand().getCards()) {
-            String cssClass = "hand";
-            if (isCardInClickedCards(card)) {
-                cssClass += " clicked";
+            out.println("<ul class='inline'>");
+            for (Card card : engine.getCurrentPlayer().getHand().getCards()) {
+                String cssClass = "hand";
+                if (isCardInClickedCards(card)) {
+                    cssClass += " clicked";
+                }
+
+                printCard(out, card, cssClass);
             }
 
-            printCard(out, card, cssClass);
+            out.println("</ul>");
         }
-
-        out.println("</ul>");
     }
 
     private boolean isCardInClickedCards(Card card) {
@@ -303,32 +316,38 @@ public class PlayServlet extends GoFishServlet {
         //do nothing.
     }
 
+    private String getTimestamp() {
+        return new java.sql.Timestamp(new java.util.Date().getTime()) + "> ";
+    }
+
     private void handleSuccessfulRequest() {
-        this.messages.add(engine.getCurrentPlayer().getName() + " has made a successful request!");
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has made a successful request!");
     }
 
     private void handleFailedRequest() {
-        this.messages.add(engine.getCurrentPlayer().getName() + " has made a bad request!");
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has made a bad request!");
     }
 
     private void handleFourCardsThrown() {
-        this.messages.add(engine.getCurrentPlayer().getName() + " has thrown four cards!");
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has thrown four cards!");
     }
 
     private void handlePlayerOutOfCards() {
-        this.messages.add(engine.getCurrentPlayer().getName() + " has run out of cards!");
-        this.messages.add(engine.getCurrentPlayer().getName() + " is out of the game!");
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has run out of cards!");
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " is out of the game!");
     }
 
-    private void printLastFiveMessages(PrintWriter out) {
+    private void printLastMessages(PrintWriter out, int n) {
         if (!messages.isEmpty()) {
+            java.util.Date date = new java.util.Date();
+
             printTitle(out, "Message log");
             out.println("<div>");
-            for (int i = 5; i > 0; i--) {
+            for (int i = messages.size() - 1; i >= messages.size() - n; i--) {
                 try {
-                    String message = messages.get(messages.size() - i);
+                    String message = messages.get(i);
                     out.println("<p>");
-                    out.print("> " + message);
+                    out.print(message);
                     out.println("</p>");
                 } catch (IndexOutOfBoundsException ex) {
                 }
@@ -372,6 +391,18 @@ public class PlayServlet extends GoFishServlet {
                 requestCardForPlayer(r);
             }
 
+        }
+    }
+
+    private void handleAITurn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_AI_TURN)) {
+            this.engine.currentPlayerMakeRequest();
+            try {
+                this.engine.currentPlayerThrowFour();
+            } catch (InvalidFourException ex) {
+            }
+            handleEngineMessages(request, response);
+            this.engine.advanceTurn();
         }
     }
 

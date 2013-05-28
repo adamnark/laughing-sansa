@@ -6,6 +6,8 @@ import engine.Engine;
 import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Player;
+import engine.request.Request;
+import engine.request.RequestValidator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -14,8 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import engine.request.Request;
-import engine.request.RequestValidator;
 import web.servlets.printers.ErrorPrinter;
 
 /**

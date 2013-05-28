@@ -33,3 +33,9 @@ $("#request").click(function(){
     addHidden(form, 'action', 'request');
     form.submit();
 });
+
+$("#aiturn").click(function(){
+    var form = $("[name='playerform']").get(0);
+    addHidden(form, 'action', 'aiturn');
+    form.submit();
+});
