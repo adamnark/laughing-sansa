@@ -76,7 +76,7 @@ public class Player {
                 return card;
             }
         }
-        
+
         return null;
     }
 
@@ -214,6 +214,8 @@ public class Player {
         boolean isValid;
         if (cards == null) {
             isValid = true;
+        } else if (cards.size() != 4) {
+            isValid = false;
         } else {
             HashMultimap<Series, Card> map = HashMultimap.create();
             for (Card card : cards) {

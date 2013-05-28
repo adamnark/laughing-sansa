@@ -37,7 +37,7 @@ public class PlayServlet extends GoFishServlet {
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_ACTION_SKIP = "skip";
     private static final String PARAM_ACTION_THROW = "throw";
-    private static final String PARAM_ACTION_REQUEST = "request";
+    public static final String PARAM_ACTION_REQUEST = "request";
     private CurrentPlayerState currentPlayerState;
 
     @Override
@@ -49,6 +49,7 @@ public class PlayServlet extends GoFishServlet {
         handleLastClickedCard(request);
         handleSkipTurn();
         handleThrowFour();
+        handleRequestCard();
         handleEngineMessages(request, response);
 
         super.processRequest(request, response);
@@ -333,6 +334,10 @@ public class PlayServlet extends GoFishServlet {
         this.clickedCards.clear();
         this.errors.clear();
         request.getRequestDispatcher("gameover").forward(request, response);
+    }
+
+    private void handleRequestCard() {
+        
     }
 
     class CurrentPlayerState {
