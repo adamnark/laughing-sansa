@@ -22,8 +22,14 @@ $("#skip").click(function(){
     form.submit();
 });
 
-$("#throw[class!='disabled']").click(function(){
+$("#throw").click(function(){
     var form = $("[name='playerform']").get(0);
     addHidden(form, 'action', 'throw');
+    form.submit();
+});
+
+$("#request").click(function(){
+    var form = $("[name='playerform']").get(0);
+    addHidden(form, 'action', 'request');
     form.submit();
 });

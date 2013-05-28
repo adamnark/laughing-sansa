@@ -12,9 +12,14 @@ import java.util.List;
  * @author adamnark
  */
 public class WebRequestMaker implements IRequestMaker{
+    private Request request;
 
     @Override
     public Request makeRequest(Hand hand, List<Series> availableSeries, List<Player> otherPlayers) {
-        return new Request(null, null);
+        return this.request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
     }
 }

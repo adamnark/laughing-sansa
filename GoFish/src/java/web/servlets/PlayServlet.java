@@ -8,6 +8,7 @@ import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Player;
 import engine.players.exceptions.InvalidFourException;
+import engine.request.Request;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import web.playerinterface.WebFourPicker;
+import web.playerinterface.WebRequestMaker;
 import web.servlets.printers.ErrorPrinter;
 import web.servlets.printers.NavbarPrinter;
 import web.servlets.printers.PlayerItemPrinter;
@@ -28,6 +30,7 @@ import web.servlets.printers.PlayerItemPrinter;
 @WebServlet(name = "PlayServlet", urlPatterns = {"/play"})
 public class PlayServlet extends GoFishServlet {
 
+    public static final String ATTR_REQUEST = "request-attr";
     private Engine engine;
     private static final String PARAM_CLICK_CARD = "card";
     private List<Card> clickedCards = new LinkedList<>();
@@ -38,6 +41,7 @@ public class PlayServlet extends GoFishServlet {
     private static final String PARAM_ACTION_SKIP = "skip";
     private static final String PARAM_ACTION_THROW = "throw";
     public static final String PARAM_ACTION_REQUEST = "request";
+    public static final String PARAM_ACTION_REQUEST_DONE = "requestform";
     private CurrentPlayerState currentPlayerState;
 
     @Override
@@ -49,7 +53,8 @@ public class PlayServlet extends GoFishServlet {
         handleLastClickedCard(request);
         handleSkipTurn();
         handleThrowFour();
-        handleRequestCard();
+        handleRequestCard(request, response);
+        handleRequestDone(request, response);
         handleEngineMessages(request, response);
 
         super.processRequest(request, response);
@@ -109,12 +114,19 @@ public class PlayServlet extends GoFishServlet {
         out.print("<form name='playerform' method='post' action='play' class='form-inline'>");
         printSkipTurnButton(out);
         printThrowFourButton(out);
+        printRequestCardButton(out);
         out.print("</form>");
     }
 
     private void printThrowFourButton(PrintWriter out) {
         if (!currentPlayerState.hasThrownFour()) {
-            out.print("<input id='throw' type='button' class='btn' value='Throw red cards'>");
+            out.print("<input id='throw' type='button' class='btn' value='Throw cards'>");
+        }
+    }
+
+    private void printRequestCardButton(PrintWriter out) {
+        if (!currentPlayerState.hasRequestedCard()) {
+            out.print("<input id='request' type='button' class='btn' value='Request a card'>");
         }
     }
 
@@ -259,6 +271,15 @@ public class PlayServlet extends GoFishServlet {
         }
     }
 
+    private void requestCardForPlayer(Request r) {
+        if (engine.getCurrentPlayer().isHuman()) {
+            ((WebRequestMaker) engine.getCurrentPlayer().getRequestMaker()).setRequest(r);
+        }
+        this.engine.currentPlayerMakeRequest();
+        this.currentPlayerState.setHasRequestedCard(true);
+        this.getServletContext().setAttribute(ATTR_REQUEST, null);
+    }
+
     private void handleThrowFour() {
         if (actionFromRequest != null
                 && actionFromRequest.equals(PARAM_ACTION_THROW)) {
@@ -297,7 +318,6 @@ public class PlayServlet extends GoFishServlet {
     private void handlePlayerOutOfCards() {
         this.messages.add(engine.getCurrentPlayer().getName() + " has run out of cards!");
         this.messages.add(engine.getCurrentPlayer().getName() + " is out of the game!");
-
     }
 
     private void printLastFiveMessages(PrintWriter out) {
@@ -336,8 +356,23 @@ public class PlayServlet extends GoFishServlet {
         request.getRequestDispatcher("gameover").forward(request, response);
     }
 
-    private void handleRequestCard() {
-        
+    private void handleRequestCard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_REQUEST)) {
+            Request r = (Request) this.getServletContext().getAttribute(ATTR_REQUEST);
+            if (r == null) {
+                request.getRequestDispatcher(PARAM_ACTION_REQUEST).forward(request, response);
+            }
+        }
+    }
+
+    private void handleRequestDone(HttpServletRequest request, HttpServletResponse response) {
+        if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_REQUEST_DONE)) {
+            Request r = (Request) this.getServletContext().getAttribute(ATTR_REQUEST);
+            if (r != null) {
+                requestCardForPlayer(r);
+            }
+
+        }
     }
 
     class CurrentPlayerState {

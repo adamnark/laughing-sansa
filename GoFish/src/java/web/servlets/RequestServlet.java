@@ -14,9 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static web.servlets.GoFishServlet.ATTR_ENGINE;
 import engine.request.Request;
 import engine.request.RequestValidator;
+import web.servlets.printers.ErrorPrinter;
 
 /**
  *
@@ -30,29 +30,34 @@ public class RequestServlet extends GoFishServlet {
     private List<String> errors = new LinkedList<>();
     private boolean wasRequestFormPosted;
     private static final String FORM_NAME = "requestform";
-    public static final String ATTR_REQUEST = "request-attr";
 
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.engine = (Engine) this.getServletContext().getAttribute(ATTR_ENGINE);
+        this.engine = (Engine) this.getServletContext().getAttribute(PlayServlet.ATTR_ENGINE);
         String action = request.getParameter("action");
         this.wasRequestFormPosted = action != null && action.equals(FORM_NAME);
-        super.processRequest(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (wasRequestFormPosted) {
+        if (!wasRequestFormPosted) {
+            super.processRequest(request, response);
+        } else {
+            this.errors.clear();
             Request r = makeRequestObjectFromParameters(request);
-            if (r != null && RequestValidator.validateRequest(r, engine.getCurrentPlayer().getHand())) {
-                addRequestObjectToServletContext(r);
-                forwardToPlayServlet(request);
+            if (r == null) {
+                super.processRequest(request, response);
             } else {
-                super.doPost(request, response);
+                try {
+                    RequestValidator.tryValidateRequest(r, engine.getCurrentPlayer().getHand());
+                    addRequestObjectToServletContext(r);
+                    forwardToPlayServlet(request, response);
+                } catch (RequestValidator.OwnSeriesMissingException ex) {
+                    this.errors.add("Pick at least one series that exists in your hand.");
+                } catch (RequestValidator.InvalidCardException ex) {
+                    this.errors.add("Pick exactly " + engine.getCurrentPlayer().getHand().getCards().get(0).getSeries().size() + " serieses.");
+                } catch (RequestValidator.MissingPlayerException ex) {
+                    this.errors.add("Don't forget to pick a player.");
+                }
             }
         }
-
-        super.doPost(request, response);
+        super.processRequest(request, response);
     }
 
     private Request makeRequestObjectFromParameters(HttpServletRequest request) {
@@ -62,11 +67,11 @@ public class RequestServlet extends GoFishServlet {
     }
 
     private void addRequestObjectToServletContext(Request r) {
-        this.getServletContext().setAttribute(ATTR_REQUEST, r);
+        this.getServletContext().setAttribute(PlayServlet.ATTR_REQUEST, r);
     }
 
-    private void forwardToPlayServlet(HttpServletRequest request) {
-        request.getRequestDispatcher("play");
+    private void forwardToPlayServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("play").forward(request, response);
     }
 
     @Override
@@ -76,18 +81,21 @@ public class RequestServlet extends GoFishServlet {
             out.println("Let's make a request!");
             out.println("</h3>");
 
-            out.println("<form name='" + FORM_NAME + "' method='post' class='form' >");
+            out.println("<form name='" + FORM_NAME + "' action='request'  method='post' class='form' >");
             out.println("<input type='hidden' name='action' value='" + FORM_NAME + "'>");
             printAvailablePlayersRadios(out);
             out.println("<hr>");
             printAvailableSeriesCheckboxes(out);
+            out.println("<input type='submit' value='Request!'>");
             out.println("</form>");
+            out.println("<hr>");
+            ErrorPrinter.printErrors(out, errors);
         }
     }
 
     private void printAvailableSeriesCheckboxes(PrintWriter out) {
         out.println("<p>");
-        out.println("Pick X serieses:");
+        out.println("Pick " + engine.getCurrentPlayer().getHand().getCards().get(0).getSeries().size() + " serieses:");
         out.println("</p>");
         for (Series series : engine.getAvailableSeries()) {
             out.println("<label class='checkbox'>");
@@ -119,11 +127,15 @@ public class RequestServlet extends GoFishServlet {
 
     private Player getOtherPlayerFromParameters(HttpServletRequest request) {
         String playerName = request.getParameter("player");
-        return engine.getPlayerByName(playerName);
+        return playerName != null ? engine.getPlayerByName(playerName) : null;
     }
 
     private Card getCardIWantFromParameters(HttpServletRequest request) {
         String[] seriesNames = request.getParameterValues("series");
+        if (seriesNames == null) {
+            return null;
+        }
+
         Card card = new Card();
         for (String seriesName : seriesNames) {
             card.addSeries(new Series(seriesName));
