@@ -3,6 +3,7 @@
 package web.servlets;
 
 import engine.Engine;
+import engine.cards.Card;
 import engine.cards.Series;
 import engine.players.Player;
 import java.io.IOException;
@@ -17,7 +18,6 @@ import static web.servlets.GoFishServlet.ATTR_ENGINE;
 import engine.request.Request;
 import engine.request.RequestValidator;
 
-
 /**
  *
  * @author adamnark
@@ -26,33 +26,49 @@ import engine.request.RequestValidator;
 public class RequestServlet extends GoFishServlet {
 
     private Engine engine;
+    //TODO -- add error reporting
+    private List<String> errors = new LinkedList<>();
+    private boolean wasRequestFormPosted;
+    private static final String FORM_NAME = "requestform";
+    public static final String ATTR_REQUEST = "request-attr";
 
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.engine = (Engine) this.getServletContext().getAttribute(ATTR_ENGINE);
+        String action = request.getParameter("action");
+        this.wasRequestFormPosted = action != null && action.equals(FORM_NAME);
         super.processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Request r = makeRequestObjectFromParameters(request);
-        RequestValidator.validateRequest(r, engine.getCurrentPlayer().getHand());
-        addRequestObjectToServletContext(r);
-        forwardToPlayServlet(request);
+        if (wasRequestFormPosted) {
+            Request r = makeRequestObjectFromParameters(request);
+            if (r != null && RequestValidator.validateRequest(r, engine.getCurrentPlayer().getHand())) {
+                addRequestObjectToServletContext(r);
+                forwardToPlayServlet(request);
+            } else {
+                super.doPost(request, response);
+            }
+        }
+
+        super.doPost(request, response);
     }
 
     private Request makeRequestObjectFromParameters(HttpServletRequest request) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Player otherPlayer = getOtherPlayerFromParameters(request);
+        Card cardIWant = getCardIWantFromParameters(request);
+        return new Request(otherPlayer, cardIWant);
     }
 
     private void addRequestObjectToServletContext(Request r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getServletContext().setAttribute(ATTR_REQUEST, r);
     }
 
     private void forwardToPlayServlet(HttpServletRequest request) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        request.getRequestDispatcher("play");
     }
-    
+
     @Override
     protected void printContent(PrintWriter out) {
         if (engine != null) {
@@ -60,8 +76,8 @@ public class RequestServlet extends GoFishServlet {
             out.println("Let's make a request!");
             out.println("</h3>");
 
-
-            out.println("<form name='requestform' action='play' method='post' class='form' >");
+            out.println("<form name='" + FORM_NAME + "' method='post' class='form' >");
+            out.println("<input type='hidden' name='action' value='" + FORM_NAME + "'>");
             printAvailablePlayersRadios(out);
             out.println("<hr>");
             printAvailableSeriesCheckboxes(out);
@@ -99,5 +115,20 @@ public class RequestServlet extends GoFishServlet {
         }
 
         return availablePlayers;
+    }
+
+    private Player getOtherPlayerFromParameters(HttpServletRequest request) {
+        String playerName = request.getParameter("player");
+        return engine.getPlayerByName(playerName);
+    }
+
+    private Card getCardIWantFromParameters(HttpServletRequest request) {
+        String[] seriesNames = request.getParameterValues("series");
+        Card card = new Card();
+        for (String seriesName : seriesNames) {
+            card.addSeries(new Series(seriesName));
+        }
+
+        return card;
     }
 }

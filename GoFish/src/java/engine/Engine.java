@@ -193,6 +193,16 @@ public class Engine {
         return true;
     }
 
+    public Player getPlayerByName(String name) {
+        for (Player player : players) {
+            if (name.equals(player.getName())) {
+                return player;
+            }
+        }
+        
+        return null;
+    }
+
     public static enum Event {
 
         FAILED_REQUEST,
