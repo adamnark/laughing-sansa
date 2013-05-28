@@ -110,7 +110,8 @@ public class LoadGameServlet extends GoFishServlet {
         out.println("<div class='control-group'>");
         out.println("<label class='control-label' for='start'>Start the game</label>");
         out.println("<div class='controls'>");
-        out.println("<input type='submit' id='start' name='start' class='btn btn-primary' value='Start'>");
+        out.println("<input type='hidden' name='action' value='start'>");
+        out.println("<input type='submit' id='start' name='start' class='btn btn-primary' value='Load!'>");
         out.println("</div>");
         out.println("</div>");
         out.println("</fieldset>");

@@ -5,7 +5,7 @@
 		<forceShowOfSeries>true</forceShowOfSeries>
     </settings>
     <players>
-	<player type="COMPUTER" name="John">
+	<player type="HUMAN" name="John">
 	    <cards>
 			<card name="wata">
 				<series>Boris</series>

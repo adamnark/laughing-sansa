@@ -113,7 +113,7 @@ public class NewGameServlet extends GoFishServlet {
         out.println("<label class='checkbox'><input type='checkbox' name='" + PARAM_ALLOW_MULTIPLE + "' />");
         out.println("Allow multiple requests");
         out.println("</label>");
-        out.println("<label class='checkbox'><input type='checkbox' name='" + PARAM_FORCE_SHOW + "' />");
+        out.println("<label class='checkbox'><input type='checkbox' name='" + PARAM_FORCE_SHOW + "' checked='checked'/>");
         out.println("Force show of cards");
         out.println("</label>");
         out.println("</div>");

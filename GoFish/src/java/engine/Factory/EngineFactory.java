@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import web.playerinterface.WebFourPicker;
+import web.playerinterface.WebRequestMaker;
 
 /**
  *
@@ -41,7 +42,7 @@ public class EngineFactory {
         if (!playerItem.isHuman()) {
             player = Player.createAIPlayer();
         } else {
-            player = new Player(new WebFourPicker(), null);
+            player = new Player(new WebFourPicker(), new WebRequestMaker());
         }
         
         player.setName(playerItem.getPlayerName());

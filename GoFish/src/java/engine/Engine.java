@@ -32,7 +32,7 @@ public class Engine {
         this.isGameStarted = false;
     }
 
-    public void currentPlayerThrowFour() throws InvalidFourException{
+    public void currentPlayerThrowFour() throws InvalidFourException {
         boolean cardsWereThrown = getCurrentPlayer().throwFour();
         if (cardsWereThrown) {
             getCurrentPlayer().increaseScore();
@@ -46,11 +46,11 @@ public class Engine {
             this.eventQueue.add(Event.PLAYER_OUT_OF_CARDS);
         }
     }
-    
+
     public Collection<Card> getLastCardsThrown() {
         return this.lastCardsThrown;
     }
-    
+
     public List<Series> getAvailableSeries() {
         List<Series> lst = new LinkedList<>();
         for (Series series : this.cardsBySeries.keySet()) {
@@ -115,10 +115,14 @@ public class Engine {
             return false;
         }
 
-        boolean onePlayerLeft = isOnePlayerLeft();
-        if (onePlayerLeft) {
+        if (isNoPlayersLeft()) {
             return true;
         }
+
+        if (isOnePlayerLeft()) {
+            return true;
+        }
+
         for (Series series : this.cardsBySeries.keySet()) {
             int count = 0;
             for (Card card : this.cardsBySeries.get(series)) {
@@ -135,9 +139,13 @@ public class Engine {
     }
 
     public void advanceTurn() {
-        do {
-            this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
-        } while (getCurrentPlayer().getHand().getCards().isEmpty());
+        if (this.isGameOver()) {
+            this.eventQueue.add(Event.GAME_OVER);
+        } else {
+            do {
+                this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+            } while (getCurrentPlayer().getHand().getCards().isEmpty());
+        }
     }
 
     public ArrayList<Player> getPlayers() {
@@ -176,6 +184,15 @@ public class Engine {
         this.players.add(newPlayer);
     }
 
+    private boolean isNoPlayersLeft() {
+        for (Player player : players) {
+            if (player.isPlaying()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static enum Event {
 
         FAILED_REQUEST,
@@ -183,5 +200,6 @@ public class Engine {
         FOUR_CARDS_THROWN,
         FOUR_CARDS_NOT_THROWN,
         PLAYER_OUT_OF_CARDS,
+        GAME_OVER,
     }
 }

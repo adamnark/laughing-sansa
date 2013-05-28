@@ -11,6 +11,8 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import web.playerinterface.WebFourPicker;
+import web.playerinterface.WebRequestMaker;
 //import swing.playerinterface.SwingFourPicker;
 //import swing.playerinterface.SwingRequestMaker;
 
@@ -30,7 +32,7 @@ public class SettingsFromXML {
         File file = new File(xmlFileName);
         this.gofish = (Gofish) jaxbUnmarshaller.unmarshal(file);
     }
-    
+
     public SettingsFromXML(InputStream xmlInputStream)
             throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(Gofish.class);
@@ -71,9 +73,9 @@ public class SettingsFromXML {
         engine.players.Player enginePlayer =
                 isAIPlayer
                 ? engine.players.Player.createAIPlayer()
-                : new engine.players.Player();
-        
-        
+                : new engine.players.Player(new WebFourPicker(), new WebRequestMaker());
+
+
         enginePlayer.setName(generatedPlayer.getName());
 
 

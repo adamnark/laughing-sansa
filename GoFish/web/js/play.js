@@ -22,7 +22,7 @@ $("#skip").click(function(){
     form.submit();
 });
 
-$("#throw").click(function(){
+$("#throw[class!='disabled']").click(function(){
     var form = $("[name='playerform']").get(0);
     addHidden(form, 'action', 'throw');
     form.submit();
