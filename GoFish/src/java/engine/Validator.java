@@ -25,12 +25,12 @@ public class Validator {
 
     public boolean validateEngineState() {
         boolean isValid = true;
-        
+
         if (countOfCards() < MINIMUM_NUMBER_OF_CARDS) {
             this.errors.add("Not enough cards. "
                     + MINIMUM_NUMBER_OF_CARDS
                     + " cards are required to play.");
-            isValid =  false;
+            isValid = false;
         }
 
         if (countOfPlayers() < MINIMUM_NUMBER_OF_PLAYERS
@@ -40,36 +40,41 @@ public class Validator {
                     + " and "
                     + MAXIMUM_NUMBER_OF_PLAYERS
                     + ".");
-            isValid =   false;
+            isValid = false;
         }
 
         if (!isDistinctPlayerNames()) {
-            isValid =   false;
+            isValid = false;
         }
 
         if (!isDistinctCards()) {
-            isValid =   false;
+            isValid = false;
         }
 
-        if(!isHumanPlayerExist()){
+        if (!isHumanPlayerExist()) {
             this.errors.add("There must be at least one human player.");
             isValid = false;
         }
-        
+
+        if (!uniformNumbeOfSeries()) {
+            this.errors.add("All cards must have the same number of serieses.");
+            isValid = false;
+        }
+
         return isValid;
     }
 
-    private boolean isHumanPlayerExist(){
+    private boolean isHumanPlayerExist() {
         boolean isHumanPlaying = false;
         for (Player player : engine.getPlayers()) {
             if (player.isHuman()) {
                 isHumanPlaying = true;
             }
         }
-        
+
         return isHumanPlaying;
     }
-    
+
     private int countOfCards() {
         int count = 0;
         for (Player player : engine.getPlayers()) {
@@ -95,7 +100,7 @@ public class Validator {
                 }
             }
         }
-        
+
         return valid;
     }
 
@@ -103,7 +108,6 @@ public class Validator {
         return errors;
     }
 
-    
     private boolean isDistinctCards() {
         boolean valid = true;
         List<Card> list = new LinkedList<>();
@@ -126,5 +130,17 @@ public class Validator {
         for (Player player : this.engine.getPlayers()) {
             clctn.addAll(player.getHand().getCards());
         }
+    }
+
+    private boolean uniformNumbeOfSeries() {
+        int numOfSeries = this.engine.getPlayers().get(0).getHand().getCards().get(0).getSeries().size();
+        List<Card> list = new LinkedList<>();
+        roundUpCardsToCollection(list);
+        for (Card card : list) {
+            if (card.getSeries().size() != numOfSeries) {
+                return false;
+            }
+        }
+        return true;
     }
 }

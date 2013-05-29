@@ -11,10 +11,8 @@ import engine.players.exceptions.InvalidFourException;
 import engine.request.Request;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.StringTokenizer;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -104,8 +102,6 @@ public class PlayServlet extends GoFishServlet {
 
     @Override
     protected void printContent(PrintWriter out) {
-        printTitle(out, "action=" + actionFromRequest);
-
         printPlayersList(out);
         out.println("<hr>");
         printPlayerForm(out);
@@ -114,7 +110,7 @@ public class PlayServlet extends GoFishServlet {
         out.println("<hr>");
         printGraveyard(out);
         out.println("<hr>");
-        printLastMessages(out, 15);
+        printLastMessages(out, 5);
         out.println("<hr>");
         ErrorPrinter.printErrors(out, this.errors);
     }

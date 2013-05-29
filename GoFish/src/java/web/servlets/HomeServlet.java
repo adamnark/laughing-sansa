@@ -35,9 +35,9 @@ public class HomeServlet extends GoFishServlet {
         out.println("</div>");
         out.println("</div>");
         out.println("");
-        printButton(out, "<a class=\"btn-large btn-primary btn-block\" href=\"newgame\"><img src=\"img/original/menu_manual_icon.png\"/>Start a new game</a>");
-        printButton(out, "<a class=\"btn-large btn-danger btn-block\" href=\"loadgame\"><img src=\"img/original/menu_xml_icon.png\" />Load a game</a>");
-        printButton(out, "<a class=\"btn-large btn-success btn-block\" href=\"about\"><img src=\"img/original/about_icon.png\" />About</a>");
+        printButton(out, "<a class=\"btn-large btn-primary btn-block\" href=\"newgame\">Start a new game</a>");
+        printButton(out, "<a class=\"btn-large btn-danger btn-block\" href=\"loadgame\">Load a game</a>");
+        printButton(out, "<a class=\"btn-large btn-success btn-block\" href=\"about\">About</a>");
         out.println("</div>");
         out.println("</div>");
         out.println("");
