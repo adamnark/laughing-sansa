@@ -22,7 +22,7 @@ public class HomeServlet extends GoFishServlet {
     protected void printContent(PrintWriter out) {
         out.println("<div class=\"row\">");
         out.println("");
-        out.println("<div class=\"span6 offset3\">");
+        out.println("<div class=\"span6\">");
         out.println("<div class=\"row\">");
         out.println("<div class=\"span6 text-center\">");
         out.println("<h1>Go Fish! v3.0</h1>");

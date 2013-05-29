@@ -31,6 +31,7 @@ public class LoadGameServlet extends GoFishServlet {
     private static final String PARAM_FILE = "file1";
     private List<String> errors = new LinkedList<>();
     private SettingsFromXML settingsFromXML = null;
+    public static final String ATTR_SETTINGS_FROM_XML = "attr-settings-from-xml";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +45,7 @@ public class LoadGameServlet extends GoFishServlet {
         generateEngineFromParam(request);
         validateGeneratedEngine();
         if (settingsFromXML != null) {
+            addSettingsToServletContext();
             request.getRequestDispatcher("/play").forward(request, response);
         }
 
@@ -122,5 +124,9 @@ public class LoadGameServlet extends GoFishServlet {
 
     private void addEngineToServletContext(Engine e) {
         this.getServletContext().setAttribute(ATTR_ENGINE, e);
+    }
+
+    private void addSettingsToServletContext() {
+        this.getServletContext().setAttribute(ATTR_SETTINGS_FROM_XML, settingsFromXML);
     }
 }

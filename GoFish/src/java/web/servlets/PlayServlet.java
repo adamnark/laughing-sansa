@@ -11,8 +11,10 @@ import engine.players.exceptions.InvalidFourException;
 import engine.request.Request;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringTokenizer;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,23 +50,27 @@ public class PlayServlet extends GoFishServlet {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.engine = (Engine) this.getServletContext().getAttribute(ATTR_ENGINE);
-        actionFromRequest = request.getParameter(PARAM_ACTION);
-        bootstrapGame();
-        this.errors.clear();
-        handleLastClickedCard(request);
-        handleSkipTurn();
-        handleAITurn(request, response);
+        if (this.engine != null) {
+            actionFromRequest = request.getParameter(PARAM_ACTION);
+            bootstrapGame();
+            this.errors.clear();
+            handleLastClickedCard(request);
+            handleSkipTurn();
+            handleAITurn(request, response);
 
-        handleThrowFour();
-        handleRequestCard(request, response);
-        handleRequestDone(request, response);
-        handleEngineMessages(request, response);
+            handleThrowFour();
+            handleRequestCard(request, response);
+            handleRequestDone();
+            handleEngineMessages(request, response);
 
-        super.processRequest(request, response);
+            super.processRequest(request, response);
+        } else {
+            handleGameOver(request, response);
+        }
     }
 
     private void handleEngineMessages(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        while (!engine.getEventQueue().isEmpty()) {
+        while (engine != null && !engine.getEventQueue().isEmpty()) {
             Engine.Event event = engine.getEventQueue().pop();
             switch (event) {
                 case GAME_OVER:
@@ -113,6 +119,7 @@ public class PlayServlet extends GoFishServlet {
         ErrorPrinter.printErrors(out, this.errors);
     }
 
+    //<editor-fold defaultstate="collapsed" desc="printers">
     private void printPlayerForm(PrintWriter out) {
         out.print("<form name='playerform' method='post' action='play' class='form-inline'>");
         if (engine.getCurrentPlayer().isHuman()) {
@@ -185,15 +192,6 @@ public class PlayServlet extends GoFishServlet {
         }
     }
 
-    private boolean isCardInClickedCards(Card card) {
-        for (Card card1 : clickedCards) {
-            if (card1.getName().equals(card.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private void printCard(PrintWriter out, Card card, String cssClass) {
         if (cssClass != null && !cssClass.isEmpty()) {
             out.print("<li class='" + cssClass + "' ");
@@ -241,8 +239,47 @@ public class PlayServlet extends GoFishServlet {
 
     @Override
     protected void printMoreScripts(PrintWriter out) {
-        out.print("<script src='js/play.js'>");
-        out.println("</script>");
+        out.print("<script src='js/play.js'></script>");
+        out.println("");
+    }
+
+    private void printTitle(PrintWriter out, String title) {
+        out.println("<h3>");
+        out.println(title);
+        out.println("</h3>");
+    }
+
+    private void printLastMessages(PrintWriter out, int n) {
+        if (!messages.isEmpty()) {
+            java.util.Date date = new java.util.Date();
+
+            printTitle(out, "Message log");
+            out.println("<div>");
+            for (int i = messages.size() - 1; i >= messages.size() - n; i--) {
+                try {
+                    String message = messages.get(i);
+                    out.println("<p>");
+                    out.print(message);
+                    out.println("</p>");
+                } catch (IndexOutOfBoundsException ex) {
+                }
+            }
+            out.println("</div>");
+        }
+    }
+
+    private String getTimestamp() {
+        return new java.sql.Timestamp(new java.util.Date().getTime()) + "> ";
+    }
+    //</editor-fold>
+
+    private boolean isCardInClickedCards(Card card) {
+        for (Card card1 : clickedCards) {
+            if (card1.getName().equals(card.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void handleLastClickedCard(HttpServletRequest request) {
@@ -269,27 +306,30 @@ public class PlayServlet extends GoFishServlet {
         }
     }
 
-    private void printTitle(PrintWriter out, String title) {
-        out.println("<h3>");
-        out.println(title);
-        out.println("</h3>");
-    }
-
     private void handleSkipTurn() {
         if (actionFromRequest != null
                 && actionFromRequest.equals(PARAM_ACTION_SKIP)) {
-            this.clickedCards.clear();
-            this.currentPlayerState = new CurrentPlayerState();
-            this.engine.advanceTurn();
+            clearStateAndAdvanceTurn();
         }
+    }
+
+    private void clearStateAndAdvanceTurn() {
+        this.clickedCards.clear();
+        this.currentPlayerState = new CurrentPlayerState();
+        this.engine.advanceTurn();
     }
 
     private void requestCardForPlayer(Request r) {
         if (engine.getCurrentPlayer().isHuman()) {
             ((WebRequestMaker) engine.getCurrentPlayer().getRequestMaker()).setRequest(r);
         }
-        this.engine.currentPlayerMakeRequest();
-        this.currentPlayerState.setHasRequestedCard(true);
+        boolean cardWasTaken = this.engine.currentPlayerMakeRequest();
+        boolean oneMoreTime = this.engine.getGameSettings().isAllowMutipleRequests();
+        if (oneMoreTime && cardWasTaken) {
+            this.currentPlayerState.setHasRequestedCard(false);
+        } else {
+            this.currentPlayerState.setHasRequestedCard(true);
+        }
         this.getServletContext().setAttribute(ATTR_REQUEST, null);
     }
 
@@ -316,12 +356,9 @@ public class PlayServlet extends GoFishServlet {
         //do nothing.
     }
 
-    private String getTimestamp() {
-        return new java.sql.Timestamp(new java.util.Date().getTime()) + "> ";
-    }
-
     private void handleSuccessfulRequest() {
         this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has made a successful request!");
+
     }
 
     private void handleFailedRequest() {
@@ -335,25 +372,6 @@ public class PlayServlet extends GoFishServlet {
     private void handlePlayerOutOfCards() {
         this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has run out of cards!");
         this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " is out of the game!");
-    }
-
-    private void printLastMessages(PrintWriter out, int n) {
-        if (!messages.isEmpty()) {
-            java.util.Date date = new java.util.Date();
-
-            printTitle(out, "Message log");
-            out.println("<div>");
-            for (int i = messages.size() - 1; i >= messages.size() - n; i--) {
-                try {
-                    String message = messages.get(i);
-                    out.println("<p>");
-                    out.print(message);
-                    out.println("</p>");
-                } catch (IndexOutOfBoundsException ex) {
-                }
-            }
-            out.println("</div>");
-        }
     }
 
     private void bootstrapGame() {
@@ -384,28 +402,39 @@ public class PlayServlet extends GoFishServlet {
         }
     }
 
-    private void handleRequestDone(HttpServletRequest request, HttpServletResponse response) {
+    private void handleRequestDone() {
         if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_REQUEST_DONE)) {
             Request r = (Request) this.getServletContext().getAttribute(ATTR_REQUEST);
             if (r != null) {
                 requestCardForPlayer(r);
             }
-
         }
     }
 
     private void handleAITurn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_AI_TURN)) {
-            this.engine.currentPlayerMakeRequest();
+            do {
+                boolean cardWasTaken = this.engine.currentPlayerMakeRequest();
+                if (cardWasTaken && this.engine.getGameSettings().isAllowMutipleRequests()) {
+                    this.currentPlayerState.setHasRequestedCard(false);
+                    System.out.println("another ai req");
+                } else {
+                    this.currentPlayerState.setHasRequestedCard(true);
+                }
+            } while (!this.currentPlayerState.hasRequestedCard());
+
             try {
                 this.engine.currentPlayerThrowFour();
             } catch (InvalidFourException ex) {
             }
+
             handleEngineMessages(request, response);
-            this.engine.advanceTurn();
+            this.currentPlayerState = new CurrentPlayerState();
+            clearStateAndAdvanceTurn();
         }
     }
 
+    //<editor-fold defaultstate="collapsed" desc="inner class CurrentPlayerState">
     class CurrentPlayerState {
 
         private boolean hasThrownFour;
@@ -432,4 +461,5 @@ public class PlayServlet extends GoFishServlet {
             this.hasRequestedCard = hasRequestedCard;
         }
     }
+    //</editor-fold>
 }

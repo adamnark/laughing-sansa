@@ -16,26 +16,32 @@ $(".hand").click(function() {
     form.submit();
 });
 
-$("#skip").click(function(){
+$("#skip").click(function() {
     var form = $("[name='playerform']").get(0);
     addHidden(form, 'action', 'skip');
     form.submit();
 });
 
-$("#throw").click(function(){
+$("#throw").click(function() {
     var form = $("[name='playerform']").get(0);
     addHidden(form, 'action', 'throw');
     form.submit();
 });
 
-$("#request").click(function(){
+$("#request").click(function() {
     var form = $("[name='playerform']").get(0);
     addHidden(form, 'action', 'request');
     form.submit();
 });
 
-$("#aiturn").click(function(){
+$("#aiturn").click(function() {
     var form = $("[name='playerform']").get(0);
     addHidden(form, 'action', 'aiturn');
+    form.submit();
+});
+
+$("#replay").click(function() {
+    var form = $("[name='replayform']").get(0);
+    addHidden(form, 'action', 'start');
     form.submit();
 });

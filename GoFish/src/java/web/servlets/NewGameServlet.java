@@ -35,6 +35,7 @@ public class NewGameServlet extends GoFishServlet {
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_ACTION_ADD = "Add";
     private static final String PARAM_ACTION_START = "start";
+    public static final String ATTR_LAST_CONFIGURATION = "attr-last-conf";
     private List<PlayerItem> players;
     private List<String> errors;
     private GameMetadata lastConfiguration;
@@ -206,21 +207,9 @@ public class NewGameServlet extends GoFishServlet {
     private Engine generateEngine(HttpServletRequest request) {
         GameSettings gs = generateGameSettings(request);
         this.lastConfiguration = new GameMetadata(gs, players);
-
+        this.getServletContext().setAttribute(ATTR_LAST_CONFIGURATION, lastConfiguration);
+        
         return EngineFactory.generateEngine(players, gs);
-    }
-
-    private Engine generateEngineFromLastConfiguration() {
-        Engine engine;
-        if (this.lastConfiguration == null) {
-            engine = null;
-        } else {
-            engine = EngineFactory.generateEngine(
-                    this.lastConfiguration.getPlayers(),
-                    this.lastConfiguration.getGameSettings());
-        }
-
-        return engine;
     }
 
     private GameSettings generateGameSettings(HttpServletRequest request) {
@@ -263,7 +252,7 @@ public class NewGameServlet extends GoFishServlet {
         this.players.add(player3);
     }
 
-    private class GameMetadata {
+    public class GameMetadata {
 
         private GameSettings gameSettings;
         private List<PlayerItem> players;

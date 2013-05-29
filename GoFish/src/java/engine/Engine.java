@@ -59,7 +59,7 @@ public class Engine {
         return lst;
     }
 
-    public void currentPlayerMakeRequest() {
+    public boolean currentPlayerMakeRequest() {
         boolean cardWasTaken;
         cardWasTaken = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
         if (cardWasTaken) {
@@ -67,6 +67,7 @@ public class Engine {
         } else {
             this.eventQueue.add(Event.FAILED_REQUEST);
         }
+        return cardWasTaken;
     }
 
     private boolean isOnePlayerLeft() {
