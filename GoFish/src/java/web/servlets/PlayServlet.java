@@ -105,14 +105,56 @@ public class PlayServlet extends GoFishServlet {
         printPlayersList(out);
         out.println("<hr>");
         printPlayerForm(out);
-        out.println("<hr>");
-        printHand(out);
-        out.println("<hr>");
-        printGraveyard(out);
-        out.println("<hr>");
-        printLastMessages(out, 5);
-        out.println("<hr>");
         ErrorPrinter.printErrors(out, this.errors);
+        out.println("<hr>");
+
+
+//        
+//        out.println("<div id='columnsarea'>");
+//        
+//        out.println("<div id='handarea'>");
+//        printHand(out);
+//        out.println("</div>");
+//        
+//        out.println("<div id='graveyardarea'>");
+//        printGraveyard(out);
+//        out.println("</div>");
+//
+//        out.println("<div id='messagesarea'>");
+//        printLastMessages(out, 5);
+//        out.println("</div>");
+//        
+//        out.println("</div>");
+
+        out.println("<table class='table'>");
+        out.println("<thead>");
+        out.println("<tr>");
+        out.println("<th>");
+        printTitle(out, engine.getCurrentPlayer().getName() + "'s Hand:");
+        out.println("</th>");
+        out.println("<th>");
+        printTitle(out, "Graveyard");
+        out.println("</th>");
+        out.println("<th>");
+        printTitle(out, "Message log");
+        out.println("</th>");
+        out.println("</tr>");
+        out.println("</thead>");
+        out.println("<tbody>");
+        out.println("<tr>");
+        out.println("<td>");
+        printHand(out);
+        out.println("</td>");
+        out.println("<td>");
+        printGraveyard(out);
+        out.println("</td>");
+        out.println("<td>");
+        printLastMessages(out, 5);
+        out.println("</td>");
+        out.println("</tr>");
+        out.println("</tbody>");
+        out.println("</table>");
+
     }
 
     //<editor-fold defaultstate="collapsed" desc="printers">
@@ -149,32 +191,34 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void printPlayersList(PrintWriter out) {
-        Player currentPlayer = engine.getCurrentPlayer();
-        printTitle(out, "Players");
-        out.println("<ul class='inline'>");
-        for (Player player : engine.getPlayers()) {
-            if (player.equals(currentPlayer)) {
-                out.print("<li style='background:rgb(205, 255, 150);'>");
-            } else {
-                out.print("<li>");
+        if (engine != null) {
+            Player currentPlayer = engine.getCurrentPlayer();
+            printTitle(out, "Players");
+            out.println("<ul class='inline'>");
+            for (Player player : engine.getPlayers()) {
+                if (player.equals(currentPlayer)) {
+                    out.print("<li style='background:rgb(205, 255, 150);'>");
+                } else {
+                    out.print("<li>");
+                }
+
+                out.print(PlayerItemPrinter.makeImgTag(new PlayerItem(player)));
+                out.print(" ");
+                out.print(player.getName());
+                out.print(" : ");
+                out.print(player.getScore());
+                out.println();
             }
 
-            out.print(PlayerItemPrinter.makeImgTag(new PlayerItem(player)));
-            out.print(" ");
-            out.print(player.getName());
-            out.print(" : ");
-            out.print(player.getScore());
-            out.println();
+            out.println("</ul>");
         }
-
-        out.println("</ul>");
     }
 
     private void printHand(PrintWriter out) {
         if (engine.getCurrentPlayer().isHuman()) {
-            printTitle(out, engine.getCurrentPlayer().getName() + "'s Hand:");
+//            printTitle(out, engine.getCurrentPlayer().getName() + "'s Hand:");
 
-            out.println("<ul class='inline'>");
+            out.println("<ul>");
             for (Card card : engine.getCurrentPlayer().getHand().getCards()) {
                 String cssClass = "hand";
                 if (isCardInClickedCards(card)) {
@@ -209,7 +253,7 @@ public class PlayServlet extends GoFishServlet {
 
     private void printGraveyard(PrintWriter out) {
         if (this.engine.getGameSettings().isForceShowOfSeries()) {
-            printTitle(out, "Graveyard");
+//            printTitle(out, "Graveyard");
             if (this.engine.getLastCardsThrown() == null) {
                 out.println("<p>");
                 out.println("No cards were thrown yet.");
@@ -226,7 +270,7 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void printLastCardsThrown(PrintWriter out) {
-        out.print("<ul class='inline'>");
+        out.print("<ul>");
         for (Card card : engine.getLastCardsThrown()) {
             printCard(out, card, "graveyard");
         }
@@ -249,7 +293,7 @@ public class PlayServlet extends GoFishServlet {
         if (!messages.isEmpty()) {
             java.util.Date date = new java.util.Date();
 
-            printTitle(out, "Message log");
+//            printTitle(out, "Message log");
             out.println("<div>");
             for (int i = messages.size() - 1; i >= messages.size() - n; i--) {
                 try {
@@ -413,11 +457,10 @@ public class PlayServlet extends GoFishServlet {
                 boolean cardWasTaken = this.engine.currentPlayerMakeRequest();
                 if (cardWasTaken && this.engine.getGameSettings().isAllowMutipleRequests()) {
                     this.currentPlayerState.setHasRequestedCard(false);
-                    System.out.println("another ai req");
                 } else {
                     this.currentPlayerState.setHasRequestedCard(true);
                 }
-            } while (!this.currentPlayerState.hasRequestedCard());
+            } while (!this.currentPlayerState.hasRequestedCard() && !engine.isGameOver());
 
             try {
                 this.engine.currentPlayerThrowFour();
