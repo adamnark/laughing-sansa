@@ -50,7 +50,7 @@ public class NewGameServlet extends GoFishServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.errors.clear();
         this.players.clear();
-        addDefaultPlayers();
+        //addDefaultPlayers();
 
         super.doGet(request, response);
     }

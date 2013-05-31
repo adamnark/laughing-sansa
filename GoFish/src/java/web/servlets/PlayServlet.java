@@ -293,7 +293,7 @@ public class PlayServlet extends GoFishServlet {
         boolean oneMoreTime = this.engine.getGameSettings().isAllowMutipleRequests();
         this.currentPlayerState.setHasRequestedCard(!(oneMoreTime && cardWasTaken));
     }
-    
+
     //<editor-fold defaultstate="collapsed" desc="printers">
     private void printPlayerForm(PrintWriter out) {
         out.print("<form name='playerform' method='post' action='play' class='form-inline'>");
@@ -378,7 +378,10 @@ public class PlayServlet extends GoFishServlet {
         out.print(card.getName());
         out.print(" : {");
         for (Series series : card.getSeries()) {
+
+            out.print("<span class='ser" + engine.getAvailableSeries().indexOf(series) + "'>");
             out.print(series.getName());
+            out.print("</span>");
             out.print(" ");
         }
 
@@ -447,7 +450,7 @@ public class PlayServlet extends GoFishServlet {
         return new java.sql.Timestamp(new java.util.Date().getTime()) + "> ";
     }
     //</editor-fold>
-    
+
     //<editor-fold defaultstate="collapsed" desc="inner class CurrentPlayerState">
     class CurrentPlayerState {
 

@@ -6,6 +6,46 @@
         Purpose of the stylesheet follows.
 */
 
-.clicked {
-    color: red;   
-}
+.clicked {color: red;}
+
+.ser0 {background-color:tomato;}
+.ser1 {background-color:CadetBlue;}
+.ser2 {background-color:Peru;}
+.ser3 {background-color:DarkGreen;}
+.ser4 {background-color:Azure;}
+.ser5 {background-color:Beige;}
+.ser6 {background-color:Bisque;}
+.ser7 {background-color:Black;}
+.ser8 {background-color:BlanchedAlmond;}
+.ser9 {background-color:Blue;}
+.ser10 {background-color:BlueViolet;}
+.ser11 {background-color:Brown;}
+.ser12 {background-color:BurlyWood;}
+.ser13 {background-color:#6666ff;}
+.ser14 {background-color:Chartreuse;}
+.ser15 {background-color:Chocolate;}
+.ser16 {background-color:Coral;}
+.ser17 {background-color:CornflowerBlue;}
+.ser18 {background-color:Cornsilk;}
+.ser19 {background-color:Crimson;}
+.ser20 {background-color:Cyan;}
+.ser21 {background-color:DarkBlue;}
+.ser22 {background-color:DarkCyan;}
+.ser23 {background-color:DarkGoldenRod;}
+.ser24 {background-color:DarkGray;}
+.ser25 {background-color:DarkGreen;}
+.ser26 {background-color:DarkKhaki;}
+.ser27 {background-color:DarkMagenta;}
+.ser28 {background-color:DarkOliveGreen;}
+.ser29 {background-color:Darkorange;}
+.ser30 {background-color:DarkOrchid;}
+.ser31 {background-color:DarkRed;}
+.ser32 {background-color:DarkSalmon;}
+.ser33 {background-color:DarkSeaGreen;}
+.ser34 {background-color:DarkSlateBlue;}
+.ser35 {background-color:DarkSlateGray;}
+.ser36 {background-color:DarkTurquoise;}
+.ser37 {background-color:DarkViolet;}
+.ser38 {background-color:DeepPink;}
+.ser39 {background-color:DeepSkyBlue;}
+.ser40 {background-color:DimGray;}
