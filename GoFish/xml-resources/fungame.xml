@@ -5,150 +5,205 @@
 		<forceShowOfSeries>true</forceShowOfSeries>
     </settings>
     <players>
-	<player type="HUMAN" name="John">
+	<player type="HUMAN" name="Moxie">
 	    <cards>
-			<card name="wata">
-				<series>Boris</series>
-				<series>Red</series>
+			<card name="Shireen">
+				<series>Baratheon</series>
 			</card>
-			<card name="atsuo">
-				<series>Boris</series>
-				<series>Green</series>
+
+			<card name="Barristan Selmy">
+				<series>Targaryen</series>
 			</card>
-			<card name="michio">
-				<series>Boris</series>
-				<series>Black</series>
+
+			<card name="Osha">
+				<series>Free Folk</series>
 			</card>
-			<card name="takeshi">
-				<series>Boris</series>
-				<series>White</series>
+
+			<card name="Pyg">
+				<series>Brave Companions</series>
 			</card>
-			<card name="bomp 1">
-				<series>Boop</series>
-				<series>Beep</series>
+			
+			<card name="Joffery">
+				<series>Lannister</series>
 			</card>
-			<card name="klik 1">
-				<series>Klik</series>
-				<series>Klink</series>
+
+			<card name="Tommen">
+				<series>Lannister</series>
 			</card>
-			<card name="plop 1">
-				<series>Pop</series>
-				<series>Prop</series>
+			
+			<card name="Ned">
+				<series>Stark</series>
 			</card>
-			<card name="tang 1">
-				<series>Ting</series>
-				<series>Tong</series>
+
+	    </cards>
+	</player>
+	<player type="COMPUTER" name="Loxie">
+	    <cards>
+			<card name="Tyrion">
+				<series>Lannister</series>
+			</card>
+
+			<card name="Robb">
+				<series>Stark</series>
+			</card>
+
+			<card name="Bran">
+				<series>Stark</series>
+			</card>
+
+			<card name="Sansa">
+				<series>Stark</series>
+			</card>
+
+			<card name="Arya">
+				<series>Stark</series>
+			</card>
+
+			<card name="Rorge">
+				<series>Brave Companions</series>
+			</card>
+
+
+			<card name="Davos">
+				<series>Baratheon</series>
 			</card>
 	    </cards>
 	</player>
-	<player type="COMPUTER" name="Paul">
+	<player type="COMPUTER" name="Foxie">
 	    <cards>
-			<card name="omar">
-				<series>Bosnian Rainbows</series>
-				<series>Black</series>
+			<card name="Melisandre">
+				<series>Baratheon</series>
 			</card>
-			<card name="teri">
-				<series>Green</series>
-				<series>Bosnian Rainbows</series>
+
+			<card name="Daenerys">
+				<series>Targaryen</series>
 			</card>
-			<card name="deantoni">
-				<series>Bosnian Rainbows</series>
-				<series>Red</series>
+
+			<card name="Cersei">
+				<series>Lannister</series>
 			</card>
-			<card name="jimmy">
-				<series>Led Zeppelin</series>
-				<series>White</series>
+
+			<card name="Craster">
+				<series>Free Folk</series>
 			</card>
-			<card name="bomp 2">
-				<series>Boop</series>
-				<series>Beep</series>
+
+			<card name="Rickon">
+				<series>Stark</series>
 			</card>
-			<card name="klik 2">
-				<series>Klik</series>
-				<series>Klink</series>
+
+			<card name="Stannis">
+				<series>Baratheon</series>
 			</card>
-			<card name="plop 2">
-				<series>Pop</series>
-				<series>Prop</series>
+
+			<card name="Three Toes">
+				<series>Brave Companions</series>
 			</card>
-			<card name="tang 2">
-				<series>Ting</series>
-				<series>Tong</series>
-			</card>
+
 	    </cards>
 	</player>
-	<player type="COMPUTER" name="George">
+	<player type="COMPUTER" name="Doxie">
 	    <cards>
-			<card name="nici">
-				<series>Green</series>
-				<series>Bosnian Rainbows</series>
+			<card name="Tywin">
+				<series>Lannister</series>
 			</card>
-			<card name="robert">
-				<series>Black</series>
-				<series>Led Zeppelin</series>
+
+			
+			<card name="Selyse">
+				<series>Baratheon</series>
 			</card>
-			<card name="john1">
-				<series>Led Zeppelin</series>
-				<series>Red</series>
+
+
+			<card name="Daario Naharis">
+				<series>Targaryen</series>
 			</card>
-			<card name="bill">
-				<series>White</series>
-				<series>Mastodon</series>
-				    
+
+			<card name="Missandei">
+				<series>Targaryen</series>
 			</card>
-			<card name="bomp 3">
-				<series>Boop</series>
-				<series>Beep</series>
+
+			<card name="Grey Worm">
+				<series>Targaryen</series>
 			</card>
-			<card name="klik 3">
-				<series>Klik</series>
-				<series>Klink</series>
+
+			<card name="Irri">
+				<series>Targaryen</series>
 			</card>
-			<card name="plop 3">
-				<series>Pop</series>
-				<series>Prop</series>
+
+			<card name="Doreah">
+				<series>Targaryen</series>
 			</card>
-			<card name="tang 3">
-				<series>Ting</series>
-				<series>Tong</series>
-			</card>
+
 	    </cards>
 	</player>
-	<player type="COMPUTER" name="Ringo">
+	<player type="COMPUTER" name="Woxie">
 	    <cards>
-			<card name="brent">
-				<series>Black</series>
-				<series>Mastodon</series>
+					<card name="Patchface">
+				<series>Baratheon</series>
 			</card>
-			<card name="brann">
-				<series>Green</series>
-				<series>Mastodon</series>
+
+			<card name="Tytos">
+				<series>Lannister</series>
 			</card>
-			<card name="troy">
-				<series>Mastodon</series>
-				<series>White</series>
+
+			<card name="Cat">
+				<series>Stark</series>
 			</card>
-			<card name="john2">
-				<series>Led Zeppelin</series>
-				<series>Red</series>    
+
+
+
+			<card name="Biter">
+				<series>Brave Companions</series>
 			</card>
-			<card name="bomp 4">
-				<series>Boop</series>
-				<series>Beep</series>
+
+			<card name="Timeon">
+				<series>Brave Companions</series>
 			</card>
-			<card name="klik 4">
-				<series>Klik</series>
-				<series>Klink</series>
+
+			<card name="Zollo">
+				<series>Brave Companions</series>
 			</card>
-			<card name="plop 4">
-				<series>Pop</series>
-				<series>Prop</series>
+
+			<card name="Vargo Hoat">
+				<series>Brave Companions</series>
 			</card>
-			<card name="tang 4">
-				<series>Ting</series>
-				<series>Tong</series>
-			</card>			
+
 	    </cards>
-	</player>
+	</player>	
+	<player type="COMPUTER" name="Soxie">
+	    <cards>
+			<card name="Mance Rayder">
+				<series>Free Folk</series>
+			</card>
+
+
+
+			<card name="Salladhor Saan">
+				<series>Baratheon</series>
+			</card>
+			
+			<card name="Dalla">
+				<series>Free Folk</series>
+			</card>
+
+			<card name="Ygritte">
+				<series>Free Folk</series>
+			</card>
+
+			<card name="Varamyr Sixskins">
+				<series>Free Folk</series>
+			</card>
+
+			<card name="Orell">
+				<series>Free Folk</series>
+			</card>
+
+			<card name="Kingslayer">
+				<series>Lannister</series>
+			</card>
+			
+
+
+	    </cards>
+	</player>	
     </players>
 </gofish>
