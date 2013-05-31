@@ -36,7 +36,7 @@ public class PlayServlet extends GoFishServlet {
     private List<Card> clickedCards = new LinkedList<>();
     private List<String> errors = new LinkedList<>();
     private List<String> messages = new LinkedList<>();
-    private String actionFromRequest;
+    private String action;
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_ACTION_SKIP = "skip";
     private static final String PARAM_ACTION_THROW = "throw";
@@ -49,7 +49,7 @@ public class PlayServlet extends GoFishServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.engine = (Engine) this.getServletContext().getAttribute(ATTR_ENGINE);
         if (this.engine != null) {
-            actionFromRequest = request.getParameter(PARAM_ACTION);
+            action = request.getParameter(PARAM_ACTION);
             bootstrapGame();
             this.errors.clear();
             handleLastClickedCard(request);
@@ -139,8 +139,6 @@ public class PlayServlet extends GoFishServlet {
 
     }
 
-
-
     private boolean isCardInClickedCards(Card card) {
         for (Card card1 : clickedCards) {
             if (card1.getName().equals(card.getName())) {
@@ -175,8 +173,8 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void handleSkipTurn() {
-        if (actionFromRequest != null
-                && actionFromRequest.equals(PARAM_ACTION_SKIP)) {
+        if (action != null
+                && action.equals(PARAM_ACTION_SKIP)) {
             clearStateAndAdvanceTurn();
         }
     }
@@ -188,8 +186,8 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void handleThrowFourAction() {
-        if (actionFromRequest != null
-                && actionFromRequest.equals(PARAM_ACTION_THROW)) {
+        if (action != null
+                && action.equals(PARAM_ACTION_THROW)) {
 
             // if current is human give the current player a four-thrower that would pick these cards.
             if (engine.getCurrentPlayer().isHuman()) {
@@ -228,7 +226,7 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void bootstrapGame() {
-        if (actionFromRequest != null && actionFromRequest.equals("start")) {
+        if (action != null && action.equals("start")) {
             engine.startGame();
             messages.clear();
             this.currentPlayerState = new CurrentPlayerState();
@@ -247,7 +245,7 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void handleRequestCard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_REQUEST)) {
+        if (action != null && action.equals(PARAM_ACTION_REQUEST)) {
             Request r = (Request) this.getServletContext().getAttribute(ATTR_REQUEST);
             if (r == null) {
                 request.getRequestDispatcher(PARAM_ACTION_REQUEST).forward(request, response);
@@ -256,8 +254,8 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void handleRequestAction() {
-        if (actionFromRequest != null
-                && actionFromRequest.equals(PARAM_ACTION_REQUEST_DONE)) {
+        if (action != null
+                && action.equals(PARAM_ACTION_REQUEST_DONE)) {
             Request r = (Request) this.getServletContext().getAttribute(ATTR_REQUEST);
             if (r != null) {
                 handleHumanCardRequest(r);
@@ -275,7 +273,7 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void handleAITurn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_AI_TURN)) {
+        if (action != null && action.equals(PARAM_ACTION_AI_TURN)) {
             do {
                 makeACardRequestForCurrentPlayer();
             } while (!this.currentPlayerState.hasRequestedCard() && !engine.isGameOver());
