@@ -56,9 +56,9 @@ public class PlayServlet extends GoFishServlet {
             handleSkipTurn();
             handleAITurn(request, response);
 
-            handleThrowFour();
+            handleThrowFourAction();
             handleRequestCard(request, response);
-            handleRequestDone();
+            handleRequestAction();
             handleEngineMessages(request, response);
 
             super.processRequest(request, response);
@@ -75,16 +75,16 @@ public class PlayServlet extends GoFishServlet {
                     handleGameOver(request, response);
                     break;
                 case FAILED_REQUEST:
-                    handleFailedRequest();
+                    handleFailedRequestMessage();
                     break;
                 case SUCCESSFUL_REQUEST:
-                    handleSuccessfulRequest();
+                    handleSuccessfulRequestMessage();
                     break;
                 case FOUR_CARDS_NOT_THROWN:
-                    handleFourCardsNotThrown();
+                    handleFourCardsNotThrownMessage();
                     break;
                 case FOUR_CARDS_THROWN:
-                    handleFourCardsThrown();
+                    handleFourCardsThrownMessage();
                     break;
                 case PLAYER_OUT_OF_CARDS:
                     handlePlayerOutOfCards();
@@ -107,24 +107,6 @@ public class PlayServlet extends GoFishServlet {
         printPlayerForm(out);
         ErrorPrinter.printErrors(out, this.errors);
         out.println("<hr>");
-
-
-//        
-//        out.println("<div id='columnsarea'>");
-//        
-//        out.println("<div id='handarea'>");
-//        printHand(out);
-//        out.println("</div>");
-//        
-//        out.println("<div id='graveyardarea'>");
-//        printGraveyard(out);
-//        out.println("</div>");
-//
-//        out.println("<div id='messagesarea'>");
-//        printLastMessages(out, 5);
-//        out.println("</div>");
-//        
-//        out.println("</div>");
 
         out.println("<table class='table'>");
         out.println("<thead>");
@@ -157,6 +139,163 @@ public class PlayServlet extends GoFishServlet {
 
     }
 
+
+
+    private boolean isCardInClickedCards(Card card) {
+        for (Card card1 : clickedCards) {
+            if (card1.getName().equals(card.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void handleLastClickedCard(HttpServletRequest request) {
+        String cardName = (String) request.getParameter(PARAM_CLICK_CARD);
+        if (cardName != null) {
+            Card currentCard = engine.getCurrentPlayer().getCard(cardName);
+            toggleCurrentCard(currentCard);
+        }
+    }
+
+    private void toggleCurrentCard(Card currentCard) {
+        int i = 0;
+        for (Card card : clickedCards) {
+            if (card.getName().equals(currentCard.getName())) {
+                break;
+            }
+            i++;
+        }
+
+        if (i < clickedCards.size()) {
+            clickedCards.remove(i);
+        } else {
+            clickedCards.add(currentCard);
+        }
+    }
+
+    private void handleSkipTurn() {
+        if (actionFromRequest != null
+                && actionFromRequest.equals(PARAM_ACTION_SKIP)) {
+            clearStateAndAdvanceTurn();
+        }
+    }
+
+    private void clearStateAndAdvanceTurn() {
+        this.clickedCards.clear();
+        this.currentPlayerState = new CurrentPlayerState();
+        this.engine.advanceTurn();
+    }
+
+    private void handleThrowFourAction() {
+        if (actionFromRequest != null
+                && actionFromRequest.equals(PARAM_ACTION_THROW)) {
+
+            // if current is human give the current player a four-thrower that would pick these cards.
+            if (engine.getCurrentPlayer().isHuman()) {
+                ((WebFourPicker) engine.getCurrentPlayer().getFourPicker()).setCardsToThrow(this.clickedCards);
+            }
+            try {
+                this.engine.currentPlayerThrowFour();
+                this.currentPlayerState.setHasThrownFour(true);
+            } catch (InvalidFourException ex) {
+                this.errors.add(ex.getMessage());
+            } finally {
+                this.clickedCards.clear();
+            }
+        }
+    }
+
+    private void handleFourCardsNotThrownMessage() {
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " hasn't thrown any cards.");
+    }
+
+    private void handleSuccessfulRequestMessage() {
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has made a successful request!");
+    }
+
+    private void handleFailedRequestMessage() {
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has made a bad request!");
+    }
+
+    private void handleFourCardsThrownMessage() {
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has thrown four cards!");
+    }
+
+    private void handlePlayerOutOfCards() {
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has run out of cards!");
+        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " is out of the game!");
+    }
+
+    private void bootstrapGame() {
+        if (actionFromRequest != null && actionFromRequest.equals("start")) {
+            engine.startGame();
+            messages.clear();
+            this.currentPlayerState = new CurrentPlayerState();
+        }
+        if (this.currentPlayerState == null) {
+            this.currentPlayerState = new CurrentPlayerState();
+        }
+    }
+
+    private void handleGameOver(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.engine = null;
+        this.messages.clear();
+        this.clickedCards.clear();
+        this.errors.clear();
+        request.getRequestDispatcher("gameover").forward(request, response);
+    }
+
+    private void handleRequestCard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_REQUEST)) {
+            Request r = (Request) this.getServletContext().getAttribute(ATTR_REQUEST);
+            if (r == null) {
+                request.getRequestDispatcher(PARAM_ACTION_REQUEST).forward(request, response);
+            }
+        }
+    }
+
+    private void handleRequestAction() {
+        if (actionFromRequest != null
+                && actionFromRequest.equals(PARAM_ACTION_REQUEST_DONE)) {
+            Request r = (Request) this.getServletContext().getAttribute(ATTR_REQUEST);
+            if (r != null) {
+                handleHumanCardRequest(r);
+                this.getServletContext().removeAttribute(ATTR_REQUEST);
+            }
+        }
+    }
+
+    private void handleHumanCardRequest(Request r) {
+        if (engine.getCurrentPlayer().isHuman()) {
+            ((WebRequestMaker) engine.getCurrentPlayer().getRequestMaker()).setRequest(r);
+        }
+
+        makeACardRequestForCurrentPlayer();
+    }
+
+    private void handleAITurn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_AI_TURN)) {
+            do {
+                makeACardRequestForCurrentPlayer();
+            } while (!this.currentPlayerState.hasRequestedCard() && !engine.isGameOver());
+            try {
+                this.engine.currentPlayerThrowFour();
+            } catch (InvalidFourException ex) {
+            }
+
+            handleEngineMessages(request, response);
+            this.currentPlayerState = new CurrentPlayerState();
+            clearStateAndAdvanceTurn();
+        }
+    }
+
+    private void makeACardRequestForCurrentPlayer() {
+        boolean cardWasTaken = this.engine.currentPlayerMakeRequest();
+        boolean oneMoreTime = this.engine.getGameSettings().isAllowMutipleRequests();
+        this.currentPlayerState.setHasRequestedCard(!(oneMoreTime && cardWasTaken));
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="printers">
     private void printPlayerForm(PrintWriter out) {
         out.print("<form name='playerform' method='post' action='play' class='form-inline'>");
@@ -216,8 +355,6 @@ public class PlayServlet extends GoFishServlet {
 
     private void printHand(PrintWriter out) {
         if (engine.getCurrentPlayer().isHuman()) {
-//            printTitle(out, engine.getCurrentPlayer().getName() + "'s Hand:");
-
             out.println("<ul>");
             for (Card card : engine.getCurrentPlayer().getHand().getCards()) {
                 String cssClass = "hand";
@@ -312,167 +449,7 @@ public class PlayServlet extends GoFishServlet {
         return new java.sql.Timestamp(new java.util.Date().getTime()) + "> ";
     }
     //</editor-fold>
-
-    private boolean isCardInClickedCards(Card card) {
-        for (Card card1 : clickedCards) {
-            if (card1.getName().equals(card.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void handleLastClickedCard(HttpServletRequest request) {
-        String cardName = (String) request.getParameter(PARAM_CLICK_CARD);
-        if (cardName != null) {
-            Card currentCard = engine.getCurrentPlayer().getCard(cardName);
-            toggleCurrentCard(currentCard);
-        }
-    }
-
-    private void toggleCurrentCard(Card currentCard) {
-        int i = 0;
-        for (Card card : clickedCards) {
-            if (card.getName().equals(currentCard.getName())) {
-                break;
-            }
-            i++;
-        }
-
-        if (i < clickedCards.size()) {
-            clickedCards.remove(i);
-        } else {
-            clickedCards.add(currentCard);
-        }
-    }
-
-    private void handleSkipTurn() {
-        if (actionFromRequest != null
-                && actionFromRequest.equals(PARAM_ACTION_SKIP)) {
-            clearStateAndAdvanceTurn();
-        }
-    }
-
-    private void clearStateAndAdvanceTurn() {
-        this.clickedCards.clear();
-        this.currentPlayerState = new CurrentPlayerState();
-        this.engine.advanceTurn();
-    }
-
-    private void requestCardForPlayer(Request r) {
-        if (engine.getCurrentPlayer().isHuman()) {
-            ((WebRequestMaker) engine.getCurrentPlayer().getRequestMaker()).setRequest(r);
-        }
-        boolean cardWasTaken = this.engine.currentPlayerMakeRequest();
-        boolean oneMoreTime = this.engine.getGameSettings().isAllowMutipleRequests();
-        if (oneMoreTime && cardWasTaken) {
-            this.currentPlayerState.setHasRequestedCard(false);
-        } else {
-            this.currentPlayerState.setHasRequestedCard(true);
-        }
-        this.getServletContext().setAttribute(ATTR_REQUEST, null);
-    }
-
-    private void handleThrowFour() {
-        if (actionFromRequest != null
-                && actionFromRequest.equals(PARAM_ACTION_THROW)) {
-
-            // if current is human give the current player a four-thrower that would pick these cards.
-            if (engine.getCurrentPlayer().isHuman()) {
-                ((WebFourPicker) engine.getCurrentPlayer().getFourPicker()).setCardsToThrow(this.clickedCards);
-            }
-            try {
-                this.engine.currentPlayerThrowFour();
-                this.currentPlayerState.setHasThrownFour(true);
-            } catch (InvalidFourException ex) {
-                this.errors.add(ex.getMessage());
-            } finally {
-                this.clickedCards.clear();
-            }
-        }
-    }
-
-    private void handleFourCardsNotThrown() {
-        //do nothing.
-    }
-
-    private void handleSuccessfulRequest() {
-        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has made a successful request!");
-
-    }
-
-    private void handleFailedRequest() {
-        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has made a bad request!");
-    }
-
-    private void handleFourCardsThrown() {
-        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has thrown four cards!");
-    }
-
-    private void handlePlayerOutOfCards() {
-        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " has run out of cards!");
-        this.messages.add(getTimestamp() + engine.getCurrentPlayer().getName() + " is out of the game!");
-    }
-
-    private void bootstrapGame() {
-        if (actionFromRequest != null && actionFromRequest.equals("start")) {
-            engine.startGame();
-            messages.clear();
-            this.currentPlayerState = new CurrentPlayerState();
-        }
-        if (this.currentPlayerState == null) {
-            this.currentPlayerState = new CurrentPlayerState();
-        }
-    }
-
-    private void handleGameOver(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.engine = null;
-        this.messages.clear();
-        this.clickedCards.clear();
-        this.errors.clear();
-        request.getRequestDispatcher("gameover").forward(request, response);
-    }
-
-    private void handleRequestCard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_REQUEST)) {
-            Request r = (Request) this.getServletContext().getAttribute(ATTR_REQUEST);
-            if (r == null) {
-                request.getRequestDispatcher(PARAM_ACTION_REQUEST).forward(request, response);
-            }
-        }
-    }
-
-    private void handleRequestDone() {
-        if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_REQUEST_DONE)) {
-            Request r = (Request) this.getServletContext().getAttribute(ATTR_REQUEST);
-            if (r != null) {
-                requestCardForPlayer(r);
-            }
-        }
-    }
-
-    private void handleAITurn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (actionFromRequest != null && actionFromRequest.equals(PARAM_ACTION_AI_TURN)) {
-            do {
-                boolean cardWasTaken = this.engine.currentPlayerMakeRequest();
-                if (cardWasTaken && this.engine.getGameSettings().isAllowMutipleRequests()) {
-                    this.currentPlayerState.setHasRequestedCard(false);
-                } else {
-                    this.currentPlayerState.setHasRequestedCard(true);
-                }
-            } while (!this.currentPlayerState.hasRequestedCard() && !engine.isGameOver());
-
-            try {
-                this.engine.currentPlayerThrowFour();
-            } catch (InvalidFourException ex) {
-            }
-
-            handleEngineMessages(request, response);
-            this.currentPlayerState = new CurrentPlayerState();
-            clearStateAndAdvanceTurn();
-        }
-    }
-
+    
     //<editor-fold defaultstate="collapsed" desc="inner class CurrentPlayerState">
     class CurrentPlayerState {
 
