@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>GoFish [@adamnark]</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Go Fish v3.0">
+        <meta name="author" content="Adam Narkunski">
+
+        <link href='css/gofish.css' rel='stylesheet'>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <style>body {padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */}</style>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link rel="shortcut icon" href="img/favicon.png">
+    </head>
+
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="home">Go Fish</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li><a href="home">Home</a></li>
+                            <li><a href="newgame">New Game</a></li>
+                            <li><a href="loadgame">Load Game</a></li>
+                            <li><a href="about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h3>
+                Players
+            </h3>
+            <ul class='inline'>
+                <li><img src='img/computer.png'> dfdfdf : 1
+                <li><img src='img/computer.png'> sss2 : 1
+                <li style='background:rgb(205, 255, 150);'><img src='img/human.png'> sss : 0
+            </ul>
+            <hr>
+            <form name='playerform' method='post' action='play' class='form-inline'><input id='skip' type='button' class='btn' value='Skip'><input id='throw' type='button' class='btn' value='Throw cards'><input id='request' type='button' class='btn' value='Request a card'></form><hr>
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>
+                <h3>
+                    sss's Hand:
+                </h3>
+                </th>
+                <th>
+                <h3>
+                    Graveyard
+                </h3>
+                </th>
+                <th>
+                <h3>
+                    Message log
+                </h3>
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="hand">
+                                <strong>4d83</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>16ac</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>4d83</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>16ac</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>4d83</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>16ac</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>4d83</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>16ac</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>4d83</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>16ac</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>4d83</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <div class="hand">
+                                <strong>alskdmalksdmalsdkmasdlk</strong>
+                                <span class='ser0'>Kingslayer</span>
+                                <span class='ser1'>Kingslayer</span>
+                                <span class='ser2'>Kingslayer</span>
+                            </div>
+                            <!--<div style="float:clear;"></div>-->
+                            
+<!--                            <ul>
+                                <li class='hand' card='4d83'>4d83 : {<span class='ser0'>Kingslayer</span> }</li>
+                                <li class='hand' card='16ac'>16ac : {<span class='ser2'>Tyrion</span> }</li>
+                                <li class='hand' card='e245'>e245 : {<span class='ser0'>Kingslayer</span> }</li>
+                                <li class='hand' card='3a7b'>3a7b : {<span class='ser2'>Tyrion</span> }</li>
+                            </ul>-->
+                        </td>
+                        
+                        <td>
+                            <ul><li class='graveyard' card='c5f6'>c5f6 : {<span class='ser0'>Kingslayer</span> }</li>
+                                <li class='graveyard' card='d12b'>d12b : {<span class='ser0'>Kingslayer</span> }</li>
+                                <li class='graveyard' card='7a57'>7a57 : {<span class='ser0'>Kingslayer</span> }</li>
+                                <li class='graveyard' card='214d'>214d : {<span class='ser0'>Kingslayer</span> }</li>
+                            </ul>
+                        
+                        </td>
+                        <td>
+                            <div>
+                                <p>
+                                    2013-06-01 18:29:52.625> sss2 has thrown four cards!</p>
+                                <p>
+                                    2013-06-01 18:29:52.625> sss2 has made a bad request!</p>
+                                <p>
+                                    2013-06-01 18:29:52.625> sss2 has made a successful request!</p>
+                                <p>
+                                    2013-06-01 18:29:52.625> sss2 has made a successful request!</p>
+                                <p>
+                                    2013-06-01 18:29:52.625> sss2 has made a successful request!</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> <!-- container -->
+
+        <!-- Le javascript
+        ================================================== -->
+        <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+
+        <!--<script src='js/play.js'></script>-->
+    </body>
+</html>

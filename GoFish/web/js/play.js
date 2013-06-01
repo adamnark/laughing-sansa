@@ -7,7 +7,7 @@ function addHidden(theForm, key, value) {
     theForm.appendChild(input);
 }
 
-$(".hand").click(function() {
+$("div.hand").click(function() {
     /*$(this).toggleClass("clicked");*/
     var form = $("[name='playerform']").get(0);
     var key = 'card';

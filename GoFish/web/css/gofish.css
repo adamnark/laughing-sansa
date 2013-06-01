@@ -6,7 +6,28 @@
         Purpose of the stylesheet follows.
 */
 
-.clicked {color: red;}
+
+td.hand{
+    width:330px;
+}
+
+td.graveyard{
+    width:80px;
+}
+
+div.card {
+    text-align: center;
+    background-color: beige;
+    width:70px;
+    float:left;
+    border: 1px solid;
+    border-radius: 3px;
+    margin:5px;
+}
+
+div.clicked {
+    background-color: red;
+}
 
 .ser0 {background-color:tomato;}
 .ser1 {background-color:CadetBlue;}

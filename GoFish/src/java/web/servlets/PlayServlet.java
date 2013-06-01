@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import web.playerinterface.WebFourPicker;
 import web.playerinterface.WebRequestMaker;
+import web.servlets.printers.CardPrinter;
 import web.servlets.printers.ErrorPrinter;
 import web.servlets.printers.NavbarPrinter;
 import web.servlets.printers.PlayerItemPrinter;
@@ -124,10 +125,10 @@ public class PlayServlet extends GoFishServlet {
         out.println("</thead>");
         out.println("<tbody>");
         out.println("<tr>");
-        out.println("<td>");
+        out.println("<td class='hand'>");
         printHand(out);
         out.println("</td>");
-        out.println("<td>");
+        out.println("<td class='graveyard'>");
         printGraveyard(out);
         out.println("</td>");
         out.println("<td>");
@@ -237,7 +238,7 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void handleGameOver(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.engine = null;
+        //this.engine = null;
         this.messages.clear();
         this.clickedCards.clear();
         this.errors.clear();
@@ -353,17 +354,14 @@ public class PlayServlet extends GoFishServlet {
 
     private void printHand(PrintWriter out) {
         if (engine.getCurrentPlayer().isHuman()) {
-            out.println("<ul>");
             for (Card card : engine.getCurrentPlayer().getHand().getCards()) {
                 String cssClass = "hand";
                 if (isCardInClickedCards(card)) {
                     cssClass += " clicked";
                 }
 
-                printCard(out, card, cssClass);
+                CardPrinter.printCard(out, card, engine, cssClass);
             }
-
-            out.println("</ul>");
         }
     }
 
@@ -408,11 +406,11 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void printLastCardsThrown(PrintWriter out) {
-        out.print("<ul>");
+//        out.print("<ul>");
         for (Card card : engine.getLastCardsThrown()) {
-            printCard(out, card, "graveyard");
+            CardPrinter.printCard(out, card, engine, "");
         }
-        out.print("</ul>");
+//        out.print("</ul>");
     }
 
     @Override
