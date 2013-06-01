@@ -20,9 +20,9 @@ public class CardPrinter {
         out.println(card.getName());
         out.println("</strong><br />");
         for (Series series : card.getSeries()) {
-            out.print("<span class='ser" + engine.getAvailableSeries().indexOf(series) + "'>");
+            out.print("<p class='ser" + engine.getAvailableSeries().indexOf(series) + "'>");
             out.print(series.getName());
-            out.print("</span>");
+            out.print("</p>");
         }
         out.println("</div>");
     }

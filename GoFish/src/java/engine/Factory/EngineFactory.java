@@ -52,20 +52,22 @@ public class EngineFactory {
 
     private static void generateHandForPlayer(Player player) {
         RandomStringGenerator rsg = new RandomStringGenerator();
-        generateSeriesForPlayer(player, rsg, "Cercei");
-        generateSeriesForPlayer(player, rsg, "Tyrion");
-        generateSeriesForPlayer(player, rsg, "Tywin");
-        generateSeriesForPlayer(player, rsg, "Kingslayer");
+        generateSeriesForPlayer(player, rsg, "Loxley","Newbern");
+        generateSeriesForPlayer(player, rsg, "Loxley", "Repton");
+        generateSeriesForPlayer(player, rsg, "Ohatchee", "Newbern");
+        generateSeriesForPlayer(player, rsg, "Ohatchee","Repton");
         Collections.shuffle(player.getHand().getCards());
     }
 
     private static void generateSeriesForPlayer(
             Player player, 
             RandomStringGenerator rsg, 
-            String seriesName) {
+            String seriesName,
+            String seriesName1) {
         for (int i = 0; i < 4; i++) {
             Card generatedCard = new Card();
             generatedCard.addSeries(new Series(seriesName));
+            generatedCard.addSeries(new Series(seriesName1));
             generatedCard.setName(rsg.makeRandomString());
             player.getHand().addCardToHand(generatedCard);
         }

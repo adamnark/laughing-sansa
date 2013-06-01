@@ -45,6 +45,7 @@ public class PlayServlet extends GoFishServlet {
     public static final String PARAM_ACTION_REQUEST_DONE = "requestform";
     public static final String PARAM_ACTION_AI_TURN = "aiturn";
     private CurrentPlayerState currentPlayerState;
+    private static final int MESSAGE_LOG_LENGTH = 10;
 
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -132,7 +133,7 @@ public class PlayServlet extends GoFishServlet {
         printGraveyard(out);
         out.println("</td>");
         out.println("<td>");
-        printLastMessages(out, 5);
+        printLastMessages(out, MESSAGE_LOG_LENGTH);
         out.println("</td>");
         out.println("</tr>");
         out.println("</tbody>");
