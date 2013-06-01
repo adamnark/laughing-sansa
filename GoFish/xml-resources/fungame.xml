@@ -1,209 +1,210 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gofish xsi:noNamespaceSchemaLocation="gofish.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <settings>
-		<allowMutipleRequests>true</allowMutipleRequests>
-		<forceShowOfSeries>true</forceShowOfSeries>
+        <allowMutipleRequests>true</allowMutipleRequests>
+        <forceShowOfSeries>true</forceShowOfSeries>
     </settings>
     <players>
-	<player type="HUMAN" name="Moxie">
-	    <cards>
-			<card name="Shireen">
-				<series>Baratheon</series>
-			</card>
+        <player type="HUMAN" name="Moxie">
+            <cards>
+                <card name="Shireen">
+                    <series>Baratheon</series>
+                </card>
 
-			<card name="Barristan Selmy">
-				<series>Targaryen</series>
-			</card>
+                <card name="Barristan Selmy">
+                    <series>Targaryen</series>
+                </card>
 
-			<card name="Osha">
-				<series>Free Folk</series>
-			</card>
+                <card name="Osha">
+                    <series>Free Folk</series>
+                </card>
 
-			<card name="Pyg">
-				<series>Brave Companions</series>
-			</card>
+                <card name="Pyg">
+                    <series>Brave Companions</series>
+                </card>
 			
-			<card name="Joffery">
-				<series>Lannister</series>
-			</card>
+                <card name="Joffery">
+                    <series>Lannister</series>
+                </card>
 
-			<card name="Tommen">
-				<series>Lannister</series>
-			</card>
+                <card name="Tommen">
+                    <series>Lannister</series>
+                </card>
 			
-			<card name="Ned">
-				<series>Stark</series>
-			</card>
+                <card name="Ned">
+                    <series>Stark</series>
+                </card>
 
-	    </cards>
-	</player>
-	<player type="COMPUTER" name="Loxie">
-	    <cards>
-			<card name="Tyrion">
-				<series>Lannister</series>
-			</card>
+            </cards>
+        </player>
+        <player type="COMPUTER" name="Loxie">
+            <cards>
+                <card name="Tyrion">
+                    <series>Lannister</series>
+                </card>
 
-			<card name="Robb">
-				<series>Stark</series>
-			</card>
+                <card name="Robb">
+                    <series>Stark</series>
+                </card>
 
-			<card name="Bran">
-				<series>Stark</series>
-			</card>
+                <card name="Bran">
+                    <series>Stark</series>
+                </card>
 
-			<card name="Sansa">
-				<series>Stark</series>
-			</card>
-
-			<card name="Arya">
-				<series>Stark</series>
-			</card>
-
-			<card name="Rorge">
-				<series>Brave Companions</series>
-			</card>
+                <card name="Sansa">
+                    <series>Stark</series>
+                </card>
 
 
-			<card name="Davos">
-				<series>Baratheon</series>
-			</card>
-	    </cards>
-	</player>
-	<player type="COMPUTER" name="Foxie">
-	    <cards>
-			<card name="Melisandre">
-				<series>Baratheon</series>
-			</card>
+                <card name="Rorge">
+                    <series>Brave Companions</series>
+                </card>
 
-			<card name="Daenerys">
-				<series>Targaryen</series>
-			</card>
+                <card name="Grey Worm">
+                    <series>Targaryen</series>
+                </card>
+                <card name="Davos">
+                    <series>Baratheon</series>
+                </card>
+            </cards>
+        </player>
+        <player type="COMPUTER" name="Foxie">
+            <cards>
+                <card name="Melisandre">
+                    <series>Baratheon</series>
+                </card>
 
-			<card name="Cersei">
-				<series>Lannister</series>
-			</card>
+                <card name="Daenerys">
+                    <series>Targaryen</series>
+                </card>
 
-			<card name="Craster">
-				<series>Free Folk</series>
-			</card>
+                <card name="Cersei">
+                    <series>Lannister</series>
+                </card>
 
-			<card name="Rickon">
-				<series>Stark</series>
-			</card>
+                <card name="Craster">
+                    <series>Free Folk</series>
+                </card>
 
-			<card name="Stannis">
-				<series>Baratheon</series>
-			</card>
+                <card name="Rickon">
+                    <series>Stark</series>
+                </card>
 
-			<card name="Three Toes">
-				<series>Brave Companions</series>
-			</card>
+                <card name="Stannis">
+                    <series>Baratheon</series>
+                </card>
 
-	    </cards>
-	</player>
-	<player type="COMPUTER" name="Doxie">
-	    <cards>
-			<card name="Tywin">
-				<series>Lannister</series>
-			</card>
+                <card name="Three Toes">
+                    <series>Brave Companions</series>
+                </card>
+
+            </cards>
+        </player>
+        <player type="COMPUTER" name="Doxie">
+            <cards>
+                <card name="Tywin">
+                    <series>Lannister</series>
+                </card>
 
 			
-			<card name="Selyse">
-				<series>Baratheon</series>
-			</card>
+                <card name="Selyse">
+                    <series>Baratheon</series>
+                </card>
 
 
-			<card name="Daario Naharis">
-				<series>Targaryen</series>
-			</card>
+                <card name="Daario Naharis">
+                    <series>Targaryen</series>
+                </card>
 
-			<card name="Missandei">
-				<series>Targaryen</series>
-			</card>
-
-			<card name="Grey Worm">
-				<series>Targaryen</series>
-			</card>
-
-			<card name="Irri">
-				<series>Targaryen</series>
-			</card>
-
-			<card name="Doreah">
-				<series>Targaryen</series>
-			</card>
-
-	    </cards>
-	</player>
-	<player type="COMPUTER" name="Woxie">
-	    <cards>
-					<card name="Patchface">
-				<series>Baratheon</series>
-			</card>
-
-			<card name="Tytos">
-				<series>Lannister</series>
-			</card>
-
-			<card name="Cat">
-				<series>Stark</series>
-			</card>
+                <card name="Missandei">
+                    <series>Targaryen</series>
+                </card>
 
 
 
-			<card name="Biter">
-				<series>Brave Companions</series>
-			</card>
+                <card name="Varamyr Sixskins">
+                    <series>Free Folk</series>
+                </card>
 
-			<card name="Timeon">
-				<series>Brave Companions</series>
-			</card>
+                <card name="Orell">
+                    <series>Free Folk</series>
+                </card>
 
-			<card name="Zollo">
-				<series>Brave Companions</series>
-			</card>
+            </cards>
+        </player>
+        <player type="COMPUTER" name="Woxie">
+            <cards>
+                <card name="Patchface">
+                    <series>Baratheon</series>
+                </card>
 
-			<card name="Vargo Hoat">
-				<series>Brave Companions</series>
-			</card>
+                <card name="Tytos">
+                    <series>Lannister</series>
+                </card>
 
-	    </cards>
-	</player>	
-	<player type="COMPUTER" name="Soxie">
-	    <cards>
-			<card name="Mance Rayder">
-				<series>Free Folk</series>
-			</card>
+                <card name="Cat">
+                    <series>Stark</series>
+                </card>
+
+                <card name="Ygritte">
+                    <series>Free Folk</series>
+                </card>
+
+                <card name="Arya">
+                    <series>Stark</series>
+                </card>
 
 
+                <card name="Timeon">
+                    <series>Brave Companions</series>
+                </card>
 
-			<card name="Salladhor Saan">
-				<series>Baratheon</series>
-			</card>
+
+                <card name="Vargo Hoat">
+                    <series>Brave Companions</series>
+                </card>
+
+            </cards>
+        </player>	
+        <player type="COMPUTER" name="Soxie">
+            <cards>
+                <card name="Mance Rayder">
+                    <series>Free Folk</series>
+                </card>
+                
+                <card name="Biter">
+                    <series>Brave Companions</series>
+                </card>
+
+
+                <card name="Zollo">
+                    <series>Brave Companions</series>
+                </card>
+
+                <card name="Salladhor Saan">
+                    <series>Baratheon</series>
+                </card>
 			
-			<card name="Dalla">
-				<series>Free Folk</series>
-			</card>
+                <card name="Dalla">
+                    <series>Free Folk</series>
+                </card>
 
-			<card name="Ygritte">
-				<series>Free Folk</series>
-			</card>
 
-			<card name="Varamyr Sixskins">
-				<series>Free Folk</series>
-			</card>
 
-			<card name="Orell">
-				<series>Free Folk</series>
-			</card>
 
-			<card name="Kingslayer">
-				<series>Lannister</series>
-			</card>
+                <card name="Kingslayer">
+                    <series>Lannister</series>
+                </card>
 			
+                <card name="Irri">
+                    <series>Targaryen</series>
+                </card>
 
+                <card name="Doreah">
+                    <series>Targaryen</series>
+                </card>
 
-	    </cards>
-	</player>	
+            </cards>
+        </player>	
     </players>
 </gofish>

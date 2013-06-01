@@ -99,7 +99,9 @@ public class RequestServlet extends GoFishServlet {
         out.println("</p>");
         for (Series series : engine.getAvailableSeries()) {
             out.println("<label class='checkbox'>");
+            out.println("<span class='ser"+engine.getAvailableSeries().indexOf(series)+"'>");
             out.println("<input type='checkbox' name='series' value='" + series.getName() + "'>" + series.getName());
+            out.println("</span>");
             out.println("</label>");
         }
     }

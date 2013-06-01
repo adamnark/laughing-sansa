@@ -6,6 +6,7 @@ import engine.Engine;
 import engine.Factory.EngineFactory;
 import engine.Factory.PlayerItem;
 import engine.GameSettings;
+import engine.Validator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -63,8 +64,9 @@ public class NewGameServlet extends GoFishServlet {
                 tryAddPlayer(request);
                 break;
             case PARAM_ACTION_START:
-                if (isEnoughPlayers()) {
-                    setEngineContextAttribute(request);
+                Engine engine = generateEngine(request);
+                if (validateEngine(engine)) {
+                    setEngineContextAttribute(request, engine);
                     forwardRequestToPlayServlet(request, response);
                 }
                 break;
@@ -223,18 +225,19 @@ public class NewGameServlet extends GoFishServlet {
         return gs;
     }
 
-    private boolean isEnoughPlayers() {
-        boolean enoughPlayers = true;
-        if (this.players.size() < 3) {
-            enoughPlayers = false;
-            this.errors.add("We need at least three players to play.");
+    private boolean validateEngine(Engine engine) {
+        Validator v = new Validator(engine);
+        if (!v.validateEngineState()) {
+            this.errors.addAll(v.getErrors());
+            return false;
         }
 
-        return enoughPlayers;
+        return true;
     }
 
-    private void setEngineContextAttribute(HttpServletRequest request) {
-        Engine engine = generateEngine(request);
+    
+    
+    private void setEngineContextAttribute(HttpServletRequest request, Engine engine) {
         this.getServletContext().setAttribute(ATTR_ENGINE, engine);
     }
 

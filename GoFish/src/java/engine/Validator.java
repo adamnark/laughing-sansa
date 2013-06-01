@@ -41,22 +41,14 @@ public class Validator {
                     + MAXIMUM_NUMBER_OF_PLAYERS
                     + ".");
             isValid = false;
-        }
-
-        if (!isDistinctPlayerNames()) {
+        } else if (!isDistinctPlayerNames()) {
             isValid = false;
-        }
-
-        if (!isDistinctCards()) {
+        } else if (!isDistinctCards()) {
             isValid = false;
-        }
-
-        if (!isHumanPlayerExist()) {
+        } else if (!isHumanPlayerExist()) {
             this.errors.add("There must be at least one human player.");
             isValid = false;
-        }
-
-        if (!uniformNumbeOfSeries()) {
+        } else if (!uniformNumbeOfSeries()) {
             this.errors.add("All cards must have the same number of serieses.");
             isValid = false;
         }
