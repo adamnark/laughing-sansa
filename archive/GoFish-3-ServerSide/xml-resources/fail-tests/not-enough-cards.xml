@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gofish xsi:noNamespaceSchemaLocation="gofish.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <settings>
+	<allowMutipleRequests>true</allowMutipleRequests>
+	<forceShowOfSeries>false</forceShowOfSeries>
+    </settings>
+    <players>
+	<player type="COMPUTER" name="John">
+	    <cards>
+		<card name="kenny">
+		    <series>southpark</series>
+		</card>
+		<card name="kyle">
+		    <series>southpark</series>
+		</card>
+		<card name="stan">
+		    <series>southpark</series>
+		</card>
+		<card name="cartman">
+		    <series>southpark</series>
+		</card>
+	    </cards>
+	</player>
+	<player type="HUMAN" name="Paul">
+	    <cards>
+		<card name="homer">
+		    <series>simpsons</series>
+		</card>
+		<card name="marge">
+		    <series>simpsons</series>
+		</card>
+		<card name="bart">
+		    <series>simpsons</series>
+		</card>
+		<card name="lisa">
+		    <series>simpsons</series>
+		</card>
+	    </cards>
+	</player>
+	<player type="COMPUTER" name="Geogre">
+	    <cards>
+		<card name="peter">
+		    <series>family guy</series>
+		</card>
+		<card name="lois">
+		    <series>family guy</series>
+		</card>
+		<card name="brian">
+		    <series>family guy</series>
+		</card>
+		<card name="stewie">
+		    <series>family guy</series>
+		</card>
+	    </cards>
+	</player>
+    </players>
+</gofish>
