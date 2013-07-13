@@ -18,10 +18,10 @@ function refreshListOfConnectedPlayers() {
 
 function handleResponseIsStarted(isStarted) {
     if (isStarted) {
-        $("#message").text("All players connected! redirecting you to the game...");
+        $("#message").text("All players connected! redirecting you to the game in 3 seconds...");
         $("#message").addClass("alert-success").removeClass("alert-error");
         window.setInterval(function() {
-            window.location = "play";
+            window.location = "board";
         }, 3000);
     }
 }

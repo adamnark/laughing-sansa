@@ -38,13 +38,14 @@ public class GoFishServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getSession(true);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html lang=\"en\">");
             printHTMLHead(out);
-            printHTMLBody(out);
+            printHTMLBody(request, response);
             out.println("</html>");
         } catch (Exception ex) {
         }
@@ -110,17 +111,17 @@ public class GoFishServlet extends HttpServlet {
         return "GoFish @adamnark";
     }
 
-    private void printHTMLBody(PrintWriter out) throws ServletException, IOException {
+    private void printHTMLBody(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         out.println("<body>");
         printNavBar(out);
         out.println("<div class=\"container\">");
-        printContent(out);
+        printContent(request, response);
         out.println("</div> <!-- container -->");
         out.println("");
         printScripts(out);
         out.println("</body>");
     }
-
 
     private void printNavBar(PrintWriter out) throws ServletException, IOException {
         NavbarPrinter.NavbarItems activeItem = getActiveItem();
@@ -136,7 +137,8 @@ public class GoFishServlet extends HttpServlet {
         printMoreScripts(out);
     }
 
-    protected void printContent(PrintWriter out) {
+    protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         out.println("<center><h1>you should override me!</h1><br /><i>GoFish Servlet</i></center>");
     }
 
@@ -146,6 +148,8 @@ public class GoFishServlet extends HttpServlet {
     protected boolean tryForwardToCurrentServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String currentServlet = (String) this.getServletContext().getAttribute(ATTR_CURRENT_SETTING_SERVLET);
         if (currentServlet != null) {
+            HttpSession s = request.getSession(true);
+            s.setAttribute(SESSION_ATTR_MESSAGE, "Game already defined. Try joining.");
             request.getRequestDispatcher(currentServlet).forward(request, response);
             return true;
         }
@@ -157,5 +161,14 @@ public class GoFishServlet extends HttpServlet {
         String answer = gson.toJson(obj);
         response.setContentType("json");
         response.getWriter().print(answer);
+    }
+
+    protected void printSessionMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession s = request.getSession(true);
+        String message = (String) s.getAttribute(SESSION_ATTR_MESSAGE);
+        if (message != null) {
+            response.getWriter().print(message);
+            s.setAttribute(SESSION_ATTR_MESSAGE, null);
+        }
     }
 }

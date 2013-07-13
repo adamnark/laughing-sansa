@@ -2,7 +2,6 @@
  */
 package web.servlets;
 
-import com.google.gson.Gson;
 import engine.Engine;
 import engine.players.Player;
 import java.io.IOException;
@@ -44,25 +43,18 @@ public class LobbyServlet extends GoFishServlet {
     }
 
     @Override
-    protected void printContent(PrintWriter out) {
-        // print our mock page 
-        // implement an ajax interface
-        // red  irect to play servlet when all humans connected
+    protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         out.println("<div class='row'>");
-
-        out.println("<div class='span7 alert alert-info' id='message'>"
-                + "Players are connecting.."
-                + "</div>");
+        out.println("<div class='span7 alert alert-info' id='message'>");
+        out.println("Players are connecting..");
+        out.println("</div>");
         out.println("");
-
         out.println("<div class='span7'>");
         out.println("<ul id='players'>");
         out.println("</ul>");
         out.println("</div>");
         out.println("</div>");
-
-
-
     }
 
     @Override
@@ -82,17 +74,14 @@ public class LobbyServlet extends GoFishServlet {
     }
 
     private void respondIsStarted(HttpServletResponse response) throws IOException {
-        // game has started when all players have connected.
-        // check the size of the sessionPLayers list and the number of human players.
         Engine e = (Engine) this.getServletContext().getAttribute(ATTR_ENGINE);
         List<SessionPlayer> connectedPlayers = (List<SessionPlayer>) this.getServletContext().getAttribute(ATTR_SESSION_PLAYERS_LIST);
         int totalPlayers = getNumOfHumanPlayers(e);
         int numOfConnectedPlayers = connectedPlayers.size();
         boolean isAllConnected = totalPlayers == numOfConnectedPlayers;
-
+        
         respondJSONObject(isAllConnected, response);
     }
-
 
     private int getNumOfHumanPlayers(Engine e) {
         int n = 0;

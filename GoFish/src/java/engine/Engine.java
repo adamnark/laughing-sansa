@@ -19,10 +19,12 @@ public class Engine {
     private ArrayList<Player> players;
     private int currentPlayerIndex;
     private GameSettings gameSettings;
-    private LinkedList<Event> eventQueue;
+    private LinkedList<String> eventQueue;
     private HashMultimap<Series, Card> cardsBySeries;
     private boolean isGameStarted;
     private Collection<Card> lastCardsThrown;
+    
+    public static final String EVENT_GAME_OVER = "Game Over";
 
     public Engine() {
         this.players = new ArrayList<>();
@@ -37,13 +39,17 @@ public class Engine {
         if (cardsWereThrown) {
             getCurrentPlayer().increaseScore();
             setLastCardsThrown(getCurrentPlayer().getLastCardsThrown());
-            this.eventQueue.add(Event.FOUR_CARDS_THROWN);
-        } else {
-            this.eventQueue.add(Event.FOUR_CARDS_NOT_THROWN);
+            //this.eventQueue.add(Event.FOUR_CARDS_THROWN);
+            this.eventQueue.add("4 cards were thrown by " + getCurrentPlayer().getName() + "!");
         }
+//        } else {
+//            //this.eventQueue.add(Event.FOUR_CARDS_NOT_THROWN);
+//            this.eventQueue.add(Event.FOUR_CARDS_NOT_THROWN);
+//        }
 
         if (!getCurrentPlayer().isPlaying()) {
-            this.eventQueue.add(Event.PLAYER_OUT_OF_CARDS);
+            //this.eventQueue.add(Event.PLAYER_OUT_OF_CARDS);
+            this.eventQueue.add(getCurrentPlayer().getName() + " has run out of cards");
         }
     }
 
@@ -60,14 +66,17 @@ public class Engine {
     }
 
     public boolean currentPlayerMakeRequest() {
-        boolean cardWasTaken;
-        cardWasTaken = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
-        if (cardWasTaken) {
-            this.eventQueue.add(Event.SUCCESSFUL_REQUEST);
+        Player victim;
+        victim = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
+        if (victim != null) {
+            //this.eventQueue.add(Event.SUCCESSFUL_REQUEST);
+            this.eventQueue.add(getCurrentPlayer().getName() + " has taken a card from " + victim.getName()+"!");
         } else {
-            this.eventQueue.add(Event.FAILED_REQUEST);
+            //this.eventQueue.add(Event.FAILED_REQUEST);
+            this.eventQueue.add(getCurrentPlayer().getName() + " made a bad guess..");
         }
-        return cardWasTaken;
+
+        return victim != null;
     }
 
     private boolean isOnePlayerLeft() {
@@ -141,7 +150,8 @@ public class Engine {
 
     public void advanceTurn() {
         if (this.isGameOver()) {
-            this.eventQueue.add(Event.GAME_OVER);
+            //this.eventQueue.add(Event.GAME_OVER);
+            this.eventQueue.add(EVENT_GAME_OVER);
         } else {
             do {
                 this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
@@ -161,7 +171,7 @@ public class Engine {
         return gameSettings;
     }
 
-    public LinkedList<Event> getEventQueue() {
+    public LinkedList<String> getEventQueue() {
         return eventQueue;
     }
 
@@ -200,7 +210,7 @@ public class Engine {
                 return player;
             }
         }
-        
+
         return null;
     }
 

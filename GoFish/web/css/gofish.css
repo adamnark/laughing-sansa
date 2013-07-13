@@ -6,6 +6,10 @@
         Purpose of the stylesheet follows.
 */
 
+li.current{
+    background:rgb(205, 255, 150)
+}
+
 
 td.hand{
     width:330px;

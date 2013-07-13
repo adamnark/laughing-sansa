@@ -39,7 +39,7 @@ public class LoadGameServlet extends GoFishServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.errors.clear();
         HttpSession session = request.getSession(true);
-        
+
         if (tryForwardToCurrentServlet(request, response)) {
         } else if (this.getServletContext().getAttribute(ATTR_ENGINE) != null) {
             session.setAttribute(SESSION_ATTR_MESSAGE, "Game has already been defined! Try joining");
@@ -103,7 +103,8 @@ public class LoadGameServlet extends GoFishServlet {
     }
 
     @Override
-    protected void printContent(PrintWriter out) {
+    protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         printForm(out);
         ErrorPrinter.printErrors(out, errors);
     }

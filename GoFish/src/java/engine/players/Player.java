@@ -112,28 +112,28 @@ public class Player {
         this.requestMaker = requestMaker;
     }
 
-    public boolean makeMove(LinkedList<Player> otherPlayers, Set<Series> availableSeries) {// throws BadCardRequestException {
+    public Player makeMove(LinkedList<Player> otherPlayers, Set<Series> availableSeries) {// throws BadCardRequestException {
         if (!this.isPlaying()) {
-            return false;
+            return null;
         }
 
         Request request = this.requestMaker.makeRequest(this.hand, new ArrayList<>(availableSeries), otherPlayers);
         if (request == null) {
-            return false;
+            return null;
         }
 
         boolean isValidRequest = RequestValidator.validateRequest(request, this.hand);
         if (!isValidRequest) {
-            return false;
-            //throw new BadCardRequestException();
+            return null;
         }
 
-        Card victim = request.getOtherPlayer().giveUpACard(request.getCardIWant());
+        Player otherPlayer = request.getOtherPlayer();
+        Card victim = otherPlayer.giveUpACard(request.getCardIWant());
         if (victim == null) {
-            return false;
+            return null;
         } else {
             this.hand.addCardToHand(victim);
-            return true;
+            return otherPlayer;
         }
     }
 

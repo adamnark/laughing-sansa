@@ -1,6 +1,6 @@
 300232113 ADAM NARKUNSKI
 
-							GO FISH EXERCISE 3 - SERVER-SIDE PROGRAMMING
+							GO FISH EXERCISE 4 - SERVER-SIDE PROGRAMMING
 											 NOTES
 
 	The NetBeans project is the included directory, GoFish.
@@ -10,8 +10,13 @@
 	You should be able to unzip the project, open in Netbeans and hit Run if you have 
 	Tomcat integration. 
 	
-	Known Issues:
-	=============
+	Known Issues -- ver 4:
+	======================
+	1. Numbers and letters only as player name.
+	
+	
+	Known Issues -- ver 3:
+	======================
 	1. If a user starts a new game, does not finish it and loads a game from XML, and then opts
 	for starting the game over with the same settings, the manual game will be started and not 
 	the xml game. This is a bug I found on the last day and I havn't had the time to patch it 

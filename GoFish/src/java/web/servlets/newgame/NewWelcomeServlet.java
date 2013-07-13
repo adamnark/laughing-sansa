@@ -38,7 +38,6 @@ public class NewWelcomeServlet extends GoFishServlet {
         if (playerNameParam != null) {
             HttpSession sesh = request.getSession(true);
             if (tryAddPlayer(playerNameParam, sesh)) {
-                //request.getRequestDispatcher("/lobby").forward(request, response);
                 response.sendRedirect("lobby");
             } else {
                 super.doPost(request, response);
@@ -49,16 +48,20 @@ public class NewWelcomeServlet extends GoFishServlet {
     }
 
     @Override
-    protected void printContent(PrintWriter out) {
+    protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         out.println("<div class='row'>");
-        out.println("<div class='span7'>");
+        out.println("<div class='span7 alert alert-info' id='message'>");
+        printSessionMessage(request, response);
+        out.println("</div>");
 
+        out.println("<div class='span7'>");
         printNameForm(out);
         ErrorPrinter.printErrors(out, errors);
         this.errors.clear();
         out.println("</div>");
+
         out.println("</div>");
-        out.println("");
     }
 
     private void printNameForm(PrintWriter out) {
@@ -108,6 +111,9 @@ public class NewWelcomeServlet extends GoFishServlet {
         } else if (playerName.isEmpty()) {
             this.errors.add("You can't pick an empty name..");
             retval = false;
+        } else if (hasIllegalChars(playerName)) {
+            this.errors.add("Numbers and letters only in the name");
+            retval = false;
         } else {
             Player p = getVacantPlayer();
             if (p == null) {
@@ -153,5 +159,9 @@ public class NewWelcomeServlet extends GoFishServlet {
             }
         }
         return null;
+    }
+
+    private boolean hasIllegalChars(String playerName) {
+        return !playerName.matches("\\w+");
     }
 }

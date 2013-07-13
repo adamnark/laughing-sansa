@@ -67,10 +67,12 @@ public class LoadWelcomeServlet extends GoFishServlet {
     }
 
     @Override
-    protected void printContent(PrintWriter out) {
+    protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         out.println("<div class='row'>");
 
-        out.println("<div class='span7' id='message'>");
+        out.println("<div class='span7 alert alert-info' id='message'>");
+        printSessionMessage(request, response);
         out.println("</div>");
 
         out.println("<div class='span7'>");

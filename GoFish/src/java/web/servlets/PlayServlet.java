@@ -29,7 +29,7 @@ import web.servlets.printers.PlayerItemPrinter;
  *
  * @author adam
  */
-@WebServlet(name = "PlayServlet", urlPatterns = {"/play"})
+@WebServlet(name = "PlayServlet", urlPatterns = {"/playz"})
 public class PlayServlet extends GoFishServlet {
 
     public static final String ATTR_REQUEST = "request-attr";
@@ -71,31 +71,31 @@ public class PlayServlet extends GoFishServlet {
     }
 
     private void handleEngineMessages(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        while (engine != null && !engine.getEventQueue().isEmpty()) {
-            Engine.Event event = engine.getEventQueue().pop();
-            switch (event) {
-                case GAME_OVER:
-                    handleGameOver(request, response);
-                    break;
-                case FAILED_REQUEST:
-                    handleFailedRequestMessage();
-                    break;
-                case SUCCESSFUL_REQUEST:
-                    handleSuccessfulRequestMessage();
-                    break;
-                case FOUR_CARDS_NOT_THROWN:
-                    handleFourCardsNotThrownMessage();
-                    break;
-                case FOUR_CARDS_THROWN:
-                    handleFourCardsThrownMessage();
-                    break;
-                case PLAYER_OUT_OF_CARDS:
-                    handlePlayerOutOfCards();
-                    break;
-                default:
-                    throw new AssertionError("Unsupported message from engine: " + event.toString());
-            }
-        }
+//        while (engine != null && !engine.getEventQueue().isEmpty()) {
+//            Engine.Event event = engine.getEventQueue().pop();
+//            switch (event) {
+//                case GAME_OVER:
+//                    handleGameOver(request, response);
+//                    break;
+//                case FAILED_REQUEST:
+//                    handleFailedRequestMessage();
+//                    break;
+//                case SUCCESSFUL_REQUEST:
+//                    handleSuccessfulRequestMessage();
+//                    break;
+//                case FOUR_CARDS_NOT_THROWN:
+//                    handleFourCardsNotThrownMessage();
+//                    break;
+//                case FOUR_CARDS_THROWN:
+//                    handleFourCardsThrownMessage();
+//                    break;
+//                case PLAYER_OUT_OF_CARDS:
+//                    handlePlayerOutOfCards();
+//                    break;
+//                default:
+//                    throw new AssertionError("Unsupported message from engine: " + event.toString());
+//            }
+//        }
     }
 
     @Override
@@ -104,7 +104,8 @@ public class PlayServlet extends GoFishServlet {
     }
 
     @Override
-    protected void printContent(PrintWriter out) {
+    protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         printPlayersList(out);
         out.println("<hr>");
         printPlayerForm(out);

@@ -81,9 +81,8 @@ public class NewGameServlet extends GoFishServlet {
     }
 
     @Override
-    protected void printContent(PrintWriter out) {
-
-
+    protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         out.println("<div class='row'>");
         out.println("<div id='message'></div>");
         out.println("");
@@ -94,7 +93,7 @@ public class NewGameServlet extends GoFishServlet {
 
     @Override
     protected void printMoreScripts(PrintWriter out) {
-        super.printMoreScripts(out); //To change body of generated methods, choose Tools | Templates.
+        super.printMoreScripts(out); 
         out.println("<script src=\"js/newGameSettings.js\"></script>");
     }
 
@@ -197,9 +196,9 @@ public class NewGameServlet extends GoFishServlet {
 
     private void addDefaultPlayers() {
         boolean isHuman = true;
-        PlayerItem player1 = new PlayerItem("Moxie", isHuman);
-        PlayerItem player2 = new PlayerItem("Boxie", !isHuman);
-        PlayerItem player3 = new PlayerItem("Foxie", !isHuman);
+        PlayerItem player1 = new PlayerItem("Moxie", isHuman, 0);
+        PlayerItem player2 = new PlayerItem("Boxie", !isHuman, 0);
+        PlayerItem player3 = new PlayerItem("Foxie", !isHuman, 0);
         this.players.add(player1);
         this.players.add(player2);
         this.players.add(player3);
@@ -217,13 +216,13 @@ public class NewGameServlet extends GoFishServlet {
             int numOfComputerPlayers = Integer.parseInt(numOfComputerPlayersString);
             boolean isHuman = true;
             for (int i = 0; i < numOfComputerPlayers; i++) {
-                String name = "Bot " + Integer.toString(i + 1);
-                PlayerItem aiPlayer = new PlayerItem(name, !isHuman);
+                String name = "Bot" + Integer.toString(i + 1);
+                PlayerItem aiPlayer = new PlayerItem(name, !isHuman, 0);
                 this.players.add(aiPlayer);
             }
             for (int i = 0; i < numOfPlayers - numOfComputerPlayers; i++) {
                 String name = "";
-                PlayerItem humanPlayer = new PlayerItem(name, isHuman);
+                PlayerItem humanPlayer = new PlayerItem(name, isHuman, 0);
                 this.players.add(humanPlayer);
             }
         } catch (NumberFormatException ex) {

@@ -2,8 +2,11 @@
  */
 package web.servlets.general;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import web.servlets.printers.NavbarPrinter;
 
 /**
@@ -19,7 +22,8 @@ public class HomeServlet extends GoFishServlet {
     }
 
     @Override
-    protected void printContent(PrintWriter out) {
+    protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         out.println("<div class=\"row\">");
         out.println("");
         out.println("<div class=\"span6\">");

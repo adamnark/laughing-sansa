@@ -76,7 +76,8 @@ public class RequestServlet extends GoFishServlet {
     }
 
     @Override
-    protected void printContent(PrintWriter out) {
+    protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         if (engine != null) {
             out.println("<h3>");
             out.println("Let's make a request!");
@@ -100,7 +101,7 @@ public class RequestServlet extends GoFishServlet {
         out.println("</p>");
         for (Series series : engine.getAvailableSeries()) {
             out.println("<label class='checkbox'>");
-            out.println("<span class='ser"+engine.getAvailableSeries().indexOf(series)+"'>");
+            out.println("<span class='ser" + engine.getAvailableSeries().indexOf(series) + "'>");
             out.println("<input type='checkbox' name='series' value='" + series.getName() + "'>" + series.getName());
             out.println("</span>");
             out.println("</label>");

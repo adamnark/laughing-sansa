@@ -51,6 +51,9 @@ public class Validator {
         } else if (!uniformNumbeOfSeries()) {
             this.errors.add("All cards must have the same number of serieses.");
             isValid = false;
+        } else if (!playerNamesAreLegal()) {
+            this.errors.add("Names should include letters and digits only.");
+            isValid = false;
         }
 
         return isValid;
@@ -133,6 +136,16 @@ public class Validator {
                 return false;
             }
         }
+        return true;
+    }
+
+    private boolean playerNamesAreLegal() {
+        for (Player player : this.engine.getPlayers()) {
+            if (!player.getName().matches("\\w+")) {
+                return false;
+            }
+        }
+
         return true;
     }
 }

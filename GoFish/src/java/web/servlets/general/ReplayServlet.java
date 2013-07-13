@@ -35,7 +35,8 @@ public class ReplayServlet extends GoFishServlet {
     }
 
     @Override
-    protected void printContent(PrintWriter out) {
+    protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         out.println("<div class='span6'>");
 
         out.println("<div class='row'>");
@@ -81,6 +82,7 @@ public class ReplayServlet extends GoFishServlet {
         out.println("</div>");
         out.println("</div>");
     }
+
     private void printHomeLink(PrintWriter out) {
         out.println("<div class='row'>");
         out.println("<div class='span6 text-center'>");
