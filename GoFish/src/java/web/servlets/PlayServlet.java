@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import web.playerinterface.WebFourPicker;
 import web.playerinterface.WebRequestMaker;
+import web.servlets.general.GoFishServlet;
 import web.servlets.printers.CardPrinter;
 import web.servlets.printers.ErrorPrinter;
 import web.servlets.printers.NavbarPrinter;

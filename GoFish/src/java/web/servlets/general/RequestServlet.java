@@ -1,6 +1,6 @@
 /*
  */
-package web.servlets;
+package web.servlets.general;
 
 import engine.Engine;
 import engine.cards.Card;
@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import web.servlets.PlayServlet;
 import web.servlets.printers.ErrorPrinter;
 
 /**

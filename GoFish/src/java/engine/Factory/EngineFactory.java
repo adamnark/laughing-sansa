@@ -1,5 +1,3 @@
-/*
- */
 package engine.Factory;
 
 import engine.Engine;

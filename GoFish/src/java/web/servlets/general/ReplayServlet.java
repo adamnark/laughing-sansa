@@ -1,6 +1,6 @@
 /*
  */
-package web.servlets;
+package web.servlets.general;
 
 import engine.Engine;
 import engine.Factory.EngineFactory;
@@ -10,9 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static web.servlets.GoFishServlet.ATTR_ENGINE;
-import static web.servlets.LoadGameServlet.ATTR_SETTINGS_FROM_XML;
-import static web.servlets.NewGameServlet.ATTR_LAST_CONFIGURATION;
+import static web.servlets.general.GoFishServlet.ATTR_ENGINE;
+import static web.servlets.loadgame.LoadGameServlet.ATTR_SETTINGS_FROM_XML;
+import web.servlets.newgame.NewGameServlet;
+import static web.servlets.newgame.NewGameServlet.ATTR_LAST_CONFIGURATION;
 import xml.SettingsFromXML;
 
 /**

@@ -25,7 +25,6 @@ public class ErrorPrinter {
             
             out.println("</ul>");
             out.println("</div>");
-            out.println("</div>");
             out.println("");
         }
     }

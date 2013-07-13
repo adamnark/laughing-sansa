@@ -1,6 +1,6 @@
 300232113 ADAM NARKUNSKI
 
-							GO FISH EXERCISE 2 - SERVER-SIDE PROGRAMMING
+							GO FISH EXERCISE 3 - SERVER-SIDE PROGRAMMING
 											 NOTES
 
 	The NetBeans project is the included directory, GoFish.

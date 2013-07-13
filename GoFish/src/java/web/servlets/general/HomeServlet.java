@@ -1,6 +1,6 @@
 /*
  */
-package web.servlets;
+package web.servlets.general;
 
 import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +15,7 @@ public class HomeServlet extends GoFishServlet {
 
     @Override
     protected NavbarPrinter.NavbarItems getActiveItem() {
-        return NavbarPrinter.NavbarItems.HOME;
+        return null;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class HomeServlet extends GoFishServlet {
         out.println("<div class=\"span6\">");
         out.println("<div class=\"row\">");
         out.println("<div class=\"span6 text-center\">");
-        out.println("<h1>Go Fish! v3.0</h1>");
+        out.println("<h1>Go Fish! v4.0</h1>");
         out.println("</div>");
         out.println("</div>");
         out.println("");

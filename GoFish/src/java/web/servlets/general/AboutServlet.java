@@ -1,6 +1,6 @@
 /*
  */
-package web.servlets;
+package web.servlets.general;
 
 import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;

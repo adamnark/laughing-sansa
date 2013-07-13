@@ -13,12 +13,6 @@ public class NavbarPrinter {
 
     public enum NavbarItems {
 
-        HOME {
-            @Override
-            public String toString() {
-                return "Home";
-            }
-        },
         NEWGAME {
             @Override
             public String toString() {

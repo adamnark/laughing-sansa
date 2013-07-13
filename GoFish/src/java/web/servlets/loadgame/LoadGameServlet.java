@@ -1,9 +1,8 @@
-/*
- */
-package web.servlets;
+package web.servlets.loadgame;
 
 import engine.Engine;
 import engine.Validator;
+import engine.players.Player;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -14,8 +13,11 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.xml.bind.JAXBException;
+import web.servlets.general.GoFishServlet;
+import static web.servlets.newgame.NewGameServlet.ATTR_LAST_CONFIGURATION;
 import web.servlets.printers.ErrorPrinter;
 import web.servlets.printers.NavbarPrinter;
 import xml.SettingsFromXML;
@@ -36,23 +38,38 @@ public class LoadGameServlet extends GoFishServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.errors.clear();
-        super.doGet(request, response);
+        HttpSession session = request.getSession(true);
+        
+        if (tryForwardToCurrentServlet(request, response)) {
+        } else if (this.getServletContext().getAttribute(ATTR_ENGINE) != null) {
+            session.setAttribute(SESSION_ATTR_MESSAGE, "Game has already been defined! Try joining");
+            request.getRequestDispatcher("/newgame").forward(request, response);
+        } else if (this.getServletContext().getAttribute(ATTR_SETTINGS_FROM_XML) != null) {
+            session.setAttribute(SESSION_ATTR_MESSAGE, "Game has already been defined! Try joining");
+            request.getRequestDispatcher("/LoadWelcome").forward(request, response);
+        } else {
+            super.doGet(request, response);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.errors.clear();
-        generateEngineFromParam(request);
-        validateGeneratedEngine();
+        generateXMLSettingsFromParam(request);
+        validateXMLSettings();
+
         if (settingsFromXML != null) {
             addSettingsToServletContext();
-            request.getRequestDispatcher("/play").forward(request, response);
+            setCurrentServletAttribute();
+            resetSessionPlayersList();
+            request.getRequestDispatcher("/LoadWelcome").forward(request, response);
+            //response.sendRedirect("/LoadWelcome");
         }
 
         super.doPost(request, response);
     }
 
-    private void generateEngineFromParam(HttpServletRequest request) throws IOException, ServletException {
+    private void generateXMLSettingsFromParam(HttpServletRequest request) throws IOException, ServletException {
         InputStream filecontent;
         try {
             final Part filePart = request.getPart(PARAM_FILE);
@@ -65,7 +82,7 @@ public class LoadGameServlet extends GoFishServlet {
         }
     }
 
-    private void validateGeneratedEngine() {
+    private void validateXMLSettings() {
         if (settingsFromXML != null) {
             Engine e = settingsFromXML.makeEngine();
             Validator v = new Validator(e);
@@ -96,7 +113,7 @@ public class LoadGameServlet extends GoFishServlet {
         out.println("<div class='span6'>");
         out.println("<form ");
         out.println("class='form-horizontal' ");
-        out.println("action='#' ");
+        // out.println("action='#' ");
         out.println("method='post'");
         out.println("enctype='multipart/form-data'>");
         out.println("<fieldset>");
@@ -124,9 +141,23 @@ public class LoadGameServlet extends GoFishServlet {
 
     private void addEngineToServletContext(Engine e) {
         this.getServletContext().setAttribute(ATTR_ENGINE, e);
+        this.getServletContext().setAttribute(ATTR_LAST_CONFIGURATION, null);
+
+        List<String> humanNamesList = new LinkedList<>();
+        for (Player player : e.getPlayers()) {
+            if (player.isHuman()) {
+                humanNamesList.add(player.getName());
+            }
+        }
+
+        this.getServletContext().setAttribute(ATTR_LIST_OF_HUMAN_PLAYERS, humanNamesList);
     }
 
     private void addSettingsToServletContext() {
         this.getServletContext().setAttribute(ATTR_SETTINGS_FROM_XML, settingsFromXML);
+    }
+
+    private void setCurrentServletAttribute() {
+        this.getServletContext().setAttribute(ATTR_CURRENT_SETTING_SERVLET, "LoadWelcome");
     }
 }

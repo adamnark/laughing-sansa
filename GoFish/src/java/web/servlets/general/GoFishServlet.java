@@ -1,10 +1,14 @@
 /*
  */
-package web.servlets;
+package web.servlets.general;
 
+import com.google.gson.Gson;
 import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
+import web.servlets.containers.SessionPlayer;
 import web.servlets.printers.HeadPrinter;
 import web.servlets.printers.NavbarPrinter;
 
@@ -15,6 +19,12 @@ import web.servlets.printers.NavbarPrinter;
 public class GoFishServlet extends HttpServlet {
 
     protected static final String ATTR_ENGINE = "attribute-engine";
+    protected static final String ATTR_NUM_OF_PLAYERS = "attribute-players";
+    protected static final String ATTR_NUM_OF_COMPUTERS = "attribute-computers";
+    protected static final String ATTR_LIST_OF_HUMAN_PLAYERS = "attr-list-of-human-players";
+    protected static final String ATTR_SESSION_PLAYERS_LIST = "attr-session-players-list";
+    protected static final String ATTR_CURRENT_SETTING_SERVLET = "attr-current-setting-servlet";
+    protected static final String SESSION_ATTR_MESSAGE = "session-attr-message";
 
     /**
      * Processes requests for both HTTP
@@ -81,21 +91,23 @@ public class GoFishServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    protected void resetSessionPlayersList() {
+        List<SessionPlayer> lst = new LinkedList<>();
+        this.getServletContext().setAttribute(ATTR_SESSION_PLAYERS_LIST, lst);
+    }
+
     private void printHTMLHead(PrintWriter out) {
         String title = getPageTitle();
-
         HeadPrinter.printHeadStart(out, title);
         moreHTMLHead(out);
         HeadPrinter.printHeadEnd(out);
-
-
     }
 
     protected void moreHTMLHead(PrintWriter out) {
     }
 
     protected String getPageTitle() {
-        return "GoFish [@adamnark]";
+        return "GoFish @adamnark";
     }
 
     private void printHTMLBody(PrintWriter out) throws ServletException, IOException {
@@ -108,6 +120,7 @@ public class GoFishServlet extends HttpServlet {
         printScripts(out);
         out.println("</body>");
     }
+
 
     private void printNavBar(PrintWriter out) throws ServletException, IOException {
         NavbarPrinter.NavbarItems activeItem = getActiveItem();
@@ -128,5 +141,21 @@ public class GoFishServlet extends HttpServlet {
     }
 
     protected void printMoreScripts(PrintWriter out) {
+    }
+
+    protected boolean tryForwardToCurrentServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String currentServlet = (String) this.getServletContext().getAttribute(ATTR_CURRENT_SETTING_SERVLET);
+        if (currentServlet != null) {
+            request.getRequestDispatcher(currentServlet).forward(request, response);
+            return true;
+        }
+        return false;
+    }
+
+    protected void respondJSONObject(Object obj, HttpServletResponse response) throws IOException {
+        Gson gson = new Gson();
+        String answer = gson.toJson(obj);
+        response.setContentType("json");
+        response.getWriter().print(answer);
     }
 }
