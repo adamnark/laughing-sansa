@@ -4,6 +4,7 @@ package web.servlets.game;
 
 import engine.Engine;
 import engine.Factory.PlayerItem;
+import engine.cards.Card;
 import engine.players.Player;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import web.servlets.containers.CardContainer;
 import web.servlets.containers.SessionPlayer;
 import web.servlets.general.GoFishServlet;
 
@@ -27,6 +29,7 @@ public class StatusServlet extends GoFishServlet {
     private static final String PARAM_QUERY_LIST_PLAYERS = "list";
     private static final String PARAM_QUERY_LIST_CURRENT_PLAYER = "current";
     private static final String PARAM_QUERY_LIST_LOGS = "log";
+    private static final String PARAM_QUERY_HAND = "hand";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,6 +44,9 @@ public class StatusServlet extends GoFishServlet {
                     break;
                 case PARAM_QUERY_LIST_LOGS:
                     respondNewLogs(request, response);
+                    break;
+                case PARAM_QUERY_HAND:
+                    respondHand(request, response);
                     break;
                 default:
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -103,5 +109,18 @@ public class StatusServlet extends GoFishServlet {
         }
 
         return null;
+    }
+
+    private void respondHand(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        SessionPlayer sp = getSessionPlayer(request.getSession(true));
+        LinkedList<CardContainer> lst = new LinkedList<>();
+
+        if (sp != null) {
+            for (Card card : sp.getPlayer().getHand().getCards()) {
+                lst.add(new CardContainer(card));
+            }
+        }
+
+        respondJSONObject(lst, response);
     }
 }

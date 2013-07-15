@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,9 +37,12 @@
                 Players
             </h3>
             <ul class='inline'>
-                <li><img src='img/computer.png'> dfdfdf : 1
-                <li><img src='img/computer.png'> sss2 : 1
-                <li style='background:rgb(205, 255, 150);'><img src='img/human.png'> sss : 0
+                <li style='background:rgb(205, 255, 150);'><img src='img/human.png'> Moxie : 0
+                <li><img src='img/computer.png'> Loxie : 0
+                <li><img src='img/computer.png'> Foxie : 0
+                <li><img src='img/computer.png'> Doxie : 0
+                <li><img src='img/computer.png'> Woxie : 1
+                <li><img src='img/computer.png'> Soxie : 0
             </ul>
             <hr>
             <form name='playerform' method='post' action='play' class='form-inline'><input id='skip' type='button' class='btn' value='Skip'><input id='throw' type='button' class='btn' value='Throw cards'><input id='request' type='button' class='btn' value='Request a card'></form><hr>
@@ -47,7 +51,7 @@
                     <tr>
                         <th>
                 <h3>
-                    sss's Hand:
+                    Moxie's Hand:
                 </h3>
                 </th>
                 <th>
@@ -64,109 +68,72 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
-                            <div class="hand">
-                                <strong>4d83</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>16ac</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>4d83</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>16ac</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>4d83</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>16ac</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>4d83</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>16ac</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>4d83</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>16ac</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>4d83</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <div class="hand">
-                                <strong>alskdmalksdmalsdkmasdlk</strong>
-                                <span class='ser0'>Kingslayer</span>
-                                <span class='ser1'>Kingslayer</span>
-                                <span class='ser2'>Kingslayer</span>
-                            </div>
-                            <!--<div style="float:clear;"></div>-->
-                            
-<!--                            <ul>
-                                <li class='hand' card='4d83'>4d83 : {<span class='ser0'>Kingslayer</span> }</li>
-                                <li class='hand' card='16ac'>16ac : {<span class='ser2'>Tyrion</span> }</li>
-                                <li class='hand' card='e245'>e245 : {<span class='ser0'>Kingslayer</span> }</li>
-                                <li class='hand' card='3a7b'>3a7b : {<span class='ser2'>Tyrion</span> }</li>
-                            </ul>-->
+                        <td class='hand'>
+                            <div class='card hand' card=Shireen>
+                                <strong>
+                                    Shireen
+                                </strong><br />
+                                <p class='ser0'>Baratheon</p></div>
+                            <div class='card hand' card=Joffery>
+                                <strong>
+                                    Joffery
+                                </strong><br />
+                                <p class='ser4'>Lannister</p></div>
+                            <div class='card hand' card=Tommen>
+                                <strong>
+                                    Tommen
+                                </strong><br />
+                                <p class='ser4'>Lannister</p></div>
+                            <div class='card hand' card=Ned>
+                                <strong>
+                                    Ned
+                                </strong><br />
+                                <p class='ser3'>Stark</p></div>
                         </td>
-                        
-                        <td>
-                            <ul><li class='graveyard' card='c5f6'>c5f6 : {<span class='ser0'>Kingslayer</span> }</li>
-                                <li class='graveyard' card='d12b'>d12b : {<span class='ser0'>Kingslayer</span> }</li>
-                                <li class='graveyard' card='7a57'>7a57 : {<span class='ser0'>Kingslayer</span> }</li>
-                                <li class='graveyard' card='214d'>214d : {<span class='ser0'>Kingslayer</span> }</li>
-                            </ul>
-                        
+                        <td class='graveyard'>
+                            <div class='card ' card=Timeon>
+                                <strong>
+                                    Timeon
+                                </strong><br />
+                                <p class='ser2'>Brave Companions</p></div>
+                            <div class='card ' card=Pyg>
+                                <strong>
+                                    Pyg
+                                </strong><br />
+                                <p class='ser2'>Brave Companions</p></div>
+                            <div class='card ' card=Biter>
+                                <strong>
+                                    Biter
+                                </strong><br />
+                                <p class='ser2'>Brave Companions</p></div>
+                            <div class='card ' card=Vargo Hoat>
+                                <strong>
+                                    Vargo Hoat
+                                </strong><br />
+                                <p class='ser2'>Brave Companions</p></div>
                         </td>
                         <td>
                             <div>
                                 <p>
-                                    2013-06-01 18:29:52.625> sss2 has thrown four cards!</p>
+                                    2013-07-15 19:24:01.315> Soxie hasn't thrown any cards.</p>
                                 <p>
-                                    2013-06-01 18:29:52.625> sss2 has made a bad request!</p>
+                                    2013-07-15 19:24:01.315> Soxie has made a bad request!</p>
                                 <p>
-                                    2013-06-01 18:29:52.625> sss2 has made a successful request!</p>
+                                    2013-07-15 19:24:01.315> Soxie has made a successful request!</p>
                                 <p>
-                                    2013-06-01 18:29:52.625> sss2 has made a successful request!</p>
+                                    2013-07-15 19:24:01.139> Woxie has thrown four cards!</p>
                                 <p>
-                                    2013-06-01 18:29:52.625> sss2 has made a successful request!</p>
+                                    2013-07-15 19:24:01.139> Woxie has made a bad request!</p>
+                                <p>
+                                    2013-07-15 19:24:01.139> Woxie has made a successful request!</p>
+                                <p>
+                                    2013-07-15 19:24:01.139> Woxie has made a successful request!</p>
+                                <p>
+                                    2013-07-15 19:24:01.139> Woxie has made a successful request!</p>
+                                <p>
+                                    2013-07-15 19:24:01.139> Woxie has made a successful request!</p>
+                                <p>
+                                    2013-07-15 19:24:00.981> Doxie hasn't thrown any cards.</p>
                             </div>
                         </td>
                     </tr>
@@ -179,6 +146,6 @@
         <script src="bootstrap/js/jquery.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
 
-        <!--<script src='js/play.js'></script>-->
+        <script src='js/play.js'></script>
     </body>
 </html>

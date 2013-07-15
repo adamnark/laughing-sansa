@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import web.servlets.containers.CardContainer;
 import web.servlets.containers.SessionPlayer;
 import web.servlets.general.GoFishServlet;
 
@@ -79,6 +80,11 @@ public class LobbyServlet extends GoFishServlet {
         int totalPlayers = getNumOfHumanPlayers(e);
         int numOfConnectedPlayers = connectedPlayers.size();
         boolean isAllConnected = totalPlayers == numOfConnectedPlayers;
+        
+        if (isAllConnected){
+            e.startGame();
+            CardContainer.initClass(e);
+        }
         
         respondJSONObject(isAllConnected, response);
     }

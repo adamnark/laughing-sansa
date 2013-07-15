@@ -2,6 +2,8 @@
 
 var currentPlayerName = "";
 
+var selectedCardNames = [];
+
 function refreshCurrentPlayer() {
     $.getJSON("status", {q: "current"}, function(name) {
         currentPlayerName = name;
@@ -31,14 +33,63 @@ function getMoreLogs() {
     });
 }
 
+function toggleCard(cardTag) {
+    cardTag = $(cardTag);
+    if (cardTag.hasClass("clicked")) {
+        selectedCardNames = $.grep(selectedCardNames, function(cardName) {
+            return cardName !== cardTag.attr("card");
+        });
+        cardTag.removeClass("clicked");
+    } else {
+        selectedCardNames.push(cardTag.attr("card"));
+        cardTag.addClass("clicked");
+    }
+}
+
+function getHand() {
+    $.getJSON("status", {q: "hand"}, function(cards) {
+        $("#hand").empty();
+
+        $.each(cards, function(_, card) {
+            var cardTag = $("<div>", {
+                card: card.name,
+                class: "card hand"
+            });
+
+            cardTag.append($("<strong>").text(card.name));
+            $.each(card.series, function(_, ser) {
+                cardTag.append($("<p>", {
+                    class: ser.id,
+                    text: ser.name
+                }));
+            });
+
+            if ($.inArray(card.name, selectedCardNames) > -1) {
+                cardTag.addClass("clicked");
+            }
+
+            cardTag.click(function() {
+                toggleCard(this);
+            });
+
+
+            $("#hand").append(cardTag);
+        });
+    });
+}
+
+function refresh() {
+    refreshCurrentPlayer();
+    refreshPlayersList();
+    getMoreLogs();
+    getHand();
+}
+
 function setupInterval() {
+    refresh();
     window.setInterval(function() {
-        refreshCurrentPlayer();
-        refreshPlayersList();
-        getMoreLogs();
+        refresh();
     }, 5000);
 }
 
-$(refreshCurrentPlayer);
-$(refreshPlayersList);
 $(setupInterval);
