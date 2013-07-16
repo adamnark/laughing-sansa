@@ -46,23 +46,29 @@ function toggleCard(cardTag) {
     }
 }
 
+function generateCardTag(card) {
+    var cardTag = $("<div>", {
+        card: card.name,
+        class: "card"
+    });
+
+    cardTag.append($("<strong>").text(card.name));
+    $.each(card.series, function(_, ser) {
+        cardTag.append($("<p>", {
+            class: ser.id,
+            text: ser.name
+        }));
+    });
+
+    return cardTag;
+}
+
 function getHand() {
     $.getJSON("status", {q: "hand"}, function(cards) {
         $("#hand").empty();
-
         $.each(cards, function(_, card) {
-            var cardTag = $("<div>", {
-                card: card.name,
-                class: "card hand"
-            });
-
-            cardTag.append($("<strong>").text(card.name));
-            $.each(card.series, function(_, ser) {
-                cardTag.append($("<p>", {
-                    class: ser.id,
-                    text: ser.name
-                }));
-            });
+            var cardTag = generateCardTag(card);
+            cardTag.addClass("hand");
 
             if ($.inArray(card.name, selectedCardNames) > -1) {
                 cardTag.addClass("clicked");
@@ -72,8 +78,17 @@ function getHand() {
                 toggleCard(this);
             });
 
-
             $("#hand").append(cardTag);
+        });
+    });
+}
+
+function getGraveyard() {
+    $.getJSON("status", {q: "graveyard"}, function(cards) {
+        $("#graveyard").empty();
+        $.each(cards, function(_, card) {
+            var cardTag = generateCardTag(card);
+            $("#graveyard").append(cardTag);
         });
     });
 }

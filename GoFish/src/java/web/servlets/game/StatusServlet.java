@@ -30,6 +30,7 @@ public class StatusServlet extends GoFishServlet {
     private static final String PARAM_QUERY_LIST_CURRENT_PLAYER = "current";
     private static final String PARAM_QUERY_LIST_LOGS = "log";
     private static final String PARAM_QUERY_HAND = "hand";
+    private static final String PARAM_QUERY_GRAVEYARD = "graveyard";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,6 +48,9 @@ public class StatusServlet extends GoFishServlet {
                     break;
                 case PARAM_QUERY_HAND:
                     respondHand(request, response);
+                    break;
+                case PARAM_QUERY_GRAVEYARD:
+                    respondGraveyard(request, response);
                     break;
                 default:
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -122,5 +126,14 @@ public class StatusServlet extends GoFishServlet {
         }
 
         respondJSONObject(lst, response);
+    }
+
+    private void respondGraveyard(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        LinkedList<CardContainer> lst = new LinkedList<>();
+        for (Card card : getEngineFromServletContext().getLastCardsThrown()) {
+            lst.add(new CardContainer(card));
+        }
+        
+        respondJSONObject(lst, response);        
     }
 }
