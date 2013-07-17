@@ -93,18 +93,49 @@ function getGraveyard() {
     });
 }
 
+function addCommandClickEvent(commandButton) {
+    var cmd = commandButton.attr("command");
+    var simpleCmds = ["quit", "skip"];
+
+    if (simpleCmds.indexOf(cmd) > -1) {
+        commandButton.click(function() {
+            $.get("do", {
+                a: cmd
+            });
+            //refresh();
+        });
+    }
+}
+
+
+function getCommands() {
+    $.getJSON("status", {q: "commands"}, function(commands) {
+        $("#commands").empty();
+        $.each(commands, function(_, command) {
+            var commandButton = $("<button>", {
+                class: "btn",
+                command: command,
+                text: command
+            });
+            addCommandClickEvent(commandButton);
+            $("#commands").append(commandButton);
+        });
+    });
+}
+
 function refresh() {
     refreshCurrentPlayer();
     refreshPlayersList();
     getMoreLogs();
     getHand();
+    getCommands();
 }
 
 function setupInterval() {
     refresh();
     window.setInterval(function() {
         refresh();
-    }, 5000);
+    }, 500);
 }
 
 $(setupInterval);

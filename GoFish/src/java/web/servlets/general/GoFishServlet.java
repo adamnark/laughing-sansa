@@ -3,6 +3,7 @@
 package web.servlets.general;
 
 import com.google.gson.Gson;
+import engine.Engine;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +26,10 @@ public class GoFishServlet extends HttpServlet {
     protected static final String ATTR_SESSION_PLAYERS_LIST = "attr-session-players-list";
     protected static final String ATTR_CURRENT_SETTING_SERVLET = "attr-current-setting-servlet";
     protected static final String SESSION_ATTR_MESSAGE = "session-attr-message";
+    protected static final String COMMAND_QUIT = "quit";
+    protected static final String COMMAND_SKIP = "skip";
+    protected static final String COMMAND_THROW = "throw";
+    protected static final String COMMAND_REQUEST = "request";
 
     /**
      * Processes requests for both HTTP
@@ -170,5 +175,21 @@ public class GoFishServlet extends HttpServlet {
             response.getWriter().print(message);
             s.setAttribute(SESSION_ATTR_MESSAGE, null);
         }
+    }
+
+    protected Engine getEngineFromServletContext() {
+        return (Engine) this.getServletContext().getAttribute(ATTR_ENGINE);
+    }
+
+    protected SessionPlayer getSessionPlayer(HttpSession s) {
+        List<SessionPlayer> lst = (List<SessionPlayer>) this.getServletContext().getAttribute(ATTR_SESSION_PLAYERS_LIST);
+
+        for (SessionPlayer sessionPlayer : lst) {
+            if (sessionPlayer.getSession().equals(s)) {
+                return sessionPlayer;
+            }
+        }
+
+        return null;
     }
 }

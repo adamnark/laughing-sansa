@@ -51,6 +51,7 @@ function handleResponseNameSelection(response) {
 
 function setUpSubmitBtn() {
     $("#submitbutton").click(function() {
+        
         var name = $("#selectnames").find(":selected").text();
         $.ajax({
             url: "LoadWelcome?selectnames=" + name,

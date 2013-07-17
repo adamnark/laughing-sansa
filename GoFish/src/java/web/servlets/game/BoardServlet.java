@@ -32,6 +32,7 @@ public class BoardServlet extends GoFishServlet {
         out.println("<hr>");
         // printPlayerForm(out);
         // ErrorPrinter.printErrors(out, this.errors);
+        out.println("<div id='commands'></div>");
         out.println("<hr>");
         out.println("<table class='table'>");
         out.println("<thead>");
