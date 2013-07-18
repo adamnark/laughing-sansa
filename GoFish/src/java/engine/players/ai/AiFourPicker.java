@@ -32,6 +32,12 @@ public class AiFourPicker implements IFourPicker {
             }
         }
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+
         return four.isEmpty() ? null : four;
     }
 

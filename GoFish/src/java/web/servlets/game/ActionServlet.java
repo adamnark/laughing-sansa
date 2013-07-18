@@ -53,8 +53,9 @@ public class ActionServlet extends GoFishServlet {
     private void handleCommandSkip(HttpServletRequest request, HttpServletResponse response) {
         Player p = getSessionPlayer(request.getSession()).getPlayer();
         Engine e = getEngineFromServletContext();
-        if (p.equals(e.getCurrentPlayer())) {
-            e.advanceTurn();
+        if (p.getName().equals(e.getCurrentPlayer().getName())) {
+
+
         }
     }
 
@@ -104,4 +105,5 @@ public class ActionServlet extends GoFishServlet {
         }
         return lst;
     }
+
 }

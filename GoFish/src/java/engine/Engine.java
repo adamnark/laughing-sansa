@@ -38,16 +38,10 @@ public class Engine {
         if (cardsWereThrown) {
             getCurrentPlayer().increaseScore();
             setLastCardsThrown(getCurrentPlayer().getLastCardsThrown());
-            //this.eventQueue.add(Event.FOUR_CARDS_THROWN);
             this.eventQueue.add("4 cards were thrown by " + getCurrentPlayer().getName() + "!");
         }
-//        } else {
-//            //this.eventQueue.add(Event.FOUR_CARDS_NOT_THROWN);
-//            this.eventQueue.add(Event.FOUR_CARDS_NOT_THROWN);
-//        }
 
         if (!getCurrentPlayer().isPlaying()) {
-            //this.eventQueue.add(Event.PLAYER_OUT_OF_CARDS);
             this.eventQueue.add(getCurrentPlayer().getName() + " has run out of cards");
         }
     }
@@ -68,14 +62,11 @@ public class Engine {
         Player victim;
         victim = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
         if (victim != null) {
-            //this.eventQueue.add(Event.SUCCESSFUL_REQUEST);
-            this.eventQueue.add(getCurrentPlayer().getName() + " has taken a card from " + victim.getName() + "!");
+            return true;
         } else {
-            //this.eventQueue.add(Event.FAILED_REQUEST);
             this.eventQueue.add(getCurrentPlayer().getName() + " made a bad guess..");
+            return false;
         }
-
-        return victim != null;
     }
 
     private boolean isOnePlayerLeft() {
@@ -85,6 +76,7 @@ public class Engine {
                 count++;
             }
         }
+        
         return count == 1;
     }
 
@@ -149,7 +141,6 @@ public class Engine {
 
     public void advanceTurn() {
         if (this.isGameOver()) {
-            //this.eventQueue.add(Event.GAME_OVER);
             this.eventQueue.add(EVENT_GAME_OVER);
         } else {
             do {

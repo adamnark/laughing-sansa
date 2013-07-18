@@ -32,10 +32,13 @@ public class AiRequestMaker implements IRequestMaker {
 
         Card randomCard = makeRandomCard();
         Player randomPlayer = pickRandomPlayer();
-        
-        //System.out.println("\t ~~REQUESTING "+ randomCard + " from " + randomPlayer.getName());
-        
-        
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+
         return new Request(randomPlayer, randomCard);
     }
 
