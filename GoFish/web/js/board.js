@@ -4,6 +4,8 @@ var currentPlayerName = "";
 
 var selectedCardNames = [];
 
+var REFRESH_INTERVAL = 10000;
+
 function refreshCurrentPlayer() {
     $.getJSON("status", {q: "current"}, function(name) {
         currentPlayerName = name;
@@ -95,18 +97,36 @@ function getGraveyard() {
 
 function addCommandClickEvent(commandButton) {
     var cmd = commandButton.attr("command");
-    var simpleCmds = ["quit", "skip"];
 
-    if (simpleCmds.indexOf(cmd) > -1) {
+    if (cmd === "skip") {
         commandButton.click(function() {
             $.get("do", {
                 a: cmd
             });
-            //refresh();
+            refresh();
         });
+    } else if (cmd === "quit") {
+        commandButton.click(function() {
+            $.get("do", {
+                a: cmd
+            });
+            window.location = "home";
+        });
+    } else if (cmd === "throw") {
+        commandButton.click(function() {
+            $.post("do", {
+                a: cmd,
+                cards: selectedCardNames}
+            , function(response) {
+                $("#message").text(response);
+                refresh();
+            });
+        });
+
+    } else if (cmd === "request") {
+
     }
 }
-
 
 function getCommands() {
     $.getJSON("status", {q: "commands"}, function(commands) {
@@ -135,7 +155,7 @@ function setupInterval() {
     refresh();
     window.setInterval(function() {
         refresh();
-    }, 500);
+    }, REFRESH_INTERVAL);
 }
 
 $(setupInterval);

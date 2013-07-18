@@ -12,11 +12,36 @@ public class SessionPlayer {
     private Player player;
     private HttpSession session;
     private int logIndex;
+    private boolean hasThrownFour;
+    private boolean hasRequestedCard;
 
     public SessionPlayer(Player player, HttpSession session) {
         this.player = player;
         this.session = session;
         this.logIndex = 0;
+        this.hasThrownFour = false;
+        this.hasRequestedCard = false;
+    }
+
+    public void resetPlayState() {
+        this.hasThrownFour = false;
+        this.hasRequestedCard = false;
+    }
+
+    public boolean isHasThrownFour() {
+        return hasThrownFour;
+    }
+
+    public void setHasThrownFour(boolean hasThrownFour) {
+        this.hasThrownFour = hasThrownFour;
+    }
+
+    public boolean isHasRequestedCard() {
+        return hasRequestedCard;
+    }
+
+    public void setHasRequestedCard(boolean hasRequestedCard) {
+        this.hasRequestedCard = hasRequestedCard;
     }
 
     public int getLogIndex() {

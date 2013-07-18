@@ -23,7 +23,6 @@ public class Engine {
     private HashMultimap<Series, Card> cardsBySeries;
     private boolean isGameStarted;
     private Collection<Card> lastCardsThrown;
-    
     public static final String EVENT_GAME_OVER = "Game Over";
 
     public Engine() {
@@ -70,7 +69,7 @@ public class Engine {
         victim = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
         if (victim != null) {
             //this.eventQueue.add(Event.SUCCESSFUL_REQUEST);
-            this.eventQueue.add(getCurrentPlayer().getName() + " has taken a card from " + victim.getName()+"!");
+            this.eventQueue.add(getCurrentPlayer().getName() + " has taken a card from " + victim.getName() + "!");
         } else {
             //this.eventQueue.add(Event.FAILED_REQUEST);
             this.eventQueue.add(getCurrentPlayer().getName() + " made a bad guess..");
@@ -212,6 +211,21 @@ public class Engine {
         }
 
         return null;
+    }
+
+    public void removerPlayer(Player player) {
+        this.players.remove(player);
+    }
+
+    public Card getCardByName(String string) {
+        Card card = null;
+        for (Player player : players) {
+            card = player.getCard(string);
+            if (card != null) {
+                break;
+            }
+        }
+        return card;
     }
 
     public static enum Event {

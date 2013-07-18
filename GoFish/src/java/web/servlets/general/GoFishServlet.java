@@ -181,6 +181,10 @@ public class GoFishServlet extends HttpServlet {
         return (Engine) this.getServletContext().getAttribute(ATTR_ENGINE);
     }
 
+    protected List<SessionPlayer> getSessionPlayersFromServletContext() {
+        return (List<SessionPlayer>) this.getServletContext().getAttribute(ATTR_SESSION_PLAYERS_LIST);
+    }
+
     protected SessionPlayer getSessionPlayer(HttpSession s) {
         List<SessionPlayer> lst = (List<SessionPlayer>) this.getServletContext().getAttribute(ATTR_SESSION_PLAYERS_LIST);
 

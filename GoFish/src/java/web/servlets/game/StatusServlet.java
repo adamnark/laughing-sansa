@@ -57,26 +57,23 @@ public class StatusServlet extends GoFishServlet {
                     respondCommands(request, response);
                     break;
                 default:
-                        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "StatusServlet: what is this query?");
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "StatusServlet: what is this query?");
                     break;
             }
         } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST,"StatusServlet: No query!");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "StatusServlet: No query!");
         }
     }
 
     private void respondPlayersList(HttpServletResponse response) throws IOException {
         Engine e = getEngineFromServletContext();
         List<PlayerItem> lst = new LinkedList<>();
-
         for (Player player : e.getPlayers()) {
             lst.add(new PlayerItem(player));
         }
 
         super.respondJSONObject(lst, response);
     }
-
-
 
     private void respondCurrentPlayer(HttpServletResponse response) throws IOException {
         String answer = getEngineFromServletContext().getCurrentPlayer().getName();
@@ -94,9 +91,7 @@ public class StatusServlet extends GoFishServlet {
                 output.add(log.get(i).toString());
             }
 
-
             sessionPlayer.setLogIndex(i);
-
             super.respondJSONObject(output, response);
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "I don't know you.");
@@ -132,9 +127,11 @@ public class StatusServlet extends GoFishServlet {
         if (sp.getPlayer().getName().equals(currentPlayer.getName())) {
             lst.add(COMMAND_SKIP);
             lst.add(COMMAND_REQUEST);
-            lst.add(COMMAND_THROW);
+            if (!sp.isHasThrownFour()) {
+                lst.add(COMMAND_THROW);
+            }
         }
-        
+
         lst.add(COMMAND_QUIT);
 
         respondJSONObject(lst, response);

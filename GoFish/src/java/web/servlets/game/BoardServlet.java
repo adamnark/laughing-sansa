@@ -5,10 +5,12 @@ package web.servlets.game;
 import engine.Engine;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import web.servlets.containers.SessionPlayer;
 import web.servlets.general.GoFishServlet;
 
 /**
@@ -19,8 +21,14 @@ import web.servlets.general.GoFishServlet;
 public class BoardServlet extends GoFishServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doGet(request, response); //To change body of generated methods, choose Tools | Templates.
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<SessionPlayer> spList = getSessionPlayersFromServletContext();
+        SessionPlayer sp = getSessionPlayer(request.getSession());
+        if (!spList.contains(sp)) {
+            request.getRequestDispatcher("/home").forward(request, response);
+        } else {
+            super.processRequest(request, response);
+        }
     }
 
     @Override
@@ -33,6 +41,8 @@ public class BoardServlet extends GoFishServlet {
         // printPlayerForm(out);
         // ErrorPrinter.printErrors(out, this.errors);
         out.println("<div id='commands'></div>");
+        out.println("<hr>");
+        out.println("<div id='message'>mofing</div>");
         out.println("<hr>");
         out.println("<table class='table'>");
         out.println("<thead>");
@@ -71,14 +81,10 @@ public class BoardServlet extends GoFishServlet {
         out.println("<script src='js/board.js'> </script>");
 
     }
-
+    
     private void printTitle(PrintWriter out, String title) {
         out.println("<h3>");
         out.println(title);
         out.println("</h3>");
-    }
-
-    private Engine getEngineFromContext() {
-        return (Engine) this.getServletContext().getAttribute(ATTR_ENGINE);
     }
 }

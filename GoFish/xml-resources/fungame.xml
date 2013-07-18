@@ -20,7 +20,7 @@
                 </card>
 
                 <card name="Pyg">
-                    <series>Ezhiols</series>
+                    <series>Lannister</series>
                 </card>
 			
                 <card name="Joffery">
@@ -32,7 +32,7 @@
                 </card>
 			
                 <card name="Ned">
-                    <series>Stark</series>
+                    <series>Lannister</series>
                 </card>
 
             </cards>
@@ -40,7 +40,7 @@
         <player type="COMPUTER" name="Loxie">
             <cards>
                 <card name="Tyrion">
-                    <series>Lannister</series>
+                    <series>Stark</series>
                 </card>
 
                 <card name="Robb">

@@ -192,8 +192,6 @@ public class PlayServlet extends GoFishServlet {
     private void handleThrowFourAction() {
         if (action != null
                 && action.equals(PARAM_ACTION_THROW)) {
-
-            // if current is human give the current player a four-thrower that would pick these cards.
             if (engine.getCurrentPlayer().isHuman()) {
                 ((WebFourPicker) engine.getCurrentPlayer().getFourPicker()).setCardsToThrow(this.clickedCards);
             }

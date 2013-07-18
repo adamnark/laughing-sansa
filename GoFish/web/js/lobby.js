@@ -18,11 +18,11 @@ function refreshListOfConnectedPlayers() {
 
 function handleResponseIsStarted(isStarted) {
     if (isStarted) {
-        $("#message").text("All players connected! redirecting you to the game in 3 seconds...");
+        $("#message").text("All players connected! redirecting you to the game in 1 second...");
         $("#message").addClass("alert-success").removeClass("alert-error");
         window.setInterval(function() {
             window.location = "board";
-        }, 3000);
+        }, 1000);
     }
 }
 
@@ -43,7 +43,7 @@ function checkIfGameHasStarted() {
 
 function setupInterval() {
     window.setInterval(refreshListOfConnectedPlayers, 1000);
-    window.setInterval(checkIfGameHasStarted, 5000);
+    window.setInterval(checkIfGameHasStarted, 1000);
 }
 
 $(setupInterval);
