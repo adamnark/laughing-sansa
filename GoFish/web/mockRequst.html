@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>GoFish @adamnark</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Go Fish v3.0">
+        <meta name="author" content="Adam Narkunski">
+
+        <link href='css/gofish.css' rel='stylesheet'>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <style>body {padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */}</style>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link rel="shortcut icon" href="img/favicon.png">
+    </head>
+
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="home">Go Fish</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li><a href="newgame">New Game</a></li>
+                            <li><a href="loadgame">Load Game</a></li>
+                            <li><a href="about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h3>
+                Let's make a request!
+            </h3>
+            <!--<form name='requestform' action='request'  method='post' class='form' >-->
+            <!--                <input type='hidden' name='action' value='requestform'>-->
+            <p>Pick a player:</p>
+            <label class='radio'>
+                <input type='radio' name='player' value='a'>a
+            </label>
+            <label class='radio'>
+                <input type='radio' name='player' value='c'>c
+            </label>
+            <hr>
+            <p>
+                Pick 2 serieses:
+            </p>
+            <label class='checkbox'>
+                <span class='ser0'>
+                    <input type='checkbox' name='series' value='Loxley'>Loxley
+                </span>
+            </label>
+            <label class='checkbox'>
+                <span class='ser1'>
+                    <input type='checkbox' name='series' value='Newbern'>Newbern
+                </span>
+            </label>
+            <label class='checkbox'>
+                <span class='ser2'>
+                    <input type='checkbox' name='series' value='Ohatchee'>Ohatchee
+                </span>
+            </label>
+            <label class='checkbox'>
+                <span class='ser3'>
+                    <input type='checkbox' name='series' value='Repton'>Repton
+                </span>
+            </label>
+            <!--<input type='submit' value='Request!'>-->
+            <button id="requestbtn" class="btn btn-primary">Request!</button>
+        </form>
+        <hr>
+    </div> <!-- container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <script src="bootstrap/js/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+</html>

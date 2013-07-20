@@ -51,19 +51,21 @@ public class ActionServlet extends GoFishServlet {
     }
 
     private void handleCommandSkip(HttpServletRequest request, HttpServletResponse response) {
-        SessionPlayer sp = getSessionPlayer(request.getSession());
-        Player p = sp.getPlayer();
+        SessionPlayer sp = getSessionPlayer(request.getSession(true));
+        if (sp != null) {
+            Player p = sp.getPlayer();
 
-        Engine e = getEngineFromServletContext();
-        if (p.getName().equals(e.getCurrentPlayer().getName())) {
-            e.endOfTurn();
-            sp.setHasRequestedCard(false);
-            sp.setHasThrownFour(false);
+            Engine e = getEngineFromServletContext();
+            if (p.getName().equals(e.getCurrentPlayer().getName())) {
+                sp.setHasRequestedCard(false);
+                sp.setHasThrownFour(false);
+                e.advanceTurn();
+            }
         }
     }
 
     private void handleCommandQuit(HttpServletRequest request, HttpServletResponse response) {
-        SessionPlayer sp = getSessionPlayer(request.getSession());
+        SessionPlayer sp = getSessionPlayer(request.getSession(true));
         List<SessionPlayer> sessionPlayersList = getSessionPlayersFromServletContext();
         if (sp != null && sessionPlayersList != null) {
             sessionPlayersList.remove(sp);
@@ -76,25 +78,27 @@ public class ActionServlet extends GoFishServlet {
         Engine engine = getEngineFromServletContext();
         String[] cards = request.getParameterValues(PARAM_CARDS_CLCTN);
         SessionPlayer sessionPlayer = getSessionPlayer(request.getSession(true));
-        boolean isSessionPlayerCurrentPlayer = engine.getCurrentPlayer().equals(sessionPlayer.getPlayer());
-        if (cards == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ActionServlet.handleCommandThrow: no cards argument");
-        } else if (!isSessionPlayerCurrentPlayer) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ActionServlet.handleCommandThrow: it's not your turn");
-        } else {
-            List<Card> clickedCards = retrieveCardsById(cards, engine);
-            if (engine.getCurrentPlayer().isHuman()) {
-                ((WebFourPicker) engine.getCurrentPlayer().getFourPicker()).setCardsToThrow(clickedCards);
-            }
-            try {
-                engine.currentPlayerThrowFour();
-                sessionPlayer.setHasThrownFour(true);
-                messages.add("Four cards thrown.");
-            } catch (InvalidFourException ex) {
-                messages.add(ex.getMessage());
-            }
+        if (sessionPlayer != null) {
+            boolean isSessionPlayerCurrentPlayer = engine.getCurrentPlayer().equals(sessionPlayer.getPlayer());
+            if (cards == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ActionServlet.handleCommandThrow: no cards argument");
+            } else if (!isSessionPlayerCurrentPlayer) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ActionServlet.handleCommandThrow: it's not your turn");
+            } else {
+                List<Card> clickedCards = retrieveCardsById(cards, engine);
+                if (engine.getCurrentPlayer().isHuman()) {
+                    ((WebFourPicker) engine.getCurrentPlayer().getFourPicker()).setCardsToThrow(clickedCards);
+                }
+                try {
+                    engine.currentPlayerThrowFour();
+                    sessionPlayer.setHasThrownFour(true);
+                    messages.add("Four cards thrown.");
+                } catch (InvalidFourException ex) {
+                    messages.add(ex.getMessage());
+                }
 
-            respondJSONObject(messages, response);
+                respondJSONObject(messages, response);
+            }
         }
     }
 

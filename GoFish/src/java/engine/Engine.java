@@ -59,9 +59,9 @@ public class Engine {
     }
 
     public boolean currentPlayerMakeRequest() {
-        Player victim;
-        victim = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
+        Player victim = getCurrentPlayer().makeMove(getOtherPlayers(), this.cardsBySeries.keySet());
         if (victim != null) {
+            this.eventQueue.add(getCurrentPlayer().getName() + " took a card from " + victim.getName() + "!");
             return true;
         } else {
             this.eventQueue.add(getCurrentPlayer().getName() + " made a bad guess..");
@@ -145,7 +145,12 @@ public class Engine {
         } else {
             do {
                 this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
-            } while (getCurrentPlayer().getHand().getCards().isEmpty());
+            } while (!getCurrentPlayer().isPlaying());
+        }
+
+        // if this is an ai, you should play fo it
+        if (!getCurrentPlayer().isHuman()) {
+            playAITurn();
         }
     }
 
@@ -205,13 +210,13 @@ public class Engine {
     }
 
     public void removerPlayer(Player player) {
-        if (player.equals(this.getCurrentPlayer())){
+        this.players.get(this.players.indexOf(player)).getHand().empty();
+        this.eventQueue.add(player.getName() + " has left the game!");
+        if (player.equals(this.getCurrentPlayer())) {
             advanceTurn();
         }
-        
-        this.players.remove(player);
-        this.eventQueue.add(player.getName() + " has left the game!");
-        
+//        
+//        this.players.remove(player);
     }
 
     public Card getCardByName(String string) {
@@ -225,29 +230,23 @@ public class Engine {
         return card;
     }
 
-    public void endOfTurn() {
-        advanceTurn();
-        if (!this.getCurrentPlayer().isHuman()) {
-            playAITurn();
-        }
-    }
-
     private void playAITurn() {
         try {
             currentPlayerMakeRequest();
             currentPlayerThrowFour();
-            endOfTurn();
         } catch (InvalidFourException ex) {
         }
+
+        advanceTurn();
     }
 
-//    public static enum Event {
-//
-//        FAILED_REQUEST,
-//        SUCCESSFUL_REQUEST,
-//        FOUR_CARDS_THROWN,
-//        FOUR_CARDS_NOT_THROWN,
-//        PLAYER_OUT_OF_CARDS,
-//        GAME_OVER,
-//    }
+    public List<String> getHumanNames() {
+        List<String> humanNamesList = new LinkedList<>();
+        for (Player player : getPlayers()) {
+            if (player.isHuman()) {
+                humanNamesList.add(player.getName());
+            }
+        }
+        return humanNamesList;
+    }
 }

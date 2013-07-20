@@ -59,4 +59,8 @@ public class Hand {
         }
         return false;
     }
+
+    public void empty() {
+        this.cards = new ArrayList<>();
+    }
 }

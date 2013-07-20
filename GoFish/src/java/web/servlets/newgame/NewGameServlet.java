@@ -4,10 +4,10 @@ package web.servlets.newgame;
 
 import com.google.gson.Gson;
 import engine.Engine;
-import engine.factory.EngineFactory;
-import engine.factory.PlayerItem;
 import engine.GameSettings;
 import engine.Validator;
+import engine.factory.EngineFactory;
+import engine.factory.PlayerItem;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;

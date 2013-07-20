@@ -63,7 +63,6 @@ public class LoadGameServlet extends GoFishServlet {
             setCurrentServletAttribute();
             resetSessionPlayersList();
             request.getRequestDispatcher("/LoadWelcome").forward(request, response);
-            //response.sendRedirect("/LoadWelcome");
         }
 
         super.doPost(request, response);
@@ -143,13 +142,7 @@ public class LoadGameServlet extends GoFishServlet {
     private void addEngineToServletContext(Engine e) {
         this.getServletContext().setAttribute(ATTR_ENGINE, e);
         this.getServletContext().setAttribute(ATTR_LAST_CONFIGURATION, null);
-
-        List<String> humanNamesList = new LinkedList<>();
-        for (Player player : e.getPlayers()) {
-            if (player.isHuman()) {
-                humanNamesList.add(player.getName());
-            }
-        }
+        List<String> humanNamesList = e.getHumanNames();
 
         this.getServletContext().setAttribute(ATTR_LIST_OF_HUMAN_PLAYERS, humanNamesList);
     }
@@ -161,4 +154,6 @@ public class LoadGameServlet extends GoFishServlet {
     private void setCurrentServletAttribute() {
         this.getServletContext().setAttribute(ATTR_CURRENT_SETTING_SERVLET, "LoadWelcome");
     }
+
+
 }

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gofish xsi:noNamespaceSchemaLocation="gofish.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <settings>
+        <allowMutipleRequests>true</allowMutipleRequests>
+        <forceShowOfSeries>true</forceShowOfSeries>
+    </settings>
+    <players>
+        <player type="HUMAN" name="Moxie">
+            <cards>
+                <card name="Shireen0">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Shireen1">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Shireen2">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Shireen3">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Shireen4">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Shireen5">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Shireen6">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Shireen7">
+                    <series>Baratheon</series>
+                </card>
+            </cards>
+        </player>
+        <player type="HUMAN" name="Loxie">
+            <cards>
+                <card name="Tyrion0">
+                    <series>Stark</series>
+                </card>
+                <card name="Tyrion1">
+                    <series>Stark</series>
+                </card>
+                <card name="Tyrion2">
+                    <series>Stark</series>
+                </card>
+                <card name="Tyrion3">
+                    <series>Stark</series>
+                </card>
+                <card name="Tyrion4">
+                    <series>Stark</series>
+                </card>
+                <card name="Tyrion5">
+                    <series>Stark</series>
+                </card>
+                <card name="Tyrion6">
+                    <series>Stark</series>
+                </card>
+                <card name="Tyrion7">
+                    <series>Stark</series>
+                </card>
+            </cards>
+        </player>
+        <player type="COMPUTER" name="Foxie">
+            <cards>
+                <card name="Melisandre0">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Melisandre1">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Melisandre2">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Melisandre3">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Melisandre4">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Melisandre5">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Melisandre6">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Melisandre7">
+                    <series>Baratheon</series>
+                </card>
+            </cards>
+        </player>
+        <player type="COMPUTER" name="Doxie">
+            <cards>
+                <card name="Tywin0">
+                    <series>Lannister</series>
+                </card>
+                <card name="Tywin1">
+                    <series>Lannister</series>
+                </card>
+                <card name="Tywin2">
+                    <series>Lannister</series>
+                </card>
+                <card name="Tywin3">
+                    <series>Lannister</series>
+                </card>
+                <card name="Tywin4">
+                    <series>Lannister</series>
+                </card>
+                <card name="Tywin5">
+                    <series>Lannister</series>
+                </card>
+                <card name="Tywin6">
+                    <series>Lannister</series>
+                </card>
+                <card name="Tywin7">
+                    <series>Lannister</series>
+                </card>
+            </cards>
+        </player>
+        <player type="COMPUTER" name="Woxie">
+            <cards>
+                <card name="Patchface0">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Patchface1">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Patchface2">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Patchface3">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Patchface4">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Patchface5">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Patchface6">
+                    <series>Baratheon</series>
+                </card>
+                <card name="Patchface7">
+                    <series>Baratheon</series>
+                </card>
+            </cards>
+        </player>	
+        <player type="COMPUTER" name="Soxie">
+            <cards>
+                <card name="Mance Rayder0">
+                    <series>Free Folk</series>
+                </card>
+                <card name="Mance Rayder1">
+                    <series>Free Folk</series>
+                </card>
+                <card name="Mance Rayder2">
+                    <series>Free Folk</series>
+                </card>
+                <card name="Mance Rayder3">
+                    <series>Free Folk</series>
+                </card>
+                <card name="Mance Rayder4">
+                    <series>Free Folk</series>
+                </card>
+                <card name="Mance Rayder5">
+                    <series>Free Folk</series>
+                </card>
+                <card name="Mance Rayder6">
+                    <series>Free Folk</series>
+                </card>
+                <card name="Mance Rayder7">
+                    <series>Free Folk</series>
+                </card>
+            </cards>
+        </player>	
+    </players>
+</gofish>

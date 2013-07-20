@@ -66,7 +66,7 @@ public class LobbyServlet extends GoFishServlet {
 
     private void respondListConnectedNames(HttpServletResponse response) throws IOException {
         List<String> names = new LinkedList<>();
-        List<SessionPlayer> players = (List<SessionPlayer>) this.getServletContext().getAttribute(ATTR_SESSION_PLAYERS_LIST);
+        List<SessionPlayer> players = getSessionPlayersFromServletContext();
         for (SessionPlayer sessionPlayer : players) {
             names.add(sessionPlayer.getPlayer().getName());
         }

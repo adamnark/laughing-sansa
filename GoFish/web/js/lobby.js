@@ -26,8 +26,13 @@ function handleResponseIsStarted(isStarted) {
     }
 }
 
-function showError() {
-    $("#message").text("There was an error contacting the server.!..");
+function showError(jqXHR, textStatus, errorThrown) {
+    $("#message").empty();
+    $("#message").append("There was an error contacting the server:");
+    $("#message").append($("<br>"));
+    $("#message").append("Status: " + textStatus);
+    $("#message").append($("<br>"));
+    $("#message").append("Error: " + errorThrown);
     $("#message").addClass("alert-error").removeClass("alert-info");
 }
 

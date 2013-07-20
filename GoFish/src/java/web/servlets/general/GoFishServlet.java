@@ -187,13 +187,25 @@ public class GoFishServlet extends HttpServlet {
 
     protected SessionPlayer getSessionPlayer(HttpSession s) {
         List<SessionPlayer> lst = (List<SessionPlayer>) this.getServletContext().getAttribute(ATTR_SESSION_PLAYERS_LIST);
-
-        for (SessionPlayer sessionPlayer : lst) {
-            if (sessionPlayer.getSession().equals(s)) {
-                return sessionPlayer;
+        if (lst != null) {
+            for (SessionPlayer sessionPlayer : lst) {
+                if (sessionPlayer.getSession().equals(s)) {
+                    return sessionPlayer;
+                }
             }
         }
 
         return null;
+    }
+
+    protected boolean isSessionValid(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        SessionPlayer sp = getSessionPlayer(session);
+        if (sp == null) {
+            return false;
+
+        } else {
+            return true;
+        }
     }
 }

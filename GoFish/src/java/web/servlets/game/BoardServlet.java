@@ -22,8 +22,8 @@ public class BoardServlet extends GoFishServlet {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<SessionPlayer> spList = getSessionPlayersFromServletContext();
-        SessionPlayer sp = getSessionPlayer(request.getSession());
-        if (!spList.contains(sp)) {
+        SessionPlayer sp = getSessionPlayer(request.getSession(true));
+        if (sp != null && !spList.contains(sp)) {
             request.getRequestDispatcher("/home").forward(request, response);
         } else {
             super.processRequest(request, response);
@@ -74,7 +74,7 @@ public class BoardServlet extends GoFishServlet {
         out.println("<script src='js/board.js'> </script>");
 
     }
-    
+
     private void printTitle(PrintWriter out, String title) {
         out.println("<h3>");
         out.println(title);

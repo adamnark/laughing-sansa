@@ -37,7 +37,7 @@
 
             </cards>
         </player>
-        <player type="COMPUTER" name="Loxie">
+        <player type="HUMAN" name="Loxie">
             <cards>
                 <card name="Tyrion">
                     <series>Stark</series>
