@@ -3,9 +3,8 @@
 var currentPlayerName = "";
 var selectedCardNames = [];
 var REFRESH_INTERVAL = 5000;
-var DROP_INTERVAL = 1 * 60 * 1000;
-var shouldExit = true;
-shouldExit = false;
+var DROP_INTERVAL = 1 * 30 * 1000;
+var shouldExit = false;
 
 /* HELPER FUNCTIONS */
 function toggleCard(cardTag) {
@@ -187,7 +186,11 @@ function refresh() {
 function checkIfDropped() {
     if (shouldExit === true) {
         $("#message").text("YOU'VE TIMED OUT BUDDY!!!");
-        window.location = "home";
+        $.get("do", {
+            a: "quit"
+        }, function() {
+            window.location = "home";
+        });
     }
     shouldExit = true;
 }
@@ -201,5 +204,4 @@ function setupInterval() {
     window.setInterval(checkIfDropped, DROP_INTERVAL);
 }
 
-//$(getLastLogs);
 $(setupInterval);

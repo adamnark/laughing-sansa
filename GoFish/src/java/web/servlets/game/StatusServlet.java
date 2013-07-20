@@ -1,4 +1,3 @@
-
 package web.servlets.game;
 
 import engine.Engine;
@@ -179,9 +178,10 @@ public class StatusServlet extends GoFishServlet {
         for (SessionPlayer sp : sessionPlayersList) {
             long diff = now - sp.getTimeStamp();
             if (diff > 1 * 60 * 1000) { // one minute
-                sessionPlayersList.remove(sp);
-                getEngineFromServletContext().getEventQueue().add(sp.getPlayer().getName() + " timed out!!!");
-                getEngineFromServletContext().removerPlayer(sp.getPlayer());
+//                sessionPlayersList.remove(sp);
+//                getEngineFromServletContext().getEventQueue().add(sp.getPlayer().getName() + " timed out!!!");
+//                getEngineFromServletContext().removerPlayer(sp.getPlayer());
+                System.out.println(sp.getPlayer().getName() + "HAS TIMED OUT!!!!");
             }
         }
     }

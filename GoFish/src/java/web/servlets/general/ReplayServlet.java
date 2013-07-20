@@ -4,6 +4,7 @@ package web.servlets.general;
 
 import engine.Engine;
 import engine.factory.EngineFactory;
+import engine.players.Player;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -124,6 +125,7 @@ public class ReplayServlet extends GoFishServlet {
             engine = EngineFactory.generateEngine(
                     lastConfiguration.getPlayers(),
                     lastConfiguration.getGameSettings());
+            clearHumanNames(engine);
         }
 
         return engine;
@@ -163,5 +165,13 @@ public class ReplayServlet extends GoFishServlet {
         this.getServletContext().setAttribute(ATTR_LAST_MANUAL_CONFIGURATION, null);
         this.getServletContext().setAttribute(ATTR_SETTINGS_FROM_XML, null);
         this.getServletContext().setAttribute(ATTR_CURRENT_SETTING_SERVLET, null);
+    }
+
+    private void clearHumanNames(Engine engine) {
+        for (Player player : engine.getPlayers()) {
+            if (player.isHuman()) {
+                player.setName("");
+            }
+        }
     }
 }

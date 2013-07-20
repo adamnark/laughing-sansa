@@ -48,8 +48,6 @@ public class NewGameServlet extends GoFishServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.errors.clear();
-
-
         if (tryForwardToCurrentServlet(request, response)) {
         } else {
 
@@ -194,16 +192,6 @@ public class NewGameServlet extends GoFishServlet {
         request.getRequestDispatcher("/NewWelcomeServlet").forward(request, response);
     }
 
-    private void addDefaultPlayers() {
-        boolean isHuman = true;
-        PlayerItem player1 = new PlayerItem("Moxie", isHuman, 0);
-        PlayerItem player2 = new PlayerItem("Boxie", !isHuman, 0);
-        PlayerItem player3 = new PlayerItem("Foxie", !isHuman, 0);
-        this.players.add(player1);
-        this.players.add(player2);
-        this.players.add(player3);
-    }
-
     private void generatePlayers(HttpServletRequest request) throws ServletException {
         String numOfPlayersString = request.getParameter(PARAM_NUMBER_OF_PLAYERS);
         String numOfComputerPlayersString = request.getParameter(PARAM_NUMBER_OF_COMPUTER_PLAYERS);
@@ -246,6 +234,9 @@ public class NewGameServlet extends GoFishServlet {
     private void handleActionIsStarted(HttpServletRequest request, HttpServletResponse response) {
         Gson gson = new Gson();
         boolean isStarted = this.getServletContext().getAttribute(ATTR_ENGINE) != null ? true : false;
+        if (isStarted) {
+            this.players.clear();
+        }
         String answer = gson.toJson(isStarted);
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
