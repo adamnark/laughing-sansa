@@ -1,4 +1,4 @@
-package engine.Factory;
+package engine.factory;
 
 import engine.Engine;
 import engine.GameSettings;

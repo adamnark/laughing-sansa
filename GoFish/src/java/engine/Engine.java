@@ -76,7 +76,7 @@ public class Engine {
                 count++;
             }
         }
-        
+
         return count == 1;
     }
 
@@ -205,7 +205,13 @@ public class Engine {
     }
 
     public void removerPlayer(Player player) {
+        if (player.equals(this.getCurrentPlayer())){
+            advanceTurn();
+        }
+        
         this.players.remove(player);
+        this.eventQueue.add(player.getName() + " has left the game!");
+        
     }
 
     public Card getCardByName(String string) {
@@ -219,13 +225,29 @@ public class Engine {
         return card;
     }
 
-    public static enum Event {
-
-        FAILED_REQUEST,
-        SUCCESSFUL_REQUEST,
-        FOUR_CARDS_THROWN,
-        FOUR_CARDS_NOT_THROWN,
-        PLAYER_OUT_OF_CARDS,
-        GAME_OVER,
+    public void endOfTurn() {
+        advanceTurn();
+        if (!this.getCurrentPlayer().isHuman()) {
+            playAITurn();
+        }
     }
+
+    private void playAITurn() {
+        try {
+            currentPlayerMakeRequest();
+            currentPlayerThrowFour();
+            endOfTurn();
+        } catch (InvalidFourException ex) {
+        }
+    }
+
+//    public static enum Event {
+//
+//        FAILED_REQUEST,
+//        SUCCESSFUL_REQUEST,
+//        FOUR_CARDS_THROWN,
+//        FOUR_CARDS_NOT_THROWN,
+//        PLAYER_OUT_OF_CARDS,
+//        GAME_OVER,
+//    }
 }

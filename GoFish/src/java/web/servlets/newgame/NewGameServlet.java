@@ -4,8 +4,8 @@ package web.servlets.newgame;
 
 import com.google.gson.Gson;
 import engine.Engine;
-import engine.Factory.EngineFactory;
-import engine.Factory.PlayerItem;
+import engine.factory.EngineFactory;
+import engine.factory.PlayerItem;
 import engine.GameSettings;
 import engine.Validator;
 import java.io.IOException;
@@ -215,15 +215,16 @@ public class NewGameServlet extends GoFishServlet {
             int numOfPlayers = Integer.parseInt(numOfPlayersString);
             int numOfComputerPlayers = Integer.parseInt(numOfComputerPlayersString);
             boolean isHuman = true;
-            for (int i = 0; i < numOfComputerPlayers; i++) {
-                String name = "Bot" + Integer.toString(i + 1);
-                PlayerItem aiPlayer = new PlayerItem(name, !isHuman, 0);
-                this.players.add(aiPlayer);
-            }
             for (int i = 0; i < numOfPlayers - numOfComputerPlayers; i++) {
                 String name = "";
                 PlayerItem humanPlayer = new PlayerItem(name, isHuman, 0);
                 this.players.add(humanPlayer);
+            }
+            
+            for (int i = 0; i < numOfComputerPlayers; i++) {
+                String name = "Bot" + Integer.toString(i + 1);
+                PlayerItem aiPlayer = new PlayerItem(name, !isHuman, 0);
+                this.players.add(aiPlayer);
             }
         } catch (NumberFormatException ex) {
             throw new ServletException("Bad formatting of integer parameters.");

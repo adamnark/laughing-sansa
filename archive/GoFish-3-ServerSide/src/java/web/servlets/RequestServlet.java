@@ -26,7 +26,6 @@ import web.servlets.printers.ErrorPrinter;
 public class RequestServlet extends GoFishServlet {
 
     private Engine engine;
-    //TODO -- add error reporting
     private List<String> errors = new LinkedList<>();
     private boolean wasRequestFormPosted;
     private static final String FORM_NAME = "requestform";

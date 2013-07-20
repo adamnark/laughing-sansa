@@ -3,7 +3,7 @@
 package web.servlets.game;
 
 import engine.Engine;
-import engine.Factory.PlayerItem;
+import engine.factory.PlayerItem;
 import engine.cards.Card;
 import engine.players.Player;
 import java.io.IOException;
@@ -32,6 +32,7 @@ public class StatusServlet extends GoFishServlet {
     private static final String PARAM_QUERY_HAND = "hand";
     private static final String PARAM_QUERY_GRAVEYARD = "graveyard";
     private static final String PARAM_QUERY_COMMANDS = "commands";
+    private static final String PARAM_QUERY_IS_OVER = "isover";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,6 +56,9 @@ public class StatusServlet extends GoFishServlet {
                     break;
                 case PARAM_QUERY_COMMANDS:
                     respondCommands(request, response);
+                    break;
+                case PARAM_QUERY_IS_OVER:
+                    respondIsOver(request, response);
                     break;
                 default:
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "StatusServlet: what is this query?");
@@ -135,5 +139,10 @@ public class StatusServlet extends GoFishServlet {
         lst.add(COMMAND_QUIT);
 
         respondJSONObject(lst, response);
+    }
+
+    private void respondIsOver(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        boolean isOver = getEngineFromServletContext().isGameOver();
+        respondJSONObject(isOver, response);
     }
 }

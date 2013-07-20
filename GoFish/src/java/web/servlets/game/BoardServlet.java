@@ -33,15 +33,12 @@ public class BoardServlet extends GoFishServlet {
     @Override
     protected void printContent(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
-        // printPlayersList(out);
         printTitle(out, "Players");
         out.println("<ul id='list' class='inline'></ul>");
         out.println("<hr>");
-        // printPlayerForm(out);
-        // ErrorPrinter.printErrors(out, this.errors);
         out.println("<div id='commands'></div>");
         out.println("<hr>");
-        out.println("<div id='message'>mofing</div>");
+        out.println("<div id='message'></div>");
         out.println("<hr>");
         out.println("<table class='table'>");
         out.println("<thead>");
@@ -60,15 +57,12 @@ public class BoardServlet extends GoFishServlet {
         out.println("<tbody>");
         out.println("<tr>");
         out.println("<td id='hand' class='hand'>");
-        //printHand(out);
         out.println("</td>");
         out.println("<td id='graveyard' class='graveyard'>");
-        //printGraveyard(out);
         out.println("</td>");
         out.println("<td class='log'>");
         out.println("<ul id='log'>");
         out.println("</ul>");
-        //printLastMessages(out, MESSAGE_LOG_LENGTH);
         out.println("</td>");
         out.println("</tr>");
         out.println("</tbody>");

@@ -1,11 +1,11 @@
 
-
+/* GLOBAL VARIABLES, VERY USEFUL */
 var currentPlayerName = "";
-
 var selectedCardNames = [];
+var REFRESH_INTERVAL = 1234;
 
-var REFRESH_INTERVAL = 10000;
 
+/* JSON WRAPPERS */
 function refreshCurrentPlayer() {
     $.getJSON("status", {q: "current"}, function(name) {
         currentPlayerName = name;
@@ -35,35 +35,7 @@ function getMoreLogs() {
     });
 }
 
-function toggleCard(cardTag) {
-    cardTag = $(cardTag);
-    if (cardTag.hasClass("clicked")) {
-        selectedCardNames = $.grep(selectedCardNames, function(cardName) {
-            return cardName !== cardTag.attr("card");
-        });
-        cardTag.removeClass("clicked");
-    } else {
-        selectedCardNames.push(cardTag.attr("card"));
-        cardTag.addClass("clicked");
-    }
-}
 
-function generateCardTag(card) {
-    var cardTag = $("<div>", {
-        card: card.name,
-        class: "card"
-    });
-
-    cardTag.append($("<strong>").text(card.name));
-    $.each(card.series, function(_, ser) {
-        cardTag.append($("<p>", {
-            class: ser.id,
-            text: ser.name
-        }));
-    });
-
-    return cardTag;
-}
 
 function getHand() {
     $.getJSON("status", {q: "hand"}, function(cards) {
@@ -119,6 +91,7 @@ function addCommandClickEvent(commandButton) {
                 cards: selectedCardNames}
             , function(response) {
                 $("#message").text(response);
+                selectedCardNames = [];
                 refresh();
             });
         });
@@ -143,12 +116,53 @@ function getCommands() {
     });
 }
 
+function isGameOver() {
+    $.getJSON("status", {q: "isover"}, function(isover) {
+        if (isover) {
+            window.location = "gameover";
+        }
+    });
+}
+
+/* HELPER FUNCTIONS */
+function toggleCard(cardTag) {
+    cardTag = $(cardTag);
+    if (cardTag.hasClass("clicked")) {
+        selectedCardNames = $.grep(selectedCardNames, function(cardName) {
+            return cardName !== cardTag.attr("card");
+        });
+        cardTag.removeClass("clicked");
+    } else {
+        selectedCardNames.push(cardTag.attr("card"));
+        cardTag.addClass("clicked");
+    }
+}
+
+function generateCardTag(card) {
+    var cardTag = $("<div>", {
+        card: card.name,
+        class: "card"
+    });
+
+    cardTag.append($("<strong>").text(card.name));
+    $.each(card.series, function(_, ser) {
+        cardTag.append($("<p>", {
+            class: ser.id,
+            text: ser.name
+        }));
+    });
+
+    return cardTag;
+}
+
+
 function refresh() {
     refreshCurrentPlayer();
     refreshPlayersList();
     getMoreLogs();
     getHand();
     getCommands();
+    isGameOver();
 }
 
 function setupInterval() {

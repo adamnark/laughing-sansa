@@ -2,7 +2,7 @@
  */
 package web.servlets.printers;
 
-import engine.Factory.PlayerItem;
+import engine.factory.PlayerItem;
 
 /**
  *

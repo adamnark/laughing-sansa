@@ -1,6 +1,6 @@
 /*
  */
-package web.servlets.general;
+package web.servlets.game;
 
 import engine.Engine;
 import engine.cards.Card;
@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import web.servlets.PlayServlet;
+import web.servlets.general.GoFishServlet;
 import web.servlets.printers.ErrorPrinter;
 
 /**
