@@ -2,7 +2,6 @@ package web.servlets.loadgame;
 
 import engine.Engine;
 import engine.Validator;
-import engine.players.Player;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.xml.bind.JAXBException;
 import web.servlets.general.GoFishServlet;
-import static web.servlets.newgame.NewGameServlet.ATTR_LAST_CONFIGURATION;
+import static web.servlets.newgame.NewGameServlet.ATTR_LAST_MANUAL_CONFIGURATION;
 import web.servlets.printers.ErrorPrinter;
 import web.servlets.printers.NavbarPrinter;
 import xml.SettingsFromXML;
@@ -141,9 +140,8 @@ public class LoadGameServlet extends GoFishServlet {
 
     private void addEngineToServletContext(Engine e) {
         this.getServletContext().setAttribute(ATTR_ENGINE, e);
-        this.getServletContext().setAttribute(ATTR_LAST_CONFIGURATION, null);
+        this.getServletContext().setAttribute(ATTR_LAST_MANUAL_CONFIGURATION, null);
         List<String> humanNamesList = e.getHumanNames();
-
         this.getServletContext().setAttribute(ATTR_LIST_OF_HUMAN_PLAYERS, humanNamesList);
     }
 
@@ -154,6 +152,4 @@ public class LoadGameServlet extends GoFishServlet {
     private void setCurrentServletAttribute() {
         this.getServletContext().setAttribute(ATTR_CURRENT_SETTING_SERVLET, "LoadWelcome");
     }
-
-
 }

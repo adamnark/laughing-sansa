@@ -8,28 +8,28 @@
         <player type="HUMAN" name="Moxie">
             <cards>
                 <card name="Shireen0">
-                    <series>Baratheon</series>
+                    <series>Barathon</series>
                 </card>
                 <card name="Shireen1">
-                    <series>Baratheon</series>
+                    <series>Barathon</series>
                 </card>
                 <card name="Shireen2">
-                    <series>Baratheon</series>
+                    <series>Barathon</series>
                 </card>
                 <card name="Shireen3">
-                    <series>Baratheon</series>
+                    <series>Barathon</series>
                 </card>
                 <card name="Shireen4">
-                    <series>Baratheon</series>
+                    <series>Barathon</series>
                 </card>
                 <card name="Shireen5">
-                    <series>Baratheon</series>
+                    <series>Barathon</series>
                 </card>
                 <card name="Shireen6">
-                    <series>Baratheon</series>
+                    <series>Barathon</series>
                 </card>
                 <card name="Shireen7">
-                    <series>Baratheon</series>
+                    <series>Barathon</series>
                 </card>
             </cards>
         </player>
@@ -120,28 +120,28 @@
         <player type="COMPUTER" name="Woxie">
             <cards>
                 <card name="Patchface0">
-                    <series>Baratheon</series>
+                    <series>Bratheon</series>
                 </card>
                 <card name="Patchface1">
-                    <series>Baratheon</series>
+                    <series>Bratheon</series>
                 </card>
                 <card name="Patchface2">
-                    <series>Baratheon</series>
+                    <series>Bratheon</series>
                 </card>
                 <card name="Patchface3">
-                    <series>Baratheon</series>
+                    <series>Bratheon</series>
                 </card>
                 <card name="Patchface4">
-                    <series>Baratheon</series>
+                    <series>Bratheon</series>
                 </card>
                 <card name="Patchface5">
-                    <series>Baratheon</series>
+                    <series>Bratheon</series>
                 </card>
                 <card name="Patchface6">
-                    <series>Baratheon</series>
+                    <series>Bratheon</series>
                 </card>
                 <card name="Patchface7">
-                    <series>Baratheon</series>
+                    <series>Bratheon</series>
                 </card>
             </cards>
         </player>	

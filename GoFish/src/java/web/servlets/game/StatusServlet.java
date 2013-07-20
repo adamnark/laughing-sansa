@@ -1,5 +1,4 @@
-/*
- */
+
 package web.servlets.game;
 
 import engine.Engine;
@@ -7,13 +6,13 @@ import engine.cards.Card;
 import engine.factory.PlayerItem;
 import engine.players.Player;
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import web.servlets.containers.CardContainer;
 import web.servlets.containers.SessionPlayer;
 import web.servlets.general.GoFishServlet;
@@ -29,7 +28,7 @@ public class StatusServlet extends GoFishServlet {
     private static final String PARAM_QUERY_LIST_PLAYERS = "list";
     private static final String PARAM_QUERY_LIST_CURRENT_PLAYER = "current";
     private static final String PARAM_QUERY_LIST_LOGS = "log";
-    private static final String PARAM_QUERY_LIST_LAST_TEN_LOGS = "relog";
+//    private static final String PARAM_QUERY_LIST_LAST_TEN_LOGS = "relog";
     private static final String PARAM_QUERY_HAND = "hand";
     private static final String PARAM_QUERY_GRAVEYARD = "graveyard";
     private static final String PARAM_QUERY_COMMANDS = "commands";
@@ -37,6 +36,8 @@ public class StatusServlet extends GoFishServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        checkForDroppedPlayers();
+
         if (isSessionValid(request)) {
             String query = request.getParameter(PARAM_QUERY);
             if (query != null) {
@@ -49,9 +50,6 @@ public class StatusServlet extends GoFishServlet {
                         break;
                     case PARAM_QUERY_LIST_LOGS:
                         respondNewLogs(request, response);
-                        break;
-                    case PARAM_QUERY_LIST_LAST_TEN_LOGS:
-                        respondLastLogs(request, response);
                         break;
                     case PARAM_QUERY_HAND:
                         respondHand(request, response);
@@ -105,11 +103,11 @@ public class StatusServlet extends GoFishServlet {
             LinkedList<String> log = getEngineFromServletContext().getEventQueue();
             LinkedList<String> output = new LinkedList<>();
             int i;
-            for (i = sessionPlayer.getLogIndex(); i < log.size(); i++) {
+            int numOfLogs = 0;
+            for (i = log.size() - 1; i >= 0 && numOfLogs <= 10; i--, numOfLogs++) {
                 output.add(log.get(i).toString());
             }
 
-            sessionPlayer.setLogIndex(i);
             super.respondJSONObject(output, response);
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "I don't know you.");
@@ -174,22 +172,17 @@ public class StatusServlet extends GoFishServlet {
         respondJSONObject(isOver, response);
     }
 
-    private void respondLastLogs(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession s = request.getSession(true);
-        SessionPlayer sessionPlayer = getSessionPlayer(s);
-        if (sessionPlayer != null) {
-            LinkedList<String> log = getEngineFromServletContext().getEventQueue();
-            LinkedList<String> output = new LinkedList<>();
-
-            int numOfLogs = log.size() >= 10 ? 10 : log.size();
-            for (int i = log.size() - 1; numOfLogs > 0; i--, numOfLogs--) {
-                output.add(log.get(i).toString());
+    private void checkForDroppedPlayers() {
+        List<SessionPlayer> sessionPlayersList = super.getSessionPlayersFromServletContext();
+        Date d = new Date();
+        long now = d.getTime();
+        for (SessionPlayer sp : sessionPlayersList) {
+            long diff = now - sp.getTimeStamp();
+            if (diff > 1 * 60 * 1000) { // one minute
+                sessionPlayersList.remove(sp);
+                getEngineFromServletContext().getEventQueue().add(sp.getPlayer().getName() + " timed out!!!");
+                getEngineFromServletContext().removerPlayer(sp.getPlayer());
             }
-
-            sessionPlayer.setLogIndex(log.size());
-            super.respondJSONObject(output, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "I don't know you.");
         }
     }
 }

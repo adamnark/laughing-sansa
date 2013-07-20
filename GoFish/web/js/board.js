@@ -3,6 +3,9 @@
 var currentPlayerName = "";
 var selectedCardNames = [];
 var REFRESH_INTERVAL = 5000;
+var DROP_INTERVAL = 1 * 60 * 1000;
+var shouldExit = true;
+shouldExit = false;
 
 /* HELPER FUNCTIONS */
 function toggleCard(cardTag) {
@@ -59,14 +62,7 @@ function refreshPlayersList() {
 
 function getMoreLogs() {
     $.getJSON("status", {q: "log"}, function(logs) {
-        $.each(logs, function(_, line) {
-            $("#log").prepend($("<li>", {text: line}));
-        });
-    });
-}
-
-function getLastLogs() {
-    $.getJSON("status", {q: "relog"}, function(logs) {
+        $("#log").empty();
         $.each(logs, function(_, line) {
             $("#log").prepend($("<li>", {text: line}));
         });
@@ -87,6 +83,7 @@ function getHand() {
             }
 
             cardTag.click(function() {
+                shouldExit = false;
                 toggleCard(this);
             });
 
@@ -116,6 +113,7 @@ function addCommandClickEvent(commandButton) {
 
     if (cmd === "skip") {
         commandButton.click(function() {
+            shouldExit = false;
             $.get("do", {
                 a: cmd
             });
@@ -123,6 +121,7 @@ function addCommandClickEvent(commandButton) {
         });
     } else if (cmd === "quit") {
         commandButton.click(function() {
+            shouldExit = false;
             $.get("do", {
                 a: cmd
             }, function() {
@@ -131,6 +130,7 @@ function addCommandClickEvent(commandButton) {
         });
     } else if (cmd === "throw") {
         commandButton.click(function() {
+            shouldExit = false;
             $.post("do", {
                 a: cmd,
                 cards: selectedCardNames}
@@ -143,6 +143,7 @@ function addCommandClickEvent(commandButton) {
 
     } else if (cmd === "request") {
         commandButton.click(function() {
+            shouldExit = false;
             window.location = "request";
         });
     }
@@ -183,12 +184,22 @@ function refresh() {
     isGameOver();
 }
 
+function checkIfDropped() {
+    if (shouldExit === true) {
+        $("#message").text("YOU'VE TIMED OUT BUDDY!!!");
+        window.location = "home";
+    }
+    shouldExit = true;
+}
+
 function setupInterval() {
     refresh();
     window.setInterval(function() {
         refresh();
     }, REFRESH_INTERVAL);
+
+    window.setInterval(checkIfDropped, DROP_INTERVAL);
 }
 
-$(getLastLogs);
+//$(getLastLogs);
 $(setupInterval);

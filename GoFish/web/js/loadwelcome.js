@@ -2,10 +2,10 @@
 function handleResponseListPlayerName(playerNames) {
     if (playerNames.length === 0) {
         $("#message").addClass("alert alert-info");
-        $("#message").text("The game is full... redirecting you back home");
+        $("#message").text("The game is full...?");
         window.setInterval(function() {
             window.location = "home";
-        }, 3000);
+        }, 5000);
     } else {
         $("#selectnames").empty();
         $.each(playerNames, function(_, val) {
@@ -32,7 +32,7 @@ function refreshPlayersList() {
 }
 
 function setupInterval() {
-    window.setInterval(refreshPlayersList, 5000);
+    window.setInterval(refreshPlayersList, 4000);
 }
 
 function handleResponseNameSelection(response) {
@@ -41,7 +41,7 @@ function handleResponseNameSelection(response) {
         $("#message").text("redirecting you to the lobby...");
         window.setInterval(function() {
             window.location = "lobby";
-        }, 3000);
+        }, 1000);
     }
     else {
         $("#message").addClass("alert alert-error");

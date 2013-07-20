@@ -4,6 +4,7 @@ package web.servlets.game;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +27,9 @@ public class BoardServlet extends GoFishServlet {
         if (sp != null && !spList.contains(sp)) {
             request.getRequestDispatcher("/home").forward(request, response);
         } else {
+            if (sp != null) {
+                resetTimeStamp(sp);
+            }
             super.processRequest(request, response);
         }
     }
@@ -79,5 +83,11 @@ public class BoardServlet extends GoFishServlet {
         out.println("<h3>");
         out.println(title);
         out.println("</h3>");
+    }
+
+    private void resetTimeStamp(SessionPlayer sp) {
+        Date d = new Date();
+        long now  = d.getTime();
+        sp.setTimeStamp(now);
     }
 }

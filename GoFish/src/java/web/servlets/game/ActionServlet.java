@@ -7,6 +7,7 @@ import engine.cards.Card;
 import engine.players.Player;
 import engine.players.exceptions.InvalidFourException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -30,6 +31,7 @@ public class ActionServlet extends GoFishServlet {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter(PARAM_ACTION);
+        resetTimeStamp(request);
         if (action != null) {
             switch (action) {
                 case COMMAND_SKIP:
@@ -111,5 +113,14 @@ public class ActionServlet extends GoFishServlet {
             }
         }
         return lst;
+    }
+
+    private void resetTimeStamp(HttpServletRequest request) {
+        SessionPlayer sp = getSessionPlayer(request.getSession());
+        if (sp != null) {
+            Date d = new Date();
+            long now = d.getTime();
+            sp.setTimeStamp(now);
+        }
     }
 }

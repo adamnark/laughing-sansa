@@ -12,11 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import web.servlets.containers.SessionPlayer;
+import static web.servlets.general.GoFishServlet.ATTR_CURRENT_SETTING_SERVLET;
 import static web.servlets.general.GoFishServlet.ATTR_ENGINE;
 import static web.servlets.general.GoFishServlet.ATTR_LIST_OF_HUMAN_PLAYERS;
 import static web.servlets.loadgame.LoadGameServlet.ATTR_SETTINGS_FROM_XML;
 import web.servlets.newgame.NewGameServlet;
-import static web.servlets.newgame.NewGameServlet.ATTR_LAST_CONFIGURATION;
+import static web.servlets.newgame.NewGameServlet.ATTR_LAST_MANUAL_CONFIGURATION;
 import xml.SettingsFromXML;
 
 /**
@@ -61,9 +62,9 @@ public class ReplayServlet extends GoFishServlet {
         printWinner(out);
         printReplayLink(out);
         printNewGameLink(out);
-        printHomeLink(out);
+        //printHomeLink(out);
         out.println("</div>");
-        printHiddenForm(out);
+        //printHiddenForm(out);
     }
 
     @Override
@@ -85,7 +86,7 @@ public class ReplayServlet extends GoFishServlet {
         out.println("<div class='row'>");
         out.println("<div class='span6 text-center'>");
         out.println("<div class='btn-toolbar'>");
-        out.println("<a id='kill' href='newgame' class='btn-large btn-primary btn-block'>");
+        out.println("<a id='kill' href='home' class='btn-large btn-primary btn-block'>");
         out.println("Start a new game");
         out.println("</a>");
         out.println("</div>");
@@ -93,18 +94,17 @@ public class ReplayServlet extends GoFishServlet {
         out.println("</div>");
     }
 
-    private void printHomeLink(PrintWriter out) {
-        out.println("<div class='row'>");
-        out.println("<div class='span6 text-center'>");
-        out.println("<div class='btn-toolbar'>");
-        out.println("<a href='home' class='btn-large btn-success btn-block'>");
-        out.println("Go back to main menu");
-        out.println("</a>");
-        out.println("</div>");
-        out.println("</div>");
-        out.println("</div>");
-    }
-
+//    private void printHomeLink(PrintWriter out) {
+//        out.println("<div class='row'>");
+//        out.println("<div class='span6 text-center'>");
+//        out.println("<div class='btn-toolbar'>");
+//        out.println("<a href='home' class='btn-large btn-success btn-block'>");
+//        out.println("Go back to main menu");
+//        out.println("</a>");
+//        out.println("</div>");
+//        out.println("</div>");
+//        out.println("</div>");
+//    }
     private void printReplayLink(PrintWriter out) {
         out.println("<div class='row'>");
         out.println("<div class='span6 text-center'>");
@@ -119,7 +119,7 @@ public class ReplayServlet extends GoFishServlet {
 
     private Engine regenerateEngineFromLastConfiguration() {
         Engine engine = null;
-        NewGameServlet.GameMetadata lastConfiguration = (NewGameServlet.GameMetadata) this.getServletContext().getAttribute(ATTR_LAST_CONFIGURATION);
+        NewGameServlet.GameMetadata lastConfiguration = (NewGameServlet.GameMetadata) this.getServletContext().getAttribute(ATTR_LAST_MANUAL_CONFIGURATION);
         if (lastConfiguration != null) {
             engine = EngineFactory.generateEngine(
                     lastConfiguration.getPlayers(),
@@ -145,6 +145,8 @@ public class ReplayServlet extends GoFishServlet {
         Engine engineXML = this.regenerateEngineFromXML();
         Engine lastEngine = engineManual != null ? engineManual : engineXML;
         this.getServletContext().setAttribute(ATTR_ENGINE, lastEngine);
+        List<SessionPlayer> lst = (List<SessionPlayer>) this.getServletContext().getAttribute(ATTR_SESSION_PLAYERS_LIST);
+        lst.clear();
     }
 
     private void getGameStats() {
@@ -153,16 +155,13 @@ public class ReplayServlet extends GoFishServlet {
         this.winnerScore = engine.getWinner().getScore();
     }
 
-    private void printHiddenForm(PrintWriter out) {
-        out.println("<form name='replayform' method='post' action='play'></form>");
-    }
-
     private void clearAttributes() {
         List<SessionPlayer> lst = getSessionPlayersFromServletContext();
         lst.clear();
-        this.getServletContext().setAttribute(ATTR_ENGINE, null);
         this.getServletContext().setAttribute(ATTR_LIST_OF_HUMAN_PLAYERS, null);
-        this.getServletContext().setAttribute(ATTR_LAST_CONFIGURATION, null);
-
+        this.getServletContext().setAttribute(ATTR_ENGINE, null);
+        this.getServletContext().setAttribute(ATTR_LAST_MANUAL_CONFIGURATION, null);
+        this.getServletContext().setAttribute(ATTR_SETTINGS_FROM_XML, null);
+        this.getServletContext().setAttribute(ATTR_CURRENT_SETTING_SERVLET, null);
     }
 }
